@@ -25,7 +25,6 @@ namespace Blog1.Models
         public int ArticleStatus { get; set; }
         public virtual ICollection<Rating> Ratings { get; set; }
         public virtual ICollection<Edit> Edits { get; set; }
-        public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<MediaInArticle> MedialInArticles { get; set; }
         public virtual User User { get; set; }
         public virtual ICollection<TagInArticle> TagInArticles { get; set; }
