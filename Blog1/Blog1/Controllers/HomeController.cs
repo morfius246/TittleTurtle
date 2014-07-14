@@ -13,8 +13,14 @@ namespace Blog1.Controllers
 
         public ActionResult Index()
         {
-            List<Article> list = new List<Article>();
-            return View(list);
+            //PersonalData p = new PersonalData { PersDataAdress = "Franka", PersDataDate = DateTime.Now, PersDataOther = "wa", User = new User {  } };
+            //db.PersonalDatas.Add(p);
+            //db.Users.Add(new User { UserFirstName = "Alex", UserLastName = "Ivanov"});
+            Article art = new Article { ArticleTitle = "New art", ArticleText = "MOst", ArticleStatus = 1, UserID = 1 };
+            //db.Articles.Add(art);
+            db.Tags.Add(new Tag { TagName = "ddd" });
+            db.SaveChanges();
+            return View(db.Articles.Find(art));
         }
 
         public ActionResult CreateArticle()

@@ -126,3 +126,4 @@ C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.pdb
 \\psf\Home\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.pdb
 C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.Migrations.InitialCreate.resources
 C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.csproj.GenerateResource.Cache
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.Migrations.InitialCreate1.resources
