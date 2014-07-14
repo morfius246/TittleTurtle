@@ -19,7 +19,7 @@ namespace Blog1.Models
         [Key]
         public int ArticleID { get; set; }
         public int UserID { get; set; }
-        public int CategorieID { get; set; }
+        public int CategoryID { get; set; }
         public string ArticleTitle { get; set; }
         public string ArticleText { get; set; }
         public int ArticleStatus { get; set; }
@@ -28,7 +28,7 @@ namespace Blog1.Models
         public virtual ICollection<MediaInArticle> MedialInArticles { get; set; }
         public virtual User User { get; set; }
         public virtual ICollection<TagInArticle> TagInArticles { get; set; }
-        public virtual Categorie Categorie { get; set; }
+        public virtual Category Category { get; set; }
 
     }
 }

@@ -21,7 +21,7 @@ namespace Blog1.Models
         public DbSet<Role> Roles { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<TagInArticle> TagInAricles { get; set; }
-        public DbSet<Categorie> Categories { get; set; }
+        public DbSet<Category> Categories { get; set; }
     }
 }
 
