@@ -41,3 +41,46 @@
 \\psf\home\documents\visual studio 2013\Projects\Blog1\Blog1\obj\Debug\Blog1.pdb
 \\psf\Home\Documents\Visual Studio 2013\Projects\Blog1\Blog1\obj\Debug\Blog1.Migrations.InitialCreate.resources
 \\psf\Home\Documents\Visual Studio 2013\Projects\Blog1\Blog1\obj\Debug\Blog1.csproj.GenerateResource.Cache
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\Blog1.dll
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\Blog1.pdb
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\EntityFramework.dll
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\EntityFramework.SqlServer.dll
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\Microsoft.Web.Mvc.FixedDisplayModes.dll
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\Newtonsoft.Json.dll
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\System.Net.Http.Formatting.dll
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\System.Web.Helpers.dll
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\System.Web.Http.dll
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\System.Web.Http.WebHost.dll
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\System.Web.Mvc.dll
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\System.Web.Razor.dll
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\System.Web.WebPages.dll
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\System.Web.WebPages.Razor.dll
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\EntityFramework.xml
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\EntityFramework.SqlServer.xml
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\Newtonsoft.Json.xml
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\System.Net.Http.Formatting.xml
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\System.Web.Helpers.xml
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\System.Web.Http.xml
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\System.Web.Http.WebHost.xml
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\System.Web.Mvc.xml
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\System.Web.Razor.xml
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\System.Web.WebPages.xml
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\System.Web.WebPages.Razor.xml
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\ru\System.Net.Http.Formatting.resources.dll
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\ru\System.Web.Helpers.resources.dll
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\ru\System.Web.Http.resources.dll
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\ru\System.Web.Http.WebHost.resources.dll
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\ru\System.Web.Mvc.resources.dll
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\ru\System.Web.Razor.resources.dll
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\ru\System.Web.WebPages.resources.dll
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\ru\System.Web.WebPages.Deployment.resources.dll
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\ru\System.Web.WebPages.Razor.resources.dll
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.csprojResolveAssemblyReference.cache
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.Migrations.InitialCreate.resources
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.csproj.GenerateResource.Cache
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.dll
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.pdb
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.Migrations.InitialCreate1.resources
