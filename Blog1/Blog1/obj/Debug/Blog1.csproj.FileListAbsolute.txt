@@ -79,11 +79,8 @@ C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\ru\System.Web.W
 C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\ru\System.Web.WebPages.Deployment.resources.dll
 C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\ru\System.Web.WebPages.Razor.resources.dll
 C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.csprojResolveAssemblyReference.cache
-C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.Migrations.InitialCreate.resources
-C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.csproj.GenerateResource.Cache
 C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.dll
 C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.pdb
-C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.Migrations.InitialCreate1.resources
 \\psf\Home\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\Blog1.dll.config
 \\psf\Home\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\Blog1.dll
 \\psf\Home\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\Blog1.pdb
@@ -128,3 +125,5 @@ C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.Mig
 \\psf\Home\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.csproj.GenerateResource.Cache
 \\psf\Home\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.dll
 \\psf\Home\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.pdb
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.Migrations.InitialCreate.resources
+C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.csproj.GenerateResource.Cache
