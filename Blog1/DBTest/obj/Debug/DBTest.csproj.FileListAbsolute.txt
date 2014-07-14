@@ -1,0 +1,5 @@
+D:\Work\BionicUniversity\Blog1\DBTest\obj\Debug\DBTest.csprojResolveAssemblyReference.cache
+D:\Work\BionicUniversity\Blog1\DBTest\bin\Debug\DBTest.dll
+D:\Work\BionicUniversity\Blog1\DBTest\bin\Debug\DBTest.pdb
+D:\Work\BionicUniversity\Blog1\DBTest\obj\Debug\DBTest.dll
+D:\Work\BionicUniversity\Blog1\DBTest\obj\Debug\DBTest.pdb
