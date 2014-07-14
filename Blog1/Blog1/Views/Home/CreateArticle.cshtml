@@ -10,7 +10,7 @@
 <body class ="main">
     @using (Html.BeginForm("CreateArticle","Home"))
     {        
-    <div style="margin:0 auto">
+        <div style="margin:0 auto">
         Название: @Html.TextBoxFor(model => model.ArticleTitle, new {@class="form-control", @style="margin: 0 auto;"})
         @Html.HiddenFor(model => model.ArticleID)
         <br>
