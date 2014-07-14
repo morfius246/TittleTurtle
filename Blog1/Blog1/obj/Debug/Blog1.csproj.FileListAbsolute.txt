@@ -124,8 +124,7 @@ C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.pdb
 \\psf\Home\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\ru\System.Web.WebPages.Deployment.resources.dll
 \\psf\Home\Documents\GitHub\TittleTurtle\Blog1\Blog1\bin\ru\System.Web.WebPages.Razor.resources.dll
 \\psf\Home\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.csprojResolveAssemblyReference.cache
-\\psf\Home\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.Migrations.InitialCreate.resources
-\\psf\Home\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.Migrations.InitialCreate1.resources
-\\psf\Home\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.csproj.GenerateResource.Cache
 \\psf\Home\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.dll
 \\psf\Home\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.pdb
+\\psf\Home\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.Migrations.InitialCreate.resources
+\\psf\Home\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.csproj.GenerateResource.Cache
