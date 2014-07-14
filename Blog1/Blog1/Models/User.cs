@@ -15,7 +15,7 @@ namespace Blog1.Models
         public virtual ICollection<UserPhoto> UserPhotos { get; set; }
         public virtual ICollection<Contact> Contacts { get; set; }
         public virtual ICollection<Role> Roles { get; set; }
-        public virtual ICollection<PersonalData> PersonalData { get; set; }
+        public virtual ICollection<PersonalData> PersonalDatas { get; set; }
         public virtual ICollection<Article> Articles { get; set; }
     }
 

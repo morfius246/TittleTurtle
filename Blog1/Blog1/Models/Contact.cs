@@ -10,7 +10,7 @@ namespace Blog1.Models
     public class Contact
     {
         [Key]
-        public int ContactID { get; set; }
+        public int ContctID { get; set; }
         [ForeignKey("User")]
         public int UserID { get; set; }
         public int ContactMobile { get; set; }
