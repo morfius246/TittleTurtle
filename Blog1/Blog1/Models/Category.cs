@@ -12,6 +12,5 @@ namespace Blog1.Models
         public int CategoryID { get; set; }
         public string CategoryName { get; set; }
         public string CategoryDescription { get; set; }
-        public virtual ICollection<Article> Articles { get; set; }
     }
 }

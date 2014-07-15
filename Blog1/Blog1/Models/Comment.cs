@@ -18,6 +18,5 @@ namespace Blog1.Models
 
         public virtual Article MainArticle { get; set; }
         public virtual Article Article { get; set; }
-
     }
 }
