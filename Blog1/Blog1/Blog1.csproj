@@ -133,6 +133,7 @@
     <Compile Include="Models\Contact.cs" />
     <Compile Include="Models\Edit.cs" />
     <Compile Include="Models\HomeContext.cs" />
+    <Compile Include="Models\Main.cs" />
     <Compile Include="Models\Media.cs" />
     <Compile Include="Models\MediaInArticles.cs" />
     <Compile Include="Models\PersonalData.cs" />

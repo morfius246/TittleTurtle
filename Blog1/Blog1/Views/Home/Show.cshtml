@@ -5,9 +5,8 @@
     Layout = "/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Show</h2>
 <head>
-<title>@Model.ArticleTitle</title>
+    <title>@Model.ArticleTitle</title>
 </head>
 <body>
     @using (Html.BeginForm("Show", "Home"))
@@ -18,3 +17,4 @@
             @Html.DisplayFor(model => model.ArticleText)<br>
         </div>
     }
+</body>

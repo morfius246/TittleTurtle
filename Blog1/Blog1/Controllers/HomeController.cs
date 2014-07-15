@@ -11,9 +11,19 @@ namespace Blog1.Controllers
     {
         HomeContext db = new HomeContext();
 
-        public ActionResult Index()
+        public ActionResult Index(int? categoryId)
         {
-            return View(db.Articles.ToList());
+            Main model = new Main();
+            if (categoryId == null)
+            {
+                model.ArticleList = db.Articles.ToList();
+            }
+            else
+            {
+                model.ArticleList = db.Articles.Where(x => x.CategoryID == categoryId).ToList();     
+            }
+            model.CategoryList = db.Categories.ToList();
+            return View(model);
         }
 
         public ActionResult CreateArticle()
