@@ -1,12 +1,17 @@
+<<<<<<< HEAD
 ﻿@model IEnumerable<Blog1.Models.Article>
 
+=======
+﻿
+>>>>>>> origin/master
 @{
     ViewBag.Title = "Index";
 }
 
 <h2>Главная</h2>
-
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
 <p>
+<<<<<<< HEAD
     @Html.ActionLink("Добавить статью", "CreateArticle", "Home")
 
     @foreach (var item in Model)
@@ -19,3 +24,10 @@
             </div>
         }
 </p>
+=======
+    @Html.ActionLink("Create New", "CreateArticle", "Home")
+</p>
+<div class="list-group-item">
+</div>
+
+>>>>>>> origin/master
