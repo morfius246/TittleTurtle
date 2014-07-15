@@ -1,19 +1,13 @@
-﻿@model Blog1.Models.Article
-
+﻿
 @{
     ViewBag.Title = "Index";
 }
 
 <h2>Главная</h2>
-
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
 <p>
-    @Html.ActionLink("Добавить статью", "CreateArticle", "Home")
-    {
-            <div class="list-group-item">
-                @Model.ArticleID
-                <a href="@Url.Action("Delete", "Home", new {id = Model.ArticleID})" class="glyphicon glyphicon-remove" style="display:inline-block; float:right"></a>
-                <a href="@Url.Action("Edit", "Home", new {id = Model.ArticleID})" class="glyphicon glyphicon-pencil" style="display:inline-block; float:right;margin-right:20px"></a>
-                <a href="@Url.Action("Show", "Home", new {id = Model.ArticleID})" class="glyphicon glyphicon-play" style="display:inline-block; float: right; margin-right:20px"></a>  
-            </div>
-    }
+    @Html.ActionLink("Create New", "CreateArticle", "Home")
 </p>
+<div class="list-group-item">
+</div>
+

@@ -13,14 +13,7 @@ namespace Blog1.Controllers
 
         public ActionResult Index()
         {
-            //PersonalData p = new PersonalData { PersDataAdress = "Franka", PersDataDate = DateTime.Now, PersDataOther = "wa", User = new User {  } };
-            //db.PersonalDatas.Add(p);
-            //db.Users.Add(new User { UserFirstName = "Alex", UserLastName = "Ivanov"});
-            Article art = new Article { ArticleTitle = "New art", ArticleText = "MOst", ArticleStatus = 1, UserID = 1 };
-            //db.Articles.Add(art);
-            db.Tags.Add(new Tag { TagName = "ddd" });
-            db.SaveChanges();
-            return View(db.Articles.Find(art));
+            return View();
         }
 
         public ActionResult CreateArticle()
@@ -31,6 +24,9 @@ namespace Blog1.Controllers
         [HttpPost]
         public ActionResult CreateArticle(Article model)
         {
+            model.ArticleStatus = 1;
+            model.CategoryID = 1;
+            model.UserID = 1;
             db.Articles.Add(model);
             db.SaveChanges();
             return View();

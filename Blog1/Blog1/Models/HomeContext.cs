@@ -22,6 +22,12 @@ namespace Blog1.Models
         public DbSet<Tag> Tags { get; set; }
         public DbSet<TagInArticle> TagInAricles { get; set; }
         public DbSet<Category> Categories { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            System.Data.Entity.Database.SetInitializer<HomeContext>(null);
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }
 
