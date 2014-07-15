@@ -29,7 +29,38 @@ namespace Blog1.Controllers
             model.UserID = 1;
             db.Articles.Add(model);
             db.SaveChanges();
-            return View();
+            return RedirectToAction("Index");
+        }
+        public ActionResult Show(int id)
+        {
+            Article model = new Article();
+            model = db.Articles.First(x => x.ArticleID == id);
+            return View(model);
+        }
+
+        public ActionResult Edit(int id)
+        {
+            Article model = new Article();
+            model = db.Articles.First(x => x.ArticleID == id);
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Article model)
+        {
+            Article my = db.Articles.First(x => x.ArticleID == model.ArticleID);
+            my.ArticleTitle = model.ArticleTitle;
+            my.ArticleText = model.ArticleText;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Delete(int id)
+        {
+            Article model = new Article();
+            db.Articles.Remove(db.Articles.First(x => x.ArticleID == id));
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
         public ActionResult CreateCategory()
         {

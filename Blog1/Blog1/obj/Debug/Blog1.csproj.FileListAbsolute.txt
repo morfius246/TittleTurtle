@@ -124,9 +124,7 @@ C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.pdb
 \\psf\Home\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.csproj.GenerateResource.Cache
 \\psf\Home\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.dll
 \\psf\Home\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.pdb
-C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.Migrations.InitialCreate.resources
 C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.csproj.GenerateResource.Cache
-C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.Migrations.InitialCreate1.resources
 C:\Users\Alexander\Desktop\Blog1\Blog1\bin\Blog1.dll
 C:\Users\Alexander\Desktop\Blog1\Blog1\bin\Blog1.pdb
 C:\Users\Alexander\Desktop\Blog1\Blog1\bin\EntityFramework.dll
@@ -169,8 +167,5 @@ C:\Users\Alexander\Desktop\Blog1\Blog1\obj\Debug\Blog1.dll
 C:\Users\Alexander\Desktop\Blog1\Blog1\obj\Debug\Blog1.pdb
 C:\Users\Alexander\Desktop\Blog1\Blog1\obj\Debug\Blog1.Migrations.Init.resources
 C:\Users\Alexander\Desktop\Blog1\Blog1\obj\Debug\Blog1.csproj.GenerateResource.Cache
-<<<<<<< HEAD
-=======
 C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.Migrations.Init.resources
 C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.Migrations.InitialCreate.resources
->>>>>>> origin/master
