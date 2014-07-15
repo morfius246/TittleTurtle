@@ -11,6 +11,7 @@ namespace Blog1.Models
     {
         [Key]
         public string RolesID { get; set; }
+        public string RoleName { get; set; }
         [ForeignKey("User")]
         public int UserID { get; set; }
         public virtual User User { get; set; }
