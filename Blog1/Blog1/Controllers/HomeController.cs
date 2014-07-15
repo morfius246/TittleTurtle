@@ -13,7 +13,7 @@ namespace Blog1.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            return View(db.Articles.ToList());
         }
 
         public ActionResult CreateArticle()

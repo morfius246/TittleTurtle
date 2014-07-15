@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<Blog1.Models.Article>
 @{
     ViewBag.Title = "Index";
 }
@@ -8,6 +8,10 @@
 <p>
     @Html.ActionLink("Create New", "CreateArticle", "Home")
 </p>
-<div class="list-group-item">
-</div>
+@foreach (var item in Model)
+{
+    <div class="list-group-item">
+        @item.ArticleText
+    </div>
+}
 
