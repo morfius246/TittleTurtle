@@ -13,12 +13,7 @@ namespace Blog1.Controllers
 
         public ActionResult Index()
         {
-<<<<<<< HEAD
-            List<Article> list = new List<Article>();
-            return View(list);
-=======
             return View();
->>>>>>> origin/master
         }
 
         public ActionResult CreateArticle()
