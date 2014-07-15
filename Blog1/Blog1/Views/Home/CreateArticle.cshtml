@@ -1,7 +1,6 @@
 ﻿@model Blog1.Models.Article
 
 @{
-    Layout = "/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "CreateArticle";
 }
 
@@ -13,6 +12,7 @@
     {        
         <div style="margin:0 auto">
         Название: @Html.TextBoxFor(model => model.ArticleTitle, new {@class="form-control", @style="margin: 0 auto;"})
+        @Html.HiddenFor(model => model.ArticleID)
         <br>
         Cодержимое: @Html.TextAreaFor(model => model.ArticleText, new {@class="form-control", @style="min-height:200px;margin: 0 auto;"})
         <br>
