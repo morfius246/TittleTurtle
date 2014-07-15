@@ -62,6 +62,17 @@ namespace Blog1.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        public ActionResult CreateCategory()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult CreateCategory(Category model)
+        {
+            db.Categories.Add(model);
+            db.SaveChanges();
+            return View("Index");
+        }
 
     }
 }

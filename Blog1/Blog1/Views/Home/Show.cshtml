@@ -2,13 +2,13 @@
 
 @{
     ViewBag.Title = "Show";
+    Layout = "/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Show</h2>
 <head>
 <title>@Model.ArticleTitle</title>
 </head>
-<body>
     @using (Html.BeginForm("Show", "Home"))
     {        
         <div class="main">

@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <script src="~/Scripts/jquery-1.9.1.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="page-header" style ="margin-top:0px">
+        <ul class="nav nav-tabs">
+            <li>@Html.ActionLink("Все статьи", "Index", "Home")</li>
+            <li>@Html.ActionLink("Новая категория", "CreateCategory", "Home")</li>
+        </ul>
+    </div>
+    <div class="mainBox">
+        @RenderBody()
+    </div>
+</body>
+</html>
