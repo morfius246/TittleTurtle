@@ -64,6 +64,9 @@ namespace Blog1.Controllers
             db.Articles.Remove(db.Articles.First(x => x.ArticleID == id));
             db.SaveChanges();
             return RedirectToAction("Index");
+<<<<<<< HEAD
+>>>>>>> parent of 19c040e... Add category
+=======
 >>>>>>> parent of 19c040e... Add category
         }
 
