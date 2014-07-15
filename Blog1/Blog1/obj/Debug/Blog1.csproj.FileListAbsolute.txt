@@ -172,7 +172,4 @@ C:\Users\Alexander\Desktop\Blog1\Blog1\obj\Debug\Blog1.csproj.GenerateResource.C
 <<<<<<< HEAD
 =======
 C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.Migrations.Init.resources
-<<<<<<< HEAD
 >>>>>>> origin/master
-=======
->>>>>>> parent of 19c040e... Add category
