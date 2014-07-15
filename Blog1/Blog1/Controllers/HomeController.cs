@@ -65,9 +65,6 @@ namespace Blog1.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
 <<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> parent of 19c040e... Add category
-=======
 >>>>>>> parent of 19c040e... Add category
 =======
 >>>>>>> parent of 19c040e... Add category
