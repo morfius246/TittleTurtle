@@ -118,13 +118,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201407151156307_Init.cs" />
-    <Compile Include="Migrations\201407151156307_Init.Designer.cs">
-      <DependentUpon>201407151156307_Init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201407151254301_InitialCreate.cs" />
-    <Compile Include="Migrations\201407151254301_InitialCreate.Designer.cs">
-      <DependentUpon>201407151254301_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201407161002276_Inut.cs" />
+    <Compile Include="Migrations\201407161002276_Inut.Designer.cs">
+      <DependentUpon>201407161002276_Inut.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Article.cs" />
@@ -189,11 +185,8 @@
     <Content Include="Views\Home\CreateArticle.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201407151156307_Init.resx">
-      <DependentUpon>201407151156307_Init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201407151254301_InitialCreate.resx">
-      <DependentUpon>201407151254301_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201407161002276_Inut.resx">
+      <DependentUpon>201407161002276_Inut.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
