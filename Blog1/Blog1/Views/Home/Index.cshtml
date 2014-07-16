@@ -19,9 +19,14 @@
             <i class="fa fa-comment-o" style="display: inline-block">@category.CategoryName</i>
         </a>
     }
-    <div class="editor-field list-group-item">
-        @*Html.Partial("_CreateCategory", Model.NewCategory)*@
-    </div>
+        @*Just for admin*@
+        @using (Html.BeginForm("CreateCategory", "Home"))
+        {
+            <div class="editor-field list-group-item">
+                @Html.TextBoxFor(model => model.NewCategory.CategoryName, new { @class = "message-label1" })
+                <input type="submit" value="Новая категория" class="button-index btn">
+            </div>
+        }
 </div>
 <fieldset class="main">
     <legend>Статьи</legend>

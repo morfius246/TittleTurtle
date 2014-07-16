@@ -77,11 +77,13 @@ namespace Blog1.Controllers
             return RedirectToAction("Index");
         }
         [HttpPost]
-        public ActionResult CreateCategory(Category model)
+        public ActionResult CreateCategory(Main model)
         {
-            db.Categories.Add(model);
+            Category NewCategory = new Category();
+            NewCategory = model.NewCategory;
+            db.Categories.Add(NewCategory);
             db.SaveChanges();
-            return View("Index");
+            return RedirectToAction("Index");
         }
 
     }
