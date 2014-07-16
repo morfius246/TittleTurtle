@@ -10,5 +10,6 @@ namespace Blog1.Models
         public IEnumerable<Article> ArticleList { get; set;}
         public IEnumerable<Category> CategoryList { get; set; }
         public Category NewCategory { get; set; }
+        public Article NewArticle { get; set; }
     }
 }

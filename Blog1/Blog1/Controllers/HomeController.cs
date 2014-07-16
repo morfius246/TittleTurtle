@@ -28,16 +28,18 @@ namespace Blog1.Controllers
 
         public ActionResult CreateArticle()
         {
-            return View();
+            Main model = new Main();
+            model.CategoryList = db.Categories.ToList();
+            return View(model);
         }
 
         [HttpPost]
-        public ActionResult CreateArticle(Article model)
+        public ActionResult CreateArticle(Main model)
         {
-            model.ArticleStatus = 1;
-            model.CategoryID = 1;
-            model.UserID = 1;
-            db.Articles.Add(model);
+            Article NewArticle = model.NewArticle;
+            NewArticle.ArticleStatus = 1;
+            NewArticle.UserID = 1;
+            db.Articles.Add(NewArticle);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -50,17 +52,19 @@ namespace Blog1.Controllers
 
         public ActionResult Edit(int id)
         {
-            Article model = new Article();
-            model = db.Articles.First(x => x.ArticleID == id);
+            Main model = new Main();
+            model.CategoryList = db.Categories.ToList();
+            model.NewArticle = db.Articles.First(x => x.ArticleID == id);
             return View(model);
         }
 
         [HttpPost]
-        public ActionResult Edit(Article model)
+        public ActionResult Edit(Main model)
         {
-            Article my = db.Articles.First(x => x.ArticleID == model.ArticleID);
-            my.ArticleTitle = model.ArticleTitle;
-            my.ArticleText = model.ArticleText;
+            Article my = db.Articles.First(x => x.ArticleID == model.NewArticle.ArticleID);
+            my.ArticleTitle = model.NewArticle.ArticleTitle;
+            my.ArticleText = model.NewArticle.ArticleText;
+            my.CategoryID = model.NewArticle.CategoryID;
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -71,10 +75,6 @@ namespace Blog1.Controllers
             db.Articles.Remove(db.Articles.First(x => x.ArticleID == id));
             db.SaveChanges();
             return RedirectToAction("Index");
-        }
-        public ActionResult CreateCategory()
-        {
-            return View();
         }
         [HttpPost]
         public ActionResult CreateCategory(Category model)

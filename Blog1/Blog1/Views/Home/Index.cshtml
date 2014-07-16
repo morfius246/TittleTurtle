@@ -9,11 +9,7 @@
 </p>
 
 <div class="col-sm-4 col-md-3 sidebar">
-    <span href="#" class="list-group-item active">Категории
-                        <span class="pull-right" id="slide-submenu">
-                            <i class="fa fa-times"></i>
-                        </span>
-    </span>
+    <span href="#" class="list-group-item active">Категории</span>
     <a href="@Url.Action("Index", "Home")" class="list-group-item">
         <i class="fa fa-comment-o" style="display: inline-block">Все</i>
     </a>
@@ -23,7 +19,9 @@
             <i class="fa fa-comment-o" style="display: inline-block">@category.CategoryName</i>
         </a>
     }
-    @*Html.Partial("_CreateCategory", Model.NewCategory)*@
+    <div class="editor-field list-group-item">
+        @*Html.Partial("_CreateCategory", Model.NewCategory)*@
+    </div>
 </div>
 <fieldset class="main">
     <legend>Статьи</legend>
