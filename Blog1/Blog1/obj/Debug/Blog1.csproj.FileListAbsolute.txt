@@ -169,3 +169,4 @@ C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.Mig
 C:\Users\Alexander\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.Migrations.InitialCreate.resources
 \\psf\Home\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.Migrations.Inut.resources
 \\psf\Home\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.csproj.GenerateResource.Cache
+\\psf\Home\Documents\GitHub\TittleTurtle\Blog1\Blog1\obj\Debug\Blog1.Migrations.Init.resources

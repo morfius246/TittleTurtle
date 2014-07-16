@@ -122,8 +122,13 @@
     <Compile Include="Migrations\201407161002276_Inut.Designer.cs">
       <DependentUpon>201407161002276_Inut.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201407161151085_Init.cs" />
+    <Compile Include="Migrations\201407161151085_Init.Designer.cs">
+      <DependentUpon>201407161151085_Init.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Article.cs" />
+    <Compile Include="Models\Autorization.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Contact.cs" />
@@ -187,6 +192,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201407161002276_Inut.resx">
       <DependentUpon>201407161002276_Inut.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407161151085_Init.resx">
+      <DependentUpon>201407161151085_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
