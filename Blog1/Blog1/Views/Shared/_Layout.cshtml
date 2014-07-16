@@ -9,9 +9,12 @@
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="page-header" style ="margin-top:0px">
+    <div class="page-header" style="margin-top: 0px">
         <ul class="nav nav-tabs">
             <li>@Html.ActionLink("Все статьи", "Index", "Home")</li>
+            <li>@Html.ActionLink("Авторизация", "Autorization", "Account", null, new { @class = "navbar-brand" })</li>
+            <li>@Html.ActionLink("Регистрация", "Registration", "Account", null, new { @class = "navbar-brand" })</li>
+            <li>@Html.ActionLink("Все пользователи", "AllUsers", "Account", null, new { @class = "navbar-brand" })</li>
         </ul>
     </div>
     <div class="mainBox">

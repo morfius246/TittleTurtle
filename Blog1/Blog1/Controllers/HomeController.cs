@@ -9,7 +9,7 @@ namespace Blog1.Controllers
 {
     public class HomeController : Controller
     {
-        HomeContext db = new HomeContext();
+        protected HomeContext db = new HomeContext();
 
         public ActionResult Index(int? categoryId)
         {
@@ -71,7 +71,6 @@ namespace Blog1.Controllers
 
         public ActionResult Delete(int id)
         {
-            Article model = new Article();
             db.Articles.Remove(db.Articles.First(x => x.ArticleID == id));
             db.SaveChanges();
             return RedirectToAction("Index");

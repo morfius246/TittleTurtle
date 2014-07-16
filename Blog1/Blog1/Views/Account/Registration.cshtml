@@ -1,0 +1,17 @@
+﻿@model Blog1.Models.Registration
+@{
+    ViewBag.Title = "Registration";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Result</h2>
+@using (Html.BeginForm("Registration", "Account"))
+{
+    <div style="margin-top:60px;margin-left:10px;">
+        <p>Логин:</p>
+        @Html.TextBoxFor(model => model.NewUser.Login, new { @class = "form-control", @style = "width:200px" })
+        <p>Пароль:</p>
+        @Html.TextBoxFor(model => model.NewUser.Password, new { @class = "form-control", @style = "width:200px" })
+        <input type="submit" value="Сохранить" class="btn" style="margin-top:10px;margin-left:50px;">
+    </div>
+}

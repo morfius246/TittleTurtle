@@ -1,0 +1,15 @@
+﻿@model Blog1.Models.Registration
+
+@{
+    ViewBag.Title = "Autorization";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Result</h2>
+@using (Html.BeginForm("Autorization", "Account"))
+    {   <div style="margin-top:60px;margin-left:10px;">
+        @Html.TextBoxFor(model => model.NewUser.Login, new { @class = "form-control", @style = "width:200px" })
+        @Html.TextBoxFor(model => model.NewUser.Password, new { @class = "form-control", @style = "width:200px; margin-top:10px" })
+        <input type="submit" value="Войти" class="btn" style="width: 200px; margin-top:10px">
+        </div>
+    }
