@@ -10,7 +10,7 @@ namespace Blog1.Models
     {
         [Key]
         public int MediaID { get; set; }
-        public string MediaData { get; set; }
+        public byte[] MediaData { get; set; }
         public ICollection<MediaInArticle> MediaInArticles { get; set; }
         public ICollection<UserPhoto> UserPhotos { get; set; }
     }
