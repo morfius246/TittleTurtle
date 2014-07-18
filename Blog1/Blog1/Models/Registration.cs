@@ -8,6 +8,7 @@ namespace Blog1.Models
     public class Registration
     {
         public Account NewUser { get; set; }
+        public Contact UserContact { get; set; }
         public string Result { get; set; }
     }
 }

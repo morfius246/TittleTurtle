@@ -43,19 +43,23 @@ namespace Blog1.Controllers
         [HttpPost]
         public ActionResult Registration(Registration user)
         {
-            if (user.NewUser.Login != null && user.NewUser.Password != null)
+            if (user.NewUser.Login != null && user.NewUser.Password != null && user.UserContact.ContactEmail != null)
             {
                 db.Accounts.Add(user.NewUser);
                 User newUser = new User();
                 newUser.UserID = user.NewUser.UserID;
+                Contact userContact = new Contact();
+                userContact.ContactEmail = user.UserContact.ContactEmail;
+                userContact.UserID = user.NewUser.UserID;
                 db.Users.Add(newUser);
+                db.Contacts.Add(userContact);
                 db.SaveChanges();
                 user.Result = "Регистрация прошла успешно!";
                 return View(user);
             }
             else
             {
-                user.Result = "Логин и пароль - обязательные поля для ввода!";
+                user.Result = "Заполните все поля!";
                 return View(user);
             }
         }

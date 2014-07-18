@@ -12,6 +12,8 @@
         @Html.TextBoxFor(model => model.NewUser.Login, new { @class = "form-control", @style = "width:200px" })
         <p>Пароль:</p>
         @Html.TextBoxFor(model => model.NewUser.Password, new { @class = "form-control", @style = "width:200px" })
+        <p>Email:</p>
+        @Html.TextBoxFor(model => model.UserContact.ContactEmail, new { @class = "form-control", @style = "width:200px" })
         <input type="submit" value="Сохранить" class="btn" style="margin-top:10px;margin-left:50px;">
     </div>
 }
