@@ -1,0 +1,30 @@
+﻿@model TitleTurtle.Models.Main
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<body class="main">
+    @using (Html.BeginForm("Edit", "Home"))
+    {        
+        <div style="margin: 0 auto">
+            Категория:
+        @{
+        List<SelectListItem> list = new List<SelectListItem>();
+        foreach (var item in Model.CategoryList)
+        {
+            list.Add(new SelectListItem() { Text = item.CategoryName, Value = item.CategoryID.ToString() });
+        }        
+        }
+            @Html.DropDownListFor(model => model.NewArticle.CategoryID, list, new { @class = "form-control", @style = "margin: 0 auto;" })
+            <br>
+            Название: @Html.TextBoxFor(model => model.NewArticle.ArticleTitle, new { @class = "form-control", @style = "margin: 0 auto;" })
+            @Html.HiddenFor(model => model.NewArticle.ArticleID)
+            <br>
+            Cодержимое: @Html.TextAreaFor(model => model.NewArticle.ArticleText, new { @class = "form-control", @style = "min-height:200px;margin: 0 auto;" })
+            <br>
+            <input type="submit" value="Сохранить" class="btn" />
+        </div>
+    }
+</body>
