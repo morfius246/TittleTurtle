@@ -7,7 +7,7 @@ using System.Web;
 
 namespace Blog1.Models
 {
-    public class Autorization
+    public class Account
     {
         [Key]
         public int AutorizationID { get; set; }

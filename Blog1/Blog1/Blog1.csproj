@@ -119,17 +119,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201407161002276_Inut.cs" />
-    <Compile Include="Migrations\201407161002276_Inut.Designer.cs">
-      <DependentUpon>201407161002276_Inut.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201407161151085_Init.cs" />
-    <Compile Include="Migrations\201407161151085_Init.Designer.cs">
-      <DependentUpon>201407161151085_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201407180756215_InitialCreate.cs" />
+    <Compile Include="Migrations\201407180756215_InitialCreate.Designer.cs">
+      <DependentUpon>201407180756215_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Article.cs" />
-    <Compile Include="Models\Autorization.cs" />
+    <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Contact.cs" />
@@ -195,11 +191,8 @@
     <Content Include="Views\Home\CreateArticle.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201407161002276_Inut.resx">
-      <DependentUpon>201407161002276_Inut.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201407161151085_Init.resx">
-      <DependentUpon>201407161151085_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201407180756215_InitialCreate.resx">
+      <DependentUpon>201407180756215_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

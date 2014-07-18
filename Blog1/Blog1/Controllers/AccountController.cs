@@ -21,8 +21,8 @@ namespace Blog1.Controllers
         public ActionResult Autorization(Registration Umodel)
         {
             Registration model = new Registration();
-            model.NewUser = new Autorization();
-            model.NewUser = db.Autorization.FirstOrDefault(x => x.Login == Umodel.NewUser.Login);
+            model.NewUser = new Account();
+            model.NewUser = db.Accounts.FirstOrDefault(x => x.Login == Umodel.NewUser.Login);
             if (model.NewUser != null && model.NewUser.Login == Umodel.NewUser.Login && model.NewUser.Password == Umodel.NewUser.Password)
             {
                 return RedirectToAction("Index", "Home");
@@ -45,7 +45,7 @@ namespace Blog1.Controllers
         {
             if (user.NewUser.Login != null && user.NewUser.Password != null)
             {
-                db.Autorization.Add(user.NewUser);
+                db.Accounts.Add(user.NewUser);
                 User newUser = new User();
                 newUser.UserID = user.NewUser.UserID;
                 db.Users.Add(newUser);
@@ -62,7 +62,7 @@ namespace Blog1.Controllers
         [HttpGet]
         public ActionResult AllUsers()
         {
-            return View(db.Autorization.ToList());
+            return View(db.Accounts.ToList());
         }
 
     }

@@ -17,7 +17,7 @@ namespace Blog1.Models
         public virtual ICollection<Role> Roles { get; set; }
         public virtual ICollection<PersonalData> PersonalDatas { get; set; }
         public virtual ICollection<Article> Articles { get; set; }
-        public ICollection<Autorization> Autorization { get; set; }
+        public ICollection<Account> Autorization { get; set; }
     }
 
 }

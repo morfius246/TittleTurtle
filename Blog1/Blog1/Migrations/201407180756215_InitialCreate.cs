@@ -3,10 +3,33 @@ namespace Blog1.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Inut : DbMigration
+    public partial class InitialCreate : DbMigration
     {
         public override void Up()
         {
+            CreateTable(
+                "dbo.Accounts",
+                c => new
+                    {
+                        AutorizationID = c.Int(nullable: false, identity: true),
+                        UserID = c.Int(nullable: false),
+                        Login = c.String(),
+                        Password = c.String(),
+                    })
+                .PrimaryKey(t => t.AutorizationID)
+                .ForeignKey("dbo.Users", t => t.UserID, cascadeDelete: true)
+                .Index(t => t.UserID);
+            
+            CreateTable(
+                "dbo.Users",
+                c => new
+                    {
+                        UserID = c.Int(nullable: false, identity: true),
+                        UserFirstName = c.String(),
+                        UserLastName = c.String(),
+                    })
+                .PrimaryKey(t => t.UserID);
+            
             CreateTable(
                 "dbo.Articles",
                 c => new
@@ -87,56 +110,6 @@ namespace Blog1.Migrations
                 .Index(t => t.UserID);
             
             CreateTable(
-                "dbo.Users",
-                c => new
-                    {
-                        UserID = c.Int(nullable: false, identity: true),
-                        UserFirstName = c.String(),
-                        UserLastName = c.String(),
-                    })
-                .PrimaryKey(t => t.UserID);
-            
-            CreateTable(
-                "dbo.Contacts",
-                c => new
-                    {
-                        ContctID = c.Int(nullable: false, identity: true),
-                        UserID = c.Int(nullable: false),
-                        ContactMobile = c.Int(nullable: false),
-                        ContactEmail = c.String(),
-                        ContactWebPage = c.String(),
-                    })
-                .PrimaryKey(t => t.ContctID)
-                .ForeignKey("dbo.Users", t => t.UserID, cascadeDelete: true)
-                .Index(t => t.UserID);
-            
-            CreateTable(
-                "dbo.PersonalDatas",
-                c => new
-                    {
-                        PersonalDataID = c.Int(nullable: false, identity: true),
-                        UserID = c.Int(nullable: false),
-                        PersDataDate = c.DateTime(nullable: false),
-                        PersDataAdress = c.String(),
-                        PersDataOther = c.String(),
-                    })
-                .PrimaryKey(t => t.PersonalDataID)
-                .ForeignKey("dbo.Users", t => t.UserID, cascadeDelete: true)
-                .Index(t => t.UserID);
-            
-            CreateTable(
-                "dbo.Roles",
-                c => new
-                    {
-                        RolesID = c.String(nullable: false, maxLength: 128),
-                        RoleName = c.String(),
-                        UserID = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.RolesID)
-                .ForeignKey("dbo.Users", t => t.UserID, cascadeDelete: true)
-                .Index(t => t.UserID);
-            
-            CreateTable(
                 "dbo.Ratings",
                 c => new
                     {
@@ -175,6 +148,46 @@ namespace Blog1.Migrations
                 .PrimaryKey(t => t.TagID);
             
             CreateTable(
+                "dbo.Contacts",
+                c => new
+                    {
+                        ContactID = c.Int(nullable: false, identity: true),
+                        UserID = c.Int(nullable: false),
+                        ContactMobile = c.Int(nullable: false),
+                        ContactEmail = c.String(),
+                        ContactWebPage = c.String(),
+                    })
+                .PrimaryKey(t => t.ContactID)
+                .ForeignKey("dbo.Users", t => t.UserID, cascadeDelete: true)
+                .Index(t => t.UserID);
+            
+            CreateTable(
+                "dbo.PersonalDatas",
+                c => new
+                    {
+                        PersonalDataID = c.Int(nullable: false, identity: true),
+                        UserID = c.Int(nullable: false),
+                        PersDataDate = c.DateTime(nullable: false),
+                        PersDataAdress = c.String(),
+                        PersDataOther = c.String(),
+                    })
+                .PrimaryKey(t => t.PersonalDataID)
+                .ForeignKey("dbo.Users", t => t.UserID, cascadeDelete: true)
+                .Index(t => t.UserID);
+            
+            CreateTable(
+                "dbo.Roles",
+                c => new
+                    {
+                        RolesID = c.String(nullable: false, maxLength: 128),
+                        RoleName = c.String(),
+                        UserID = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.RolesID)
+                .ForeignKey("dbo.Users", t => t.UserID, cascadeDelete: true)
+                .Index(t => t.UserID);
+            
+            CreateTable(
                 "dbo.Comments",
                 c => new
                     {
@@ -194,27 +207,28 @@ namespace Blog1.Migrations
         {
             DropForeignKey("dbo.Comments", "MainArticleID", "dbo.Articles");
             DropForeignKey("dbo.Comments", "ArticleID", "dbo.Articles");
+            DropForeignKey("dbo.Accounts", "UserID", "dbo.Users");
+            DropForeignKey("dbo.Roles", "UserID", "dbo.Users");
+            DropForeignKey("dbo.PersonalDatas", "UserID", "dbo.Users");
+            DropForeignKey("dbo.Contacts", "UserID", "dbo.Users");
+            DropForeignKey("dbo.Articles", "UserID", "dbo.Users");
             DropForeignKey("dbo.TagInArticles", "TagID", "dbo.Tags");
             DropForeignKey("dbo.TagInArticles", "ArticleID", "dbo.Articles");
             DropForeignKey("dbo.Ratings", "ArticleID", "dbo.Articles");
             DropForeignKey("dbo.MediaInArticles", "MediaID", "dbo.Media");
             DropForeignKey("dbo.UserPhotoes", "UserID", "dbo.Users");
-            DropForeignKey("dbo.Roles", "UserID", "dbo.Users");
-            DropForeignKey("dbo.PersonalDatas", "UserID", "dbo.Users");
-            DropForeignKey("dbo.Contacts", "UserID", "dbo.Users");
-            DropForeignKey("dbo.Articles", "UserID", "dbo.Users");
             DropForeignKey("dbo.UserPhotoes", "MediaID", "dbo.Media");
             DropForeignKey("dbo.MediaInArticles", "ArticleID", "dbo.Articles");
             DropForeignKey("dbo.Edits", "ArticleID", "dbo.Articles");
             DropForeignKey("dbo.Articles", "CategoryID", "dbo.Categories");
             DropIndex("dbo.Comments", new[] { "ArticleID" });
             DropIndex("dbo.Comments", new[] { "MainArticleID" });
-            DropIndex("dbo.TagInArticles", new[] { "TagID" });
-            DropIndex("dbo.TagInArticles", new[] { "ArticleID" });
-            DropIndex("dbo.Ratings", new[] { "ArticleID" });
             DropIndex("dbo.Roles", new[] { "UserID" });
             DropIndex("dbo.PersonalDatas", new[] { "UserID" });
             DropIndex("dbo.Contacts", new[] { "UserID" });
+            DropIndex("dbo.TagInArticles", new[] { "TagID" });
+            DropIndex("dbo.TagInArticles", new[] { "ArticleID" });
+            DropIndex("dbo.Ratings", new[] { "ArticleID" });
             DropIndex("dbo.UserPhotoes", new[] { "UserID" });
             DropIndex("dbo.UserPhotoes", new[] { "MediaID" });
             DropIndex("dbo.MediaInArticles", new[] { "MediaID" });
@@ -222,20 +236,22 @@ namespace Blog1.Migrations
             DropIndex("dbo.Edits", new[] { "ArticleID" });
             DropIndex("dbo.Articles", new[] { "CategoryID" });
             DropIndex("dbo.Articles", new[] { "UserID" });
+            DropIndex("dbo.Accounts", new[] { "UserID" });
             DropTable("dbo.Comments");
-            DropTable("dbo.Tags");
-            DropTable("dbo.TagInArticles");
-            DropTable("dbo.Ratings");
             DropTable("dbo.Roles");
             DropTable("dbo.PersonalDatas");
             DropTable("dbo.Contacts");
-            DropTable("dbo.Users");
+            DropTable("dbo.Tags");
+            DropTable("dbo.TagInArticles");
+            DropTable("dbo.Ratings");
             DropTable("dbo.UserPhotoes");
             DropTable("dbo.Media");
             DropTable("dbo.MediaInArticles");
             DropTable("dbo.Edits");
             DropTable("dbo.Categories");
             DropTable("dbo.Articles");
+            DropTable("dbo.Users");
+            DropTable("dbo.Accounts");
         }
     }
 }

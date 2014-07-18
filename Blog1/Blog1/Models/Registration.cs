@@ -7,7 +7,7 @@ namespace Blog1.Models
 {
     public class Registration
     {
-        public Autorization NewUser { get; set; }
+        public Account NewUser { get; set; }
         public string Result { get; set; }
     }
 }
