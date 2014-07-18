@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Web;
 
@@ -26,6 +27,7 @@ namespace Blog1.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             System.Data.Entity.Database.SetInitializer<HomeContext>(null);
+            modelBuilder.Conventions.Remove<IncludeMetadataConvention>();
             base.OnModelCreating(modelBuilder);
         }
     }

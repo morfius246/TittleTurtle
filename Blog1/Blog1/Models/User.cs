@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 
@@ -8,7 +9,7 @@ namespace Blog1.Models
 {
     public class User
     {
-        [Key]
+        [Key, DatabaseGeneratedAttribute(DatabaseGeneratedOption.None), Required]
         public int UserID { get; set; }
         public string UserFirstName { get; set; }
         public string UserLastName { get; set; }
