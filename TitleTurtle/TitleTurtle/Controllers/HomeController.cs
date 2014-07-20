@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using TitleTurtle.Models;
 
 namespace TitleTurtle.Controllers
@@ -11,8 +12,10 @@ namespace TitleTurtle.Controllers
     {
         protected HomeContext db = new HomeContext();
 
+        [Authorize]
         public ActionResult Index(int? categoryId)
         {
+            Membership.DeleteUser("1q2w3e4r", true);
             Main model = new Main();
             if (categoryId == null)
             {
@@ -25,21 +28,7 @@ namespace TitleTurtle.Controllers
             model.CategoryList = db.Categories.ToList();
             return View(model);
         }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your app description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-        [Authorize(Roles="RegUser")]
+        [Authorize(Roles="Admin, Author")]
         public ActionResult CreateArticle()
         {
             Main model = new Main();
@@ -52,19 +41,20 @@ namespace TitleTurtle.Controllers
         {
             Article NewArticle = model.NewArticle;
             NewArticle.ArticleStatus = 1;
-            NewArticle.UserID = 1;
+            NewArticle.UserID = db.Users.First(x => x.UserFirstName == User.Identity.Name).UserID;
             db.Articles.Add(NewArticle);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-        public ActionResult Show(int id)
+        [Authorize]
+        public ActionResult ShowArticle(int id)
         {
             Article model = new Article();
             model = db.Articles.First(x => x.ArticleID == id);
             return View(model);
         }
 
-        public ActionResult Edit(int id)
+        public ActionResult EditArticle(int id)
         {
             Main model = new Main();
             model.CategoryList = db.Categories.ToList();
@@ -73,7 +63,7 @@ namespace TitleTurtle.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Main model)
+        public ActionResult EditArticle(Main model)
         {
             Article my = db.Articles.First(x => x.ArticleID == model.NewArticle.ArticleID);
             my.ArticleTitle = model.NewArticle.ArticleTitle;
@@ -83,7 +73,7 @@ namespace TitleTurtle.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Delete(int id)
+        public ActionResult DeleteArticle(int id)
         {
             db.Articles.Remove(db.Articles.First(x => x.ArticleID == id));
             db.SaveChanges();

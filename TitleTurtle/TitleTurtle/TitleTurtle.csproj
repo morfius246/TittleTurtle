@@ -198,6 +198,10 @@
     <Compile Include="Migrations\201407181337488_InitialCreate1.Designer.cs">
       <DependentUpon>201407181337488_InitialCreate1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201407201829473_InitialCreate2.cs" />
+    <Compile Include="Migrations\201407201829473_InitialCreate2.Designer.cs">
+      <DependentUpon>201407201829473_InitialCreate2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Article.cs" />
@@ -335,17 +339,15 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Home\CreateArticle.cshtml" />
-    <Content Include="Views\Home\Edit.cshtml" />
-    <Content Include="Views\Home\Show.cshtml" />
-    <Content Include="Views\Account\AllUsers.cshtml" />
+    <Content Include="Views\Home\EditArticle.cshtml" />
+    <Content Include="Views\Home\ShowArticle.cshtml" />
+    <Content Include="Views\Account\Control.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -359,6 +361,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201407181337488_InitialCreate1.resx">
       <DependentUpon>201407181337488_InitialCreate1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407201829473_InitialCreate2.resx">
+      <DependentUpon>201407201829473_InitialCreate2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

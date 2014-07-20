@@ -13,7 +13,7 @@ using TitleTurtle.Models;
 
 namespace TitleTurtle.Controllers
 {
-    
+
     [Authorize]
     [InitializeSimpleMembership]
     public class AccountController : Controller
@@ -334,10 +334,61 @@ namespace TitleTurtle.Controllers
             ViewBag.ShowRemoveButton = externalLogins.Count > 1 || OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
             return PartialView("_RemoveExternalLoginsPartial", externalLogins);
         }
+
         [HttpGet]
-        public ActionResult AllUsers()
+        public ActionResult Control()
         {
+            /*var listOfUsers = new List<MembershipUser>();
+            var allUsers = Membership.GetAllUsers();
+            foreach (MembershipUser user in allUsers)
+            {
+                listOfUsers.Add(user);
+            }
+             */
             return View(db.Users.ToList());
+        }
+
+        public ActionResult MakeAuthor(string userName)
+        {
+            try
+            {
+                Roles.AddUserToRole(userName, "Author");
+                return RedirectToAction("Control");
+            }
+            catch
+            {
+                return RedirectToAction("Control");
+            }
+        }
+
+        public ActionResult MakeAdmin(string userName)
+        {
+            try
+            {
+                Roles.AddUserToRole(userName, "Admin");
+                return RedirectToAction("Control");
+            }
+            catch
+            {
+                return RedirectToAction("Control");
+            }
+            
+        }
+
+        public ActionResult DeleteUser(string userName)
+        {
+            try
+            {
+                db.Users.Remove(db.Users.First(x => x.UserFirstName == userName));
+                db.SaveChanges();
+                Membership.DeleteUser(userName, true);
+                return RedirectToAction("Control");
+            }
+            catch
+            {
+                //you cant delete current user
+                return RedirectToAction("Control");
+            }
         }
         #region Helpers
         private ActionResult RedirectToLocal(string returnUrl)
