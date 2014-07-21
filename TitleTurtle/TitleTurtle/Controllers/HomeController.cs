@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using TitleTurtle.Models;
-
+using PagedList;
 namespace TitleTurtle.Controllers
 {
     public class HomeController : Controller
@@ -15,7 +15,6 @@ namespace TitleTurtle.Controllers
         [Authorize]
         public ActionResult Index(int? categoryId)
         {
-            Membership.DeleteUser("1q2w3e4r", true);
             Main model = new Main();
             if (categoryId == null)
             {
@@ -28,7 +27,7 @@ namespace TitleTurtle.Controllers
             model.CategoryList = db.Categories.ToList();
             return View(model);
         }
-        [Authorize(Roles="Admin, Author")]
+        [Authorize(Roles = "Admin, Author")]
         public ActionResult CreateArticle()
         {
             Main model = new Main();
@@ -87,6 +86,45 @@ namespace TitleTurtle.Controllers
             db.Categories.Add(NewCategory);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Sort(string sortOrder, string currentFilter, string searchString, int? page)
+        {
+            Article SortArticle = new Article();
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "Title" : "";
+            ViewBag.TextSortParm = String.IsNullOrEmpty(sortOrder) ? "Text" : "";
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = searchString;
+            var articles = from s in db.Articles
+                           select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                articles = articles.Where(s => s.ArticleTitle.ToUpper().Contains(searchString.ToUpper())
+                                       || s.ArticleText.ToUpper().Contains(searchString.ToUpper()));
+            }
+            switch (sortOrder)
+            {
+                case "Title":
+                    articles = articles.OrderByDescending(s => s.ArticleTitle);
+                    break;
+                case "Text":
+                    articles = articles.OrderByDescending(s => s.ArticleText);
+                    break;
+                default:
+                    articles = articles.OrderBy(s => s.ArticleTitle);
+                    break;
+            }
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View(articles.ToPagedList(pageNumber, pageSize));
         }
     }
 }
