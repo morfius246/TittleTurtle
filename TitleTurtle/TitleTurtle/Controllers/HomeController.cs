@@ -15,7 +15,6 @@ namespace TitleTurtle.Controllers
         [Authorize]
         public ActionResult Index(int? categoryId)
         {
-            Membership.DeleteUser("1q2w3e4r", true);
             Main model = new Main();
             if (categoryId == null)
             {

@@ -17,8 +17,28 @@
                
             </td>
             <td>
-                @Html.ActionLink("Сделать автором", "MakeAuthor", new { userName = item.UserFirstName })
-                @Html.ActionLink("Сделать администратором", "MakeAdmin", new { userName = item.UserFirstName })
+                @{String[] userRoles = Roles.GetRolesForUser(item.UserFirstName);}
+                @foreach (String userRole in userRoles)
+                {
+                    if(userRole != "Author")
+                    {
+                        @Html.ActionLink("Сделать автором", "MakeAuthor", new { userName = item.UserFirstName })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Убрать из авторов", "RemoveFromAuthors", new { userName = item.UserFirstName })
+                    }
+                    if(userRole != "Admin")
+                    {
+                       @Html.ActionLink("Сделать администратором", "MakeAdmin", new { userName = item.UserFirstName })
+                    }
+                    else
+                    {
+                       @Html.ActionLink("Убрать из администраторов", "RemoveFromAdmins", new { userName = item.UserFirstName })
+                    }
+                }
+                
+                
                 @Html.ActionLink("Удалить", "DeleteUser", new { userName = item.UserFirstName })
             </td>
         </tr>
