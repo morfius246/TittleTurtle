@@ -4,11 +4,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using TitleTurtle.Filters;
 using TitleTurtle.Models;
 
 namespace TitleTurtle.Controllers
 {
     [Authorize]
+    [InitializeSimpleMembership]
     public class HomeController : Controller
     {
         protected HomeContext db = new HomeContext();
