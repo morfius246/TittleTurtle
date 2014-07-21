@@ -10,3 +10,13 @@ D:\Work\BionicUniversity\TitleTurtle\DBTest\bin\Debug\DBTest.pdb
 D:\Work\BionicUniversity\TitleTurtle\DBTest\obj\Debug\DBTest.csprojResolveAssemblyReference.cache
 D:\Work\BionicUniversity\TitleTurtle\DBTest\obj\Debug\DBTest.dll
 D:\Work\BionicUniversity\TitleTurtle\DBTest\obj\Debug\DBTest.pdb
+\\psf\Home\Documents\GitHub\TittleTurtle\TitleTurtle\DBTest\bin\Debug\DBTest.dll.config
+\\psf\Home\Documents\GitHub\TittleTurtle\TitleTurtle\DBTest\bin\Debug\DBTest.dll
+\\psf\Home\Documents\GitHub\TittleTurtle\TitleTurtle\DBTest\bin\Debug\DBTest.pdb
+\\psf\Home\Documents\GitHub\TittleTurtle\TitleTurtle\DBTest\bin\Debug\PagedList.dll
+\\psf\Home\Documents\GitHub\TittleTurtle\TitleTurtle\DBTest\bin\Debug\PagedList.Mvc.dll
+\\psf\Home\Documents\GitHub\TittleTurtle\TitleTurtle\DBTest\bin\Debug\PagedList.xml
+\\psf\Home\Documents\GitHub\TittleTurtle\TitleTurtle\DBTest\bin\Debug\PagedList.Mvc.xml
+\\psf\Home\Documents\GitHub\TittleTurtle\TitleTurtle\DBTest\obj\Debug\DBTest.dll
+\\psf\Home\Documents\GitHub\TittleTurtle\TitleTurtle\DBTest\obj\Debug\DBTest.pdb
+\\psf\Home\Documents\GitHub\TittleTurtle\TitleTurtle\DBTest\obj\Debug\DBTest.csprojResolveAssemblyReference.cache
