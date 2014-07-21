@@ -372,7 +372,7 @@ namespace TitleTurtle.Controllers
             {
                 return RedirectToAction("Control");
             }
-
+            
         }
 
         public ActionResult DeleteUser(string userName)
@@ -387,31 +387,6 @@ namespace TitleTurtle.Controllers
             catch
             {
                 //you cant delete current user
-                return RedirectToAction("Control");
-            }
-        }
-
-        public ActionResult RemoveFromAuthors(string userName)
-        {
-            try
-            {
-                Roles.RemoveUserFromRole(userName, "Author");
-                return RedirectToAction("Control");
-            }
-            catch
-            {
-                return RedirectToAction("Control");
-            }
-        }
-        public ActionResult RemoveFromAdmins(string userName)
-        {
-            try
-            {
-                Roles.RemoveUserFromRole(userName, "Admin");
-                return RedirectToAction("Control");
-            }
-            catch
-            {
                 return RedirectToAction("Control");
             }
         }
