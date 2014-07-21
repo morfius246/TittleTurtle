@@ -12,7 +12,7 @@
         <div class="page-header" style="margin-top: 0px">
             <ul class="nav nav-tabs">
                 <li>@Html.ActionLink("Все статьи", "Index", "Home", null, new { @class = "navbar-brand" })</li>                       
-                @if(User.IsInRole("Admin"))    
+                @if(User.IsInRole("Admin"))   
                 {
                 <li>@Html.ActionLink("Управление", "Control", "Account", null, new { @class = "navbar-brand" })</li>
                 }

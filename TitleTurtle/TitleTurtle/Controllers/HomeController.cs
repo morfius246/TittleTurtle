@@ -4,15 +4,17 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using TitleTurtle.Filters;
 using TitleTurtle.Models;
 using PagedList;
 namespace TitleTurtle.Controllers
 {
+    [Authorize]
+    [InitializeSimpleMembership]
     public class HomeController : Controller
     {
         protected HomeContext db = new HomeContext();
-
-        [Authorize]
+        [AllowAnonymous]
         public ActionResult Index(int? categoryId)
         {
             Main model = new Main();
@@ -27,7 +29,12 @@ namespace TitleTurtle.Controllers
             model.CategoryList = db.Categories.ToList();
             return View(model);
         }
+<<<<<<< HEAD
         [Authorize(Roles = "Admin, Author")]
+=======
+
+        [Authorize(Roles="Admin, Author")]
+>>>>>>> origin/master
         public ActionResult CreateArticle()
         {
             Main model = new Main();
