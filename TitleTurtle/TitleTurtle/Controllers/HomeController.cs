@@ -42,17 +42,24 @@ namespace TitleTurtle.Controllers
         public ActionResult CreateArticle(Main model)
         {
             Article NewArticle = model.NewArticle;
-            NewArticle.ArticleStatus = 1;
+            NewArticle.ArticleStatus = 1; //1 -- active //0 -- not confirmed //2 -- deleted
             NewArticle.UserID = db.Users.First(x => x.UserFirstName == User.Identity.Name).UserID;
             db.Articles.Add(NewArticle);
+            Edit NewEdit = new Edit();
+            NewEdit.Article = NewArticle;
+            NewEdit.ArticleID = model.NewArticle.ArticleID;
+            NewEdit.Date = DateTime.Now;
+            NewEdit.Type = type.Create;
+            db.Edits.Add(NewEdit);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-        [Authorize]
+        [AllowAnonymous]
         public ActionResult ShowArticle(int id)
         {
             Article model = new Article();
             model = db.Articles.First(x => x.ArticleID == id);
+            
             return View(model);
         }
 
@@ -61,6 +68,13 @@ namespace TitleTurtle.Controllers
             Main model = new Main();
             model.CategoryList = db.Categories.ToList();
             model.NewArticle = db.Articles.First(x => x.ArticleID == id);
+            Edit NewEdit = new Edit();
+            NewEdit.Article = model.NewArticle;
+            NewEdit.ArticleID = model.NewArticle.ArticleID;
+            NewEdit.Date = DateTime.Now;
+            NewEdit.Type = type.Edit;
+            db.Edits.Add(NewEdit);
+            db.SaveChanges();
             return View(model);
         }
 
@@ -71,6 +85,7 @@ namespace TitleTurtle.Controllers
             my.ArticleTitle = model.NewArticle.ArticleTitle;
             my.ArticleText = model.NewArticle.ArticleText;
             my.CategoryID = model.NewArticle.CategoryID;
+            //my.Edits.Add(new Edit { Edition = DateTime.Now });
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -78,6 +93,7 @@ namespace TitleTurtle.Controllers
         public ActionResult DeleteArticle(int id)
         {
             db.Articles.Remove(db.Articles.First(x => x.ArticleID == id));
+
             db.SaveChanges();
             return RedirectToAction("Index");
         }

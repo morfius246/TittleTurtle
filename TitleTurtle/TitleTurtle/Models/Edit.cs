@@ -7,15 +7,17 @@ using System.Web;
 
 namespace TitleTurtle.Models
 {
+    public enum type { Create, Edit, Deleted }
+
     public class Edit
     {
         [Key]
         public int EditID { get; set; }
         [ForeignKey("Article")]
         public int ArticleID { get; set; }
-        public DateTime Creation { get; set; }
-        public DateTime Edition { get; set; }
-        public DateTime Delition { get; set; }
+        public DateTime Date { get; set; }
+        public type Type { get; set; }
+        
         public Article Article { get; set; }
     }
 }

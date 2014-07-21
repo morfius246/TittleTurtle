@@ -10,11 +10,21 @@
 </head>
 <body>
     @using (Html.BeginForm("ShowArticle", "Home"))
-    {        
+    {
         <div class="main">
             <h2>@Html.DisplayFor(model => model.ArticleTitle)</h2>
             @Html.HiddenFor(model => model.ArticleID)
             @Html.DisplayFor(model => model.ArticleText)<br>
+            <p>Добавил:@Model.User.UserFirstName</p>
+            <p>Дата создания: @Model.Edits.ElementAt(0).Date</p>
+            @if (Model.Edits.Count() > 1)
+            {
+                <p>
+                    Дата последнего изменения:
+                    @Model.Edits.ElementAt(Model.Edits.Count() - 1).Date
+                </p>
+            }
+
         </div>
     }
 </body>
