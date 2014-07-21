@@ -8,14 +8,13 @@ using TitleTurtle.Models;
 
 namespace TitleTurtle.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         protected HomeContext db = new HomeContext();
-
-        [Authorize]
+        [AllowAnonymous]
         public ActionResult Index(int? categoryId)
         {
-            Membership.DeleteUser("1q2w3e4r", true);
             Main model = new Main();
             if (categoryId == null)
             {
@@ -28,6 +27,7 @@ namespace TitleTurtle.Controllers
             model.CategoryList = db.Categories.ToList();
             return View(model);
         }
+
         [Authorize(Roles="Admin, Author")]
         public ActionResult CreateArticle()
         {
