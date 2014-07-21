@@ -29,12 +29,8 @@ namespace TitleTurtle.Controllers
             model.CategoryList = db.Categories.ToList();
             return View(model);
         }
-<<<<<<< HEAD
-        [Authorize(Roles = "Admin, Author")]
-=======
 
         [Authorize(Roles="Admin, Author")]
->>>>>>> origin/master
         public ActionResult CreateArticle()
         {
             Main model = new Main();
@@ -110,7 +106,7 @@ namespace TitleTurtle.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        [AllowAnonymous]
         public ActionResult Sort(string sortOrder, string currentFilter, string searchString, int? page)
         {
             Article SortArticle = new Article();

@@ -373,13 +373,14 @@ C:\Users\oper4\Documents\GitHub\TittleTurtle\TitleTurtle\TitleTurtle\bin\ko\Syst
 C:\Users\oper4\Documents\GitHub\TittleTurtle\TitleTurtle\TitleTurtle\bin\ru\System.Spatial.resources.dll
 C:\Users\oper4\Documents\GitHub\TittleTurtle\TitleTurtle\TitleTurtle\bin\zh-Hans\System.Spatial.resources.dll
 C:\Users\oper4\Documents\GitHub\TittleTurtle\TitleTurtle\TitleTurtle\bin\zh-Hant\System.Spatial.resources.dll
-<<<<<<< HEAD
 C:\Users\oper4\Documents\GitHub\TittleTurtle\TitleTurtle\TitleTurtle\obj\Debug\TitleTurtle.Migrations.InitialCreate3.resources
 C:\Users\oper4\Documents\GitHub\TittleTurtle\TitleTurtle\TitleTurtle\obj\Debug\TitleTurtle.Migrations.InitialCreate4.resources
 C:\Users\oper4\Documents\GitHub\TittleTurtle\TitleTurtle\TitleTurtle\obj\Debug\TitleTurtle.Migrations.InitialCreate5.resources
 C:\Users\oper4\Documents\GitHub\TittleTurtle\TitleTurtle\TitleTurtle\obj\Debug\TitleTurtle.Migrations.InitialCreate6.resources
 C:\Users\oper4\Documents\GitHub\TittleTurtle\TitleTurtle\TitleTurtle\obj\Debug\TitleTurtle.Migrations.InitialCreate7.resources
 C:\Users\oper4\Documents\GitHub\TittleTurtle\TitleTurtle\TitleTurtle\obj\Debug\TitleTurtle.Migrations.InitialCreate8.resources
-=======
 >>>>>>> origin/master
->>>>>>> origin/master
+C:\Users\oper4\Documents\GitHub\TittleTurtle\TitleTurtle\TitleTurtle\bin\PagedList.dll
+C:\Users\oper4\Documents\GitHub\TittleTurtle\TitleTurtle\TitleTurtle\bin\PagedList.Mvc.dll
+C:\Users\oper4\Documents\GitHub\TittleTurtle\TitleTurtle\TitleTurtle\bin\PagedList.xml
+C:\Users\oper4\Documents\GitHub\TittleTurtle\TitleTurtle\TitleTurtle\bin\PagedList.Mvc.xml
