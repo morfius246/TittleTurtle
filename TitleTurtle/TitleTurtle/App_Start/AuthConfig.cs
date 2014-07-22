@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Web.WebPages.OAuth;
-using TitleTurtle.Models;
-
-namespace TitleTurtle
+﻿namespace TitleTurtle
 {
     public static class AuthConfig
     {

@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
 using TitleTurtle.Filters;
 using TitleTurtle.Models;
 using PagedList;
@@ -59,21 +57,22 @@ namespace TitleTurtle.Controllers
         [HttpPost]
         public ActionResult CreateArticle(Main model,Media pic,HttpPostedFileBase uploadImage)
         {
-            var media = new Media();
             var mediainart = new MediaInArticle();
-            Article newArticle = model.NewArticle;
+            var newArticle = model.NewArticle;
             newArticle.ArticleStatus = 1; //1 -- active //0 -- not confirmed //2 -- deleted
             newArticle.UserID = Db.Users.First(x => x.UserFirstName == User.Identity.Name).UserID;
             Db.Articles.Add(newArticle);
-            var newEdit = new Edit();
-            newEdit.Article = newArticle;
-            newEdit.ArticleID = model.NewArticle.ArticleID;
-            newEdit.Date = DateTime.Now;
-            newEdit.Type = type.Create;
+            var newEdit = new Edit
+            {
+                Article = newArticle,
+                ArticleID = model.NewArticle.ArticleID,
+                Date = DateTime.Now,
+                Type = type.Create
+            };
             if (uploadImage != null)
             {
-                byte[] imageData = null;
                 // Read the uploaded file into a byte array
+                byte[] imageData = null;
                 using (var binaryReader = new BinaryReader(uploadImage.InputStream))
                 {
                     imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
