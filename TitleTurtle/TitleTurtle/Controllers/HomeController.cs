@@ -10,125 +10,180 @@ using PagedList;
 using System.IO;
 namespace TitleTurtle.Controllers
 {
+    /// <summary>
+    /// Main controller with Actions for Articles and Managemant
+    /// </summary>
     [Authorize]
     [InitializeSimpleMembership]
     public class HomeController : Controller
     {
-        protected HomeContext db = new HomeContext();
+        protected HomeContext Db = new HomeContext();
+        
+        /// <summary>
+        /// Opens main page 'Index' with list of articles from current category (or from ALL categories)
+        /// </summary>
+        /// <param name="categoryId">ID of category to show Articles from</param>
+        /// <returns>View 'Index' with Articles in Main model</returns>
         [AllowAnonymous]
         public ActionResult Index(int? categoryId)
         {
-            Main model = new Main();
-            if (categoryId == null)
+            var model = new Main
             {
-                model.ArticleList = db.Articles.ToList();
-            }
-            else
-            {
-                model.ArticleList = db.Articles.Where(x => x.CategoryID == categoryId).ToList();
-            }
-            model.CategoryList = db.Categories.ToList();
+                ArticleList =
+                    categoryId == null
+                        ? Db.Articles.ToList()
+                        : Db.Articles.Where(x => x.CategoryID == categoryId).ToList(),
+                CategoryList = Db.Categories.ToList()
+            };
             return View(model);
         }
 
+        /// <summary>
+        /// Redirect to CreateAction page
+        /// </summary>
+        /// <returns>View with Main model to create new Article</returns>
         [Authorize(Roles="Admin, Author")]
         public ActionResult CreateArticle()
         {
-            Main model = new Main();
-            model.CategoryList = db.Categories.ToList();
+            var model = new Main {CategoryList = Db.Categories.ToList()};
             return View(model);
         }
 
+        /// <summary>
+        /// Create new article
+        /// </summary>
+        /// <param name="model">Main model</param>
+        /// <param name="pic">Media pic to Article</param>
+        /// <param name="uploadImage"></param>
+        /// <returns>Redirect to 'Index'</returns>
         [HttpPost]
         public ActionResult CreateArticle(Main model,Media pic,HttpPostedFileBase uploadImage)
         {
-            Media media = new Media();
-            MediaInArticle mediainart = new MediaInArticle();
-            Article NewArticle = model.NewArticle;
-            NewArticle.ArticleStatus = 1; //1 -- active //0 -- not confirmed //2 -- deleted
-            NewArticle.UserID = db.Users.First(x => x.UserFirstName == User.Identity.Name).UserID;
-            db.Articles.Add(NewArticle);
-            Edit NewEdit = new Edit();
-            NewEdit.Article = NewArticle;
-            NewEdit.ArticleID = model.NewArticle.ArticleID;
-            NewEdit.Date = DateTime.Now;
-            NewEdit.Type = type.Create;
+            var media = new Media();
+            var mediainart = new MediaInArticle();
+            Article newArticle = model.NewArticle;
+            newArticle.ArticleStatus = 1; //1 -- active //0 -- not confirmed //2 -- deleted
+            newArticle.UserID = Db.Users.First(x => x.UserFirstName == User.Identity.Name).UserID;
+            Db.Articles.Add(newArticle);
+            var newEdit = new Edit();
+            newEdit.Article = newArticle;
+            newEdit.ArticleID = model.NewArticle.ArticleID;
+            newEdit.Date = DateTime.Now;
+            newEdit.Type = type.Create;
             if (uploadImage != null)
             {
                 byte[] imageData = null;
-                // считываем переданный файл в массив байтов
+                // Read the uploaded file into a byte array
                 using (var binaryReader = new BinaryReader(uploadImage.InputStream))
                 {
                     imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
                 }
-                // установка массива байтов
+                // Set byte array
                 pic.MediaData = imageData;
             }
-            db.Edits.Add(NewEdit);
-            db.Medias.Add(pic);
-            db.Articles.Add(NewArticle);
+            Db.Edits.Add(newEdit);
+            Db.Medias.Add(pic);
+            Db.Articles.Add(newArticle);
             mediainart.MediaID = pic.MediaID;
-            mediainart.ArticleID = NewArticle.ArticleID;
-            db.MediaInArticles.Add(mediainart);
-            db.SaveChanges();
+            mediainart.ArticleID = newArticle.ArticleID;
+            Db.MediaInArticles.Add(mediainart);
+            Db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        /// <summary>
+        /// Open Article with ID
+        /// </summary>
+        /// <param name="id">ID of article to open</param>
+        /// <returns>View with model of article</returns>
         [AllowAnonymous]
         public ActionResult ShowArticle(int id)
         {
-            Article model = new Article();
-            model = db.Articles.First(x => x.ArticleID == id);
+            var model = Db.Articles.First(x => x.ArticleID == id);
             
             return View(model);
         }
 
+        /// <summary>
+        /// Open article with ID to edit
+        /// </summary>
+        /// <param name="id">ID of Article to edit</param>
+        /// <returns>Main model with article and edit objects</returns>
         public ActionResult EditArticle(int id)
         {
-            Main model = new Main();
-            model.CategoryList = db.Categories.ToList();
-            model.NewArticle = db.Articles.First(x => x.ArticleID == id);
-            Edit NewEdit = new Edit();
-            NewEdit.Article = model.NewArticle;
-            NewEdit.ArticleID = model.NewArticle.ArticleID;
-            NewEdit.Date = DateTime.Now;
-            NewEdit.Type = type.Edit;
-            db.Edits.Add(NewEdit);
-            db.SaveChanges();
+            var model = new Main
+            {
+                CategoryList = Db.Categories.ToList(),
+                NewArticle = Db.Articles.First(x => x.ArticleID == id)
+            };
+            var newEdit = new Edit
+            {
+                Article = model.NewArticle,
+                ArticleID = model.NewArticle.ArticleID,
+                Date = DateTime.Now,
+                Type = type.Edit
+            };
+            Db.Edits.Add(newEdit);
+            Db.SaveChanges();
             return View(model);
         }
 
+        /// <summary>
+        /// Edits current article
+        /// </summary>
+        /// <param name="model">Main model</param>
+        /// <returns>View 'Index'</returns>
         [HttpPost]
         public ActionResult EditArticle(Main model)
         {
-            Article my = db.Articles.First(x => x.ArticleID == model.NewArticle.ArticleID);
+            var my = Db.Articles.First(x => x.ArticleID == model.NewArticle.ArticleID);
             my.ArticleTitle = model.NewArticle.ArticleTitle;
             my.ArticleText = model.NewArticle.ArticleText;
             my.CategoryID = model.NewArticle.CategoryID;
             //my.Edits.Add(new Edit { Edition = DateTime.Now });
-            db.SaveChanges();
+            Db.SaveChanges();
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        /// Delete article with id
+        /// </summary>
+        /// <param name="id">Id of article to delete</param>
+        /// <returns>View 'Index'</returns>
         public ActionResult DeleteArticle(int id)
         {
-            db.Articles.Remove(db.Articles.First(x => x.ArticleID == id));
+            Db.Articles.Remove(Db.Articles.First(x => x.ArticleID == id));
 
-            db.SaveChanges();
+            Db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        /// <summary>
+        /// Creates new category
+        /// </summary>
+        /// <param name="model">Main model</param>
+        /// <returns>View Index</returns>
         [HttpPost]
         public ActionResult CreateCategory(Main model)
         {
-            Category NewCategory = new Category();
-            NewCategory = model.NewCategory;
-            db.Categories.Add(NewCategory);
-            db.SaveChanges();
+            var newCategory = model.NewCategory;
+            Db.Categories.Add(newCategory);
+            Db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        /// <summary>
+        /// Search
+        /// </summary>
+        /// <param name="sortOrder"></param>
+        /// <param name="currentFilter"></param>
+        /// <param name="searchString"></param>
+        /// <param name="page"></param>
+        /// <returns>View with result</returns>
         [AllowAnonymous]
         public ActionResult Sort(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            Article SortArticle = new Article();
+            //var sortArticle = new Article();
             ViewBag.CurrentSort = sortOrder;
             ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "Title" : "";
             ViewBag.TextSortParm = String.IsNullOrEmpty(sortOrder) ? "Text" : "";
@@ -141,7 +196,7 @@ namespace TitleTurtle.Controllers
                 searchString = currentFilter;
             }
             ViewBag.CurrentFilter = searchString;
-            var articles = from s in db.Articles
+            var articles = from s in Db.Articles
                            select s;
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -160,7 +215,7 @@ namespace TitleTurtle.Controllers
                     articles = articles.OrderBy(s => s.ArticleTitle);
                     break;
             }
-            int pageSize = 3;
+            const int pageSize = 3;
             int pageNumber = (page ?? 1);
             return View(articles.ToPagedList(pageNumber, pageSize));
         }

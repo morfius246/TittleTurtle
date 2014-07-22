@@ -13,7 +13,9 @@ using TitleTurtle.Models;
 
 namespace TitleTurtle.Controllers
 {
-
+    /// <summary>
+    /// Class for WebSecurity. Login, LogOff, Registration etc.
+    /// </summary>
     [Authorize]
     [InitializeSimpleMembership]
     public class AccountController : Controller
