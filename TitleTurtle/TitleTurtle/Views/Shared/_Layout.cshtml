@@ -1,37 +1,36 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-
-    
+    <meta charset="utf-8" />  
     <link href="~/Content/style.css" rel="stylesheet" />
-    <link href="~/Content/global.css" rel="stylesheet" />
-    <link href="~/Content/css_reset.css" rel="stylesheet" />
     <script src="js/jquery-1.4.4.min.js"></script>
     <script src="js/slides.min.jquery.js"></script>
 
     <title>@ViewBag.Title - Title Turtle</title>
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    
     <meta name="viewport" content="width=device-width" />
 </head>
 <body>
     <header id="header">
-        <div class="wrap_nav" style="margin-top: 0px">
+        <div id="wrap_nav" style="margin-top: 0px">
             <div class="main_col">
+                
                 <div class="logo">
                     <a href="#">
-                        <img src="img/.png" alt="logo">
+                        <img src="~/.jpg" />
                     </a>
                 </div>
                 <nav id="nav">
-                    <ul class="navul">
-                        <li>@Html.ActionLink("Все статьи", "Index", "Home", null, new { @class = "navli" })</li>
+                    <ul id="navul">
+                        <li class="navli">@Html.ActionLink("Все статьи", "Index", "Home", null)</li>
                         @if (User.IsInRole("Admin"))
                         {
-                            <li>@Html.ActionLink("Управление", "Control", "Account", null, new { @class = "navli" })</li>
+                            <li class="navli">@Html.ActionLink("Управление", "Control", "Account", null)</li>
                         }
-                        <li>@Html.ActionLink("Поиск", "Sort", "Home", null, new { @class = "navli" })</li>
+                        <li class="navli">@Html.ActionLink("Поиск", "Sort", "Home", null)</li>
+
+                        <li class ="navli"><div id="head1"></div></li>
                         @Html.Partial("_LoginPartial")
                     </ul>
                 </nav>
@@ -39,6 +38,7 @@
 
         </div>
     </header>
+    
     <div class="mainBox">
         @RenderBody()
     </div>
