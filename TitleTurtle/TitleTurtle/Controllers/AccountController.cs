@@ -13,7 +13,9 @@ using TitleTurtle.Models;
 
 namespace TitleTurtle.Controllers
 {
-
+    /// <summary>
+    /// Class for WebSecurity. Login, LogOff, Registration etc.
+    /// </summary>
     [Authorize]
     [InitializeSimpleMembership]
     public class AccountController : Controller
@@ -82,7 +84,7 @@ namespace TitleTurtle.Controllers
                 {
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     WebSecurity.Login(model.UserName, model.Password);
-                    Roles.AddUserToRole(model.UserName, "RegUser");
+                    Roles.AddUserToRole(model.UserName, "Admin");
                     User user = new User();
                     user.UserFirstName = model.UserName;
                     user.UserID = WebSecurity.GetUserId(model.UserName);
@@ -338,14 +340,13 @@ namespace TitleTurtle.Controllers
         [HttpGet]
         public ActionResult Control()
         {
-            /*var listOfUsers = new List<MembershipUser>();
-            var allUsers = Membership.GetAllUsers();
-            foreach (MembershipUser user in allUsers)
-            {
-                listOfUsers.Add(user);
-            }
-             */
-            return View(db.Users.ToList());
+            List<User> listOfUser = new List<User>();
+            foreach (var user in db.Users.ToList())
+                if (user.UserFirstName != User.Identity.Name)
+                {
+                    listOfUser.Add(user);
+                }
+            return View(listOfUser);
         }
 
         public ActionResult MakeAuthor(string userName)
@@ -406,6 +407,8 @@ namespace TitleTurtle.Controllers
             {
                 db.Users.Remove(db.Users.First(x => x.UserFirstName == userName));
                 db.SaveChanges();
+                foreach (var role in Roles.GetRolesForUser(userName))
+                    Roles.RemoveUserFromRole(userName, role);
                 Membership.DeleteUser(userName, true);
                 return RedirectToAction("Control");
             }
