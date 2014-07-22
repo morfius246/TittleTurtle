@@ -9,7 +9,7 @@
 
 <link href="~/Content/bootstrap.css" rel="stylesheet" />
 <body class="main">
-    @using (Html.BeginForm("CreateArticle", "Home"))
+    @using (Html.BeginForm("CreateArticle", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {   
         <div style="margin: 0 auto">
             Категория:
@@ -22,6 +22,23 @@
         }
             @Html.DropDownListFor(model => model.NewArticle.CategoryID, list, new { @class = "form-control", @style = "margin: 0 auto;" })
             <br>
+
+            <div class="editor-label">Название</div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.NewMedia.MediaData)
+            @Html.ValidationMessageFor(model => model.NewMedia.MediaData)
+            @Html.HiddenFor(model =>model.NewMedia.MediaID)
+            @Html.HiddenFor(model=>model.NewArticle.ArticleID)
+           
+        </div>
+            <div class="editor-label">Файл изображения</div>
+        <div class="editor-field">
+           <input type="file" name="uploadImage" />
+        </div>
+
+            <p>
+                <p>
+
             Название: @Html.TextBoxFor(model => model.NewArticle.ArticleTitle, new { @class = "form-control", @style = "margin: 0 auto;" })
             <br>
             Cодержимое: @Html.TextAreaFor(model => model.NewArticle.ArticleText, new { @class = "form-control", @style = "min-height:200px;margin: 0 auto;" })

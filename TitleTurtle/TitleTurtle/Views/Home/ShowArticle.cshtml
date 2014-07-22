@@ -15,6 +15,8 @@
             <h2>@Html.DisplayFor(model => model.ArticleTitle)</h2>
             @Html.HiddenFor(model => model.ArticleID)
             @Html.DisplayFor(model => model.ArticleText)<br>
+             @Html.Raw("<img style='width:260px; height:180px;' src=\"data:image/jpeg;base64," 
+                                + Convert.ToBase64String(Model.MedialInArticles.First<TitleTurtle.Models.MediaInArticle>().Media.MediaData) + "\" />")
             <p>Добавил:@Model.User.UserFirstName</p>
             <p>Дата создания: @Model.Edits.ElementAt(0).Date</p>
             @if (Model.Edits.Count() > 1)

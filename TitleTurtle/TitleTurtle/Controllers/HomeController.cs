@@ -7,6 +7,7 @@ using System.Web.Security;
 using TitleTurtle.Filters;
 using TitleTurtle.Models;
 using PagedList;
+using System.IO;
 namespace TitleTurtle.Controllers
 {
     [Authorize]
@@ -39,8 +40,10 @@ namespace TitleTurtle.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateArticle(Main model)
+        public ActionResult CreateArticle(Main model, Media pic, HttpPostedFileBase uploadImage)
         {
+            Media media = new Media();
+            MediaInArticle mediainart = new MediaInArticle();
             Article NewArticle = model.NewArticle;
             NewArticle.ArticleStatus = 1; //1 -- active //0 -- not confirmed //2 -- deleted
             NewArticle.UserID = db.Users.First(x => x.UserFirstName == User.Identity.Name).UserID;
@@ -50,7 +53,23 @@ namespace TitleTurtle.Controllers
             NewEdit.ArticleID = model.NewArticle.ArticleID;
             NewEdit.Date = DateTime.Now;
             NewEdit.Type = type.Create;
+            if (uploadImage != null)
+            {
+                byte[] imageData = null;
+                // считываем переданный файл в массив байтов
+                using (var binaryReader = new BinaryReader(uploadImage.InputStream))
+                {
+                    imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
+                }
+                // установка массива байтов
+                pic.MediaData = imageData;
+            }
             db.Edits.Add(NewEdit);
+            db.Medias.Add(pic);
+            db.Articles.Add(NewArticle);
+            mediainart.MediaID = pic.MediaID;
+            mediainart.ArticleID = NewArticle.ArticleID;
+            db.MediaInArticles.Add(mediainart);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
