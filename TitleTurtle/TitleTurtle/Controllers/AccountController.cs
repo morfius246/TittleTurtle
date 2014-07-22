@@ -406,10 +406,12 @@ namespace TitleTurtle.Controllers
             {
                 db.Users.Remove(db.Users.First(x => x.UserFirstName == userName));
                 db.SaveChanges();
+                foreach (var role in Roles.GetRolesForUser(userName))
+                    Roles.RemoveUserFromRole(userName, role);
                 Membership.DeleteUser(userName, true);
                 return RedirectToAction("Control");
             }
-            catch
+            catch (Exception ex)
             {
                 //you cant delete current user
                 return RedirectToAction("Control");
