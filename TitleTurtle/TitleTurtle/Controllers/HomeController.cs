@@ -40,7 +40,7 @@ namespace TitleTurtle.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateArticle(Main model, Media pic, HttpPostedFileBase uploadImage)
+        public ActionResult CreateArticle(Main model,Media pic,HttpPostedFileBase uploadImage)
         {
             Media media = new Media();
             MediaInArticle mediainart = new MediaInArticle();
