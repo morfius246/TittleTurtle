@@ -12,84 +12,84 @@
 
 # Build results
 
-[Dd]ebug/
-[Rr]elease/
-x64/
-build/
-[Bb]in/
-[Oo]bj/
+**/[Dd]ebug/
+**/[Rr]elease/
+**/x64/
+**/build/
+**/[Bb]in/
+**/[Oo]bj/
 
 # MSTest test Results
-[Tt]est[Rr]esult*/
-[Bb]uild[Ll]og.*
+**/[Tt]est[Rr]esult*/
+**/[Bb]uild[Ll]og.*
 
-*_i.c
-*_p.c
-*.ilk
-*.meta
-*.obj
-*.pch
-*.pdb
-*.pgc
-*.pgd
-*.rsp
-*.sbr
-*.tlb
-*.tli
-*.tlh
-*.tmp
-*.tmp_proj
-*.log
-*.vspscc
-*.vssscc
-.builds
-*.pidb
-*.log
-*.scc
+**/*_i.c
+**/*_p.c
+**/*.ilk
+**/*.meta
+**/*.obj
+**/*.pch
+**/*.pdb
+**/*.pgc
+**/*.pgd
+**/*.rsp
+**/*.sbr
+**/*.tlb
+**/*.tli
+**/*.tlh
+**/*.tmp
+**/*.tmp_proj
+**/*.log
+**/*.vspscc
+**/*.vssscc
+**/.builds
+**/*.pidb
+**/*.log
+**/*.scc
 
 # Visual Studio profiler
-*.psess
-*.vsp
-*.vspx
+**/*.psess
+**/*.vsp
+**/*.vspx
 
 # Guidance Automation Toolkit
-*.gpState
+**/*.gpState
 
 # ReSharper is a .NET coding add-in
-_ReSharper*/
-*.[Rr]e[Ss]harper
+**/_ReSharper*/
+**/*.[Rr]e[Ss]harper
 
 # TeamCity is a build add-in
-_TeamCity*
+**/_TeamCity*
 
 # DotCover is a Code Coverage Tool
-*.dotCover
+**/*.dotCover
 
 # Others
-sql/
-*.Cache
-ClientBin/
-[Ss]tyle[Cc]op.*
-~$*
-*~
-*.dbmdl
-*.[Pp]ublish.xml
-*.pfx
-*.publishsettings
+**/sql/
+**/*.Cache
+**/ClientBin/
+**/[Ss]tyle[Cc]op.*
+**/~$*
+**/*~
+**/*.dbmdl
+**/*.[Pp]ublish.xml
+**/*.pfx
+**/*.publishsettings
 
 # Publish Web Output
-*.Publish.xml
-*.pubxml
+**/*.Publish.xml
+**/*.pubxml
 
 # SQL Server files
-App_Data/*.mdf
-App_Data/*.ldf
+**/App_Data/*.mdf
+**/App_Data/*.ldf
 
 # Windows image file caches
-Thumbs.db
-ehthumbs.db
+**/Thumbs.db
+**/ehthumbs.db
 
 # Folder config file
-Desktop.ini
+**/Desktop.ini
 # Mac crap
-.DS_Store
+**/.DS_Store
