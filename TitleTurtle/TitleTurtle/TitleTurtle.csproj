@@ -240,6 +240,7 @@
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Contact.cs" />
     <Compile Include="Models\Edit.cs" />
+    <Compile Include="Models\FeedbackModel.cs" />
     <Compile Include="Models\HomeContext.cs" />
     <Compile Include="Models\Main.cs" />
     <Compile Include="Models\Media.cs" />
@@ -327,7 +328,36 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Images\button.png" />
+    <Content Include="Images\desktop.ini" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
+    <Content Include="Images\arrow-next.png" />
+    <Content Include="Images\arrow-prev.png" />
+    <Content Include="Images\background.jpg" />
+    <Content Include="Images\background.png" />
+    <Content Include="Images\example-frame.png" />
+    <Content Include="Images\icon-faceb.png" />
+    <Content Include="Images\icon-tvitt.png" />
+    <Content Include="Images\img01.jpg" />
+    <Content Include="Images\img02.jpg" />
+    <Content Include="Images\img03.jpg" />
+    <Content Include="Images\jorn01.jpg" />
+    <Content Include="Images\jorn02.jpg" />
+    <Content Include="Images\jorn03.jpg" />
+    <Content Include="Images\l.png" />
+    <Content Include="Images\loading.gif" />
+    <Content Include="Images\logo.jpg" />
+    <Content Include="Images\pagination.png" />
+    <Content Include="Images\see.png" />
+    <Content Include="Images\slide-1.jpg" />
+    <Content Include="Images\slide-2.jpg" />
+    <Content Include="Images\slide-3.jpg" />
+    <Content Include="Images\slide-4.jpg" />
+    <Content Include="Images\slide-5.jpg" />
+    <Content Include="Images\slide-6.jpg" />
+    <Content Include="Images\slide-7.jpg" />
+    <Content Include="Images\slide.jpg" />
+    <Content Include="Images\turtle.ico" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
@@ -388,6 +418,8 @@
     <Content Include="Views\Account\Control.cshtml" />
     <Content Include="Views\Home\Sort.cshtml" />
     <Content Include="Views\Account\EditUser.cshtml" />
+    <Content Include="Views\Home\Feedback.cshtml" />
+    <Content Include="Views\Home\FeedbackSent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

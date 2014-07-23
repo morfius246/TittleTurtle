@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using DotNetOpenAuth.AspNet;
@@ -13,7 +12,9 @@ using TitleTurtle.Models;
 
 namespace TitleTurtle.Controllers
 {
-
+    /// <summary>
+    /// Class for WebSecurity. Login, LogOff, Registration etc.
+    /// </summary>
     [Authorize]
     [InitializeSimpleMembership]
     public class AccountController : Controller
@@ -82,10 +83,8 @@ namespace TitleTurtle.Controllers
                 {
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     WebSecurity.Login(model.UserName, model.Password);
-                    Roles.AddUserToRole(model.UserName, "RegUser");
-                    User user = new User();
-                    user.UserFirstName = model.UserName;
-                    user.UserID = WebSecurity.GetUserId(model.UserName);
+                    Roles.AddUserToRole(model.UserName, "Admin");
+                    var user = new User {UserFirstName = model.UserName, UserID = WebSecurity.GetUserId(model.UserName)};
                     db.Users.Add(user);
                     db.SaveChanges();
                     return RedirectToAction("Index", "Home");
@@ -173,10 +172,7 @@ namespace TitleTurtle.Controllers
                     {
                         return RedirectToAction("Manage", new { Message = ManageMessageId.ChangePasswordSuccess });
                     }
-                    else
-                    {
-                        ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
-                    }
+                    ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
                 }
             }
             else
@@ -241,14 +237,11 @@ namespace TitleTurtle.Controllers
                 OAuthWebSecurity.CreateOrUpdateAccount(result.Provider, result.ProviderUserId, User.Identity.Name);
                 return RedirectToLocal(returnUrl);
             }
-            else
-            {
-                // User is new, ask for their desired membership name
-                string loginData = OAuthWebSecurity.SerializeProviderUserId(result.Provider, result.ProviderUserId);
-                ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(result.Provider).DisplayName;
-                ViewBag.ReturnUrl = returnUrl;
-                return View("ExternalLoginConfirmation", new RegisterExternalLoginModel { UserName = result.UserName, ExternalLoginData = loginData });
-            }
+            // User is new, ask for their desired membership name
+            string loginData = OAuthWebSecurity.SerializeProviderUserId(result.Provider, result.ProviderUserId);
+            ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(result.Provider).DisplayName;
+            ViewBag.ReturnUrl = returnUrl;
+            return View("ExternalLoginConfirmation", new RegisterExternalLoginModel { UserName = result.UserName, ExternalLoginData = loginData });
         }
 
         //
@@ -259,8 +252,8 @@ namespace TitleTurtle.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ExternalLoginConfirmation(RegisterExternalLoginModel model, string returnUrl)
         {
-            string provider = null;
-            string providerUserId = null;
+            string provider;
+            string providerUserId;
 
             if (User.Identity.IsAuthenticated || !OAuthWebSecurity.TryDeserializeProviderUserId(model.ExternalLoginData, out provider, out providerUserId))
             {
@@ -270,25 +263,22 @@ namespace TitleTurtle.Controllers
             if (ModelState.IsValid)
             {
                 // Insert a new user into the database
-                using (UsersContext db = new UsersContext())
+                using (var context = new UsersContext())
                 {
-                    UserProfile user = db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
+                    UserProfile user = context.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
                     // Check if user already exists
                     if (user == null)
                     {
                         // Insert name into the profile table
-                        db.UserProfiles.Add(new UserProfile { UserName = model.UserName });
-                        db.SaveChanges();
+                        context.UserProfiles.Add(new UserProfile { UserName = model.UserName });
+                        context.SaveChanges();
 
                         OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.UserName);
                         OAuthWebSecurity.Login(provider, providerUserId, createPersistentCookie: false);
 
                         return RedirectToLocal(returnUrl);
                     }
-                    else
-                    {
-                        ModelState.AddModelError("UserName", "User name already exists. Please enter a different user name.");
-                    }
+                    ModelState.AddModelError("UserName", "User name already exists. Please enter a different user name.");
                 }
             }
 
@@ -338,14 +328,13 @@ namespace TitleTurtle.Controllers
         [HttpGet]
         public ActionResult Control()
         {
-            /*var listOfUsers = new List<MembershipUser>();
-            var allUsers = Membership.GetAllUsers();
-            foreach (MembershipUser user in allUsers)
-            {
-                listOfUsers.Add(user);
-            }
-             */
-            return View(db.Users.ToList());
+            List<User> listOfUser = new List<User>();
+            foreach (var user in db.Users.ToList())
+                if (user.UserFirstName != User.Identity.Name)
+                {
+                    listOfUser.Add(user);
+                }
+            return View(listOfUser);
         }
 
         public ActionResult MakeAuthor(string userName)
@@ -411,7 +400,7 @@ namespace TitleTurtle.Controllers
                 Membership.DeleteUser(userName, true);
                 return RedirectToAction("Control");
             }
-            catch (Exception ex)
+            catch
             {
                 //you cant delete current user
                 return RedirectToAction("Control");

@@ -38,7 +38,7 @@ body {
 div, footer {
     font-size: 100%;
     font: normal 400 12pt Arial;
-	b4order: 1px solid black;
+	b444order: 1px solid black;
 }
 
 
@@ -144,7 +144,9 @@ margin-bottom: 10px;
 #upfooter{
 	height: 600px;
 }
+
 .navli {
+   
     display: inline-block;
     height: auto;
     text-transform: uppercase;
@@ -166,7 +168,7 @@ margin-bottom: 10px;
 
 .navli a:hover {
     color: #000;
-    margin: -3px;
+    margin: 0px;
     text-decoration: none;
     line-height: 50px;
     background: #7848b4;
@@ -177,10 +179,105 @@ margin-bottom: 10px;
 	border-radius: 7%;
 }
 
+
+.search {
+    width: 200px; 
+   }
+
+#Exit {
+
+    float:right;
+    display: inline-block;
+    height: 40px;
+    text-transform: uppercase;
+    align-content: center;
+    font-size: 12px;
+    
+}
+
+    #Exit a {
+    padding: 0 12px;
+    margin: -2px;
+    display: block;
+    color: #ddd;
+    text-decoration: none;
+    line-height: 75px;
+    transition: 0.4s;
+    
+    }
+
+    #Exit :hover {
+    color: #000;
+    margin-top:10px;
+    line-height: 50px;
+    text-decoration: none;
+  background: #7848b4;
+    box-shadow: inset 0 0 12px 0 #999;
+/*    transform: translateY(2px);*/
+    border-right: 1px solid rgba(255,255,255,.5);  
+    border-left: 1px solid rgba(255,255,255,.5);
+	border-radius: 7%;
+    }
+
+#input {
+    width:200px;
+    border:3px solid #7848b4;
+    border-radius: 15%;
+    background:;
+    margin-left:30px;
+    margin-top:30px;
+}
+
+#head1 {
+    
+width:100px;
+height:20px;
+
+}
+#bod {
+    margin: 0 15% 0 15%;
+    width: 70%;
+    height: 700px;
+}
+
+#kat {
+    float:right;
+    width:250px;
+}
+
+#stat {
+    float:left;
+    width:600px;
+}
+
+.headkat {
+position: relative;
+display: block;
+padding: 10px 15px;
+margin-bottom: -1px;
+background-color: #fff;
+border: 1px solid #ddd;
+}
+
+#upkat {
+ float:left;
+}
+
+form {
+ display: inline-block;
+ /*line-height:100px;*/
+
+}
 .main_col {
     width: 68%;   
     margin: 0 auto;    
 }
+
+
+
+
+
+
 
 .box_left3 {
     float: left;
@@ -223,23 +320,15 @@ filter: progid: DXImageTransform.Microsoft.Alpha(opacity=40);
 }
 
 .box_post_right2 {
-    float: right
+    float: right;
     width: 48%;
     overflow: hidden;
     height: 100%;
 }
 
-.box_left4 {
-    float: left;
-    width: 22%;
-    margin-right: 4%;
-}
 
-.box_right4 {
-    float: right
-    width: 24%;
-    overflow: hidden;
-}
+
+
 
 .clear{
     clear: both;
