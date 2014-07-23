@@ -27,8 +27,8 @@
                 <i class="fa " style="display: inline-block">@category.CategoryName</i>
             </a>
         }
-        @*Just for admin*@
-        @if (User.IsInRole("Admin"))
+            @*Just for admin*@
+            @if (User.IsInRole("Admin"))
         {
             using (Html.BeginForm("CreateCategory", "Home"))
             {
@@ -52,19 +52,14 @@
 {
         <div class="item">
             @item.ArticleTitle
-
-            
+            @if ((User.IsInRole("Author") && User.Identity.Name == item.User.UserFirstName) || User.IsInRole("Admin"))
+            {
                 <a id="del" href="@Url.Action("DeleteArticle", "Home", new { id = item.ArticleID })" class="glyphicon glyphicon-remove" style="display:inline-block; float:right"></a>
-            
-            
                 <a href="@Url.Action("EditArticle", "Home", new { id = item.ArticleID })" class="glyphicon glyphicon-pencil" style="display:inline-block; float:right;margin-right:20px"></a>
-           
-            
+            }
                 <a href="@Url.Action("ShowArticle", "Home", new { id = item.ArticleID })" class="glyphicon glyphicon-play" style="display:inline-block; float: right; margin-right:20px"></a>
-            
         </div>
 }
-        
     </div>
 
 </div>
