@@ -20,3 +20,13 @@ D:\Work\BionicUniversity\TitleTurtle\DBTest\obj\Debug\DBTest.pdb
 \\psf\Home\Documents\GitHub\TittleTurtle\TitleTurtle\DBTest\obj\Debug\DBTest.dll
 \\psf\Home\Documents\GitHub\TittleTurtle\TitleTurtle\DBTest\obj\Debug\DBTest.pdb
 \\psf\Home\Documents\GitHub\TittleTurtle\TitleTurtle\DBTest\obj\Debug\DBTest.csprojResolveAssemblyReference.cache
+E:\TittleTurtle\TitleTurtle\DBTest\bin\Debug\DBTest.dll.config
+E:\TittleTurtle\TitleTurtle\DBTest\bin\Debug\DBTest.dll
+E:\TittleTurtle\TitleTurtle\DBTest\bin\Debug\DBTest.pdb
+E:\TittleTurtle\TitleTurtle\DBTest\bin\Debug\PagedList.dll
+E:\TittleTurtle\TitleTurtle\DBTest\bin\Debug\PagedList.Mvc.dll
+E:\TittleTurtle\TitleTurtle\DBTest\bin\Debug\PagedList.xml
+E:\TittleTurtle\TitleTurtle\DBTest\bin\Debug\PagedList.Mvc.xml
+E:\TittleTurtle\TitleTurtle\DBTest\obj\Debug\DBTest.csprojResolveAssemblyReference.cache
+E:\TittleTurtle\TitleTurtle\DBTest\obj\Debug\DBTest.dll
+E:\TittleTurtle\TitleTurtle\DBTest\obj\Debug\DBTest.pdb

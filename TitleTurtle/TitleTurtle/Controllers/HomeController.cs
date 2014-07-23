@@ -44,9 +44,15 @@ namespace TitleTurtle.Controllers
         {
             Media media = new Media();
             MediaInArticle mediainart = new MediaInArticle();
+                if (model.NewArticle.ArticleTitle == null)
+                {
+                    model.NewArticle.ArticleTitle = "Без названия";
+                    
+                }
             Article NewArticle = model.NewArticle;
             NewArticle.ArticleStatus = 1; //1 -- active //0 -- not confirmed //2 -- deleted
             NewArticle.UserID = db.Users.First(x => x.UserFirstName == User.Identity.Name).UserID;
+            
             db.Articles.Add(NewArticle);
             Edit NewEdit = new Edit();
             NewEdit.Article = NewArticle;
@@ -81,7 +87,6 @@ namespace TitleTurtle.Controllers
             
             return View(model);
         }
-
         public ActionResult EditArticle(int id)
         {
             Main model = new Main();
@@ -98,16 +103,37 @@ namespace TitleTurtle.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditArticle(Main model)
+        public ActionResult EditArticle(Main model,int? id)
         {
+            Media media = new Media();
             Article my = db.Articles.First(x => x.ArticleID == model.NewArticle.ArticleID);
             my.ArticleTitle = model.NewArticle.ArticleTitle;
             my.ArticleText = model.NewArticle.ArticleText;
             my.CategoryID = model.NewArticle.CategoryID;
+            if (id != -1)
+            {
+                media = db.Medias.FirstOrDefault(x => x.MediaID == id.Value);
+                db.Medias.Remove(media);
+            }
             //my.Edits.Add(new Edit { Edition = DateTime.Now });
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+
+       /* public ActionResult DeletePictureFromArticle(int? id,int ArticleId)
+        {
+            Main main = new Main();
+            main.NewArticle = db.Articles.First(x => x.ArticleID == ArticleId);
+            main.CategoryList = db.Categories.ToList();
+            Media media = new Media();
+            media = db.Medias.FirstOrDefault(x => x.MediaID == id.Value);
+            db.Medias.Remove(media);
+            db.SaveChanges();
+            return RedirectToAction("EditArticle",ArticleId);
+        }
+        */
+        
 
         public ActionResult DeleteArticle(int id)
         {
