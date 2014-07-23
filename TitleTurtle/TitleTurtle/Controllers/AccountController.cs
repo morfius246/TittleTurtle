@@ -406,6 +406,7 @@ namespace TitleTurtle.Controllers
                 return RedirectToAction("Control");
             }
         }
+
         #region Helpers
         private ActionResult RedirectToLocal(string returnUrl)
         {
@@ -478,5 +479,27 @@ namespace TitleTurtle.Controllers
             }
         }
         #endregion
+
+        [HttpGet]
+        public ActionResult EditUser(int? id)
+        {
+            User user = null;
+            if (id != null)
+            {
+                return View();
+            }
+
+            user = db.Users.FirstOrDefault(c => c.UserID == id);
+            if (user != null)
+            {
+                return View(user);
+            }
+            else
+            {
+                ViewBag.Message = "No client with this Id";
+                return RedirectToAction("EditUser");
+            }
+        }
+
     }
 }

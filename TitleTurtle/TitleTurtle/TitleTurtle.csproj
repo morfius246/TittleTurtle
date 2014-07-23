@@ -235,6 +235,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Article.cs" />
+    <Compile Include="Models\ArticleModel.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Contact.cs" />
@@ -351,6 +352,7 @@
     <Content Include="Images\logo.jpg" />
     <Content Include="Images\ms-loader.gif" />
     <Content Include="Images\pagination.png" />
+    <Content Include="Images\read-512.png" />
     <Content Include="Images\see.png" />
     <Content Include="Images\slide-1.jpg" />
     <Content Include="Images\slide-2.jpg" />
@@ -458,6 +460,7 @@
     <Content Include="Views\Home\ShowArticle.cshtml" />
     <Content Include="Views\Account\Control.cshtml" />
     <Content Include="Views\Home\Sort.cshtml" />
+    <Content Include="Views\Account\EditUser.cshtml" />
     <Content Include="Views\Home\Feedback.cshtml" />
     <Content Include="Views\Home\FeedbackSent.cshtml" />
   </ItemGroup>

@@ -95,7 +95,7 @@ namespace TitleTurtle.Controllers
             Db.SaveChanges();
             return RedirectToAction("Index");
         }
-
+     
         /// <summary>
         /// Open Article with ID
         /// </summary>
@@ -104,8 +104,21 @@ namespace TitleTurtle.Controllers
         [AllowAnonymous]
         public ActionResult ShowArticle(int? id)
         {
+<<<<<<< HEAD
             var model = Db.Articles.First(x => x.ArticleID == id.Value);
 
+=======
+            ArticleModel model = new ArticleModel();
+            model.currentArticle = Db.Articles.SingleOrDefault(x => x.ArticleID == id);
+            var t =
+                from comment in Db.Comments
+                join article in Db.Articles
+                on comment.ArticleID equals article.ArticleID
+                where comment.MainArticleID == id
+                select comment;
+            
+            model.CommentList = t.ToArray();
+>>>>>>> origin/master
             return View(model);
         }
 
@@ -169,10 +182,7 @@ namespace TitleTurtle.Controllers
         /// <returns>View 'Index'</returns>
 
 
-       
-        
-
-
+      
         public ActionResult DeleteArticle(int id)
         {
             Db.Articles.Remove(Db.Articles.First(x => x.ArticleID == id));
@@ -242,12 +252,30 @@ namespace TitleTurtle.Controllers
             int pageNumber = (page ?? 1);
             return View(articles.ToPagedList(pageNumber, pageSize));
         }
+
+        public ActionResult CreateComment(ArticleModel model, string userName)
+        {
+            Comment newComment = model.NewComment;
+            int currentArticleId = model.currentArticle.ArticleID;//отримаэм ід поточ статті
+            Article temp = Db.Articles.SingleOrDefault(x => x.ArticleID == currentArticleId);//отрим цю статтю за ід
+            newComment.Article.Category = temp.Category;//коментар має таку ж каегор як стаття
+            newComment.Article.ArticleStatus = 1;
+            newComment.ArticleID = temp.ArticleID;
+            newComment.MainArticle = temp;
+            newComment.MainArticleID = temp.ArticleID;
+            newComment.Article.UserID = Db.Users.First(x => x.UserFirstName == userName).UserID;
+            //newComment.Article.User.UserFirstName = db.Users.First(x => x.UserFirstName == userName).UserFirstName;
+            //newComment.UserID = db.Users.First(x => x.UserFirstName == User.Identity.Name).UserID;
+            Db.Comments.Add(newComment);
+            Db.SaveChanges();
+            return RedirectToAction("ShowArticle/" + temp.ArticleID.ToString());
+        }
+            
         public ActionResult Feedback()
         {
             return View();
         }
        
-
         [HttpPost]
         public ActionResult Feedback(FeedbackModel model)
         {

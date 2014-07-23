@@ -1,12 +1,14 @@
-﻿@model PagedList.IPagedList<TitleTurtle.Models.Article>
-@using PagedList.Mvc; 
-<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+﻿<div id="bod">
+    <div id="manage2">
+        @model PagedList.IPagedList<TitleTurtle.Models.Article>
+        @using PagedList.Mvc;
+        <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
-@{
-    ViewBag.Title = "Articles";
-}
+        @{
+            ViewBag.Title = "Articles";
+        }
 
-<h2>Articles</h2>
+        <h2>Articles</h2>
 
 @using (Html.BeginForm("Sort", "Home", FormMethod.Get))
 {
@@ -15,6 +17,7 @@
         <input type="submit" value="Search" />
     </p>
 }
+<<<<<<< HEAD
 <table>
 
     @foreach (var item in Model)
@@ -44,5 +47,25 @@
 </table>
 <br />
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+=======
+        <table>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ArticleTitle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ArticleText)
+                    </td>
+                </tr>
+            }
+        </table>
+        <br />
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+>>>>>>> origin/master
 
-@Html.PagedListPager(Model, page => Url.Action("Sort", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+        @Html.PagedListPager(Model, page => Url.Action("Sort", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+    </div>
+</div>
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
