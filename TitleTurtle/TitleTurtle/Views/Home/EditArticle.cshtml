@@ -19,7 +19,7 @@
     });
   </script>
 
-@{Boolean[] massiv = new Boolean[1];}
+
 <body class="main">
 
     
@@ -48,7 +48,7 @@
                                 + Convert.ToBase64String(Model.NewArticle.MedialInArticles.First<TitleTurtle.Models.MediaInArticle>().Media.MediaData) + "\" />")
                 <br>
        
-
+                @Html.ActionLink("Del","DeletePicFromArticle", "Home", new { ArticleId = Model.NewArticle.MedialInArticles.First<TitleTurtle.Models.MediaInArticle>().Media.MediaID },null)
 
                 <input id ="home" type="button" value="Удалить">
             }

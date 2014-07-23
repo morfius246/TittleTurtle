@@ -126,11 +126,12 @@ namespace TitleTurtle.Controllers
 
 
         public ActionResult EditArticle(int id)
-        {
+        {   
             var model = new Main
             {
                 CategoryList = Db.Categories.ToList(),
                 NewArticle = Db.Articles.First(x => x.ArticleID == id)
+               
             };
             var newEdit = new Edit
             {
@@ -176,12 +177,20 @@ namespace TitleTurtle.Controllers
         /// <param name="id">Id of article to delete</param>
         /// <returns>View 'Index'</returns>
 
+        public ActionResult DeletePicFromArticle(Main model,int? ArticleId)
+        {
 
+            Media media = new Media();
+            media = Db.Medias.FirstOrDefault(x => x.MediaID == ArticleId.Value);
+            Db.Medias.Remove(media);
+            Db.SaveChanges();
+            return RedirectToAction("EditArticle", new { id = ArticleId });
+        }
+        
       
         public ActionResult DeleteArticle(int id)
         {
             Db.Articles.Remove(Db.Articles.First(x => x.ArticleID == id));
-
             Db.SaveChanges();
             return RedirectToAction("Index");
         }
