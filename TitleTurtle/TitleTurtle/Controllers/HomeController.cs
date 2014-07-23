@@ -85,9 +85,6 @@ namespace TitleTurtle.Controllers
                 RatingRepost = 0,
                 RatingView = 0
             };
-=======
-
->>>>>>> origin/master
             if (uploadImage != null)
             {
                 // Read the uploaded file into a byte array
@@ -292,7 +289,8 @@ namespace TitleTurtle.Controllers
                 ++Db.Articles.First(x => x.ArticleID == _id).Ratings.First(x => x.RatingID == 1).RatingDislike;
             Db.SaveChanges();
             return RedirectToAction("ShowArticle", new {id = _id});
-=======
+        }
+
         public ActionResult CreateComment(ArticleModel model, string userName)
         {
             Comment newComment = model.NewComment;
@@ -330,7 +328,6 @@ namespace TitleTurtle.Controllers
                 return View("FeedbackSent");
             }
             return View();
->>>>>>> origin/master
         }
     }
 }
