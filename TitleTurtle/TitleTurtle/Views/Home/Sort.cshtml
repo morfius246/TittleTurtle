@@ -17,7 +17,7 @@
         <input type="submit" value="Search" />
     </p>
 }
-<<<<<<< HEAD
+
 <table>
 
     @foreach (var item in Model)
@@ -45,25 +45,10 @@
     }
 
 </table>
-<br />
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-=======
-        <table>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ArticleTitle)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ArticleText)
-                    </td>
-                </tr>
-            }
-        </table>
+
         <br />
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
->>>>>>> origin/master
+
 
         @Html.PagedListPager(Model, page => Url.Action("Sort", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
     </div>

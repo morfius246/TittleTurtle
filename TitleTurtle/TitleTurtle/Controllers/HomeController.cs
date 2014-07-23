@@ -104,10 +104,10 @@ namespace TitleTurtle.Controllers
         [AllowAnonymous]
         public ActionResult ShowArticle(int? id)
         {
-<<<<<<< HEAD
-            var model = Db.Articles.First(x => x.ArticleID == id.Value);
 
-=======
+           
+
+
             ArticleModel model = new ArticleModel();
             model.currentArticle = Db.Articles.SingleOrDefault(x => x.ArticleID == id);
             var t =
@@ -118,7 +118,7 @@ namespace TitleTurtle.Controllers
                 select comment;
             
             model.CommentList = t.ToArray();
->>>>>>> origin/master
+
             return View(model);
         }
 
