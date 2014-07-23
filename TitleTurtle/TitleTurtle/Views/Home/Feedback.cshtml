@@ -1,10 +1,13 @@
-﻿@model TitleTurtle.Models.FeedbackModel
+﻿<div id="bod">
+    <div id="manage2">
 
-@{
-    ViewBag.Title = "Feedback";
-}
+        @model TitleTurtle.Models.FeedbackModel
 
-@using (Ajax.BeginForm(
+        @{
+            ViewBag.Title = "Feedback";
+        }
+
+        @using (Ajax.BeginForm(
 "feedback",
 "home",
 new AjaxOptions
@@ -14,53 +17,56 @@ new AjaxOptions
     LoadingElementId = "sendingProgress",
     InsertionMode = InsertionMode.Replace
 }))
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
 
-    <fieldset>
-        <legend>Обратная связь</legend>
+            <fieldset>
+                <legend>Обратная связь</legend>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.UserName)
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.UserName)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.UserName)
+                    @Html.ValidationMessageFor(model => model.UserName)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Email)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.Email)
+                    @Html.ValidationMessageFor(model => model.Email)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.MessageText)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.MessageText)
+                    @Html.ValidationMessageFor(model => model.MessageText)
+                </div>
+
+                <p>
+                    <input type="submit" value="Отправить" />
+                    <span id="sendingProgress" style="display: none;">
+                        ждите, идет отправка сообщения...
+
+                        <img src='@Href("~/Content/Images/ajax_loader_big.gif")' alt="Ждите" />
+                    </span>
+                </p>
+                <p id="target">
+            </fieldset>
+        }
+
+        <div>
+            @Html.ActionLink("Назад", "Index")
         </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.UserName)
-            @Html.ValidationMessageFor(model => model.UserName)
-        </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Email)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Email)
-            @Html.ValidationMessageFor(model => model.Email)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.MessageText)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.MessageText)
-            @Html.ValidationMessageFor(model => model.MessageText)
-        </div>
-
-        <p>
-            <input type="submit" value="Отправить" />
-            <span id="sendingProgress" style="display: none;">
-                ждите, идет отправка сообщения...
-
-                <img src='@Href("~/Content/Images/ajax_loader_big.gif")' alt="Ждите" />
-            </span>
-        </p>
-        <p id="target">
-    </fieldset>
-}
-
-<div>
-    @Html.ActionLink("Назад", "Index")
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+</div>
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
