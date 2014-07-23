@@ -1,0 +1,7 @@
+﻿/* PAGER
+---------------------------------------------*/
+div.pagination { padding: 0; margin: 0; overflow: auto; }
+	div.pagination ul { padding: 0; margin: 0; overflow: auto; }
+		div.pagination ul li { text-decoration: none; background-color: #ddd; color: #000; display: block; float: left; margin: 0 0 0 1px; text-align: center; }
+			div.pagination ul li.active { background-color: #aaa; }
+			div.pagination ul a { display: block;padding:10px; text-decoration: none}

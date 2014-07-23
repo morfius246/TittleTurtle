@@ -58,7 +58,11 @@ namespace TitleTurtle.Controllers
         public ActionResult CreateArticle(Main model, Media pic, HttpPostedFileBase uploadImage)
         {
 
-            var mediainart = new MediaInArticle();
+            var mediainart = new MediaInArticle();           
+            if(model.NewArticle.ArticleTitle==null)
+            {
+                model.NewArticle.ArticleTitle = "Без названия";
+            }
             var newArticle = model.NewArticle;
             newArticle.ArticleStatus = 1; //1 -- active //0 -- not confirmed //2 -- deleted
             newArticle.UserID = Db.Users.First(x => x.UserFirstName == User.Identity.Name).UserID;
@@ -207,7 +211,7 @@ namespace TitleTurtle.Controllers
         [AllowAnonymous]
         public ActionResult Sort(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            //var sortArticle = new Article();
+            var sortArticle = new Article();
             ViewBag.CurrentSort = sortOrder;
             ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "Title" : "";
             ViewBag.TextSortParm = String.IsNullOrEmpty(sortOrder) ? "Text" : "";
@@ -239,7 +243,7 @@ namespace TitleTurtle.Controllers
                     articles = articles.OrderBy(s => s.ArticleTitle);
                     break;
             }
-            const int pageSize = 3;
+            const int pageSize = 15;
             int pageNumber = (page ?? 1);
             return View(articles.ToPagedList(pageNumber, pageSize));
         }
@@ -272,8 +276,6 @@ namespace TitleTurtle.Controllers
         {
             if (ModelState.IsValid)
             {
-
-
 
                 if (Request.IsAjaxRequest())
                 {
