@@ -200,7 +200,7 @@ namespace TitleTurtle.Controllers
         public ActionResult CreateCategory(Main model)
         {
             var newCategory = model.NewCategory;
-            if (model.NewCategory !=null)
+            if (model.NewCategory.CategoryName !=null)
             {
                 Db.Categories.Add(newCategory);
                 Db.SaveChanges();
@@ -208,6 +208,13 @@ namespace TitleTurtle.Controllers
             return RedirectToAction("Index");
         }
 
+      
+        public ActionResult RemoveCategory(int? id)
+        {
+            Db.Categories.Remove(Db.Categories.First(x => x.CategoryID == id.Value));
+            Db.SaveChanges();
+            return RedirectToAction("Index");
+        }
         /// <summary>
         /// Search
         /// </summary>
