@@ -23,7 +23,7 @@
             @Html.DropDownListFor(model => model.NewArticle.CategoryID, list, new { @class = "form-control", @style = "margin: 0 auto;" })
             <br>
 
-            <div class="editor-label">Название</div>
+            
         <div class="editor-field">
             @Html.EditorFor(model => model.NewMedia.MediaData)
             @Html.ValidationMessageFor(model => model.NewMedia.MediaData)
@@ -33,6 +33,7 @@
         </div>
             <div class="editor-label">Файл изображения</div>
         <div class="editor-field">
+            <br>
            <input type="file" name="uploadImage" />
         </div>
 
