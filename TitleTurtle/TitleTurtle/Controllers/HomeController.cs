@@ -16,7 +16,7 @@ namespace TitleTurtle.Controllers
     public class HomeController : Controller
     {
         protected HomeContext Db = new HomeContext();
-        
+
         /// <summary>
         /// Opens main page 'Index' with list of articles from current category (or from ALL categories)
         /// </summary>
@@ -40,10 +40,10 @@ namespace TitleTurtle.Controllers
         /// Redirect to CreateAction page
         /// </summary>
         /// <returns>View with Main model to create new Article</returns>
-        [Authorize(Roles="Admin, Author")]
+        [Authorize(Roles = "Admin, Author")]
         public ActionResult CreateArticle()
         {
-            var model = new Main {CategoryList = Db.Categories.ToList()};
+            var model = new Main { CategoryList = Db.Categories.ToList() };
             return View(model);
         }
 
@@ -55,7 +55,7 @@ namespace TitleTurtle.Controllers
         /// <param name="uploadImage"></param>
         /// <returns>Redirect to 'Index'</returns>
         [HttpPost]
-        public ActionResult CreateArticle(Main model,Media pic,HttpPostedFileBase uploadImage)
+        public ActionResult CreateArticle(Main model, Media pic, HttpPostedFileBase uploadImage)
         {
             var mediainart = new MediaInArticle();
             var newArticle = model.NewArticle;
@@ -99,7 +99,7 @@ namespace TitleTurtle.Controllers
         public ActionResult ShowArticle(int id)
         {
             var model = Db.Articles.First(x => x.ArticleID == id);
-            
+
             return View(model);
         }
 
@@ -217,6 +217,29 @@ namespace TitleTurtle.Controllers
             const int pageSize = 3;
             int pageNumber = (page ?? 1);
             return View(articles.ToPagedList(pageNumber, pageSize));
+        }
+        public ActionResult Feedback()
+        {
+            return View();
+        }
+       
+
+        [HttpPost]
+        public ActionResult Feedback(FeedbackModel model)
+        {
+            if (ModelState.IsValid)
+            {
+
+
+
+                if (Request.IsAjaxRequest())
+                {
+                    return PartialView("FeedbackSent");
+                }
+
+                return View("FeedbackSent");
+            }
+            return View();
         }
     }
 }
