@@ -346,6 +346,7 @@
     <Content Include="Images\loading.gif" />
     <Content Include="Images\logo.jpg" />
     <Content Include="Images\pagination.png" />
+    <Content Include="Images\read-512.png" />
     <Content Include="Images\see.png" />
     <Content Include="Images\slide-1.jpg" />
     <Content Include="Images\slide-2.jpg" />

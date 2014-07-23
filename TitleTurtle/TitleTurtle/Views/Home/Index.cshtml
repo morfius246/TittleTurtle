@@ -6,25 +6,25 @@
 
 <div id="bod">
     <div id="kat">
-        <div>
+        <div id="item">
             @if (User.IsInRole("Admin") || User.IsInRole("Author"))
             {
 
-                <p id="input">
-                    @Html.ActionLink("Добавить новую статью", "CreateArticle", "Home", new { @class = "btn" })
+                <p id="btn">
+                    @Html.ActionLink("Добавить новую статью", "CreateArticle", "Home", new { @class = "button-index btn" })
                 </p>
 
             }
         </div>
     <div id="upkat" >
         <span class="headkat">Категории</span>
-        <a href="@Url.Action("Index", "Home")" class="list-group-item">
-            <i class="fa fa-comment-o" style="display: inline-block">Все</i>
+        <a href="@Url.Action("Index", "Home")" class="item">
+            <i class="fa" style="display: inline-block">Все</i>
         </a>
         @foreach (var category in Model.CategoryList)
         {
-            <a href="@Url.Action("Index", "Home", new { categoryId = category.CategoryID })" class="list-group-item">
-                <i class="fa fa-comment-o" style="display: inline-block">@category.CategoryName</i>
+            <a href="@Url.Action("Index", "Home", new { categoryId = category.CategoryID })" class="item">
+                <i class="fa " style="display: inline-block">@category.CategoryName</i>
             </a>
         }
         @*Just for admin*@
@@ -32,30 +32,39 @@
         {
             using (Html.BeginForm("CreateCategory", "Home"))
             {
-                <div class="editor-field list-group-item">
+                <div class="item">
                     @Html.TextBoxFor(model => model.NewCategory.CategoryName, new { @class = "message-label1" })
                     <input type="submit" value="Новая категория" class="button-index btn">
                 </div>
             }
         }
-
+        
 
         </div>
     </div>
     <div id="stat">
 
-        <fieldset class="main">
-            <legend>Статьи</legend>
+        
+            <legend class="legend" >Статьи</legend>
+        
+        
             @foreach (var item in Model.ArticleList)
-            {
-                <div class="list-group-item">
-                    @item.ArticleTitle
-                    <a href="@Url.Action("DeleteArticle", "Home", new { id = item.ArticleID })" class="glyphicon glyphicon-remove" style="display:inline-block; float:right"></a>
-                    <a href="@Url.Action("EditArticle", "Home", new { id = item.ArticleID })" class="glyphicon glyphicon-pencil" style="display:inline-block; float:right;margin-right:20px"></a>
-                    <a href="@Url.Action("ShowArticle", "Home", new { id = item.ArticleID })" class="glyphicon glyphicon-play" style="display:inline-block; float: right; margin-right:20px"></a>
-                </div>
-            }
-        </fieldset>
+{
+        <div class="item">
+            @item.ArticleTitle
+
+            
+                <a id="del" href="@Url.Action("DeleteArticle", "Home", new { id = item.ArticleID })" class="glyphicon glyphicon-remove" style="display:inline-block; float:right"></a>
+            
+            
+                <a href="@Url.Action("EditArticle", "Home", new { id = item.ArticleID })" class="glyphicon glyphicon-pencil" style="display:inline-block; float:right;margin-right:20px"></a>
+           
+            
+                <a href="@Url.Action("ShowArticle", "Home", new { id = item.ArticleID })" class="glyphicon glyphicon-play" style="display:inline-block; float: right; margin-right:20px"></a>
+            
+        </div>
+}
+        
     </div>
 
 </div>
