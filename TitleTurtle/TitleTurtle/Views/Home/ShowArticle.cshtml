@@ -1,4 +1,5 @@
-﻿@model TitleTurtle.Models.Article
+﻿@using System.Globalization
+@model TitleTurtle.Models.Article
 
 @{
     ViewBag.Title = "Show";
@@ -19,12 +20,12 @@
             {
                 try
                 {
-            @Html.Raw("<img style='width:260px; height:180px;' src=\"data:image/jpeg;base64,"
-                                + Convert.ToBase64String(Model.MedialInArticles.First<TitleTurtle.Models.MediaInArticle>().Media.MediaData) + "\" />")
+                    @Html.Raw("<img style='width:260px; height:180px;' src=\"data:image/jpeg;base64,"
+                                                                          + Convert.ToBase64String(Model.MedialInArticles.First().Media.MediaData) + "\" />")
                 }
-                catch
+                catch (Exception)
                 {
-                    
+
                 }
             }
             <p>Добавил:@Model.User.UserFirstName</p>
@@ -36,7 +37,25 @@
                     @Model.Edits.ElementAt(Model.Edits.Count() - 1).Date
                 </p>
             }
+            <p style="color:chartreuse">@Model.Ratings.ElementAt(0).RatingLike</p>
+            <p style="color:crimson">@Model.Ratings.ElementAt(0).RatingDislike</p>
+            <p>@{int p = Model.Ratings.ElementAt(0).RatingLike - Model.Ratings.ElementAt(0).RatingDislike;}@p</p>
+            <br/>
+            @Html.ActionLink("UP vote",
+                             "Vote",
+                             "Home",
+                             new { _id = Model.ArticleID.ToString(CultureInfo.InvariantCulture), up = true },
+                             null)
+            <br/>
+            @Html.ActionLink("Down vote",
+                "Vote",
+                "Home",
+                new { _id = Model.ArticleID.ToString(CultureInfo.InvariantCulture), up = false },
+                null)
 
         </div>
     }
 </body>
+
+
+

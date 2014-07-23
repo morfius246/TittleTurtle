@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using TitleTurtle.Filters;
 using TitleTurtle.Models;
 using PagedList;
@@ -69,6 +70,16 @@ namespace TitleTurtle.Controllers
                 Date = DateTime.Now,
                 Type = type.Create
             };
+            var newRating = new Rating
+            {
+                RatingID = 1,
+                Article = newArticle,
+                ArticleID = model.NewArticle.ArticleID,
+                RatingDislike = 0,
+                RatingLike = 0,
+                RatingRepost = 0,
+                RatingView = 0
+            };
             if (uploadImage != null)
             {
                 // Read the uploaded file into a byte array
@@ -81,6 +92,7 @@ namespace TitleTurtle.Controllers
                 pic.MediaData = imageData;
             }
             Db.Edits.Add(newEdit);
+            Db.Ratings.Add(newRating);
             Db.Medias.Add(pic);
             Db.Articles.Add(newArticle);
             mediainart.MediaID = pic.MediaID;
@@ -217,6 +229,16 @@ namespace TitleTurtle.Controllers
             const int pageSize = 3;
             int pageNumber = (page ?? 1);
             return View(articles.ToPagedList(pageNumber, pageSize));
+        }
+
+        public ActionResult Vote(int _id, bool up)
+        {
+            if (up)
+                ++Db.Articles.First(x => x.ArticleID == _id).Ratings.First(x => x.RatingID == 1).RatingLike;
+            else
+                ++Db.Articles.First(x => x.ArticleID == _id).Ratings.First(x => x.RatingID == 1).RatingDislike;
+            Db.SaveChanges();
+            return RedirectToAction("ShowArticle", new {id = _id});
         }
     }
 }
