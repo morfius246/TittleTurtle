@@ -58,8 +58,8 @@ namespace TitleTurtle.Controllers
         public ActionResult CreateArticle(Main model, Media pic, HttpPostedFileBase uploadImage)
         {
 
-            var mediainart = new MediaInArticle();           
-            if(model.NewArticle.ArticleTitle==null)
+            var mediainart = new MediaInArticle();
+            if (model.NewArticle.ArticleTitle == null)
             {
                 model.NewArticle.ArticleTitle = "Без названия";
             }
@@ -95,7 +95,7 @@ namespace TitleTurtle.Controllers
             Db.SaveChanges();
             return RedirectToAction("Index");
         }
-     
+
         /// <summary>
         /// Open Article with ID
         /// </summary>
@@ -105,7 +105,7 @@ namespace TitleTurtle.Controllers
         public ActionResult ShowArticle(int? id)
         {
 
-           
+
 
 
             ArticleModel model = new ArticleModel();
@@ -116,7 +116,7 @@ namespace TitleTurtle.Controllers
                 on comment.ArticleID equals article.ArticleID
                 where comment.MainArticleID == id
                 select comment;
-            
+
             model.CommentList = t.ToArray();
 
             return View(model);
@@ -155,9 +155,9 @@ namespace TitleTurtle.Controllers
         /// <param name="model">Main model</param>
         /// <returns>View 'Index'</returns>
         [HttpPost]
-        public ActionResult EditArticle(Main model,int? id)
+        public ActionResult EditArticle(Main model, int? id)
         {
-            
+
             Media media = new Media();
             Article my = Db.Articles.First(x => x.ArticleID == model.NewArticle.ArticleID);
 
@@ -182,7 +182,7 @@ namespace TitleTurtle.Controllers
         /// <returns>View 'Index'</returns>
 
 
-      
+
         public ActionResult DeleteArticle(int id)
         {
             Db.Articles.Remove(Db.Articles.First(x => x.ArticleID == id));
@@ -200,8 +200,11 @@ namespace TitleTurtle.Controllers
         public ActionResult CreateCategory(Main model)
         {
             var newCategory = model.NewCategory;
-            Db.Categories.Add(newCategory);
-            Db.SaveChanges();
+            if (model.NewCategory !=null)
+            {
+                Db.Categories.Add(newCategory);
+                Db.SaveChanges();
+            }
             return RedirectToAction("Index");
         }
 
@@ -270,12 +273,12 @@ namespace TitleTurtle.Controllers
             Db.SaveChanges();
             return RedirectToAction("ShowArticle/" + temp.ArticleID.ToString());
         }
-            
+
         public ActionResult Feedback()
         {
             return View();
         }
-       
+
         [HttpPost]
         public ActionResult Feedback(FeedbackModel model)
         {
