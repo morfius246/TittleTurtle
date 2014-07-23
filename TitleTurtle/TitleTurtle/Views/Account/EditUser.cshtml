@@ -1,0 +1,67 @@
+﻿@model TitleTurtle.Models.User
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/prof/_Layout.cshtml";
+}
+@using (Html.BeginForm("EditUser", "Account", FormMethod.Post)) {
+   
+
+<fieldset>
+        
+        @ViewBag.Message
+
+        @Html.HiddenFor(model => model.UserID)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UserFirstName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.UserFirstName)
+            
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UserLastName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.UserLastName)
+
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Contacts)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Contacts)
+     
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Roles)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Roles)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PersonalDatas)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PersonalDatas)
+        </div>
+
+
+         <div class="editor-label">
+            @Html.LabelFor(model => model.Articles)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Articles)
+        </div>
+        
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+

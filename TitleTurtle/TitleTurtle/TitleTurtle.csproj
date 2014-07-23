@@ -235,6 +235,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Article.cs" />
+    <Compile Include="Models\ArticleModel.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Contact.cs" />
@@ -386,6 +387,7 @@
     <Content Include="Views\Home\ShowArticle.cshtml" />
     <Content Include="Views\Account\Control.cshtml" />
     <Content Include="Views\Home\Sort.cshtml" />
+    <Content Include="Views\Account\EditUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

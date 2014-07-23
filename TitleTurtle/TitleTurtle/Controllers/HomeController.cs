@@ -73,12 +73,19 @@ namespace TitleTurtle.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
         [AllowAnonymous]
         public ActionResult ShowArticle(int id)
         {
-            Article model = new Article();
-            model = db.Articles.First(x => x.ArticleID == id);
-            
+            ArticleModel model = new ArticleModel();
+            model.currentArticle = db.Articles.SingleOrDefault(x => x.ArticleID == id);
+            var t =
+                from comment in db.Comments
+                join article in db.Articles
+                on comment.ArticleID equals article.ArticleID
+                where comment.MainArticleID == id
+                select comment;
+            model.CommentList = t.ToArray();
             return View(model);
         }
 
@@ -163,6 +170,24 @@ namespace TitleTurtle.Controllers
             int pageSize = 3;
             int pageNumber = (page ?? 1);
             return View(articles.ToPagedList(pageNumber, pageSize));
+        }
+
+        public ActionResult CreateComment(ArticleModel model, string userName)
+        {
+            Comment newComment = model.NewComment;
+            int currentArticleId = model.currentArticle.ArticleID;//отримаэм ід поточ статті
+            Article temp = db.Articles.SingleOrDefault(x => x.ArticleID == currentArticleId);//отрим цю статтю за ід
+            newComment.Article.Category = temp.Category;//коментар має таку ж каегор як стаття
+            newComment.Article.ArticleStatus = 1;
+            newComment.ArticleID = temp.ArticleID;
+            newComment.MainArticle = temp;
+            newComment.MainArticleID = temp.ArticleID;
+            newComment.Article.UserID = db.Users.First(x => x.UserFirstName == userName).UserID;
+            //newComment.Article.User.UserFirstName = db.Users.First(x => x.UserFirstName == userName).UserFirstName;
+            //newComment.UserID = db.Users.First(x => x.UserFirstName == User.Identity.Name).UserID;
+            db.Comments.Add(newComment);
+            db.SaveChanges();
+            return RedirectToAction("ShowArticle/" + temp.ArticleID.ToString());
         }
     }
 }
