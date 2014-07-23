@@ -16,16 +16,7 @@
     </p>
 }
 <table>
-    <tr>
-        <th></th>
-        <th>
-            @Html.ActionLink("Title", "Sort", new { sortOrder = ViewBag.TitleSortParm, currentFilter = ViewBag.CurrentFilter })
-        </th>
-        <th> </th>
-        <th>
-            @Html.ActionLink("Text", "Sort", new { sortOrder = ViewBag.TextSortParm, currentFilter = ViewBag.CurrentFilter })
-        </th>
-    </tr>
+    
 
     @foreach (var item in Model)
     {
