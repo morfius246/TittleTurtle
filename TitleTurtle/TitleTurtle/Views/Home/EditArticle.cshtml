@@ -5,8 +5,25 @@
     Layout = "/Views/Shared/_Layout.cshtml";
 }
 <link href="~/Content/bootstrap.css" rel="stylesheet" />
+<script type="text/javascript" src="~/Scripts/jquery-1.9.1.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+
+        $('#home').click(function () {
+
+                $('#img').css("display", "none");
+                $('#home').css("display", "none");
+                k = false;
+        });
+    });
+  </script>
+
+@{Boolean[] massiv = new Boolean[1];}
 <body class="main">
-    @using (Html.BeginForm("EditArticle", "Home"))
+
+    
+    @using (Html.BeginForm("EditArticle", "Home", new { id = (Model.NewArticle.MedialInArticles.Count == 0) ? -1 : Model.NewArticle.MedialInArticles.FirstOrDefault<TitleTurtle.Models.MediaInArticle>().Media.MediaID }))
     {        
         <div style="margin: 0 auto">
             Категория:
@@ -24,7 +41,26 @@
             <br>
             Cодержимое: @Html.TextAreaFor(model => model.NewArticle.ArticleText, new { @class = "form-control", @style = "min-height:200px;margin: 0 auto;" })
             <br>
+            @try
+            {
+ 
+             @Html.Raw("<img id='img' style='width:260px; height:180px;' src=\"data:image/jpeg;base64,"
+                                + Convert.ToBase64String(Model.NewArticle.MedialInArticles.First<TitleTurtle.Models.MediaInArticle>().Media.MediaData) + "\" />")
+                <br>
+       
+
+
+                <input id ="home" type="button" value="Удалить">
+            }
+            catch
+            {
+
+            }
+            <br>
+            <br>
             <input type="submit" value="Сохранить" class="btn" />
         </div>
     }
+    
+    
 </body>

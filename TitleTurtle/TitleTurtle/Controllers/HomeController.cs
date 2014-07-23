@@ -57,6 +57,7 @@ namespace TitleTurtle.Controllers
         [HttpPost]
         public ActionResult CreateArticle(Main model, Media pic, HttpPostedFileBase uploadImage)
         {
+
             var mediainart = new MediaInArticle();
             var newArticle = model.NewArticle;
             newArticle.ArticleStatus = 1; //1 -- active //0 -- not confirmed //2 -- deleted
@@ -69,6 +70,7 @@ namespace TitleTurtle.Controllers
                 Date = DateTime.Now,
                 Type = type.Create
             };
+
             if (uploadImage != null)
             {
                 // Read the uploaded file into a byte array
@@ -103,11 +105,14 @@ namespace TitleTurtle.Controllers
             return View(model);
         }
 
+
         /// <summary>
         /// Open article with ID to edit
         /// </summary>
         /// <param name="id">ID of Article to edit</param>
         /// <returns>Main model with article and edit objects</returns>
+
+
         public ActionResult EditArticle(int id)
         {
             var model = new Main
@@ -133,22 +138,37 @@ namespace TitleTurtle.Controllers
         /// <param name="model">Main model</param>
         /// <returns>View 'Index'</returns>
         [HttpPost]
-        public ActionResult EditArticle(Main model)
+        public ActionResult EditArticle(Main model,int? id)
         {
-            var my = Db.Articles.First(x => x.ArticleID == model.NewArticle.ArticleID);
+            
+            Media media = new Media();
+            Article my = Db.Articles.First(x => x.ArticleID == model.NewArticle.ArticleID);
+
             my.ArticleTitle = model.NewArticle.ArticleTitle;
             my.ArticleText = model.NewArticle.ArticleText;
             my.CategoryID = model.NewArticle.CategoryID;
+            if (id != -1)
+            {
+                media = Db.Medias.FirstOrDefault(x => x.MediaID == id.Value);
+                Db.Medias.Remove(media);
+            }
             //my.Edits.Add(new Edit { Edition = DateTime.Now });
             Db.SaveChanges();
             return RedirectToAction("Index");
         }
+
 
         /// <summary>
         /// Delete article with id
         /// </summary>
         /// <param name="id">Id of article to delete</param>
         /// <returns>View 'Index'</returns>
+
+
+       
+        
+
+
         public ActionResult DeleteArticle(int id)
         {
             Db.Articles.Remove(Db.Articles.First(x => x.ArticleID == id));
