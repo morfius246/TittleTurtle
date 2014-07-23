@@ -1,49 +1,54 @@
-﻿@model TitleTurtle.Models.Main
+﻿<div id="bod">
+    <div id="manage2">
+        @model TitleTurtle.Models.Main
 
-@{
-    Layout = "/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = "CreateArticle";
-}
-
-<h2>Создание новой статьи</h2>
-
-<link href="~/Content/bootstrap.css" rel="stylesheet" />
-<body class="main">
-    @using (Html.BeginForm("CreateArticle", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
-    {   
-        <div style="margin: 0 auto">
-            Категория:
         @{
-        List<SelectListItem> list = new List<SelectListItem>();
-        foreach (var item in Model.CategoryList)
-        {
-            list.Add(new SelectListItem() { Text = item.CategoryName, Value = item.CategoryID.ToString() });
-        }        
+            Layout = "/Views/Shared/_Layout.cshtml";
+            ViewBag.Title = "CreateArticle";
         }
-            @Html.DropDownListFor(model => model.NewArticle.CategoryID, list, new { @class = "form-control", @style = "margin: 0 auto;" })
-            <br>
 
-            <div class="editor-label">Название</div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.NewMedia.MediaData)
-            @Html.ValidationMessageFor(model => model.NewMedia.MediaData)
-            @Html.HiddenFor(model =>model.NewMedia.MediaID)
-            @Html.HiddenFor(model=>model.NewArticle.ArticleID)
-           
-        </div>
-            <div class="editor-label">Файл изображения</div>
-        <div class="editor-field">
-           <input type="file" name="uploadImage" />
-        </div>
+        <h2>Создание новой статьи</h2>
 
-            <p>
-                <p>
+        <link href="~/Content/bootstrap.css" rel="stylesheet" />
+        <body class="main">
+            @using (Html.BeginForm("CreateArticle", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div style="margin: 0 auto">
+                    Категория:
+                    @{
+                List<SelectListItem> list = new List<SelectListItem>();
+                foreach (var item in Model.CategoryList)
+                {
+                    list.Add(new SelectListItem() { Text = item.CategoryName, Value = item.CategoryID.ToString() });
+                }
+                    }
+                    @Html.DropDownListFor(model => model.NewArticle.CategoryID, list, new { @class = "form-control", @style = "margin: 0 auto;" })
+                    <br>
 
-            Название: @Html.TextBoxFor(model => model.NewArticle.ArticleTitle, new { @class = "form-control", @style = "margin: 0 auto;" })
-            <br>
-            Cодержимое: @Html.TextAreaFor(model => model.NewArticle.ArticleText, new { @class = "form-control", @style = "min-height:200px;margin: 0 auto;" })
-            <br>
-            <input type="submit" value="Сохранить" class="btn" />
-        </div>
-    }
-</body>
+                    <div class="editor-label">Название</div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.NewMedia.MediaData)
+                        @Html.ValidationMessageFor(model => model.NewMedia.MediaData)
+                        @Html.HiddenFor(model => model.NewMedia.MediaID)
+                        @Html.HiddenFor(model => model.NewArticle.ArticleID)
+
+                    </div>
+                    <div class="editor-label">Файл изображения</div>
+                    <div class="editor-field">
+                        <input type="file" name="uploadImage" />
+                    </div>
+
+                    <p>
+                    <p>
+
+                        Название: @Html.TextBoxFor(model => model.NewArticle.ArticleTitle, new { @class = "form-control", @style = "margin: 0 auto;" })
+                        <br>
+                        Cодержимое: @Html.TextAreaFor(model => model.NewArticle.ArticleText, new { @class = "form-control", @style = "min-height:200px;margin: 0 auto;" })
+                        <br>
+                        <input type="submit" value="Сохранить" class="btn" />
+                </div>
+            }
+        </body>
+
+    </div>
+</div>

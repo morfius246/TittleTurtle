@@ -7,11 +7,16 @@
     font-variant: normal;
 }
 */
-
+div, footer {
+   
+    font: normal 400 12pt Arial;
+	bo3rder: 1px solid black;
+}
 body {
     background: url(../img/background.jpg) fixed #ECEEE9;
     color: #555;
     font-family: Verdana, Arial, sans-serif;
+    margin:0;
 	
 }
 
@@ -35,11 +40,7 @@ body {
 
 
 
-div, footer {
-    font-size: 100%;
-    font: normal 400 12pt Arial;
-	b444order: 1px solid black;
-}
+
 
 
 p {
@@ -102,11 +103,15 @@ h5 {
 
 #fb, #tv {
 		float: right;
-		margin: 0px;
-		padding-top:10px;
+		margin-top: -10px;
+        margin-right: 500px:
+		padding-top:0px;
 		padding-right:3px;
 }
-#fb{padding-right:3%;}
+#fb{
+    padding-right:3%;
+
+}
 
 #inf1, #inf2, #inf3{
 	float: left;
@@ -228,26 +233,120 @@ margin-bottom: 10px;
     margin-top:30px;
 }
 
+
 #head1 {
     
 width:100px;
 height:20px;
-
+text-align: center; 
 }
 #bod {
     margin: 0 15% 0 15%;
     width: 70%;
     height: 700px;
+    background: #ffffff
 }
 
+#manage {
+     margin: 0 15% 0 15%;
+    width: 70%;
+    
+}
+
+#manage2 {
+margin: 0 15% 0 15%;
+    width: 70%;
+    text-align: center;
+}
+
+
+.legend {
+    
+text-align:center;
+padding: 0;
+padding-top: 15px;
+margin-bottom: 20px;
+font-size: 21px;
+line-height: inherit;
+color: #333;
+border: 0;
+border-bottom: 1px solid #e5e5e5;
+}
+
+.btn {
+
+    
+    height: 30px;
+    b4order:3px solid #7848b4;
+    border-radius: 15%;
+    background:;
+    margin-left:30px;
+    margin-top:30px;
+}
 #kat {
-    float:right;
-    width:250px;
+    margin-left: 5px;
+    float: left;
+    width:28%;
+}
+
+#upkat {
+ float:left;
+ width:100%;
+}
+
+#footer_item {
+height:75px;
+margin-bottom:20px;
+}
+
+.Statiy {
+margin-top:15px;
+margin-bottom:15px;
+text-align:center;
 }
 
 #stat {
-    float:left;
-    width:600px;
+    float:right;
+    width:70%;
+    margin-right: 5px;
+}
+
+.item {
+position: relative;
+display: block;
+padding: 10px 15px;
+margin-bottom: -1px;
+background-color: #fff;
+border: 1px solid #ddd;
+}
+
+.remove {
+    position: relative;
+display: block;
+padding: 10px 15px;
+margin-bottom: -1px;
+background-color: #fff;
+border: 1px solid #ddd;
+}
+
+.pencil {
+    position: relative;
+display: block;
+padding: 10px 15px;
+margin-bottom: -1px;
+background-color: #fff;
+border: 1px solid #ddd;
+}
+
+.play {
+position: relative;
+top: 1px;
+display: inline-block;
+font-family: 'Glyphicons Halflings';
+font-style: normal;
+font-weight: normal;
+line-height: 1;
+-webkit-font-smoothing: antialiased
 }
 
 .headkat {
@@ -259,9 +358,15 @@ background-color: #fff;
 border: 1px solid #ddd;
 }
 
-#upkat {
- float:left;
+.fa {
+position: relative;
+display: block;
+padding: 10px 15px;
+margin-bottom: -1px;
+background-color: #fff;
+b4order: 1px solid #ddd;
 }
+
 
 form {
  display: inline-block;

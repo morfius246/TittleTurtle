@@ -1,12 +1,14 @@
-﻿@model PagedList.IPagedList<TitleTurtle.Models.Article>
-@using PagedList.Mvc; 
-<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+﻿<div id="bod">
+    <div id="manage2">
+        @model PagedList.IPagedList<TitleTurtle.Models.Article>
+        @using PagedList.Mvc;
+        <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
-@{
-    ViewBag.Title = "Articles";
-}
+        @{
+            ViewBag.Title = "Articles";
+        }
 
-<h2>Articles</h2>
+        <h2>Articles</h2>
 
 @using (Html.BeginForm("Sort", "Home", FormMethod.Get))
 {
@@ -15,17 +17,8 @@
         <input type="submit" value="Search" />
     </p>
 }
+
 <table>
-    <tr>
-        <th></th>
-        <th>
-            @Html.ActionLink("Title", "Sort", new { sortOrder = ViewBag.TitleSortParm, currentFilter = ViewBag.CurrentFilter })
-        </th>
-        <th> </th>
-        <th>
-            @Html.ActionLink("Text", "Sort", new { sortOrder = ViewBag.TextSortParm, currentFilter = ViewBag.CurrentFilter })
-        </th>
-    </tr>
 
     @foreach (var item in Model)
     {
@@ -34,13 +27,30 @@
                 @Html.DisplayFor(modelItem => item.ArticleTitle)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ArticleText)
+                @{
+        string shortText;
+        if (item.ArticleText.Length > 40)
+        {
+            shortText = item.ArticleText.Substring(0, 40);
+        }
+        else
+        { 
+            shortText = item.ArticleText;
+        }
+                }
+                <p>@shortText</p>
+                @Html.ActionLink("Подробнее", "ShowArticle", "Home", new { id = item.ArticleID }, null)
             </td>
         </tr>
     }
 
 </table>
-<br />
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-@Html.PagedListPager(Model, page => Url.Action("Sort", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+        <br />
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+
+        @Html.PagedListPager(Model, page => Url.Action("Sort", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+    </div>
+</div>
+<link href="~/Content/bootstrap.css" rel="stylesheet" />

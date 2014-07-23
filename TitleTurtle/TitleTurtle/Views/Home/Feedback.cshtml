@@ -1,0 +1,66 @@
+﻿@model TitleTurtle.Models.FeedbackModel
+
+@{
+    ViewBag.Title = "Feedback";
+}
+
+@using (Ajax.BeginForm(
+"feedback",
+"home",
+new AjaxOptions
+{
+    HttpMethod = "post",
+    UpdateTargetId = "target",
+    LoadingElementId = "sendingProgress",
+    InsertionMode = InsertionMode.Replace
+}))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Обратная связь</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UserName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.UserName)
+            @Html.ValidationMessageFor(model => model.UserName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Email)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MessageText)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MessageText)
+            @Html.ValidationMessageFor(model => model.MessageText)
+        </div>
+
+        <p>
+            <input type="submit" value="Отправить" />
+            <span id="sendingProgress" style="display: none;">
+                ждите, идет отправка сообщения...
+
+                <img src='@Href("~/Content/Images/ajax_loader_big.gif")' alt="Ждите" />
+            </span>
+        </p>
+        <p id="target">
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Назад", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
