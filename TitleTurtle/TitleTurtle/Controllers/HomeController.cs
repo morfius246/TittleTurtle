@@ -58,8 +58,8 @@ namespace TitleTurtle.Controllers
         public ActionResult CreateArticle(Main model, Media pic, HttpPostedFileBase uploadImage)
         {
 
-            var mediainart = new MediaInArticle();           
-            if(model.NewArticle.ArticleTitle==null)
+            var mediainart = new MediaInArticle();
+            if (model.NewArticle.ArticleTitle == null)
             {
                 model.NewArticle.ArticleTitle = "Без названия";
             }
@@ -95,15 +95,19 @@ namespace TitleTurtle.Controllers
             Db.SaveChanges();
             return RedirectToAction("Index");
         }
-     
+
         /// <summary>
         /// Open Article with ID
         /// </summary>
         /// <param name="id">ID of article to open</param>
         /// <returns>View with model of article</returns>
         [AllowAnonymous]
-        public ActionResult ShowArticle(int id)
+        public ActionResult ShowArticle(int? id)
         {
+
+
+
+
             ArticleModel model = new ArticleModel();
             model.currentArticle = Db.Articles.SingleOrDefault(x => x.ArticleID == id);
             var t =
@@ -112,8 +116,9 @@ namespace TitleTurtle.Controllers
                 on comment.ArticleID equals article.ArticleID
                 where comment.MainArticleID == id
                 select comment;
-            
+
             model.CommentList = t.ToArray();
+
             return View(model);
         }
 
@@ -151,9 +156,9 @@ namespace TitleTurtle.Controllers
         /// <param name="model">Main model</param>
         /// <returns>View 'Index'</returns>
         [HttpPost]
-        public ActionResult EditArticle(Main model,int? id)
+        public ActionResult EditArticle(Main model, int? id)
         {
-            
+
             Media media = new Media();
             Article my = Db.Articles.First(x => x.ArticleID == model.NewArticle.ArticleID);
 
@@ -179,15 +184,13 @@ namespace TitleTurtle.Controllers
 
         public ActionResult DeletePicFromArticle(Main model,int? ArticleId)
         {
-
             Media media = new Media();
             media = Db.Medias.FirstOrDefault(x => x.MediaID == ArticleId.Value);
             Db.Medias.Remove(media);
             Db.SaveChanges();
             return RedirectToAction("EditArticle", new { id = ArticleId });
         }
-        
-      
+
         public ActionResult DeleteArticle(int id)
         {
             Db.Articles.Remove(Db.Articles.First(x => x.ArticleID == id));
@@ -204,11 +207,21 @@ namespace TitleTurtle.Controllers
         public ActionResult CreateCategory(Main model)
         {
             var newCategory = model.NewCategory;
-            Db.Categories.Add(newCategory);
-            Db.SaveChanges();
+            if (model.NewCategory.CategoryName !=null)
+            {
+                Db.Categories.Add(newCategory);
+                Db.SaveChanges();
+            }
             return RedirectToAction("Index");
         }
 
+      
+        public ActionResult RemoveCategory(int? id)
+        {
+            Db.Categories.Remove(Db.Categories.First(x => x.CategoryID == id.Value));
+            Db.SaveChanges();
+            return RedirectToAction("Index");
+        }
         /// <summary>
         /// Search
         /// </summary>
@@ -274,12 +287,12 @@ namespace TitleTurtle.Controllers
             Db.SaveChanges();
             return RedirectToAction("ShowArticle/" + temp.ArticleID.ToString());
         }
-            
+
         public ActionResult Feedback()
         {
             return View();
         }
-       
+
         [HttpPost]
         public ActionResult Feedback(FeedbackModel model)
         {
