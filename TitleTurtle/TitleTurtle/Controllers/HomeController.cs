@@ -102,9 +102,9 @@ namespace TitleTurtle.Controllers
         /// <param name="id">ID of article to open</param>
         /// <returns>View with model of article</returns>
         [AllowAnonymous]
-        public ActionResult ShowArticle(int id)
+        public ActionResult ShowArticle(int? id)
         {
-            var model = Db.Articles.First(x => x.ArticleID == id);
+            var model = Db.Articles.First(x => x.ArticleID == id.Value);
 
             return View(model);
         }

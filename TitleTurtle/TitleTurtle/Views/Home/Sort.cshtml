@@ -16,7 +16,6 @@
     </p>
 }
 <table>
-    
 
     @foreach (var item in Model)
     {
@@ -25,7 +24,19 @@
                 @Html.DisplayFor(modelItem => item.ArticleTitle)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ArticleText)
+                @{
+        string shortText;
+        if (item.ArticleText.Length > 40)
+        {
+            shortText = item.ArticleText.Substring(0, 40);
+        }
+        else
+        { 
+            shortText = item.ArticleText;
+        }
+                }
+                <p>@shortText</p>
+                @Html.ActionLink("Подробнее", "ShowArticle", "Home", new { id = item.ArticleID }, null)
             </td>
         </tr>
     }
