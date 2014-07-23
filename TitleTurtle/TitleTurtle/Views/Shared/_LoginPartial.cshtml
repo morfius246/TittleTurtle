@@ -1,6 +1,4 @@
 ﻿@if (Request.IsAuthenticated) {
-
-    
         <text>
             !@Html.ActionLink(User.Identity.Name, "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "navli", title = "Manage" })
             @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
@@ -9,9 +7,8 @@
         }
         </text>
         }
-    
 else
 {
     <li class="navli">@Html.ActionLink("Регистрация", "Register", "Account", null, new { id = "registerLink"})</li>
-    <li class="navli" >@Html.ActionLink("Войти", "Login", "Account", null, new { id = "loginLink"})</li>
+    <li class="navli">@Html.ActionLink("Войти", "Login", "Account", null, new { id = "loginLink"})</li>
 }

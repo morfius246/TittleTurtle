@@ -72,7 +72,7 @@ namespace TitleTurtle.Controllers
             if (uploadImage != null)
             {
                 // Read the uploaded file into a byte array
-                byte[] imageData = null;
+                byte[] imageData;
                 using (var binaryReader = new BinaryReader(uploadImage.InputStream))
                 {
                     imageData = binaryReader.ReadBytes(uploadImage.ContentLength);

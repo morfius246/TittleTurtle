@@ -23,19 +23,17 @@
                 </div>
                 <nav id="nav">
                     <ul id="navul">
-                        <li class="navli">@Html.ActionLink("Все статьи", "Index", "Home", null)</li>
+                        <li class="navli">@Html.ActionLink("Все статьи", "Index", "Home")</li>
                         @if (User.IsInRole("Admin"))
                         {
-                            <li class="navli">@Html.ActionLink("Управление", "Control", "Account", null)</li>
+                            <li class="navli">@Html.ActionLink("Управление", "Control", "Account")</li>
                         }
-                        <li class="navli">@Html.ActionLink("Поиск", "Sort", "Home", null)</li>
-
+                        <li class="navli">@Html.ActionLink("Поиск", "Sort", "Home")</li>
                         <li class ="navli"><div id="head1"></div></li>
                         @Html.Partial("_LoginPartial")
                     </ul>
                 </nav>
             </div>
-
         </div>
     </header>
     
