@@ -30,7 +30,10 @@ namespace TitleTurtle.Controllers
             {
                 ArticleList =
                     categoryId == null
-                        ? Db.Articles.ToList()
+                        ? (from article in Db.Articles
+                           where !(from comment in Db.Comments
+                                   select comment.ArticleID).Contains(article.ArticleID)
+                           select article).ToList()
                         : Db.Articles.Where(x => x.CategoryID == categoryId).ToList(),
                 CategoryList = Db.Categories.ToList()
             };
@@ -139,12 +142,12 @@ namespace TitleTurtle.Controllers
 
 
         public ActionResult EditArticle(int id)
-        {   
+        {
             var model = new Main
             {
                 CategoryList = Db.Categories.ToList(),
                 NewArticle = Db.Articles.First(x => x.ArticleID == id)
-               
+
             };
             var newEdit = new Edit
             {
@@ -190,7 +193,7 @@ namespace TitleTurtle.Controllers
         /// <param name="id">Id of article to delete</param>
         /// <returns>View 'Index'</returns>
 
-        public ActionResult DeletePicFromArticle(Main model,int? ArticleId)
+        public ActionResult DeletePicFromArticle(Main model, int? ArticleId)
         {
             Media media = new Media();
             media = Db.Medias.FirstOrDefault(x => x.MediaID == ArticleId.Value);
@@ -215,7 +218,7 @@ namespace TitleTurtle.Controllers
         public ActionResult CreateCategory(Main model)
         {
             var newCategory = model.NewCategory;
-            if (model.NewCategory.CategoryName !=null)
+            if (model.NewCategory.CategoryName != null)
             {
                 Db.Categories.Add(newCategory);
                 Db.SaveChanges();
@@ -223,7 +226,7 @@ namespace TitleTurtle.Controllers
             return RedirectToAction("Index");
         }
 
-      
+
         public ActionResult RemoveCategory(int? id)
         {
             Db.Categories.Remove(Db.Categories.First(x => x.CategoryID == id.Value));
@@ -285,7 +288,7 @@ namespace TitleTurtle.Controllers
             else
                 ++Db.Articles.First(x => x.ArticleID == _id).Ratings.First(x => x.RatingID == 1).RatingDislike;
             Db.SaveChanges();
-            return RedirectToAction("ShowArticle", new {id = _id});
+            return RedirectToAction("ShowArticle", new { id = _id });
         }
 
         public ActionResult CreateComment(ShowArticle model, string userName)

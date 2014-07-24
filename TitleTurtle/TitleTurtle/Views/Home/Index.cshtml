@@ -24,10 +24,10 @@
         @foreach (var category in Model.CategoryList)
         {
             <a href="@Url.Action("Index", "Home", new { categoryId = category.CategoryID })" class="item">
-                <a href="@Url.Action("RemoveCategory", "Home", new { id = category.CategoryID })" class="glyphicon glyphicon-remove" style="display:inline-block; float:right"></a>
+  
                 <i class="fa " style="display: inline-block">@category.CategoryName</i>
-                
-            </a>
+                              @*<a href="@Url.Action("RemoveCategory", "Home", new { id = category.CategoryID })" class="glyphicon glyphicon-remove" style="display:inline-block; float:right"></a>*@
+                </a>
         }
             @*Just for admin*@
             @if (User.IsInRole("Admin"))
