@@ -115,12 +115,9 @@ namespace TitleTurtle.Controllers
         [AllowAnonymous]
         public ActionResult ShowArticle(int? id)
         {
-
-
-
-
-            ArticleModel model = new ArticleModel();
-            model.currentArticle = Db.Articles.SingleOrDefault(x => x.ArticleID == id);
+            ShowArticle model = new ShowArticle();
+            model.Article = Db.Articles.SingleOrDefault(x => x.ArticleID == id);
+            model.CurrentArticle = Db.Articles.SingleOrDefault(x => x.ArticleID == id);
             var t =
                 from comment in Db.Comments
                 join article in Db.Articles
@@ -291,10 +288,10 @@ namespace TitleTurtle.Controllers
             return RedirectToAction("ShowArticle", new {id = _id});
         }
 
-        public ActionResult CreateComment(ArticleModel model, string userName)
+        public ActionResult CreateComment(ShowArticle model, string userName)
         {
             Comment newComment = model.NewComment;
-            int currentArticleId = model.currentArticle.ArticleID;//отримаэм ід поточ статті
+            int currentArticleId = model.CurrentArticle.ArticleID;//отримаэм ід поточ статті
             Article temp = Db.Articles.SingleOrDefault(x => x.ArticleID == currentArticleId);//отрим цю статтю за ід
             newComment.Article.Category = temp.Category;//коментар має таку ж каегор як стаття
             newComment.Article.ArticleStatus = 1;
