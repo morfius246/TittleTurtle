@@ -47,17 +47,10 @@
                 @Html.Raw("<img id='img' style='width:260px; height:180px;' src=\"data:image/jpeg;base64,"
                                 + Convert.ToBase64String(Model.NewArticle.MedialInArticles.First<TitleTurtle.Models.MediaInArticle>().Media.MediaData) + "\" />")
                 <br>
-<<<<<<< 6274680aa155cacbac32aeae8e3c47cccce7db68
 
-                @Html.ActionLink("Del", "DeletePicFromArticle", "Home", new { ArticleId = Model.NewArticle.MedialInArticles.First<TitleTurtle.Models.MediaInArticle>().Media.MediaID }, null)
+                @Html.ActionLink("Удалить картинку", "DeletePicFromArticle", "Home", new { MediaId = Model.NewArticle.MedialInArticles.First<TitleTurtle.Models.MediaInArticle>().Media.MediaID, ArticleId = Model.NewArticle.ArticleID }, null)
 
-                <input id="home" type="button" value="Удалить">
-=======
-       
-                @Html.ActionLink("Удалить картинку","DeletePicFromArticle", "Home", new { MediaId = Model.NewArticle.MedialInArticles.First<TitleTurtle.Models.MediaInArticle>().Media.MediaID, ArticleId = Model.NewArticle.ArticleID },null)
 
-               
->>>>>>> d4b4384b12f305006094540ac79ba1a3d73b1a53
             }
             catch
             {
