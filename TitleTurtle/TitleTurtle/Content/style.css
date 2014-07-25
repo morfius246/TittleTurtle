@@ -10,7 +10,7 @@
 div, footer {
    
     font: normal 400 12pt Arial;
-	border: 1px solid black;
+	bo4rder: 1px solid black;
 }
 body {
     background: url(../img/background.jpg) fixed #ECEEE9;
@@ -104,7 +104,7 @@ h5 {
 #fb, #tv {
 		float: right;
 		margin-top: -10px;
-        margin-right: 500px:
+    margin-right: 500px;
 		padding-top:0px;
 		padding-right:3px;
 }
@@ -378,7 +378,7 @@ margin-top:px;
 }
 
 .item2 {
-    background:#6699FF;
+
     margin:10px;
     width:90%;
 position: relative;
@@ -451,7 +451,7 @@ b4order: 1px solid #ddd;
 }
 
 #fild_category {
-background: #3366FF;
+
 }
 
 form {

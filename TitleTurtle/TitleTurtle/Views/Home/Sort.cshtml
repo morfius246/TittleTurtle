@@ -5,16 +5,16 @@
         <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
         @{
-            ViewBag.Title = "Articles";
+            ViewBag.Title = "Поиск";
         }
 
-        <h2>Articles</h2>
+        <h2>Поиск</h2>
 
 @using (Html.BeginForm("Sort", "Home", FormMethod.Get))
 {
     <p>
-        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
-        <input type="submit" value="Search" />
+        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Искать!" />
     </p>
 }
 
