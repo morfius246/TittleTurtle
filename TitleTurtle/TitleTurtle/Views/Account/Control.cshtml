@@ -3,10 +3,10 @@
         @model IEnumerable<TitleTurtle.Models.User>
 
         @{
-            ViewBag.Title = "AllUsers";
+            ViewBag.Title = "Пользователи";
         }
 
-        <h2>AllUsers</h2>
+        <h2>Пользователи</h2>
 
         <table>
             @foreach (var item in Model)
@@ -18,24 +18,11 @@
                     <td></td>
                     <td>
                         @{
-                String[] userRoles = Roles.GetRolesForUser(item.UserFirstName);
+                            String[] userRoles = Roles.GetRolesForUser(item.UserFirstName);
                         }
-                        @if (!userRoles.Contains("Author"))
-                        {
-                            @Html.ActionLink("Сделать автором", "MakeAuthor", new { userName = item.UserFirstName })
-                        }
-                        else
-                        {
-                            @Html.ActionLink("Убрать из авторов", "RemoveFromAuthor", new { userName = item.UserFirstName })
-                        }
-                        @if (!userRoles.Contains("Admin"))
-                        {
-                            @Html.ActionLink("Сделать администратором", "MakeAdmin", new { userName = item.UserFirstName })
-                        }
-                        else
-                        {
-                            @Html.ActionLink("Убрать из администраторов", "RemoveFromAdmins", new { userName = item.UserFirstName })
-                        }
+
+                        @(!userRoles.Contains("Author") ? Html.ActionLink("Сделать автором", "MakeAuthor", new {userName = item.UserFirstName}) : Html.ActionLink("Убрать из авторов", "RemoveFromAuthor", new {userName = item.UserFirstName}))
+                        @(!userRoles.Contains("Admin") ? Html.ActionLink("Сделать администратором", "MakeAdmin", new {userName = item.UserFirstName}) : Html.ActionLink("Убрать из администраторов", "RemoveFromAdmins", new {userName = item.UserFirstName}))
                         @Html.ActionLink("Удалить", "DeleteUser", new { userName = item.UserFirstName })
                     </td>
                 </tr>
