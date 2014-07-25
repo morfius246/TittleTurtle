@@ -1,91 +1,66 @@
-﻿<div id="manage">
-    <div id="manage2">
+﻿@model TitleTurtle.Models.Main
 
-        @model TitleTurtle.Models.Main
+@{
+    ViewBag.Title = "Edit";
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<script type="text/javascript" src="~/Scripts/jquery-1.9.1.js"></script>
+<script type="text/javascript">
 
-        @{
-            ViewBag.Title = "Edit";
-            Layout = "/Views/Shared/_Layout.cshtml";
-        }
-     
-        <script type="text/javascript" src="~/Scripts/jquery-1.9.1.js"></script>
-        <script type="text/javascript">
+    $(function () {
 
-            $(function () {
+        $('#home').click(function () {
 
-                $('#home').click(function () {
+            $('#img').css("display", "none");
+            $('#home').css("display", "none");
+            k = false;
+        });
+    });
+</script>
 
-                    $('#img').css("display", "none");
-                    $('#home').css("display", "none");
-                    k = false;
-                });
-            });
-        </script>
-
-        @{Boolean[] massiv = new Boolean[1];}
-        <body class="main">
-
-<<<<<<< HEAD
-=======
 
 <body class="main">
->>>>>>> origin/master
 
-            @using (Html.BeginForm("EditArticle", "Home", new { id = (Model.NewArticle.MedialInArticles.Count == 0) ? -1 : Model.NewArticle.MedialInArticles.FirstOrDefault<TitleTurtle.Models.MediaInArticle>().Media.MediaID }))
-{
-    <div style="margin: 0 auto">
-        <div id="editArticlebut">
-            Категория:
-        </div>
-        @{
-    List<SelectListItem> list = new List<SelectListItem>();
-    foreach (var item in Model.CategoryList)
+
+    @using (Html.BeginForm("EditArticle", "Home", new { id = (Model.NewArticle.MedialInArticles.Count == 0) ? -1 : Model.NewArticle.MedialInArticles.FirstOrDefault<TitleTurtle.Models.MediaInArticle>().Media.MediaID }))
     {
-        list.Add(new SelectListItem() { Text = item.CategoryName, Value = item.CategoryID.ToString() });
-    }
+        <div style="margin: 0 auto">
+            Категория:
+            @{
+        List<SelectListItem> list = new List<SelectListItem>();
+        foreach (var item in Model.CategoryList)
+        {
+            list.Add(new SelectListItem() { Text = item.CategoryName, Value = item.CategoryID.ToString() });
         }
-        @Html.DropDownListFor(model => model.NewArticle.CategoryID, list, new { @class = "form-control", @style = "margin: 0 auto;" })
-        <br>
-        <div id="editArticlebut">
-            Название:
-        </div> @Html.TextBoxFor(model => model.NewArticle.ArticleTitle, new { @class = "form-control", @style = "margin: 0 auto;" })
+            }
+            @Html.DropDownListFor(model => model.NewArticle.CategoryID, list, new { @class = "form-control", @style = "margin: 0 auto;" })
+            <br>
+            Название: @Html.TextBoxFor(model => model.NewArticle.ArticleTitle, new { @class = "form-control", @style = "margin: 0 auto;" })
             @Html.HiddenFor(model => model.NewArticle.ArticleID)
             <br>
-        <div id="editArticlebut">
-            Cодержимое:
-        </div> @Html.TextAreaFor(model => model.NewArticle.ArticleText, new { @class = "form-control", @style = "min-height:200px;margin: 0 auto;" })
+            Cодержимое: @Html.TextAreaFor(model => model.NewArticle.ArticleText, new { @class = "form-control", @style = "min-height:200px;margin: 0 auto;" })
             <br>
             @try
-        {
+            {
 
                 @Html.Raw("<img id='img' style='width:260px; height:180px;' src=\"data:image/jpeg;base64,"
                                 + Convert.ToBase64String(Model.NewArticle.MedialInArticles.First<TitleTurtle.Models.MediaInArticle>().Media.MediaData) + "\" />")
                 <br>
-<<<<<<< HEAD
 
-=======
-       
-                @Html.ActionLink("Del","DeletePicFromArticle", "Home", new { ArticleId = Model.NewArticle.MedialInArticles.First<TitleTurtle.Models.MediaInArticle>().Media.MediaID },null)
->>>>>>> origin/master
-
+                @Html.ActionLink("Del", "DeletePicFromArticle", "Home", new { ArticleId = Model.NewArticle.MedialInArticles.First<TitleTurtle.Models.MediaInArticle>().Media.MediaID }, null)
 
                 <input id="home" type="button" value="Удалить">
-        }
-        catch
-        {
+            }
+            catch
+            {
 
-        }
+            }
             <br>
             <br>
-            <div id="butsave">
-                <input type="submit" value="Сохранить" class="btn" />
-            </div>
+            <input type="submit" value="Сохранить" class="btn" />
         </div>
-}
+    }
 
 
-        </body>
-        |
-    </div>
-</div>
-<link href="~/Content/bootstrap.css" rel="stylesheet" />
+</body>
