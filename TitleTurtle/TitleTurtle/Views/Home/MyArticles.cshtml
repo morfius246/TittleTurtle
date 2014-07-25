@@ -1,0 +1,20 @@
+﻿@model TitleTurtle.Models.Main
+@{
+    ViewBag.Title = "My Articles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<h2>Мои статьи</h2>
+<div>
+    @foreach (var item in Model.ArticleList)
+    {
+        <div class="item">
+            @item.ArticleTitle
+                <a id="del" href="@Url.Action("DeleteArticle", "Home", new { id = item.ArticleID })" class="glyphicon glyphicon-remove" style="display:inline-block; float:right"></a>
+                <a href="@Url.Action("EditArticle", "Home", new { id = item.ArticleID })" class="glyphicon glyphicon-pencil" style="display:inline-block; float:right;margin-right:20px"></a>
+            <a href="@Url.Action("ShowArticle", "Home", new { id = item.ArticleID })" class="glyphicon glyphicon-play" style="display:inline-block; float: right; margin-right:20px"></a>
+        </div>
+    }
+</div>
+

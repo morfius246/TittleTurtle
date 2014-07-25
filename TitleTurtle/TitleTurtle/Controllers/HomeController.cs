@@ -55,6 +55,26 @@ namespace TitleTurtle.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Admin, Author")]
+        public ActionResult MyArticles(int? categoryId)
+        {
+            var model = new Main
+            {
+                ArticleList =
+                    categoryId == null
+                        ? (from article in Db.Articles
+                           where !(from comment in Db.Comments
+                                   select comment.ArticleID).Contains(article.ArticleID) && ( article.User.UserFirstName ==User.Identity.Name )
+                           select article).ToList()
+                        : (from article in Db.Articles
+                           where ( article.User.UserFirstName ==User.Identity.Name ) && (article.CategoryID == categoryId) && !(from comment in Db.Comments
+                                                                       select comment.ArticleID).Contains(article.ArticleID)
+                           select article).ToList(),
+                CategoryList = Db.Categories.ToList()
+            };
+            return View(model);
+        }
+        
         /// <summary>
         /// Create new article
         /// </summary>
