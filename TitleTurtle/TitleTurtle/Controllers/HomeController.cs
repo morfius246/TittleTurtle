@@ -61,7 +61,6 @@ namespace TitleTurtle.Controllers
         [HttpPost]
         public ActionResult CreateArticle(Main model, Media pic, HttpPostedFileBase uploadImage)
         {
-
             var mediainart = new MediaInArticle();
             if (model.NewArticle.ArticleTitle == null)
             {
