@@ -1,3 +1,76 @@
+<<<<<<< HEAD
+﻿
+<div id="bod">
+    @model TitleTurtle.Models.ArticleModel
+
+    @{
+        ViewBag.Title = "Show";
+        Layout = "/Views/Shared/_Layout.cshtml";
+    }
+    <div id="manage">
+        <div id="manage2">
+            <head>
+                <title>@Model.currentArticle.ArticleTitle</title>
+            </head>
+            <body>
+                @using (Html.BeginForm("ShowArticle", "Home"))
+                {
+                    <div class="main">
+                        <h2>@Html.DisplayFor(model => model.currentArticle.ArticleTitle)</h2>
+                        @Html.HiddenFor(model => model.currentArticle.ArticleID)
+                        @Html.DisplayFor(model => model.currentArticle.ArticleText)<br>
+                        @if (Model.currentArticle.MedialInArticles.Count != 0)
+                        {
+                            try
+                            {
+                                @Html.Raw("<img style='width:260px; height:180px;' src=\"data:image/jpeg;base64,"
+                                + Convert.ToBase64String(Model.currentArticle.MedialInArticles.First<TitleTurtle.Models.MediaInArticle>().Media.MediaData) + "\" />")
+                            }
+                            catch
+                            {
+
+                            }
+                        }
+                        <br>
+                        <p>Добавил:@Model.currentArticle.User.UserFirstName</p>
+                        <p>Дата создания: @Model.currentArticle.Edits.ElementAt(0).Date</p>
+                        @if (Model.currentArticle.Edits.Count() > 1)
+                        {
+                            <p>
+                                Дата последнего изменения:
+                                @Model.currentArticle.Edits.ElementAt(Model.currentArticle.Edits.Count() - 1).Date
+                            </p>
+                        }
+
+                    </div>
+                }
+                <h2>Comments</h2>
+
+                @using (Html.BeginForm("CreateComment", "Home", FormMethod.Post))
+                {
+                    <input type="hidden" name="currentArticle.ArticleID" value=@Model.currentArticle.ArticleID.ToString() />
+                    <input type="hidden" name="CommentList" value=@Model.CommentList />
+                    <fieldset>
+                        <legend>Добавить запись</legend>
+
+                        @User.Identity.Name
+                        Введите сообщение:
+                        <br />
+                        @Html.EditorFor(model => model.NewComment.Article.ArticleText)
+                        <br />
+                        <input type="submit" value=@User.Identity.Name name="Username" />
+                    </fieldset>
+                }
+                <script>
+                    function clickIt() {
+                        $("#sub").click();
+                    }
+                </script>
+                <h3>Все записи</h3>
+                @foreach (var item in Model.CommentList)
+                {
+                    <div style="background-color:silver; padding:3px; margin:5px;">
+=======
 ﻿@model TitleTurtle.Models.ShowArticle
 
 
@@ -41,6 +114,7 @@
             <p style="color:chartreuse">@Model.Article.Ratings.ElementAt(0).RatingLike</p>
             <p style="color:crimson">@Model.Article.Ratings.ElementAt(0).RatingDislike</p>
             <p>@{int p = Model.Article.Ratings.ElementAt(0).RatingLike - Model.Article.Ratings.ElementAt(0).RatingDislike;}@p</p>
+<<<<<<< HEAD
             <br />
             @*Html.ActionLink("UP vote",
                                  "Vote",
@@ -54,7 +128,40 @@
                     new { _id = Model.Article.ArticleID.ToString(), up = false },
                     null)
             *@
+=======
+            <br/>
+            @Html.ActionLink("UP vote",
+                             "Vote",
+                             "Home",
+                             new { _id = Model.Article.ArticleID.ToString(), up = true },
+                             null)
+            <br/>
+            @Html.ActionLink("Down vote",
+                "Vote",
+                "Home",
+                new { _id = Model.Article.ArticleID.ToString(), up = false },
+                null)
+>>>>>>> origin/master
+
+                        <p>
+                            @item.Article.ArticleText
+                        </p>
+                        @using (Html.BeginForm("Delete", "Home", FormMethod.Post))
+                        {
+                            <input id='sub' type="submit" value=@item.Article.ArticleID name="CommentID" hidden="true">
+                            <input type="button" value="delete" name="CommentID" onclick="clickIt()">
+                        }
+                    </div>
+
+                }
+
+            </body>
+>>>>>>> origin/master
         </div>
+<<<<<<< HEAD
+    </div>
+</div>
+=======
     }
     <h2>Комментарии</h2>
 
@@ -100,3 +207,4 @@
 
 
 
+>>>>>>> origin/master
