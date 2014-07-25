@@ -3,64 +3,92 @@
     ViewBag.Title = "Index";
     Layout = "/Views/Shared/_Layout.cshtml";
 }
+<div id="bod2">
+    <div id="bod1">
 
-<div id="bod">
-    <div id="kat">
-        <div id="item">
-            @if (User.IsInRole("Admin") || User.IsInRole("Author"))
-            {
+        <div id="img_header">
 
-                <p id="btn">
-                    @Html.ActionLink("Добавить новую статью", "CreateArticle", "Home", new { @class = "button-index btn" })
-                </p>
-
-            }
         </div>
-    <div id="upkat" >
-        <span class="headkat">Категории</span>
-        <a href="@Url.Action("Index", "Home")" class="item">
-            <i class="fa" style="display: inline-block">Все</i>
-        </a>
-        @foreach (var category in Model.CategoryList)
-        {
-            <a href="@Url.Action("Index", "Home", new { categoryId = category.CategoryID })" class="item">
-                <i class="fa " style="display: inline-block">@category.CategoryName</i>
-            </a>
-        }
-            @*Just for admin*@
-            @if (User.IsInRole("Admin"))
-        {
-            using (Html.BeginForm("CreateCategory", "Home"))
-            {
-                <div class="item">
-                    @Html.TextBoxFor(model => model.NewCategory.CategoryName, new { @class = "message-label1" })
-                    <input type="submit" value="Новая категория" class="button-index btn">
+        
+        <div id="glob_carusel">
+            <div id="carusel">
+
+            </div>
+            <div id="blurb">
+
+            </div>
+        </div>
+            
+
+        
+        <div id="glob_category">
+
+            <div id="upkat">
+                <div>
+                    <div id="img_category"></div>
+                    <div id="category">
+                        <span>Категории</span>
+                        
+                    </div>
                 </div>
-            }
-        }
-        
+                <div id="fild_category">
+                    <a href="@Url.Action("Index", "Home")" class="item2">
+                        <i class="fa" style="display: inline-block">Все</i>
+                    </a>
+                    @foreach (var category in Model.CategoryList)
+                    {
+                        <a href="@Url.Action("Index", "Home", new { categoryId = category.CategoryID })" class="item2">
+                            <i class="fa " style="display: inline-block">@category.CategoryName</i>
+                        </a>
+                    }
+                    @*Just for admin*@
+                    @if (User.IsInRole("Admin"))
+                    {
+                        using (Html.BeginForm("CreateCategory", "Home"))
+                        {
+                            <div class="item">
+                                @Html.TextBoxFor(model => model.NewCategory.CategoryName, new { @class = "message-label1" })
+                                <input type="submit" value="Новая категория" class="button-index btn">
+                            </div>
+                        }
+                    }
 
+                </div>
+                </div>
         </div>
+        <div id="glob_article">
+            <div id="head_article">
+                <div id="img_article">
+
+                </div>
+                @if (User.IsInRole("Admin") || User.IsInRole("Author")){
+
+    <div id="New_article">
+        <p id="btn">
+            @Html.ActionLink("Добавить новую статью", "CreateArticle", "Home")
+        </p>
     </div>
-    <div id="stat">
-
-        
-            <legend class="legend" >Статьи</legend>
-        
-        
-            @foreach (var item in Model.ArticleList)
-{
-        <div class="item">
-            @item.ArticleTitle
-            @if ((User.IsInRole("Author") && User.Identity.Name == item.User.UserFirstName) || User.IsInRole("Admin"))
-            {
-                <a id="del" href="@Url.Action("DeleteArticle", "Home", new { id = item.ArticleID })" class="glyphicon glyphicon-remove" style="display:inline-block; float:right"></a>
-                <a href="@Url.Action("EditArticle", "Home", new { id = item.ArticleID })" class="glyphicon glyphicon-pencil" style="display:inline-block; float:right;margin-right:20px"></a>
-            }
-                <a href="@Url.Action("ShowArticle", "Home", new { id = item.ArticleID })" class="glyphicon glyphicon-play" style="display:inline-block; float: right; margin-right:20px"></a>
-        </div>
 }
-    </div>
+                <div class="Article">Статьи</div>
+            </div>
 
+            
+
+            <div>
+                @foreach (var item in Model.ArticleList)
+                {
+                    <div class="item">
+                        @item.ArticleTitle
+                        @if ((User.IsInRole("Author") && User.Identity.Name == item.User.UserFirstName) || User.IsInRole("Admin"))
+                        {
+                            <a id="del" href="@Url.Action("DeleteArticle", "Home", new { id = item.ArticleID })" class="glyphicon glyphicon-remove" style="display:inline-block; float:right"></a>
+                            <a href="@Url.Action("EditArticle", "Home", new { id = item.ArticleID })" class="glyphicon glyphicon-pencil" style="display:inline-block; float:right;margin-right:20px"></a>
+                        }
+                        <a href="@Url.Action("ShowArticle", "Home", new { id = item.ArticleID })" class="glyphicon glyphicon-play" style="display:inline-block; float: right; margin-right:20px"></a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
 </div>
 <link href="~/Content/bootstrap.css" rel="stylesheet" />

@@ -1,66 +1,81 @@
-﻿@model TitleTurtle.Models.Main
+﻿<div id="manage">
+    <div id="manage2">
 
-@{
-    ViewBag.Title = "Edit";
-    Layout = "/Views/Shared/_Layout.cshtml";
-}
-<link href="~/Content/bootstrap.css" rel="stylesheet" />
-<script type="text/javascript" src="~/Scripts/jquery-1.9.1.js"></script>
-<script type="text/javascript">
+        @model TitleTurtle.Models.Main
 
-    $(function () {
-
-        $('#home').click(function () {
-
-                $('#img').css("display", "none");
-                $('#home').css("display", "none");
-                k = false;
-        });
-    });
-  </script>
-
-@{Boolean[] massiv = new Boolean[1];}
-<body class="main">
-
-    
-    @using (Html.BeginForm("EditArticle", "Home", new { id = (Model.NewArticle.MedialInArticles.Count == 0) ? -1 : Model.NewArticle.MedialInArticles.FirstOrDefault<TitleTurtle.Models.MediaInArticle>().Media.MediaID }))
-    {        
-        <div style="margin: 0 auto">
-            Категория:
         @{
-        List<SelectListItem> list = new List<SelectListItem>();
-        foreach (var item in Model.CategoryList)
-        {
-            list.Add(new SelectListItem() { Text = item.CategoryName, Value = item.CategoryID.ToString() });
-        }        
+            ViewBag.Title = "Edit";
+            Layout = "/Views/Shared/_Layout.cshtml";
         }
-            @Html.DropDownListFor(model => model.NewArticle.CategoryID, list, new { @class = "form-control", @style = "margin: 0 auto;" })
-            <br>
-            Название: @Html.TextBoxFor(model => model.NewArticle.ArticleTitle, new { @class = "form-control", @style = "margin: 0 auto;" })
+     
+        <script type="text/javascript" src="~/Scripts/jquery-1.9.1.js"></script>
+        <script type="text/javascript">
+
+            $(function () {
+
+                $('#home').click(function () {
+
+                    $('#img').css("display", "none");
+                    $('#home').css("display", "none");
+                    k = false;
+                });
+            });
+        </script>
+
+        @{Boolean[] massiv = new Boolean[1];}
+        <body class="main">
+
+
+            @using (Html.BeginForm("EditArticle", "Home", new { id = (Model.NewArticle.MedialInArticles.Count == 0) ? -1 : Model.NewArticle.MedialInArticles.FirstOrDefault<TitleTurtle.Models.MediaInArticle>().Media.MediaID }))
+{
+    <div style="margin: 0 auto">
+        <div id="editArticlebut">
+            Категория:
+        </div>
+        @{
+    List<SelectListItem> list = new List<SelectListItem>();
+    foreach (var item in Model.CategoryList)
+    {
+        list.Add(new SelectListItem() { Text = item.CategoryName, Value = item.CategoryID.ToString() });
+    }
+        }
+        @Html.DropDownListFor(model => model.NewArticle.CategoryID, list, new { @class = "form-control", @style = "margin: 0 auto;" })
+        <br>
+        <div id="editArticlebut">
+            Название:
+        </div> @Html.TextBoxFor(model => model.NewArticle.ArticleTitle, new { @class = "form-control", @style = "margin: 0 auto;" })
             @Html.HiddenFor(model => model.NewArticle.ArticleID)
             <br>
-            Cодержимое: @Html.TextAreaFor(model => model.NewArticle.ArticleText, new { @class = "form-control", @style = "min-height:200px;margin: 0 auto;" })
+        <div id="editArticlebut">
+            Cодержимое:
+        </div> @Html.TextAreaFor(model => model.NewArticle.ArticleText, new { @class = "form-control", @style = "min-height:200px;margin: 0 auto;" })
             <br>
             @try
-            {
- 
-             @Html.Raw("<img id='img' style='width:260px; height:180px;' src=\"data:image/jpeg;base64,"
+        {
+
+                @Html.Raw("<img id='img' style='width:260px; height:180px;' src=\"data:image/jpeg;base64,"
                                 + Convert.ToBase64String(Model.NewArticle.MedialInArticles.First<TitleTurtle.Models.MediaInArticle>().Media.MediaData) + "\" />")
                 <br>
-       
 
 
-                <input id ="home" type="button" value="Удалить">
-            }
-            catch
-            {
 
-            }
+                <input id="home" type="button" value="Удалить">
+        }
+        catch
+        {
+
+        }
             <br>
             <br>
-            <input type="submit" value="Сохранить" class="btn" />
+            <div id="butsave">
+                <input type="submit" value="Сохранить" class="btn" />
+            </div>
         </div>
-    }
-    
-    
-</body>
+}
+
+
+        </body>
+        |
+    </div>
+</div>
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
