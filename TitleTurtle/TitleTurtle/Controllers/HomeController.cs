@@ -7,6 +7,7 @@ using TitleTurtle.Filters;
 using TitleTurtle.Models;
 using PagedList;
 using System.IO;
+using System.Drawing;
 namespace TitleTurtle.Controllers
 {
     /// <summary>
@@ -90,6 +91,7 @@ namespace TitleTurtle.Controllers
                 RatingRepost = 0,
                 RatingView = 0
             };
+
             if (uploadImage != null)
             {
                 // Read the uploaded file into a byte array
@@ -145,6 +147,7 @@ namespace TitleTurtle.Controllers
 
         public ActionResult EditArticle(int id)
         {
+            
             var model = new Main
             {
                 CategoryList = Db.Categories.ToList(),
@@ -169,7 +172,7 @@ namespace TitleTurtle.Controllers
         /// <param name="model">Main model</param>
         /// <returns>View 'Index'</returns>
         [HttpPost]
-        public ActionResult EditArticle(Main model, int? id)
+        public ActionResult EditArticle(Main model,int? id)
         {
 
             Media media = new Media();
@@ -178,11 +181,6 @@ namespace TitleTurtle.Controllers
             my.ArticleTitle = model.NewArticle.ArticleTitle;
             my.ArticleText = model.NewArticle.ArticleText;
             my.CategoryID = model.NewArticle.CategoryID;
-            if (id != -1)
-            {
-                media = Db.Medias.FirstOrDefault(x => x.MediaID == id.Value);
-                Db.Medias.Remove(media);
-            }
             //my.Edits.Add(new Edit { Edition = DateTime.Now });
             Db.SaveChanges();
             return RedirectToAction("Index");
@@ -195,11 +193,14 @@ namespace TitleTurtle.Controllers
         /// <param name="id">Id of article to delete</param>
         /// <returns>View 'Index'</returns>
 
-        public ActionResult DeletePicFromArticle(Main model, int? ArticleId)
+        public ActionResult DeletePicFromArticle(Main model, int? MediaId, int? ArticleId)
         {
             Media media = new Media();
-            media = Db.Medias.FirstOrDefault(x => x.MediaID == ArticleId.Value);
-            Db.Medias.Remove(media);
+            media = Db.Medias.FirstOrDefault(x => x.MediaID == MediaId.Value);
+            if (media != null)
+            {
+                Db.Medias.Remove(media);
+            }
             Db.SaveChanges();
             return RedirectToAction("EditArticle", new { id = ArticleId });
         }
