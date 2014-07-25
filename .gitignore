@@ -82,8 +82,8 @@
 **/*.pubxml
 
 # SQL Server files
-**/App_Data/*.mdf
-**/App_Data/*.ldf
+#**/App_Data/*.mdf
+#**/App_Data/*.ldf
 
 # Windows image file caches
 **/Thumbs.db

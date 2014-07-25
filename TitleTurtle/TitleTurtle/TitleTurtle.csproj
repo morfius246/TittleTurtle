@@ -235,7 +235,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Article.cs" />
-    <Compile Include="Models\ArticleModel.cs" />
+    <Compile Include="Models\ShowArticle.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Contact.cs" />

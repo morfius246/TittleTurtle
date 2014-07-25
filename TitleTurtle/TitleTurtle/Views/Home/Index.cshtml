@@ -9,6 +9,33 @@
         <div id="img_header">
 
         </div>
+<<<<<<< HEAD
+=======
+    <div id="upkat" >
+        <span class="headkat">Категории</span>
+        <a href="@Url.Action("Index", "Home")" class="item">
+            <i class="fa" style="display: inline-block">Все</i>
+        </a>
+        @foreach (var category in Model.CategoryList)
+        {
+            <a href="@Url.Action("Index", "Home", new { categoryId = category.CategoryID })" class="item">
+  
+                <i class="fa " style="display: inline-block">@category.CategoryName</i>
+                              @*<a href="@Url.Action("RemoveCategory", "Home", new { id = category.CategoryID })" class="glyphicon glyphicon-remove" style="display:inline-block; float:right"></a>*@
+                </a>
+        }
+            @*Just for admin*@
+            @if (User.IsInRole("Admin"))
+        {
+            using (Html.BeginForm("CreateCategory", "Home"))
+            {
+                <div class="item">
+                    @Html.TextBoxFor(model => model.NewCategory.CategoryName, new { @class = "message-label1" })
+                    <input type="submit" value="Новая категория" class="button-index btn">
+                </div>
+            }
+        }
+>>>>>>> origin/master
         
         <div id="glob_carusel">
             <div id="carusel">

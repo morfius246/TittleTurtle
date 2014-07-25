@@ -25,6 +25,11 @@
         @{Boolean[] massiv = new Boolean[1];}
         <body class="main">
 
+<<<<<<< HEAD
+=======
+
+<body class="main">
+>>>>>>> origin/master
 
             @using (Html.BeginForm("EditArticle", "Home", new { id = (Model.NewArticle.MedialInArticles.Count == 0) ? -1 : Model.NewArticle.MedialInArticles.FirstOrDefault<TitleTurtle.Models.MediaInArticle>().Media.MediaID }))
 {
@@ -56,7 +61,12 @@
                 @Html.Raw("<img id='img' style='width:260px; height:180px;' src=\"data:image/jpeg;base64,"
                                 + Convert.ToBase64String(Model.NewArticle.MedialInArticles.First<TitleTurtle.Models.MediaInArticle>().Media.MediaData) + "\" />")
                 <br>
+<<<<<<< HEAD
 
+=======
+       
+                @Html.ActionLink("Del","DeletePicFromArticle", "Home", new { ArticleId = Model.NewArticle.MedialInArticles.First<TitleTurtle.Models.MediaInArticle>().Media.MediaID },null)
+>>>>>>> origin/master
 
 
                 <input id="home" type="button" value="Удалить">

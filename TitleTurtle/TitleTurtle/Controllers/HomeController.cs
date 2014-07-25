@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using TitleTurtle.Filters;
 using TitleTurtle.Models;
 using PagedList;
@@ -29,7 +30,10 @@ namespace TitleTurtle.Controllers
             {
                 ArticleList =
                     categoryId == null
-                        ? Db.Articles.ToList()
+                        ? (from article in Db.Articles
+                           where !(from comment in Db.Comments
+                                   select comment.ArticleID).Contains(article.ArticleID)
+                           select article).ToList()
                         : Db.Articles.Where(x => x.CategoryID == categoryId).ToList(),
                 CategoryList = Db.Categories.ToList()
             };
@@ -58,8 +62,8 @@ namespace TitleTurtle.Controllers
         public ActionResult CreateArticle(Main model, Media pic, HttpPostedFileBase uploadImage)
         {
 
-            var mediainart = new MediaInArticle();           
-            if(model.NewArticle.ArticleTitle==null)
+            var mediainart = new MediaInArticle();
+            if (model.NewArticle.ArticleTitle == null)
             {
                 model.NewArticle.ArticleTitle = "Без названия";
             }
@@ -74,7 +78,16 @@ namespace TitleTurtle.Controllers
                 Date = DateTime.Now,
                 Type = type.Create
             };
-
+            var newRating = new Rating
+            {
+                RatingID = 1,
+                Article = newArticle,
+                ArticleID = model.NewArticle.ArticleID,
+                RatingDislike = 0,
+                RatingLike = 0,
+                RatingRepost = 0,
+                RatingView = 0
+            };
             if (uploadImage != null)
             {
                 // Read the uploaded file into a byte array
@@ -87,6 +100,7 @@ namespace TitleTurtle.Controllers
                 pic.MediaData = imageData;
             }
             Db.Edits.Add(newEdit);
+            Db.Ratings.Add(newRating);
             Db.Medias.Add(pic);
             Db.Articles.Add(newArticle);
             mediainart.MediaID = pic.MediaID;
@@ -95,25 +109,27 @@ namespace TitleTurtle.Controllers
             Db.SaveChanges();
             return RedirectToAction("Index");
         }
-     
+
         /// <summary>
         /// Open Article with ID
         /// </summary>
         /// <param name="id">ID of article to open</param>
         /// <returns>View with model of article</returns>
         [AllowAnonymous]
-        public ActionResult ShowArticle(int id)
+        public ActionResult ShowArticle(int? id)
         {
-            ArticleModel model = new ArticleModel();
-            model.currentArticle = Db.Articles.SingleOrDefault(x => x.ArticleID == id);
+            ShowArticle model = new ShowArticle();
+            model.Article = Db.Articles.SingleOrDefault(x => x.ArticleID == id);
+            model.CurrentArticle = Db.Articles.SingleOrDefault(x => x.ArticleID == id);
             var t =
                 from comment in Db.Comments
                 join article in Db.Articles
                 on comment.ArticleID equals article.ArticleID
                 where comment.MainArticleID == id
                 select comment;
-            
+
             model.CommentList = t.ToArray();
+
             return View(model);
         }
 
@@ -131,6 +147,7 @@ namespace TitleTurtle.Controllers
             {
                 CategoryList = Db.Categories.ToList(),
                 NewArticle = Db.Articles.First(x => x.ArticleID == id)
+
             };
             var newEdit = new Edit
             {
@@ -150,9 +167,9 @@ namespace TitleTurtle.Controllers
         /// <param name="model">Main model</param>
         /// <returns>View 'Index'</returns>
         [HttpPost]
-        public ActionResult EditArticle(Main model,int? id)
+        public ActionResult EditArticle(Main model, int? id)
         {
-            
+
             Media media = new Media();
             Article my = Db.Articles.First(x => x.ArticleID == model.NewArticle.ArticleID);
 
@@ -176,12 +193,18 @@ namespace TitleTurtle.Controllers
         /// <param name="id">Id of article to delete</param>
         /// <returns>View 'Index'</returns>
 
+        public ActionResult DeletePicFromArticle(Main model, int? ArticleId)
+        {
+            Media media = new Media();
+            media = Db.Medias.FirstOrDefault(x => x.MediaID == ArticleId.Value);
+            Db.Medias.Remove(media);
+            Db.SaveChanges();
+            return RedirectToAction("EditArticle", new { id = ArticleId });
+        }
 
-      
         public ActionResult DeleteArticle(int id)
         {
             Db.Articles.Remove(Db.Articles.First(x => x.ArticleID == id));
-
             Db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -195,11 +218,21 @@ namespace TitleTurtle.Controllers
         public ActionResult CreateCategory(Main model)
         {
             var newCategory = model.NewCategory;
-            Db.Categories.Add(newCategory);
-            Db.SaveChanges();
+            if (model.NewCategory.CategoryName != null)
+            {
+                Db.Categories.Add(newCategory);
+                Db.SaveChanges();
+            }
             return RedirectToAction("Index");
         }
 
+
+        public ActionResult RemoveCategory(int? id)
+        {
+            Db.Categories.Remove(Db.Categories.First(x => x.CategoryID == id.Value));
+            Db.SaveChanges();
+            return RedirectToAction("Index");
+        }
         /// <summary>
         /// Search
         /// </summary>
@@ -248,10 +281,20 @@ namespace TitleTurtle.Controllers
             return View(articles.ToPagedList(pageNumber, pageSize));
         }
 
-        public ActionResult CreateComment(ArticleModel model, string userName)
+        public ActionResult Vote(int _id, bool up)
+        {
+            if (up)
+                ++Db.Articles.First(x => x.ArticleID == _id).Ratings.First(x => x.RatingID == 1).RatingLike;
+            else
+                ++Db.Articles.First(x => x.ArticleID == _id).Ratings.First(x => x.RatingID == 1).RatingDislike;
+            Db.SaveChanges();
+            return RedirectToAction("ShowArticle", new { id = _id });
+        }
+
+        public ActionResult CreateComment(ShowArticle model, string userName)
         {
             Comment newComment = model.NewComment;
-            int currentArticleId = model.currentArticle.ArticleID;//отримаэм ід поточ статті
+            int currentArticleId = model.CurrentArticle.ArticleID;//отримаэм ід поточ статті
             Article temp = Db.Articles.SingleOrDefault(x => x.ArticleID == currentArticleId);//отрим цю статтю за ід
             newComment.Article.Category = temp.Category;//коментар має таку ж каегор як стаття
             newComment.Article.ArticleStatus = 1;
@@ -265,12 +308,12 @@ namespace TitleTurtle.Controllers
             Db.SaveChanges();
             return RedirectToAction("ShowArticle/" + temp.ArticleID.ToString());
         }
-            
+
         public ActionResult Feedback()
         {
             return View();
         }
-       
+
         [HttpPost]
         public ActionResult Feedback(FeedbackModel model)
         {
