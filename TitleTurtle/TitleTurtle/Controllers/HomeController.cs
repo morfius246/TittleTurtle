@@ -34,8 +34,11 @@ namespace TitleTurtle.Controllers
                            where !(from comment in Db.Comments
                                    select comment.ArticleID).Contains(article.ArticleID)
                            select article).ToList()
-                        : Db.Articles.Where(x => x.CategoryID == categoryId).ToList(),
-                CategoryList = Db.Categories.ToList()
+                        : (from article in Db.Articles
+                           where article.CategoryID == categoryId && !(from comment in Db.Comments
+                                   select comment.ArticleID).Contains(article.ArticleID)
+                           select article).ToList(),
+                           CategoryList = Db.Categories.ToList()
             };
             return View(model);
         }
