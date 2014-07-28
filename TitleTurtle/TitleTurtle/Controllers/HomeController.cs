@@ -307,9 +307,9 @@ namespace TitleTurtle.Controllers
         public ActionResult Vote(int _id, bool up)
         {
             if (up)
-                ++Db.Articles.First(x => x.ArticleID == _id).Ratings.First(x => x.RatingID == 1).RatingLike;
+                ++Db.Articles.First(x => x.ArticleID == _id).Ratings.First().RatingLike;
             else
-                ++Db.Articles.First(x => x.ArticleID == _id).Ratings.First(x => x.RatingID == 1).RatingDislike;
+                ++Db.Articles.First(x => x.ArticleID == _id).Ratings.First().RatingDislike;
             Db.SaveChanges();
             return RedirectToAction("ShowArticle", new { id = _id });
         }

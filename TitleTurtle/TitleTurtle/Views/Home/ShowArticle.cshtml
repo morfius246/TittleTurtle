@@ -40,20 +40,20 @@
             }
             <p style="color:chartreuse">@Model.Article.Ratings.ElementAt(0).RatingLike</p>
             <p style="color:crimson">@Model.Article.Ratings.ElementAt(0).RatingDislike</p>
-            <p>@{int p = Model.Article.Ratings.ElementAt(0).RatingLike - Model.Article.Ratings.ElementAt(0).RatingDislike;}@p</p>
+            <p>@(Model.Article.Ratings.ElementAt(0).RatingLike - Model.Article.Ratings.ElementAt(0).RatingDislike)</p>
             <br />
-            @*Html.ActionLink("UP vote",
+            @Html.ActionLink("UP vote",
                                  "Vote",
                                  "Home",
                                  new { _id = Model.Article.ArticleID.ToString(), up = true },
                                  null)
-                <br/>
-                @Html.ActionLink("Down vote",
+            <br />
+            @Html.ActionLink("Down vote",
                     "Vote",
                     "Home",
                     new { _id = Model.Article.ArticleID.ToString(), up = false },
                     null)
-            *@
+
         </div>
     }
     <h2>Комментарии</h2>
