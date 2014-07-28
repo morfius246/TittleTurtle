@@ -6,12 +6,12 @@
 
 /*! normalize.css v3.0.1 | MIT License | git.io/normalize */
 html {
-  font-family: sans-serif;
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
 }
 body {
   margin: 0;
+  font: x-small verdana,arial,helvetica,sans-serif;
 }
 article,
 aside,
@@ -44,6 +44,8 @@ template {
 }
 a {
   background: transparent;
+  text-decoration: none;
+  color: #369;
 }
 a:active,
 a:hover {

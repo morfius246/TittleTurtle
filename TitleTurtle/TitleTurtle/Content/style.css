@@ -15,7 +15,8 @@ div, footer {
 body {
     background: url(../img/background.jpg) fixed #ECEEE9;
     color: #555;
-    font-family: Verdana, Arial, sans-serif;
+    font: x-small verdana,arial,helvetica,sans-serif;
+    /*font-family: Verdana, Arial, sans-serif;*/
     margin:0;
 	
 }
@@ -394,8 +395,8 @@ border: 1px solid #ddd;
     margin:10px;
 position: relative;
 display: block;
-padding-top: 20px;
-padding-bottom: 20px;
+padding-top: 10px;
+padding-bottom: 10px;
 
 background-color: #fff;
 border: 1px solid #ddd;

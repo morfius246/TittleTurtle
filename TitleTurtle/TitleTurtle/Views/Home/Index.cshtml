@@ -1,14 +1,16 @@
-﻿@model TitleTurtle.Models.Main
+﻿@using System.Diagnostics.Eventing.Reader
+@model TitleTurtle.Models.Main
 @{
     ViewBag.Title = "Index";
     Layout = "/Views/Shared/_Layout.cshtml";
 }
+<link href="~/Content/style.css" rel="stylesheet" />
 <div id="bod2">
     <div id="bod1">
+        
+        <!--div id="img_header"-->
 
-        <div id="img_header">
-
-        </div>        
+        <!--/div-->        
         <div id="glob_category">
 
             <div id="upkat">
@@ -66,13 +68,15 @@
                 @foreach (var item in Model.ArticleList)
                 {
                     <div class="item">
-                        @item.ArticleTitle
+                        @Html.ActionLink(item.ArticleTitle,"ShowArticle", "Home", new {id = item.ArticleID}, new {style = "margin: 0; padding-right: 80px; line-height: 15px"})
                         @if ((User.IsInRole("Author") && User.Identity.Name == item.User.UserFirstName) || User.IsInRole("Admin"))
                         {
                             <a id="del" href="@Url.Action("DeleteArticle", "Home", new { id = item.ArticleID })" class="glyphicon glyphicon-remove" style="display:inline-block; float:right"></a>
                             <a href="@Url.Action("EditArticle", "Home", new { id = item.ArticleID })" class="glyphicon glyphicon-pencil" style="display:inline-block; float:right;margin-right:20px"></a>
                         }
-                        <a href="@Url.Action("ShowArticle", "Home", new { id = item.ArticleID })" class="glyphicon glyphicon-play" style="display:inline-block; float: right; margin-right:20px"></a>
+                        <p>Добавлено @item.Edits.ElementAt(0).Date.ToString() пользователем @item.User.UserFirstName</p>
+                        <p style ="color:@(item.Ratings.ElementAt(0).RatingLike - item.Ratings.ElementAt(0).RatingDislike < 0?"red":"green"); margin:0; padding:0; line-height: 15px"> Рейтинг: @(item.Ratings.ElementAt(0).RatingLike-item.Ratings.ElementAt(0).RatingDislike)</p>
+                        
                     </div>
                 }
             </div>
