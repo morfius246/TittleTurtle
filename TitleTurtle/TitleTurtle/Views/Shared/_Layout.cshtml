@@ -32,6 +32,7 @@
                     <ul id="navul">
                         <li class="navli">@Html.ActionLink("Все статьи", "Index", "Home")</li>
                         <li class="navli">@Html.ActionLink("Мои статьи", "MyArticles", "Home")</li>
+                        <li class="navli">@Html.ActionLink("Профиль", "EditUser", "Account", new {userName = User.Identity.Name },null)</li>
                         @if (User.IsInRole("Admin"))
                         {
                             <li class="navli">@Html.ActionLink("Управление", "Control", "Account")</li>

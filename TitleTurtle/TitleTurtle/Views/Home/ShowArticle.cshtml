@@ -54,46 +54,39 @@
                     new { _id = Model.Article.ArticleID.ToString(), up = false },
                     null)
 
-        </div>
+        </div>  
     }
-    <h2>Комментарии</h2>
-
-    @using (Html.BeginForm("CreateComment", "Home", FormMethod.Post))
-    {
-        <input type="hidden" name="currentArticle.ArticleID" value=@Model.CurrentArticle.ArticleID.ToString() />
-        <input type="hidden" name="CommentList" value=@Model.CommentList />
-        <input type="hidden" name="Username" value=@User.Identity.Name />
-        <fieldset>
-            <legend>Добавить комментарий</legend>
-
-            @User.Identity.Name, введите сообщение:
-            <br />
-            @Html.TextAreaFor(model => model.NewComment.Article.ArticleText)
-            <br />
-            <input type="submit" value="Отправить" name="Username" />
-
-        </fieldset>
+    <h2>Comments</h2>
+ 
+@using (Html.BeginForm("CreateComment", "Home", FormMethod.Post))
+{
+    <input type="hidden" name="currentArticle.ArticleID" value=@Model.CurrentArticle.ArticleID.ToString() />
+    <input type="hidden" name="CommentList" value=@Model.CommentList />
+<fieldset>
+    <legend>Добавить запись</legend>
+        
+    @User.Identity.Name
+        Введите сообщение: 
+            <br /> 
+  @Html.EditorFor(model => model.NewComment.Article.ArticleText)
+             <br />
+        <input type="submit" value=@User.Identity.Name name ="Username"/>
+    </fieldset>
+}
+<script>
+    function clickIt() {
+        $("#sub").click();
     }
-    <script>
-        function clickIt() {
-            $("#sub").click();
-        }
-    </script>
-    <h3>Все записи</h3>
-    @foreach (var item in Model.CommentList)
-    {
+</script>
+<h3>Все записи</h3>
+@foreach (var item in Model.CommentList) {
         <div style="background-color:silver; padding:3px; margin:5px;">
-
-            <p>
-                @item.Article.ArticleText
-            </p>
-            @*using(Html.BeginForm("Delete","Home",FormMethod.Post))
-                {
-                <input id='sub' type="submit" value=@item.Article.ArticleID name="CommentID" hidden="true">
-                <input type="button" value="delete" name="CommentID" onclick="clickIt()">
-                }*@
-        </div>
-
-    }
+           
+        <p>@item.Article.ArticleText
+        </p>
+        <a href="@Url.Action("DeleteComment", "Home", new { id = item.Article.ArticleID})" class="glyphicon glyphicon-remove" style="display:inline-block; float:right">delete</a>
+    </div>
+     
+}
 
 </body>

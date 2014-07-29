@@ -332,6 +332,14 @@ namespace TitleTurtle.Controllers
             return RedirectToAction("ShowArticle/" + temp.ArticleID.ToString());
         }
 
+        public ActionResult DeleteComment(int id)
+        {
+            Comment newComment = Db.Comments.SingleOrDefault(m => m.ArticleID == id);
+            int currentArticleId = (int)newComment.MainArticleID;//отримаэм ід поточ статті
+            Db.Comments.Remove(newComment);
+            Db.SaveChanges();
+            return RedirectToAction("ShowArticle/" + currentArticleId.ToString());
+        }
         public ActionResult Feedback()
         {
             return View();
