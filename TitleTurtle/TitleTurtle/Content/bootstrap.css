@@ -6,12 +6,12 @@
 
 /*! normalize.css v3.0.1 | MIT License | git.io/normalize */
 html {
+  font-family: sans-serif;
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
 }
 body {
   margin: 0;
-  font: x-small verdana,arial,helvetica,sans-serif;
 }
 article,
 aside,
@@ -29,7 +29,7 @@ summary {
 }
 audio,
 canvas,
-progress,
+progress,element.style
 video {
   display: inline-block;
   vertical-align: baseline;
@@ -44,8 +44,7 @@ template {
 }
 a {
   background: transparent;
-  text-decoration: none;
-  color: #369;
+  color: #FFFFFF;
 }
 a:active,
 a:hover {
@@ -912,12 +911,12 @@ textarea {
   line-height: inherit;
 }
 a {
-  color: #428bca;
+  color: #FFFFFF;
   text-decoration: none;
 }
 a:hover,
 a:focus {
-  color: #2a6496;
+  color: #FFFFFF;
   text-decoration: underline;
 }
 a:focus {

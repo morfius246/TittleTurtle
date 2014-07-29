@@ -1,34 +1,39 @@
-﻿<div id="bod">
+﻿@model IEnumerable<TitleTurtle.Models.User>
+<div id="bod">
     <div id="manage2">
-        @model IEnumerable<TitleTurtle.Models.User>
-
         @{
             ViewBag.Title = "Пользователи";
         }
+        <div id="MyArticle">
+            <img id="img_article" src="../Images/control.png" />
+            <div class="Article">Пользователи</div>
+            </div>
+            <div class="item">
+                <table>
 
-        <h2>Пользователи</h2>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UserFirstName)
+                            </td>
+                            <td></td>
+                            <td>
+                                @{
+                        String[] userRoles = Roles.GetRolesForUser(item.UserFirstName);
+                                }
 
-        <table>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UserFirstName)
-                    </td>
-                    <td></td>
-                    <td>
-                        @{
-                            String[] userRoles = Roles.GetRolesForUser(item.UserFirstName);
-                        }
+                                @(!userRoles.Contains("Author") ? Html.ActionLink("Сделать автором", "MakeAuthor", new { userName = item.UserFirstName }) : Html.ActionLink("Убрать из авторов", "RemoveFromAuthor", new { userName = item.UserFirstName }))
+                                @(!userRoles.Contains("Admin") ? Html.ActionLink("Сделать администратором", "MakeAdmin", new { userName = item.UserFirstName }) : Html.ActionLink("Убрать из администраторов", "RemoveFromAdmins", new { userName = item.UserFirstName }))
+                                @Html.ActionLink("Удалить", "DeleteUser", new { userName = item.UserFirstName })
+                            </td>
+                        </tr>
+                    }
 
-                        @(!userRoles.Contains("Author") ? Html.ActionLink("Сделать автором", "MakeAuthor", new {userName = item.UserFirstName}) : Html.ActionLink("Убрать из авторов", "RemoveFromAuthor", new {userName = item.UserFirstName}))
-                        @(!userRoles.Contains("Admin") ? Html.ActionLink("Сделать администратором", "MakeAdmin", new {userName = item.UserFirstName}) : Html.ActionLink("Убрать из администраторов", "RemoveFromAdmins", new {userName = item.UserFirstName}))
-                        @Html.ActionLink("Удалить", "DeleteUser", new { userName = item.UserFirstName })
-                    </td>
-                </tr>
-            }
-
-        </table>
-        <div id="manage2">
+                </table>
+            </div>
+            <div id="manage2">
+            </div>
         </div>
+</div>
         <link href="~/Content/bootstrap.css" rel="stylesheet" />

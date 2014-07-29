@@ -23,7 +23,7 @@
 <body class="main">
 
 
-    @using (Html.BeginForm("EditArticle", "Home", new { id = (Model.NewArticle.MedialInArticles.Count == 0) ? -1 : Model.NewArticle.MedialInArticles.FirstOrDefault<TitleTurtle.Models.MediaInArticle>().Media.MediaID }))
+    @using (Html.BeginForm("EditArticle", "Home", new { id = (Model.NewArticle.MedialInArticles.Count == 0) ? -1 : Model.NewArticle.MedialInArticles.FirstOrDefault<TitleTurtle.Models.MediaInArticle>().Media.MediaID }, FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         <div style="margin: 0 auto">
             Категория:
@@ -54,7 +54,18 @@
             }
             catch
             {
+                 
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.NewMedia.MediaData)
+                        @Html.ValidationMessageFor(model => model.NewMedia.MediaData)
+                        @Html.HiddenFor(model => model.NewMedia.MediaID)
 
+                    </div>
+                    
+                    <div class="editor-field">
+                         <div class="editor-label">Размер загружаемого файла не должен превышать 5 МВ и должен иметь формат (jpeg,png,gif,bmp,ico)  </div>
+                         <input type="file" accept="image/jpeg,image/png,image/gif" name="uploadImage"   />
+                    </div>
             }
             <br>
             <br>

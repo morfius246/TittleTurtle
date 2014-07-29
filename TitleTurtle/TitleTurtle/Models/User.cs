@@ -10,6 +10,7 @@ namespace TitleTurtle.Models
         public int UserID { get; set; }
         public string UserFirstName { get; set; }
         public string UserLastName { get; set; }
+        public string Login { get; set; }
         public virtual ICollection<UserPhoto> UserPhotos { get; set; }
         public virtual ICollection<Contact> Contacts { get; set; }
         public virtual ICollection<Role> Roles { get; set; }

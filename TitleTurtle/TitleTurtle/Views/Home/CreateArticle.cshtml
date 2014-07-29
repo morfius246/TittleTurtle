@@ -1,5 +1,12 @@
 ﻿<div id="bod">
     <div id="manage2">
+        <script type="text/javascript" src="@Url.Content("~/Scripts/Editor/tinymce.min.js")"></script>
+        <script type="text/javascript">
+            tinymce.init({
+                selector: "textarea"
+            });
+        </script>
+
         @model TitleTurtle.Models.Main
 
         @{
@@ -35,7 +42,9 @@
                     </div>
                     <div class="editor-label">Файл изображения</div>
                     <div class="editor-field">
-                        <input type="file" name="uploadImage" />
+                        <div class="editor-label">Размер загружаемого файла не должен превышать 5 МВ и должен иметь формат (jpeg,png,gif,bmp,ico)  </div>
+                        <input type="file" accept="image/jpeg,image/png,image/gif" name="uploadImage" />
+
                     </div>
 
                     <p>

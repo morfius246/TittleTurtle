@@ -1,0 +1,80 @@
+*{
+	margin: 0;
+	padding: 0;
+	border: 0 none;
+	outline: 0;
+}
+
+body{
+	font-family: "Lucida Grande", "Verdana", sans-serif;
+	font-size: 12px;
+}
+
+p{
+	margin: 20px 0 40px 0;
+}
+
+
+h1{
+	font-size: 30px;
+	font-family: "Myriad Pro", "Lucida Grande", "Verdana", sans-serif;
+	padding: 0;
+	margin: 0;
+}
+
+h2{
+	font-size: 20px;
+}
+
+
+
+img{
+	d-isplay: block;
+}
+
+#gallery, #thumbs{
+	float: left;
+    display: block;
+
+}
+
+#gallery{
+	width: 605px;
+	height: 290px;
+	overflow: hidden;
+    margin-top:20px;
+    margin-left:20px;
+    margin-bottom:20px;
+}
+
+#gallery img{
+	po3sition: absolute;
+}
+
+#thumbs{
+    
+    margin-top:20px;
+    margin-bottom:20px;
+	width: 100px;
+	height: 290px;
+	overflow: hidden;
+}
+
+#next{
+	display: block;
+	width: 47px;
+	height: 43px;
+	background: url(~/Images/arrow.png);
+	position: relative;
+	top: -63px;
+	left: 680px;
+}
+
+#next:hover{
+	background: url(img/arrowmo.png);
+}
+
+.clear{
+	clear: both;
+}
+

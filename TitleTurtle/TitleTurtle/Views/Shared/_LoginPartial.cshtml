@@ -1,14 +1,21 @@
-﻿@if (Request.IsAuthenticated) {
+﻿
+    @if (Request.IsAuthenticated)
+    {
         <text>
-            !@Html.ActionLink(User.Identity.Name, "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "navli", title = "Manage" })
-            @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
-                @Html.AntiForgeryToken()
-                <li id="Exit"><a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></li>
-        }
-        </text>
-        }
-else
-{
-    <li class="navli">@Html.ActionLink("Регистрация", "Register", "Account", null, new { id = "registerLink"})</li>
-    <li class="navli">@Html.ActionLink("Войти", "Login", "Account", null, new { id = "loginLink"})</li>
-}
+            
+   <a class="navli-user" href="/Account/Manage" title="Manage"><img src="../Images/meneg-2.png" onmouseover="this.src = '../Images/meneg.png'" onmouseout="    this.src = '../Images/meneg-2.png'" title="bionic" /></a>
+    
+    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+    {
+        @Html.AntiForgeryToken()
+        <div id="navli9" class="navli"><a href="javascript:document.getElementById('logoutForm').submit()"><img src="../Images/Exit-2.png" onmouseover="this.src = '../Images/Exit.png'" onmouseout="    this.src = '../Images/Exit-2.png'" title="Выйти" /></a></div>
+    }
+</text>
+    }
+
+    
+    else
+    {
+        <div id="navli7" class="navli"><a href="/Account/Register" id="registerLink"><img src="../Images/Exit-2.png" onmouseover="this.src = '../Images/Exit.png'" onmouseout="    this.src = '../Images/Exit-2.png'" title="Регистрация" /></a></div>
+        <div id="navli8" class="navli"><a href="/Account/Login" id="loginLink"><img src="../Images/Exit-2.png" onmouseover="this.src = '../Images/Exit.png'" onmouseout="    this.src = '../Images/Exit-2.png'" title="Войти" /></a></div>
+    }

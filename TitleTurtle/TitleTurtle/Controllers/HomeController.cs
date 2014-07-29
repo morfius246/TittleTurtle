@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -8,6 +9,8 @@ using TitleTurtle.Models;
 using PagedList;
 using System.IO;
 using System.Drawing;
+using System.Text.RegularExpressions;
+using System.Web.Security;
 namespace TitleTurtle.Controllers
 {
     /// <summary>
@@ -25,25 +28,43 @@ namespace TitleTurtle.Controllers
         /// <param name="categoryId">ID of category to show Articles from</param>
         /// <returns>View 'Index' with Articles in Main model</returns>
         [AllowAnonymous]
-        public ActionResult Index(int? categoryId)
+        public ActionResult Index(Main model, int? categoryId, string sort)
         {
-            var model = new Main
+            model = new Main
             {
                 ArticleList =
                     categoryId == null
                         ? (from article in Db.Articles
                            where !(from comment in Db.Comments
                                    select comment.ArticleID).Contains(article.ArticleID)
-                           select article).ToList()
+                           select article).ToList().OrderByDescending(a => (sort == "rating" ? (a.Ratings.ElementAt(0).RatingLike - a.Ratings.ElementAt(0).RatingDislike) : (object)a.Edits.ElementAt(0).Date))
                         : (from article in Db.Articles
                            where article.CategoryID == categoryId && !(from comment in Db.Comments
-                                   select comment.ArticleID).Contains(article.ArticleID)
-                           select article).ToList(),
-                           CategoryList = Db.Categories.ToList()
+                                                                       select comment.ArticleID).Contains(article.ArticleID)
+                           select article).ToList().OrderByDescending(a => (sort == "rating" ? (a.Ratings.ElementAt(0).RatingLike - a.Ratings.ElementAt(0).RatingDislike) : (object)a.Edits.ElementAt(0).Date)),
+                CategoryList = Db.Categories.ToList()
             };
+            if (categoryId != null)
+            {
+                ViewBag.CategoryID = categoryId;
+            }
             return View(model);
         }
 
+        [AllowAnonymous]
+        public ActionResult SortByUserDesire(string sort)
+        {
+            var model = (Main)TempData["TempModel"];
+            if (sort == "rating")
+            {
+                model.ArticleList.OrderBy(a => a.Ratings.ElementAt(0).RatingLike - a.Ratings.ElementAt(0).RatingDislike);
+            }
+            if (sort == "date")
+            {
+                model.ArticleList.OrderBy(a => a.Edits.ElementAt(0).Date);
+            }
+            return View("Index", model);
+        }
         /// <summary>
         /// Redirect to CreateAction page
         /// </summary>
@@ -64,17 +85,17 @@ namespace TitleTurtle.Controllers
                     categoryId == null
                         ? (from article in Db.Articles
                            where !(from comment in Db.Comments
-                                   select comment.ArticleID).Contains(article.ArticleID) && ( article.User.UserFirstName ==User.Identity.Name )
+                                   select comment.ArticleID).Contains(article.ArticleID) && (article.User.UserFirstName == User.Identity.Name)
                            select article).ToList()
                         : (from article in Db.Articles
-                           where ( article.User.UserFirstName ==User.Identity.Name ) && (article.CategoryID == categoryId) && !(from comment in Db.Comments
-                                                                       select comment.ArticleID).Contains(article.ArticleID)
+                           where (article.User.UserFirstName == User.Identity.Name) && (article.CategoryID == categoryId) && !(from comment in Db.Comments
+                                                                                                                               select comment.ArticleID).Contains(article.ArticleID)
                            select article).ToList(),
                 CategoryList = Db.Categories.ToList()
             };
             return View(model);
         }
-        
+
         /// <summary>
         /// Create new article
         /// </summary>
@@ -83,6 +104,7 @@ namespace TitleTurtle.Controllers
         /// <param name="uploadImage"></param>
         /// <returns>Redirect to 'Index'</returns>
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult CreateArticle(Main model, Media pic, HttpPostedFileBase uploadImage)
         {
             var mediainart = new MediaInArticle();
@@ -111,27 +133,42 @@ namespace TitleTurtle.Controllers
                 RatingRepost = 0,
                 RatingView = 0
             };
-
-            if (uploadImage != null)
+            try
             {
-                // Read the uploaded file into a byte array
-                byte[] imageData;
-                using (var binaryReader = new BinaryReader(uploadImage.InputStream))
+                if (uploadImage != null && uploadImage.ContentType == "image/jpeg" || uploadImage.ContentType == "image/jpg" || uploadImage.ContentType == "image/gif" || uploadImage.ContentType == "image/png" || uploadImage.ContentType == "image/bmp" || uploadImage.ContentType == "image/ico")
                 {
-                    imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
+                    // Read the uploaded file into a byte array
+                    byte[] imageData;
+                    using (var binaryReader = new BinaryReader(uploadImage.InputStream))
+                    {
+                        imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
+                    }
+                    // Set byte array
+                    pic.MediaData = imageData;
+                    Db.Medias.Add(pic);
+                    mediainart.MediaID = pic.MediaID;
+                    Db.MediaInArticles.Add(mediainart);
+
                 }
-                // Set byte array
-                pic.MediaData = imageData;
             }
+            catch
+            {
+
+            }
+       
             Db.Edits.Add(newEdit);
-            Db.Ratings.Add(newRating);
-            Db.Medias.Add(pic);
-            Db.Articles.Add(newArticle);
-            mediainart.MediaID = pic.MediaID;
+            Db.Ratings.Add(newRating);   
+            Db.Articles.Add(newArticle); 
             mediainart.ArticleID = newArticle.ArticleID;
-            Db.MediaInArticles.Add(mediainart);
             Db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+       
+
+        public ActionResult AddPictureInEdit()
+        {
+            return View();
         }
 
         /// <summary>
@@ -145,6 +182,8 @@ namespace TitleTurtle.Controllers
             ShowArticle model = new ShowArticle();
             model.Article = Db.Articles.SingleOrDefault(x => x.ArticleID == id);
             model.CurrentArticle = Db.Articles.SingleOrDefault(x => x.ArticleID == id);
+            model.Article.ArticleText.Replace("&lt;", "<");
+            model.Article.ArticleText.Replace("&gt;", ">");
             var t =
                 from comment in Db.Comments
                 join article in Db.Articles
@@ -167,7 +206,6 @@ namespace TitleTurtle.Controllers
 
         public ActionResult EditArticle(int id)
         {
-            
             var model = new Main
             {
                 CategoryList = Db.Categories.ToList(),
@@ -192,16 +230,39 @@ namespace TitleTurtle.Controllers
         /// <param name="model">Main model</param>
         /// <returns>View 'Index'</returns>
         [HttpPost]
-        public ActionResult EditArticle(Main model,int? id)
+        public ActionResult EditArticle(Main model, int? id, Media pic, HttpPostedFileBase uploadImage)
         {
-
+            var newArticle = model.NewArticle;
+            var mediainart = new MediaInArticle();
             Media media = new Media();
             Article my = Db.Articles.First(x => x.ArticleID == model.NewArticle.ArticleID);
-
             my.ArticleTitle = model.NewArticle.ArticleTitle;
             my.ArticleText = model.NewArticle.ArticleText;
             my.CategoryID = model.NewArticle.CategoryID;
             //my.Edits.Add(new Edit { Edition = DateTime.Now });
+            try
+            {
+
+                if (uploadImage != null && uploadImage.ContentType == "image/jpeg" || uploadImage.ContentType == "image/jpg" || uploadImage.ContentType == "image/gif" || uploadImage.ContentType == "image/png" || uploadImage.ContentType == "image/bmp" || uploadImage.ContentType == "image/ico")
+                {
+                    // Read the uploaded file into a byte array
+                    byte[] imageData;
+                    using (var binaryReader = new BinaryReader(uploadImage.InputStream))
+                    {
+                        imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
+                    }
+                    // Set byte array
+                    pic.MediaData = imageData;
+                    Db.Medias.Add(pic);
+                    mediainart.MediaID = pic.MediaID;
+                    Db.MediaInArticles.Add(mediainart);
+                }
+            }
+            catch
+            {
+
+            }
+            mediainart.ArticleID = newArticle.ArticleID;
             Db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -332,14 +393,6 @@ namespace TitleTurtle.Controllers
             return RedirectToAction("ShowArticle/" + temp.ArticleID.ToString());
         }
 
-        public ActionResult DeleteComment(int id)
-        {
-            Comment newComment = Db.Comments.SingleOrDefault(m => m.ArticleID == id);
-            int currentArticleId = (int)newComment.MainArticleID;//отримаэм ід поточ статті
-            Db.Comments.Remove(newComment);
-            Db.SaveChanges();
-            return RedirectToAction("ShowArticle/" + currentArticleId.ToString());
-        }
         public ActionResult Feedback()
         {
             return View();

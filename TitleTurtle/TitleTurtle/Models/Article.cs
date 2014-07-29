@@ -17,8 +17,8 @@ namespace TitleTurtle.Models
         public string ArticleTitle { get; set; }
         public string ArticleText { get; set; }
         public int ArticleStatus { get; set; }
-
-        public virtual Category Category{get;set;}
+        public int CommentCount { get; set; }
+        public virtual Category Category { get; set; }
         public virtual User User { get; set; }
 
         public virtual ICollection<Rating> Ratings { get; set; }

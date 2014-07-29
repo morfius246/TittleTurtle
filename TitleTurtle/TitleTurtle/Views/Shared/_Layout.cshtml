@@ -11,45 +11,57 @@
     <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
 
-
-
     <title>@ViewBag.Title - Title Turtle</title>
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-    
+
     <meta name="viewport" content="width=device-width" />
+    <style type="text/css">
+        .navli {
+            transition: 1.3s;
+        }
+
+            .navli:hover {
+                transition: 0.3s;
+    </style>
 </head>
 <body>
     <header id="header">
         <div id="wrap_nav" style="margin-top: 0px">
-            <div class="main_col">
-                
-                <!--div> class="logo">
+            <!--<div class="main_col">
+
+                <div class="logo">
                     <a href="#">
                         <img src="~/.jpg" />
                     </a>
-                </div-->
+                </div>-->
                 <nav id="nav">
-                    <ul id="navul">
-                        <li class="navli">@Html.ActionLink("Все статьи", "Index", "Home")</li>
-                        <li class="navli">@Html.ActionLink("Мои статьи", "MyArticles", "Home")</li>
-                        <li class="navli">@Html.ActionLink("Профиль", "EditUser", "Account", new {userName = User.Identity.Name },null)</li>
+
+                    <div id="navul">
+
+                        <div id="navli1" class="navli"><a href="~/"><img src="../Images/All-articals-2.png" onmouseover="this.src = '../Images/All-articals.png'" onmouseout="this.src = '../Images/All-articals-2.png'" title="Все статьи" /></a></div>
+
+                        <div id="navli2" class="navli"><a href="/Home/MyArticles"><img src="../Images/my-2.png" onmouseover="this.src='../Images/my.png'" onmouseout="this.src = '../Images/my-2.png'" title="Мои статьи" /></a></div>
                         @if (User.IsInRole("Admin"))
+
+
                         {
-                            <li class="navli">@Html.ActionLink("Управление", "Control", "Account")</li>
+                            <div id="navli3" class="navli" ><a href="/Account/Control"><img src="../Images/control-2.png" onmouseover="this.src = '../Images/control.png'" onmouseout="    this.src = '../Images/control-2.png'" title="Управление" /></a></div>
                         }
-                        <li class="navli">@Html.ActionLink("Поиск", "Sort", "Home")</li>
-                        <li class ="navli"><div id="head1"></div></li>
-                        <li class="navli">@Html.ActionLink("Обратная связь", "Feedback", "Home")</li>
+                        <div id="navli4" class="navli"><a href="/Home/Sort"><img src="../Images/lans-2.png" onmouseover="this.src = '../Images/lans.png'" onmouseout="    this.src = '../Images/lans-2.png'" title="Поиск" /></a></div>
+                        
+
+
+                        <div id="navli6" class="navli"><a href="/Home/Feedback"><img src="../Images/repit-2.png" onmouseover="this.src = '../Images/repit.png'" onmouseout="    this.src = '../Images/repit-2.png'" title="Обратная связь" /></a></div>
                         @Html.Partial("_LoginPartial")
-                    </ul>
+                    </div>
                 </nav>
             </div>
         </div>
     </header>
     <!--<img src="~/Images/icon-faceb.png" alt="fb" title="fb" />-->
-    <!--<img src="~/Images/icon-tvitt.png" />--> 
-    <div class="">
-        
+    <!--<img src="~/Images/icon-tvitt.png" />-->
+    <div class="fon_body">
+
         @RenderBody()
     </div>
     @Scripts.Render("~/bundles/jquery")
