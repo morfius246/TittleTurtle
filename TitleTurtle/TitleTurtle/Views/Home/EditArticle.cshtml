@@ -5,6 +5,19 @@
     Layout = "/Views/Shared/_Layout.cshtml";
 }
 <link href="~/Content/bootstrap.css" rel="stylesheet" />
+<script type="text/javascript" src="@Url.Content("~/Scripts/Editor/tinymce.min.js")"></script>
+<script type="text/javascript">
+    tinymce.init({
+        selector: "textarea"
+        //inline: true
+    });
+    onload = function () {
+        var str = tinymce.activeEditor.getContent({ format: 'raw' });
+        console.debug(str);
+        tinymce.activeEditor.setContent(str, { format: 'raw' });
+    }
+</script>
+
 <script type="text/javascript" src="~/Scripts/jquery-1.9.1.js"></script>
 <script type="text/javascript">
 
@@ -17,6 +30,11 @@
             k = false;
         });
     });
+
+    onload = function () {
+        var str = tinymce.get('NewArticle_ArticleText').getContents();
+        tinymce.get('NewArticle_ArticleText').setContents(str, {format:"raw"});
+    }
 </script>
 
 
@@ -40,6 +58,7 @@
             @Html.HiddenFor(model => model.NewArticle.ArticleID)
             <br>
             Cодержимое: @Html.TextAreaFor(model => model.NewArticle.ArticleText, new { @class = "form-control", @style = "min-height:200px;margin: 0 auto;" })
+            @*Html.*@
             <br>
             @try
             {
@@ -63,8 +82,11 @@
                     </div>
                     
                     <div class="editor-field">
-                         <div class="editor-label">Размер загружаемого файла не должен превышать 5 МВ и должен иметь формат (jpeg,png,gif,bmp,ico)  </div>
+                         <div class="editor-label">Размер загружаемого файла не должен превышать 10 МВ и должен иметь формат (jpeg,png,gif,bmp,ico)  </div>
                          <input type="file" accept="image/jpeg,image/png,image/gif" name="uploadImage"   />
+                        <br>
+                        <br>
+                        <p style="color:#FF0000">@ViewBag.Error</p>
                     </div>
             }
             <br>

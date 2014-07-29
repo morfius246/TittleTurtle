@@ -42,9 +42,13 @@
                     </div>
                     <div class="editor-label">Файл изображения</div>
                     <div class="editor-field">
-                        <div class="editor-label">Размер загружаемого файла не должен превышать 5 МВ и должен иметь формат (jpeg,png,gif,bmp,ico)  </div>
+                        <div class="editor-label">Размер загружаемого файла не должен превышать 10 МВ и должен иметь формат (jpeg,png,gif,bmp,ico)  </div>
                         <input type="file" accept="image/jpeg,image/png,image/gif" name="uploadImage" />
-
+                        <br>
+                        <br>
+                        <p style="color:#FF0000">@ViewBag.Error</p>
+                        
+                        
                     </div>
 
                     <p>

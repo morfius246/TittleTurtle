@@ -108,6 +108,7 @@ namespace TitleTurtle.Controllers
         public ActionResult CreateArticle(Main model, Media pic, HttpPostedFileBase uploadImage)
         {
             var mediainart = new MediaInArticle();
+            model.CategoryList = Db.Categories.ToList();
             if (model.NewArticle.ArticleTitle == null)
             {
                 model.NewArticle.ArticleTitle = "Без названия";
@@ -137,6 +138,8 @@ namespace TitleTurtle.Controllers
             {
                 if (uploadImage != null && uploadImage.ContentType == "image/jpeg" || uploadImage.ContentType == "image/jpg" || uploadImage.ContentType == "image/gif" || uploadImage.ContentType == "image/png" || uploadImage.ContentType == "image/bmp" || uploadImage.ContentType == "image/ico")
                 {
+                    if(uploadImage.ContentLength <=100000)
+                    { 
                     // Read the uploaded file into a byte array
                     byte[] imageData;
                     using (var binaryReader = new BinaryReader(uploadImage.InputStream))
@@ -148,6 +151,14 @@ namespace TitleTurtle.Controllers
                     Db.Medias.Add(pic);
                     mediainart.MediaID = pic.MediaID;
                     Db.MediaInArticles.Add(mediainart);
+                    ViewBag.Error = "";
+                    }
+                    else
+                    {
+                        ViewBag.Error = "Недопустимый размер файла";
+                        return View(model);
+
+                    }
 
                 }
             }
@@ -182,8 +193,7 @@ namespace TitleTurtle.Controllers
             ShowArticle model = new ShowArticle();
             model.Article = Db.Articles.SingleOrDefault(x => x.ArticleID == id);
             model.CurrentArticle = Db.Articles.SingleOrDefault(x => x.ArticleID == id);
-            model.Article.ArticleText.Replace("&lt;", "<");
-            model.Article.ArticleText.Replace("&gt;", ">");
+
             var t =
                 from comment in Db.Comments
                 join article in Db.Articles
@@ -230,9 +240,11 @@ namespace TitleTurtle.Controllers
         /// <param name="model">Main model</param>
         /// <returns>View 'Index'</returns>
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult EditArticle(Main model, int? id, Media pic, HttpPostedFileBase uploadImage)
         {
             var newArticle = model.NewArticle;
+            model.CategoryList = Db.Categories.ToList();
             var mediainart = new MediaInArticle();
             Media media = new Media();
             Article my = Db.Articles.First(x => x.ArticleID == model.NewArticle.ArticleID);
@@ -245,6 +257,8 @@ namespace TitleTurtle.Controllers
 
                 if (uploadImage != null && uploadImage.ContentType == "image/jpeg" || uploadImage.ContentType == "image/jpg" || uploadImage.ContentType == "image/gif" || uploadImage.ContentType == "image/png" || uploadImage.ContentType == "image/bmp" || uploadImage.ContentType == "image/ico")
                 {
+                    if(uploadImage.ContentLength <=100000)
+                    { 
                     // Read the uploaded file into a byte array
                     byte[] imageData;
                     using (var binaryReader = new BinaryReader(uploadImage.InputStream))
@@ -256,6 +270,8 @@ namespace TitleTurtle.Controllers
                     Db.Medias.Add(pic);
                     mediainart.MediaID = pic.MediaID;
                     Db.MediaInArticles.Add(mediainart);
+                    }
+                    
                 }
             }
             catch
