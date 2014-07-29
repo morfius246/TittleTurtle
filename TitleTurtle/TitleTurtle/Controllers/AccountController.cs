@@ -480,26 +480,45 @@ namespace TitleTurtle.Controllers
         }
         #endregion
 
-        [HttpGet]
-        public ActionResult EditUser(int? id)
-        {
-            User user = null;
-            if (id != null)
-            {
-                return View();
-            }
 
-            user = db.Users.FirstOrDefault(c => c.UserID == id);
-            if (user != null)
+        [HttpGet]
+        public ActionResult EditUser(String userName)
+        {
+            EditUser editUser = new EditUser();
+
+            User user = db.Users.FirstOrDefault(c => c.UserFirstName == userName);
+            editUser.UserID = user.UserID;
+
+            editUser.UserFirstName = user.UserFirstName;
+            editUser.UserLastName = user.UserLastName;
+            editUser.ContactEmail = user.Contacts.ElementAt(0).ContactEmail;
+            editUser.PersDataDate = user.PersonalDatas.ElementAt(0).PersDataDate;
+            editUser.ContactEmail = user.Contacts.ElementAt(0).ContactEmail;
+            editUser.ContactMobile = user.Contacts.ElementAt(0).ContactMobile;
+            return View(editUser);
+
+        }
+
+        [HttpPost]
+        public ActionResult EditUser(EditUser model)
+        {
+            if (ModelState.IsValid)
             {
-                return View(user);
+                User user = new User();
+                user = db.Users.FirstOrDefault(c => c.UserID == model.UserID);
+                user.UserLastName = model.UserLastName;
+
+                user.Contacts.ElementAt(0).ContactEmail = model.ContactEmail;
+                user.Contacts.ElementAt(0).ContactMobile = model.ContactMobile;
+                user.PersonalDatas.ElementAt(0).PersDataDate = model.PersDataDate;
+                db.SaveChanges();
+                return RedirectToAction("EditUser", new { userName = model.UserFirstName });
             }
             else
             {
-                ViewBag.Message = "No client with this Id";
-                return RedirectToAction("EditUser");
+                ViewBag.Message = "Something is going wrong";
+                return RedirectToAction("EditUser", new { userName = model.UserFirstName });
             }
         }
-
     }
 }

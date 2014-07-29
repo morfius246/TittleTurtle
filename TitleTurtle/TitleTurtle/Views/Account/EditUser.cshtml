@@ -1,7 +1,6 @@
-﻿@model TitleTurtle.Models.User
+﻿@model TitleTurtle.Models.EditUser
 @{
     ViewBag.Title = "Profile";
-    Layout = "~/Views/prof/_Layout.cshtml";
 }
 @using (Html.BeginForm("EditUser", "Account", FormMethod.Post)) {
    
@@ -25,37 +24,28 @@
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.UserLastName)
-
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Contacts)
+            @Html.LabelFor(model => model.ContactEmail)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Contacts)
+            @Html.EditorFor(model => model.ContactEmail)
      
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Roles)
+            @Html.LabelFor(model => model.ContactMobile)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Roles)
+            @Html.EditorFor(model => model.ContactMobile)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.PersonalDatas)
+            @Html.LabelFor(model => model.PersDataDate)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.PersonalDatas)
-        </div>
-
-
-         <div class="editor-label">
-            @Html.LabelFor(model => model.Articles)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Articles)
+            @Html.EditorFor(model => model.PersDataDate)
         </div>
         
 
@@ -64,4 +54,6 @@
         </p>
     </fieldset>
 }
+
+
 

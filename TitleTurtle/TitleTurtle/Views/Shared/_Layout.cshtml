@@ -41,7 +41,8 @@
                         <div id="navli1" class="navli"><a href="~/"><img src="../Images/All-articals-2.png" onmouseover="this.src = '../Images/All-articals.png'" onmouseout="this.src = '../Images/All-articals-2.png'" title="Все статьи" /></a></div>
 
                         <div id="navli2" class="navli"><a href="/Home/MyArticles"><img src="../Images/my-2.png" onmouseover="this.src='../Images/my.png'" onmouseout="this.src = '../Images/my-2.png'" title="Мои статьи" /></a></div>
-                        @if (User.IsInRole("Admin"))
+                       <li class="navli">@Html.ActionLink("Профиль", "EditUser", "Account", new {userName = User.Identity.Name },null)</li>
+                          @if (User.IsInRole("Admin"))
 
 
                         {
