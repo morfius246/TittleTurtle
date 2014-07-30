@@ -55,7 +55,7 @@
                                  "Home",
                                  new { _id = Model.Article.ArticleID.ToString(), up = false },
                                  new { Style = "color: black" })
-
+            <p>Просмотров: @Model.Article.Ratings.ElementAt(0).RatingView</p>
         </div>
     }
     <h2>Комментарии</h2>
