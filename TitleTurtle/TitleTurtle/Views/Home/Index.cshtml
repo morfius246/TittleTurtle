@@ -112,7 +112,16 @@
                             }
                             <p>Добавлено @item.Edits.ElementAt(0).Date.ToString() пользователем @item.User.UserFirstName</p>
                             <p style="color:@(item.Ratings.ElementAt(0).RatingLike - item.Ratings.ElementAt(0).RatingDislike < 0?"red":"green"); margin:0; padding:0; line-height: 15px"> Рейтинг: @(item.Ratings.ElementAt(0).RatingLike - item.Ratings.ElementAt(0).RatingDislike)</p>
-
+                            <p>
+                                @if (item.CommentCount == 0)
+                                {
+                                    <b>Нет комментариев</b>
+                                }
+                                else 
+                                {
+                                    @item.CommentCount <b>@((item.CommentCount % 100) / 10 != 1? item.CommentCount%10 == 1 ? "комментарий": (item.CommentCount%10 > 1 && item.CommentCount%10 < 5)? "комментария":"комментариев":"комментариев")</b>
+                                }
+                            </p>
                         </div>
                     }
                 </div>

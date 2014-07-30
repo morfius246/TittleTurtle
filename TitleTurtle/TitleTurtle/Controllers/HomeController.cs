@@ -396,6 +396,7 @@ namespace TitleTurtle.Controllers
             Comment newComment = model.NewComment;
             int currentArticleId = model.CurrentArticle.ArticleID;//отримаэм ід поточ статті
             Article temp = Db.Articles.SingleOrDefault(x => x.ArticleID == currentArticleId);//отрим цю статтю за ід
+            temp.CommentCount++;
             newComment.Article.Category = temp.Category;//коментар має таку ж каегор як стаття
             newComment.Article.ArticleStatus = 1;
             newComment.ArticleID = temp.ArticleID;

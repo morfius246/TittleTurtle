@@ -82,6 +82,7 @@
         }
     </script>
     <h3>Все записи</h3>
+    <p> всего: @Model.Article.CommentCount</p>
     @foreach (var item in Model.CommentList)
     {
         <div style="background-color:silver; padding:3px; margin:5px;">
