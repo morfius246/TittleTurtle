@@ -9,7 +9,7 @@ namespace TitleTurtle.Models
         public int ContactID { get; set; }
         [ForeignKey("User")]
         public int UserID { get; set; }
-        public int ContactMobile { get; set; }
+        public string ContactMobile { get; set; }
         public string ContactEmail { get; set; }
         public string ContactWebPage { get; set; }
         public virtual User User { get; set; }

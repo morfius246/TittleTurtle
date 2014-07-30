@@ -494,7 +494,7 @@ namespace TitleTurtle.Controllers
             editUser.ContactEmail = user.Contacts.ElementAt(0).ContactEmail;
             editUser.PersDataDate = user.PersonalDatas.ElementAt(0).PersDataDate;
             editUser.ContactEmail = user.Contacts.ElementAt(0).ContactEmail;
-            editUser.ContactMobile = user.Contacts.ElementAt(0).ContactMobile;
+            //editUser.ContactMobile = user.Contacts.ElementAt(0).ContactMobile;
             return View(editUser);
 
         }
@@ -509,7 +509,7 @@ namespace TitleTurtle.Controllers
                 user.UserLastName = model.UserLastName;
 
                 user.Contacts.ElementAt(0).ContactEmail = model.ContactEmail;
-                user.Contacts.ElementAt(0).ContactMobile = model.ContactMobile;
+                //user.Contacts.ElementAt(0).ContactMobile = model.ContactMobile;
                 user.PersonalDatas.ElementAt(0).PersDataDate = model.PersDataDate;
                 db.SaveChanges();
                 return RedirectToAction("EditUser", new { userName = model.UserFirstName });
