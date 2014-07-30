@@ -130,9 +130,9 @@ namespace TitleTurtle.Controllers
                 Article = newArticle,
                 ArticleID = model.NewArticle.ArticleID,
                 RatingDislike = 0,
-                RatingLike = 0,
+                RatingLike = 1,
                 RatingRepost = 0,
-                RatingView = 0
+                RatingView = 1
             };
             try
             {
@@ -193,7 +193,8 @@ namespace TitleTurtle.Controllers
             ShowArticle model = new ShowArticle();
             model.Article = Db.Articles.SingleOrDefault(x => x.ArticleID == id);
             model.CurrentArticle = Db.Articles.SingleOrDefault(x => x.ArticleID == id);
-
+            Db.Articles.SingleOrDefault(x => x.ArticleID == id).Ratings.First().RatingView++;
+            Db.SaveChanges();
             var t =
                 from comment in Db.Comments
                 join article in Db.Articles
