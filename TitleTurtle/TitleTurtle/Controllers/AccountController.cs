@@ -84,7 +84,9 @@ namespace TitleTurtle.Controllers
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     WebSecurity.Login(model.UserName, model.Password);
                     Roles.AddUserToRole(model.UserName, "RegUser");
-                    var user = new User {UserFirstName = model.UserName, UserID = WebSecurity.GetUserId(model.UserName)};
+                    db.Contacts.Add(new Contact { ContactEmail = "", ContactMobile = "", ContactWebPage = "", UserID = WebSecurity.GetUserId(model.UserName) });
+                    db.PersonalDatas.Add(new PersonalData { PersDataAdress = "", PersDataDate = DateTime.Now, PersDataOther = "", UserID = WebSecurity.GetUserId(model.UserName) });
+                    var user = new User { Login = model.UserName, UserID = WebSecurity.GetUserId(model.UserName), UserFirstName = "", UserLastName = "" };
                     db.Users.Add(user);
                     db.SaveChanges();
                     return RedirectToAction("Index", "Home");
@@ -330,7 +332,7 @@ namespace TitleTurtle.Controllers
         {
             List<User> listOfUser = new List<User>();
             foreach (var user in db.Users.ToList())
-                if (user.UserFirstName != User.Identity.Name)
+                if (user.Login != User.Identity.Name)
                 {
                     listOfUser.Add(user);
                 }
@@ -393,7 +395,7 @@ namespace TitleTurtle.Controllers
         {
             try
             {
-                db.Users.Remove(db.Users.First(x => x.UserFirstName == userName));
+                db.Users.Remove(db.Users.First(x => x.Login == userName));
                 db.SaveChanges();
                 foreach (var role in Roles.GetRolesForUser(userName))
                     Roles.RemoveUserFromRole(userName, role);
@@ -486,9 +488,9 @@ namespace TitleTurtle.Controllers
         {
             EditUser editUser = new EditUser();
 
-            User user = db.Users.FirstOrDefault(c => c.UserFirstName == userName);
+            User user = db.Users.FirstOrDefault(c => c.Login == userName);
             editUser.UserID = user.UserID;
-
+            editUser.Login = user.Login;
             editUser.UserFirstName = user.UserFirstName;
             editUser.UserLastName = user.UserLastName;
             editUser.ContactEmail = user.Contacts.ElementAt(0).ContactEmail;
@@ -507,17 +509,18 @@ namespace TitleTurtle.Controllers
                 User user = new User();
                 user = db.Users.FirstOrDefault(c => c.UserID == model.UserID);
                 user.UserLastName = model.UserLastName;
-
+                user.UserFirstName = model.UserFirstName;
                 user.Contacts.ElementAt(0).ContactEmail = model.ContactEmail;
-                //user.Contacts.ElementAt(0).ContactMobile = model.ContactMobile;
+                user.Contacts.ElementAt(0).ContactMobile = model.ContactMobile;
                 user.PersonalDatas.ElementAt(0).PersDataDate = model.PersDataDate;
                 db.SaveChanges();
-                return RedirectToAction("EditUser", new { userName = model.UserFirstName });
+                ViewBag.Message = "Изменения успешно сохранены";
+                return RedirectToAction("EditUser", new { userName = model.Login });
             }
             else
             {
-                ViewBag.Message = "Something is going wrong";
-                return RedirectToAction("EditUser", new { userName = model.UserFirstName });
+                ViewBag.Message = "Проверте правильность введённых данных";
+                return RedirectToAction("EditUser", new { userName = model.Login });
             }
         }
     }

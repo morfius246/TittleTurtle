@@ -7,10 +7,10 @@
 
 <fieldset>
         
-        @ViewBag.Message
+        <p>@ViewBag.Message</p>
 
         @Html.HiddenFor(model => model.UserID)
-
+        @Html.HiddenFor(model => model.Login)
         <div class="editor-label">
             @Html.LabelFor(model => model.UserFirstName)
         </div>
