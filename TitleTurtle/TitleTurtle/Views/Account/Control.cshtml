@@ -15,17 +15,17 @@
                     {
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => item.UserFirstName)
+                                @Html.DisplayFor(modelItem => item.Login)
                             </td>
                             <td></td>
                             <td>
                                 @{
-                        String[] userRoles = Roles.GetRolesForUser(item.UserFirstName);
+                                    String[] userRoles = Roles.GetRolesForUser(item.Login);
                                 }
 
-                                @(!userRoles.Contains("Author") ? Html.ActionLink("Сделать автором", "MakeAuthor", new { userName = item.UserFirstName }) : Html.ActionLink("Убрать из авторов", "RemoveFromAuthor", new { userName = item.UserFirstName }))
-                                @(!userRoles.Contains("Admin") ? Html.ActionLink("Сделать администратором", "MakeAdmin", new { userName = item.UserFirstName }) : Html.ActionLink("Убрать из администраторов", "RemoveFromAdmins", new { userName = item.UserFirstName }))
-                                @Html.ActionLink("Удалить", "DeleteUser", new { userName = item.UserFirstName })
+                                @(!userRoles.Contains("Author") ? Html.ActionLink("Сделать автором", "MakeAuthor", new { userName = item.UserFirstName }) : Html.ActionLink("Убрать из авторов", "RemoveFromAuthor", new { userName = item.Login }))
+                                @(!userRoles.Contains("Admin") ? Html.ActionLink("Сделать администратором", "MakeAdmin", new { userName = item.UserFirstName }) : Html.ActionLink("Убрать из администраторов", "RemoveFromAdmins", new { userName = item.Login }))
+                                @Html.ActionLink("Удалить", "DeleteUser", new { userName = item.Login })
                             </td>
                         </tr>
                     }
