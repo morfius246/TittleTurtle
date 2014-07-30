@@ -62,6 +62,10 @@
                         {
                             <a href="@Url.Action("Index", "Home", new { categoryId = category.CategoryID })" class="item2">
                                 <i class="fa " style="display: inline-block">@category.CategoryName</i>
+                                @if (User.IsInRole("Admin") && category.CategoryID !=7)
+                                {
+                                    @Html.ActionLink("Удалить", "RemoveCategory", "Home", new { id = category.CategoryID }, null)
+                                }
                             </a>
                         }
                         @*Just for admin*@
@@ -116,9 +120,9 @@
                                 {
                                     <b>Нет комментариев</b>
                                 }
-                                else 
+                                else
                                 {
-                                    @item.CommentCount <b>@((item.CommentCount % 100) / 10 != 1? item.CommentCount%10 == 1 ? "комментарий": (item.CommentCount%10 > 1 && item.CommentCount%10 < 5)? "комментария":"комментариев":"комментариев")</b>
+                                    @item.CommentCount <b>@((item.CommentCount % 100) / 10 != 1 ? item.CommentCount % 10 == 1 ? "комментарий" : (item.CommentCount % 10 > 1 && item.CommentCount % 10 < 5) ? "комментария" : "комментариев" : "комментариев")</b>
                                 }
                                 Просмотров: @item.Ratings.ElementAt(0).RatingView
                             </p>

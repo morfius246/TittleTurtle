@@ -331,6 +331,11 @@ namespace TitleTurtle.Controllers
 
         public ActionResult RemoveCategory(int? id)
         {
+            foreach (var article in Db.Articles.Where(x => x.CategoryID == id))
+            {
+                article.CategoryID = 7;
+            }
+            Db.SaveChanges();
             Db.Categories.Remove(Db.Categories.First(x => x.CategoryID == id.Value));
             Db.SaveChanges();
             return RedirectToAction("Index");
