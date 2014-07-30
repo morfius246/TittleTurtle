@@ -1,21 +1,23 @@
-﻿
-    @if (Request.IsAuthenticated)
-    {
-        <text>
-            
-   <a class="navli-user" href="/Account/Manage" title="Manage"><img src="../Images/meneg-2.png" onmouseover="this.src = '../Images/meneg.png'" onmouseout="    this.src = '../Images/meneg-2.png'" title="bionic" /></a>
-    
-    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
-    {
-        @Html.AntiForgeryToken()
-        <div id="navli9" class="navli"><a href="javascript:document.getElementById('logoutForm').submit()"><img src="../Images/Exit-2.png" onmouseover="this.src = '../Images/Exit.png'" onmouseout="    this.src = '../Images/Exit-2.png'" title="Выйти" /></a></div>
-    }
-</text>
-    }
+﻿@if (Request.IsAuthenticated)
+{
+    <text>
 
-    
-    else
-    {
-        <div id="navli7" class="navli"><a href="/Account/Register" id="registerLink"><img src="../Images/Exit-2.png" onmouseover="this.src = '../Images/Exit.png'" onmouseout="    this.src = '../Images/Exit-2.png'" title="Регистрация" /></a></div>
-        <div id="navli8" class="navli"><a href="/Account/Login" id="loginLink"><img src="../Images/Exit-2.png" onmouseover="this.src = '../Images/Exit.png'" onmouseout="    this.src = '../Images/Exit-2.png'" title="Войти" /></a></div>
-    }
+        <a class="navli-user" href=@Url.Action("EditUser", "Account", new { userName = User.Identity.Name }) title="Manage"><img src="../Images/meneg-2.png" onmouseover="this.src = '../Images/meneg.png'" onmouseout="    this.src = '../Images/meneg-2.png'" title="Профиль" /></a>
+        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+        {
+            @Html.AntiForgeryToken()
+            <div id="navli9" class="navli">
+                <a href="javascript:document.getElementById('logoutForm').submit()">
+                    <img src="../Images/Exit-2.png" onmouseover="this.src = '../Images/Exit.png'" onmouseout="    this.src = '../Images/Exit-2.png'" title="Выйти" />
+                </a>
+            </div>
+        }
+    </text>
+}
+
+
+else
+{
+    <div id="navli7" class="navli"><a href="/Account/Register" id="registerLink"><img src="../Images/Exit-2.png" onmouseover="this.src = '../Images/Exit.png'" onmouseout="    this.src = '../Images/Exit-2.png'" title="Регистрация" /></a></div>
+    <div id="navli8" class="navli"><a href="/Account/Login" id="loginLink"><img src="../Images/Exit-2.png" onmouseover="this.src = '../Images/Exit.png'" onmouseout="    this.src = '../Images/Exit-2.png'" title="Войти" /></a></div>
+}
