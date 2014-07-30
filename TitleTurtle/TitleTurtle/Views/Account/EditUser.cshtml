@@ -16,7 +16,11 @@
             @Html.LabelFor(model => model.UserFirstName)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.UserFirstName)
+             @if (Model.NewMedia != null){
+                     @Html.Raw("<img id='img' style='width:260px; height:180px;' src=\"data:image/jpeg;base64,"
+                                + Convert.ToBase64String(Model.NewMedia.MediaData) + "\" />")
+             }
+             @Html.EditorFor(model => model.UserFirstName)
             
         </div>
 
@@ -48,17 +52,22 @@
         <div class="editor-field">
             @Html.EditorFor(model => model.PersDataDate)
         </div>
-    <a class="navli-user" href="/Account/Manage" title="Manage">Изменить пароль</a>
-
-                    <div class="editor-field">
-                        @Html.EditorFor(model => model.NewMedia.MediaData)
+    <div class="editor-field">
+                       
                         @Html.ValidationMessageFor(model => model.NewMedia.MediaData)
                         @Html.HiddenFor(model => model.NewMedia.MediaID)
+
+
                     </div>
                     <div class="editor-field">
                         <div class="editor-label">Размер загружаемого файла не должен превышать 10 МВ и должен иметь формат (jpeg,png,gif,bmp,ico)  </div>
                         <input type="file" accept="image/jpeg,image/png,image/gif" name="uploadImage" />
+                        <br>
+                        <br>
+                        <p style="color:#FF0000">@ViewBag.Error</p>
 
+
+    <a class="navli-user" href="/Account/Manage" title="Manage">Изменить пароль</a>
         <p>
             <input type="submit" value="Save" />
         </p>
