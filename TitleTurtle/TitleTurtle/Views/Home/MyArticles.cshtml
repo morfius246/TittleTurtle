@@ -16,9 +16,9 @@
 {
     <div class="item">
         @item.ArticleTitle
-        <a href="@Url.Action("DeleteArticle", "Home", new { id = item.ArticleID })">d</a>
-        <a href="@Url.Action("EditArticle", "Home", new { id = item.ArticleID })">e</a>
-        <a href="@Url.Action("ShowArticle", "Home", new { id = item.ArticleID })">s</a>
+        <a href="@Url.Action("DeleteArticle", "Home", new { id = item.ArticleID })"  onclick="return confirm('Вы уверены, что хотите удалить статью?') ? true : false;"  style="color:#FF0000">Удалить статью</a>
+        <a href="@Url.Action("EditArticle", "Home", new { id = item.ArticleID })"  style="color:#FF0000">Редактировать статью</a>
+        <a href="@Url.Action("ShowArticle", "Home", new { id = item.ArticleID })"  style="color:#FF0000">Показать статью</a>
     </div>
 }
         

@@ -2,7 +2,8 @@
 @{
     ViewBag.Title = "Profile";
 }
-@using (Html.BeginForm("EditUser", "Account", FormMethod.Post)) {
+@using (Html.BeginForm("EditUser", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
    
 
 <fieldset>
@@ -48,6 +49,15 @@
             @Html.EditorFor(model => model.PersDataDate)
         </div>
     <a class="navli-user" href="/Account/Manage" title="Manage">Изменить пароль</a>
+
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.NewMedia.MediaData)
+                        @Html.ValidationMessageFor(model => model.NewMedia.MediaData)
+                        @Html.HiddenFor(model => model.NewMedia.MediaID)
+                    </div>
+                    <div class="editor-field">
+                        <div class="editor-label">Размер загружаемого файла не должен превышать 10 МВ и должен иметь формат (jpeg,png,gif,bmp,ico)  </div>
+                        <input type="file" accept="image/jpeg,image/png,image/gif" name="uploadImage" />
 
         <p>
             <input type="submit" value="Save" />

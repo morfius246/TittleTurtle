@@ -15,6 +15,8 @@ namespace TitleTurtle.Models
         public string PersDataAdress { get; set; }
         public string PersDataOther { get; set; }
         public int ContactID { get; set; }
+        public Media NewMedia { get; set; }
+        public UserPhoto NewUserPhoto { get; set; }
 
         public string ContactMobile { get; set; }
         public string ContactEmail { get; set; }

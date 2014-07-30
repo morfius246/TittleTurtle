@@ -138,20 +138,20 @@ namespace TitleTurtle.Controllers
             {
                 if (uploadImage != null && uploadImage.ContentType == "image/jpeg" || uploadImage.ContentType == "image/jpg" || uploadImage.ContentType == "image/gif" || uploadImage.ContentType == "image/png" || uploadImage.ContentType == "image/bmp" || uploadImage.ContentType == "image/ico")
                 {
-                    if(uploadImage.ContentLength <=100000)
-                    { 
-                    // Read the uploaded file into a byte array
-                    byte[] imageData;
-                    using (var binaryReader = new BinaryReader(uploadImage.InputStream))
+                    if (uploadImage.ContentLength <= 100000)
                     {
-                        imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
-                    }
-                    // Set byte array
-                    pic.MediaData = imageData;
-                    Db.Medias.Add(pic);
-                    mediainart.MediaID = pic.MediaID;
-                    Db.MediaInArticles.Add(mediainart);
-                    ViewBag.Error = "";
+                        // Read the uploaded file into a byte array
+                        byte[] imageData;
+                        using (var binaryReader = new BinaryReader(uploadImage.InputStream))
+                        {
+                            imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
+                        }
+                        // Set byte array
+                        pic.MediaData = imageData;
+                        Db.Medias.Add(pic);
+                        mediainart.MediaID = pic.MediaID;
+                        Db.MediaInArticles.Add(mediainart);
+                        ViewBag.Error = "";
                     }
                     else
                     {
@@ -161,6 +161,21 @@ namespace TitleTurtle.Controllers
                     }
 
                 }
+                else
+                {
+                    if (uploadImage.ContentLength >= 100000)
+                    {
+                        ViewBag.Error = "Недопустимый размер и формат файла ";
+                        return View(model);
+                    }
+                    else
+                    {
+                        ViewBag.Error = "Недопустимый формат файла";
+                        return View(model);
+                    }
+
+                }
+   
             }
             catch
             {

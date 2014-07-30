@@ -31,8 +31,6 @@
                     }
                     @Html.DropDownListFor(model => model.NewArticle.CategoryID, list, new { @class = "form-control", @style = "margin: 0 auto;" })
                     <br>
-
-                    <div class="editor-label">Название</div>
                     <div class="editor-field">
                         @Html.EditorFor(model => model.NewMedia.MediaData)
                         @Html.ValidationMessageFor(model => model.NewMedia.MediaData)
@@ -40,7 +38,6 @@
                         @Html.HiddenFor(model => model.NewArticle.ArticleID)
 
                     </div>
-                    <div class="editor-label">Файл изображения</div>
                     <div class="editor-field">
                         <div class="editor-label">Размер загружаемого файла не должен превышать 10 МВ и должен иметь формат (jpeg,png,gif,bmp,ico)  </div>
                         <input type="file" accept="image/jpeg,image/png,image/gif" name="uploadImage" />
@@ -58,7 +55,7 @@
                         <br>
                         Cодержимое: @Html.TextAreaFor(model => model.NewArticle.ArticleText, new { @class = "form-control", @style = "min-height:200px;margin: 0 auto;" })
                         <br>
-                        <input type="submit" value="Сохранить" class="btn" />
+                        <input type="submit"  value="Сохранить" class="btn" />
                 </div>
             }
         </body>

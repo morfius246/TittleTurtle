@@ -9,6 +9,8 @@ using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using TitleTurtle.Filters;
 using TitleTurtle.Models;
+using System.IO;
+using System.Web;
 
 namespace TitleTurtle.Controllers
 {
@@ -502,10 +504,11 @@ namespace TitleTurtle.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditUser(EditUser model)
+        public ActionResult EditUser(EditUser model, Media pic, HttpPostedFileBase uploadImage)
         {
             if (ModelState.IsValid)
             {
+                var usphoto = new UserPhoto();
                 User user = new User();
                 user = db.Users.FirstOrDefault(c => c.UserID == model.UserID);
                 user.UserLastName = model.UserLastName;
@@ -513,6 +516,47 @@ namespace TitleTurtle.Controllers
                 user.Contacts.ElementAt(0).ContactEmail = model.ContactEmail;
                 user.Contacts.ElementAt(0).ContactMobile = model.ContactMobile;
                 user.PersonalDatas.ElementAt(0).PersDataDate = model.PersDataDate;
+                if (uploadImage != null && uploadImage.ContentType == "image/jpeg" || uploadImage.ContentType == "image/jpg" || uploadImage.ContentType == "image/gif" || uploadImage.ContentType == "image/png" || uploadImage.ContentType == "image/bmp" || uploadImage.ContentType == "image/ico")
+                {
+                    if (uploadImage.ContentLength <= 100000)
+                    {
+                        // Read the uploaded file into a byte array
+                        byte[] imageData;
+                        using (var binaryReader = new BinaryReader(uploadImage.InputStream))
+                        {
+                            imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
+                        }
+                        // Set byte array
+                        pic.MediaData = imageData;
+                        db.Medias.Add(pic);
+                        usphoto.MediaID = pic.MediaID;
+                        db.UserPhotos.Add(usphoto);
+                        ViewBag.Error = "";
+                    }
+                    else
+                    {
+                        ViewBag.Error = "Недопустимый размер файла";
+                        return View(model);
+
+                    }
+
+                }
+                else
+                {
+                    if (uploadImage.ContentLength >= 100000)
+                    {
+                        ViewBag.Error = "Недопустимый размер и формат файла ";
+                        return View(model);
+                    }
+                    else
+                    {
+                        ViewBag.Error = "Недопустимый формат файла";
+                        return View(model);
+                    }
+
+                }
+            
+
                 db.SaveChanges();
                 ViewBag.Message = "Изменения успешно сохранены";
                 return RedirectToAction("EditUser", new { userName = model.Login });
