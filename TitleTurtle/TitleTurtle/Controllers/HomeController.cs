@@ -37,11 +37,11 @@ namespace TitleTurtle.Controllers
                         ? (from article in Db.Articles
                            where !(from comment in Db.Comments
                                    select comment.ArticleID).Contains(article.ArticleID)
-                           select article).ToList().OrderByDescending(a => (sort == "rating" ? (a.Ratings.ElementAt(0).RatingLike - a.Ratings.ElementAt(0).RatingDislike) : (object)a.Edits.ElementAt(0).Date))
+                           select article).Where(x => x.ArticleStatus == 1).ToList().OrderByDescending(a => (sort == "rating" ? (a.Ratings.ElementAt(0).RatingLike - a.Ratings.ElementAt(0).RatingDislike) : (object)a.Edits.ElementAt(0).Date))
                         : (from article in Db.Articles
                            where article.CategoryID == categoryId && !(from comment in Db.Comments
                                                                        select comment.ArticleID).Contains(article.ArticleID)
-                           select article).ToList().OrderByDescending(a => (sort == "rating" ? (a.Ratings.ElementAt(0).RatingLike - a.Ratings.ElementAt(0).RatingDislike) : (object)a.Edits.ElementAt(0).Date)),
+                           select article).Where(x => x.ArticleStatus == 1).ToList().OrderByDescending(a => (sort == "rating" ? (a.Ratings.ElementAt(0).RatingLike - a.Ratings.ElementAt(0).RatingDislike) : (object)a.Edits.ElementAt(0).Date)),
                 CategoryList = Db.Categories.ToList()
             };
             if (categoryId != null)
@@ -86,11 +86,11 @@ namespace TitleTurtle.Controllers
                         ? (from article in Db.Articles
                            where !(from comment in Db.Comments
                                    select comment.ArticleID).Contains(article.ArticleID) && (article.User.Login == User.Identity.Name)
-                           select article).ToList()
+                           select article).Where(x => x.ArticleStatus == 1).ToList()
                         : (from article in Db.Articles
                            where (article.User.Login == User.Identity.Name) && (article.CategoryID == categoryId) && !(from comment in Db.Comments
                                                                                                                                select comment.ArticleID).Contains(article.ArticleID)
-                           select article).ToList(),
+                           select article).Where(x => x.ArticleStatus == 1).ToList(),
                 CategoryList = Db.Categories.ToList()
             };
             return View(model);
@@ -305,7 +305,8 @@ namespace TitleTurtle.Controllers
 
         public ActionResult DeleteArticle(int id)
         {
-            Db.Articles.Remove(Db.Articles.First(x => x.ArticleID == id));
+            Article article = Db.Articles.First(x => x.ArticleID == id);
+            article.ArticleStatus = 2;
             Db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -11,17 +11,17 @@
             <img id="img_article" src="~/Images/my.png" />
             <div class="Article">Мои статьи</div>
         </div>
-        <div class="item">
+        
             @foreach (var item in Model.ArticleList)
-            {
-                
-                    @item.ArticleTitle
-                    <a href="@Url.Action("DeleteArticle", "Home", new { id = item.ArticleID })"></a>
-                    <a href="@Url.Action("EditArticle", "Home", new { id = item.ArticleID })"></a>
-                    <a href="@Url.Action("ShowArticle", "Home", new { id = item.ArticleID })"></a>
-                
-            }
-        </div>
+{
+    <div class="item">
+        @item.ArticleTitle
+        <a href="@Url.Action("DeleteArticle", "Home", new { id = item.ArticleID })">d</a>
+        <a href="@Url.Action("EditArticle", "Home", new { id = item.ArticleID })">e</a>
+        <a href="@Url.Action("ShowArticle", "Home", new { id = item.ArticleID })">s</a>
+    </div>
+}
+        
     </div>
 </div>
 

@@ -21,6 +21,12 @@ namespace TitleTurtle.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             System.Data.Entity.Database.SetInitializer<HomeContext>(null);
+
+           /* modelBuilder.Entity<Comment>()
+                .HasOptional(x => x.Article)
+                .WithOptionalDependent()
+                .WillCascadeOnDelete(true);*/
+
             base.OnModelCreating(modelBuilder);
         }
     }
