@@ -566,6 +566,7 @@
     <Content Include="Views\Home\Feedback.cshtml" />
     <Content Include="Views\Home\FeedbackSent.cshtml" />
     <Content Include="Views\Home\MyArticles.cshtml" />
+    <Content Include="Views\Account\ShowUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

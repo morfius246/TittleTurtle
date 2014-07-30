@@ -1,0 +1,41 @@
+﻿@model TitleTurtle.Models.EditUser
+@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+    }
+        
+        <p>@ViewBag.Message</p>
+
+        @Html.HiddenFor(model => model.UserID)
+        @Html.HiddenFor(model => model.Login)
+  
+    Имя:
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.UserFirstName)
+            
+        </div>
+
+      Фамилия:
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.UserLastName)
+        </div>
+
+        Email:
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.ContactEmail)
+     
+        </div>
+
+       Телефон:
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.ContactMobile)
+        </div>
+
+       Дата рождения:
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.PersDataDate)
+        </div>
+  
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>

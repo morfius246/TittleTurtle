@@ -496,7 +496,7 @@ namespace TitleTurtle.Controllers
             editUser.ContactEmail = user.Contacts.ElementAt(0).ContactEmail;
             editUser.PersDataDate = user.PersonalDatas.ElementAt(0).PersDataDate;
             editUser.ContactEmail = user.Contacts.ElementAt(0).ContactEmail;
-            //editUser.ContactMobile = user.Contacts.ElementAt(0).ContactMobile;
+            editUser.ContactMobile = user.Contacts.ElementAt(0).ContactMobile;
             return View(editUser);
 
         }
@@ -523,5 +523,23 @@ namespace TitleTurtle.Controllers
                 return RedirectToAction("EditUser", new { userName = model.Login });
             }
         }
+
+        public ActionResult ShowUser(int id)
+        {
+  EditUser editUser = new EditUser();
+
+            User user = db.Users.FirstOrDefault(c => c.UserID==id);
+            editUser.UserID = user.UserID;
+            editUser.Login = user.Login;
+            editUser.UserFirstName = user.UserFirstName;
+            editUser.UserLastName = user.UserLastName;
+            editUser.ContactEmail = user.Contacts.ElementAt(0).ContactEmail;
+            editUser.PersDataDate = user.PersonalDatas.ElementAt(0).PersDataDate;
+            editUser.ContactEmail = user.Contacts.ElementAt(0).ContactEmail;
+            editUser.ContactMobile = user.Contacts.ElementAt(0).ContactMobile;
+            return View(editUser);
+
+        }
+
+        }
     }
-}

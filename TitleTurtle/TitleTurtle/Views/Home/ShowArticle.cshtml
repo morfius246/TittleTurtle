@@ -29,7 +29,7 @@
                 }
             }
             <br>
-            <p>Добавил:@Model.Article.User.UserFirstName</p>
+            <p>Добавил:@Html.ActionLink(@Model.Article.User.Login, "ShowUser", "Account", new {id=Model.Article.UserID},null)</p>
             <p>Дата создания: @Model.Article.Edits.ElementAt(0).Date</p>
             @if (Model.Article.Edits.Count() > 1)
             {
