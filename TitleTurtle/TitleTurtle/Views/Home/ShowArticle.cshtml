@@ -38,21 +38,23 @@
                     @Model.Article.Edits.ElementAt(Model.Article.Edits.Count() - 1).Date
                 </p>
             }
-            <p style="color:chartreuse">@Model.Article.Ratings.ElementAt(0).RatingLike</p>
-            <p style="color:crimson">@Model.Article.Ratings.ElementAt(0).RatingDislike</p>
-            <p>@{int p = Model.Article.Ratings.ElementAt(0).RatingLike - Model.Article.Ratings.ElementAt(0).RatingDislike;}@p</p>
-            
+            <p>
+                Likes: <b style="color:chartreuse">@Model.Article.Ratings.ElementAt(0).RatingLike</b>
+                Dislikes: <b style="color:crimson">@Model.Article.Ratings.ElementAt(0).RatingDislike</b>
+                Rating: <b>@(Model.Article.Ratings.ElementAt(0).RatingLike - Model.Article.Ratings.ElementAt(0).RatingDislike)</b>
+            </p>
+
             @Html.ActionLink("UpVote",
                                  "Vote",
                                  "Home",
                                  new { _id = Model.Article.ArticleID.ToString(), up = true },
-                                 null)
+                                 new { Style = "color: black" })
             <br />
             @Html.ActionLink("DownVote",
-                    "Vote",
-                    "Home",
-                    new { _id = Model.Article.ArticleID.ToString(), up = false },
-                    null)
+                                 "Vote",
+                                 "Home",
+                                 new { _id = Model.Article.ArticleID.ToString(), up = false },
+                                 new { Style = "color: black" })
 
         </div>
     }
