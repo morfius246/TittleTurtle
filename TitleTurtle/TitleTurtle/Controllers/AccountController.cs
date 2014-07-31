@@ -577,11 +577,11 @@ namespace TitleTurtle.Controllers
             }
         }
 
-        public ActionResult ShowUser(int id)
+        public ActionResult ShowUser(int? id)
         {
             EditUser editUser = new EditUser();
 
-            User user = db.Users.FirstOrDefault(c => c.UserID == id);
+            User user = db.Users.FirstOrDefault(c => c.UserID == id.Value);
             editUser.UserID = user.UserID;
             editUser.Login = user.Login;
             editUser.UserFirstName = user.UserFirstName;
@@ -590,9 +590,40 @@ namespace TitleTurtle.Controllers
             editUser.PersDataDate = user.PersonalDatas.ElementAt(0).PersDataDate;
             editUser.ContactEmail = user.Contacts.ElementAt(0).ContactEmail;
             editUser.ContactMobile = user.Contacts.ElementAt(0).ContactMobile;
+            int userId = WebSecurity.GetUserId(User.Identity.Name);
+            if (db.Followers.Where(x => x.FollowID == id.Value && x.UserID == userId).Count() != 0)
+            {
+                editUser.UserIsFollowed = true;
+            }
+            else
+            {
+                editUser.UserIsFollowed = false;
+            }
             return View(editUser);
-
         }
 
+        public ActionResult Follow(int followerID, int followedID)
+        {
+            db.Followers.Add(new Follower { UserID = followerID, FollowID = followedID });
+            db.SaveChanges();
+            return RedirectToAction("ShowUser", new { id = followedID });
+        }
+        public ActionResult UnFollow(int followerID, int followedID)
+        {
+            db.Followers.Remove(db.Followers.First(x => x.FollowID == followedID && x.UserID == followerID));
+            db.SaveChanges();
+            return RedirectToAction("ShowUser", new { id = followedID });
+        }
+
+        public ActionResult News(int userId)
+        {
+            var model = new Main
+            {
+                ArticleList =  db.Articles.Where(x=> db.Followers.Where(t => t.UserID == userId).Select(y=>y.FollowID).Contains(x.UserID)
+                                                        && !db.Comments.Select(y=>y.ArticleID).Contains(x.ArticleID)).ToList(),                    
+                CategoryList = db.Categories.ToList()
+            };
+            return View(model);
+        }
     }
 }

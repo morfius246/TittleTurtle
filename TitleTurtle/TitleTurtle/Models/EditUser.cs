@@ -22,5 +22,6 @@ namespace TitleTurtle.Models
         public string ContactEmail { get; set; }
         public string ContactWebPage { get; set; }
 
+        public bool UserIsFollowed { get; set; }
     }
 }

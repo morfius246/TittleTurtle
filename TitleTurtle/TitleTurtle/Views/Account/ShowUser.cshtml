@@ -1,41 +1,50 @@
 ﻿@model TitleTurtle.Models.EditUser
 @{
     Layout = "/Views/Shared/_Layout.cshtml";
-    }
-        
-        <p>@ViewBag.Message</p>
+}
 
-        @Html.HiddenFor(model => model.UserID)
-        @Html.HiddenFor(model => model.Login)
-  
-    Имя:
+<p>@ViewBag.Message</p>
+
+@Html.HiddenFor(model => model.UserID)
+@Html.HiddenFor(model => model.Login)
+
+Имя:
         <div class="editor-field">
             @Html.DisplayFor(model => model.UserFirstName)
-            
+
         </div>
 
-      Фамилия:
+Фамилия:
         <div class="editor-field">
             @Html.DisplayFor(model => model.UserLastName)
         </div>
 
-        Email:
+Email:
         <div class="editor-field">
             @Html.DisplayFor(model => model.ContactEmail)
-     
+
         </div>
 
-       Телефон:
+Телефон:
         <div class="editor-field">
             @Html.DisplayFor(model => model.ContactMobile)
         </div>
 
-       Дата рождения:
+Дата рождения:
         <div class="editor-field">
             @Html.DisplayFor(model => model.PersDataDate)
         </div>
-  
-
-        <p>
-            <input type="submit" value="Save" />
-        </p>
+@if (User.Identity.Name != Model.Login)
+{
+    if (Model.UserIsFollowed)
+    {
+        @Html.ActionLink("Отписаться", "UnFollow", "Account", new { followerID = WebSecurity.GetUserId(User.Identity.Name), followedID = Model.UserID }, null)
+    }
+    else
+    {
+        @Html.ActionLink("Подписаться", "Follow", "Account", new { followerID = WebSecurity.GetUserId(User.Identity.Name), followedID = Model.UserID }, null)
+    }
+}
+<p>
+    <input type="submit" value="Save" />
+</p>
