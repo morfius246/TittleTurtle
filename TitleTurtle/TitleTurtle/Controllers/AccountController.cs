@@ -499,9 +499,11 @@ namespace TitleTurtle.Controllers
             editUser.PersDataDate = user.PersonalDatas.ElementAt(0).PersDataDate;
             editUser.ContactEmail = user.Contacts.ElementAt(0).ContactEmail;
             editUser.ContactMobile = user.Contacts.ElementAt(0).ContactMobile;
-            if (db.UserPhotos.FirstOrDefault(y => y.UserID == user.UserID && y.UserPhotoCurrent == 1) != null)
+
+            if (db.UserPhotos.Where(y => (y.UserID == user.UserID && y.UserPhotoCurrent == 1)).Count() != 0)
             {
-                editUser.NewMedia = db.Medias.First(x => x.MediaID == db.UserPhotos.FirstOrDefault(y => (y.UserID == user.UserID && y.UserPhotoCurrent == 1)).MediaID);
+                editUser.NewMedia = db.Medias.Where(x => x.MediaID == db.UserPhotos.Where(y => (y.UserID == user.UserID && y.UserPhotoCurrent == 1)).FirstOrDefault().MediaID).First();
+
             }
             return View(editUser);
 
@@ -517,7 +519,7 @@ namespace TitleTurtle.Controllers
                 {
                     if (uploadImage.ContentType == "image/jpeg" || uploadImage.ContentType == "image/jpg" || uploadImage.ContentType == "image/gif" || uploadImage.ContentType == "image/png" || uploadImage.ContentType == "image/bmp" || uploadImage.ContentType == "image/ico")
                     {
-                        if (uploadImage.ContentLength <= 100000)
+                        if (uploadImage.ContentLength <= 10000000)
                         {
                             // Read the uploaded file into a byte array
                             byte[] imageData;
@@ -545,7 +547,7 @@ namespace TitleTurtle.Controllers
                     }
                     else
                     {
-                        if (uploadImage.ContentLength >= 100000)
+                        if (uploadImage.ContentLength >= 10000000)
                         {
                             ViewBag.Error = "Недопустимый размер и формат файла ";
                             return View(model);

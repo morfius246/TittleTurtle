@@ -41,7 +41,7 @@
 <body class="main">
 
 
-    @using (Html.BeginForm("EditArticle", "Home", new { id = (Model.NewArticle.MedialInArticles.Count == 0) ? -1 : Model.NewArticle.MedialInArticles.FirstOrDefault<TitleTurtle.Models.MediaInArticle>().Media.MediaID }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("EditArticle", "Home", new { id = (Model.NewArticle.MedialInArticles == null || Model.NewArticle.MedialInArticles.Count == 0) ? -1 : Model.NewArticle.MedialInArticles.FirstOrDefault<TitleTurtle.Models.MediaInArticle>().Media.MediaID }, FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         <div style="margin: 0 auto">
             Категория:
@@ -63,7 +63,7 @@
             @try
             {
 
-                @Html.Raw("<img id='img' style='width:260px; height:180px;' src=\"data:image/jpeg;base64,"
+                @Html.Raw("<img id='img' style='' src=\"data:image/jpeg;base64," @* width:260px; height:180px; *@
                                 + Convert.ToBase64String(Model.NewArticle.MedialInArticles.First<TitleTurtle.Models.MediaInArticle>().Media.MediaData) + "\" />")
                 <br>
 
@@ -87,11 +87,13 @@
                         <br>
                         <br>
                         <p style="color:#FF0000">@ViewBag.Error</p>
+                        <br>
                     </div>
             }
             <br>
             <br>
             <input type="submit" value="Сохранить" class="btn" />
+
         </div>
     }
 
