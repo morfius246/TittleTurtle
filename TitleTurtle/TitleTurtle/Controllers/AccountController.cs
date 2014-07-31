@@ -499,7 +499,10 @@ namespace TitleTurtle.Controllers
             editUser.PersDataDate = user.PersonalDatas.ElementAt(0).PersDataDate;
             editUser.ContactEmail = user.Contacts.ElementAt(0).ContactEmail;
             editUser.ContactMobile = user.Contacts.ElementAt(0).ContactMobile;
-            editUser.NewMedia = db.Medias.Where(x => x.MediaID == db.UserPhotos.FirstOrDefault(y => (y.UserID == user.UserID && y.UserPhotoCurrent==1)).MediaID).First();
+            if (db.UserPhotos.FirstOrDefault(y => (y.UserID == user.UserID)) != null)
+            {
+                editUser.NewMedia = db.Medias.Where(x => x.MediaID == db.UserPhotos.FirstOrDefault(y => (y.UserID == user.UserID && y.UserPhotoCurrent == 1)).MediaID).First();
+            }
             return View(editUser);
 
         }
