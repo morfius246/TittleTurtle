@@ -370,6 +370,7 @@
     <Content Include="Images\del-2.jpg" />
     <Content Include="Images\del.jpg" />
     <Content Include="Images\del.png" />
+    <Content Include="Images\noavatar.png" />
     <Content Include="Scripts\Editor\langs\readme.md" />
     <Content Include="Scripts\Editor\skins\lightgray\fonts\readme.md" />
     <Content Include="Scripts\Editor\skins\lightgray\fonts\tinymce-small.eot" />

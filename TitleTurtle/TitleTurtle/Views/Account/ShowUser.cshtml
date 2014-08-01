@@ -1,57 +1,50 @@
-﻿ @model TitleTurtle.Models.EditUser
+﻿@model TitleTurtle.Models.EditUser
 @{
     Layout = "/Views/Shared/_Layout.cshtml";
 }
 
-<p>@ViewBag.Message</p>
+<title>Профиль пользователя @Model.Login</title>
 
-@Html.HiddenFor(model => model.UserID)
-@Html.HiddenFor(model => model.Login)
-<div class="">
-    @if (Model.NewMedia != null)
+@*Html.HiddenFor(model => model.UserID)
+@Html.HiddenFor(model => model.Login)*@
+<div class ="container">
+    <p>@ViewBag.Message</p>
+    <h2>@Model.Login</h2>
+    <!--Image-->
+    <div>
+        @if (Model.NewMedia != null)
+        {
+            @Html.Raw("<img id='img' style='width:180px; height:260px;' src=\"data:image/jpeg;base64,"
+                      + Convert.ToBase64String(Model.NewMedia.MediaData) + "\" />")
+        }
+        else
+        {
+            <img id ="img" style="width: 120px; height: 90px" src="/Images/noavatar.png"/>
+        }
+    </div>
+
+    <table border ="0" cellpadding ="7" cellspacing="7">
+        <tr><td>Имя</td><td>@Model.UserFirstName</td></tr>
+        <tr><td>Фамилия</td><td>@Model.UserLastName</td></tr>
+        <tr><td>Электронная почта</td><td>@Model.ContactEmail</td></tr>
+        <tr><td>Телефон</td><td>@Model.ContactMobile</td></tr>
+        <tr><td>Персональная страница</td><td>@Model.ContactWebPage</td></tr>
+        <tr><td>Дата рождения</td><td>@Model.PersDataDate</td></tr>
+    </table>
+
+    @if (User.Identity.Name != Model.Login)
     {
-        @Html.Raw("<img id='img' style='width:180px; height:260px;' src=\"data:image/jpeg;base64,"
-                                + Convert.ToBase64String(Model.NewMedia.MediaData) + "\" />")
-    }
-
-</div>
-Имя:
-        <div class="editor-field">
-            @Html.DisplayFor(model => model.UserFirstName, new {style="color: black"})
-
-        </div>
-
-Фамилия:
-        <div class="editor-field">
-            @Html.DisplayFor(model => model.UserLastName, new {style="color: black"})
-        </div>
-
-Email:
-        <div class="editor-field">
-            @Html.DisplayFor(model => model.ContactEmail, new { style = "color: black" })
-
-        </div>
-
-Телефон:
-        <div class="editor-field">
-            @Html.DisplayFor(model => model.ContactMobile, new { style = "color: black" })
-        </div>
-
-Дата рождения:
-        <div class="editor-field">
-            @Html.DisplayFor(model => model.PersDataDate, new { style = "color: black" })
-        </div>
-@if (User.Identity.Name != Model.Login)
-{
-    if (Model.UserIsFollowed)
-    {
-    @Html.ActionLink("Отписаться", "UnFollow", "Account", new { followerID = WebSecurity.GetUserId(User.Identity.Name), followedID = Model.UserID }, new { style = "color: black" })
+        if (Model.UserIsFollowed)
+        {
+            @Html.ActionLink("Отписаться", "UnFollow", "Account", new { followerID = WebSecurity.GetUserId(User.Identity.Name), followedID = Model.UserID }, new { style = "color: black" })
+        }
+        else
+        {
+            @Html.ActionLink("Подписаться", "Follow", "Account", new { followerID = WebSecurity.GetUserId(User.Identity.Name), followedID = Model.UserID }, new { style = "color: black" })
+        }
     }
     else
     {
-    @Html.ActionLink("Подписаться", "Follow", "Account", new { followerID = WebSecurity.GetUserId(User.Identity.Name), followedID = Model.UserID }, new { style = "color: black" })
+        @Html.ActionLink("Редактировать", "EditUser", "Account", new { userName = User.Identity.Name }, new { style = "color:blue" })
     }
-}
-<p>
-    <input type="submit" value="Save" />
-</p>
+</div>

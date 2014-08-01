@@ -1,7 +1,7 @@
 ﻿@if (Request.IsAuthenticated)
 {
     <text>
-        <a class="navli-user" href=@Url.Action("EditUser", "Account", new { userName = User.Identity.Name }) title="Manage"><img src="/Images/meneg-2.png" onmouseover="this.src = '/Images/meneg.png'" onmouseout="    this.src = '/Images/meneg-2.png'" title="Профиль" /></a>
+        <a class="navli-user" href=@Url.Action("ShowUser", "Account", new { userName = User.Identity.Name }) title="Manage"><img src="/Images/meneg-2.png" onmouseover="this.src = '/Images/meneg.png'" onmouseout="    this.src = '/Images/meneg-2.png'" title="Профиль" /></a>
         @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
         {
             @Html.AntiForgeryToken()

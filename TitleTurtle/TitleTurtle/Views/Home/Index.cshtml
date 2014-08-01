@@ -5,144 +5,149 @@
     Layout = "/Views/Shared/_Layout.cshtml";
 }
 
-<link href="~/Content/style2.css" rel="stylesheet" />
+<!--link href="~/Content/style2.css" rel="stylesheet" /-->
 <script src="~/Scripts/jquery.js"></script>
 
 <script src="~/Scripts/mocha.js"></script>
 @{
     TempData["TempModel"] = Model;
 }
+<div class="container">
+    <!--div id="bod2">
+        <div id="bod1">-->
+            <!--div id="img_header">
+                <!--div-- id="banner">
+                    <a href="http://bionic-university.com/ru/" target="_blank">
+                        <img class="banner" src="/Images/bunner.png" /></a>
+                    </!--div-->
 
-<div id="bod2">
-    <div id="bod1">
-        <div id="img_header">
-            <!--div-- id="banner">
-                <a href="http://bionic-university.com/ru/" target="_blank">
-                    <img class="banner" src="/Images/bunner.png" /></a>
-            </!--div-->
-
-            <div id="carusel">
+                <!--div id="carusel">
 
 
-                <div id="gallery">
-                    <img src="~/Images/3.jpg" />
-                    <img src="~/Images/4.jpg" />
-                    <img src="~/Images/5.jpg" />
-                </div>
-
-                <div id="thumbs">
-                    <img src="~/Images/33.jpg" />
-                    <img src="~/Images/44.jpg" />
-                    <img src="~/Images/55.jpg" />
-                </div>
-
-                <a href="#" id="next">
-                    <img src="~/Images/arrow.png" /></a>
-            </div>
-        </div>
-        <div>
-            <div id="glob_category">
-
-                <div id="upkat">
-                    <div id="gl_category">
-
-                        <div id="img_category">
-                            <img src="~/Images/category.png" /></div>
-                        <div id="category">
-                            <span>Категории</span>
-
-                        </div>
+                    <div id="gallery">
+                        <img src="~/Images/3.jpg" />
+                        <img src="~/Images/4.jpg" />
+                        <img src="~/Images/5.jpg" />
                     </div>
-                    <div id="fild_category">
-                        <a href="@Url.Action("Index", "Home")" class="item2">
-                            <i class="fa" style="display: inline-block">Все</i>
-                        </a>
-                        @foreach (var category in Model.CategoryList)
-                        {
-                            <a href="@Url.Action("Index", "Home", new { categoryId = category.CategoryID })" class="item2">
-                                <i class="fa " style="display: inline-block">@category.CategoryName</i>
-                                @if (User.IsInRole("Admin") && category.CategoryID != 7)
-                                {
-                                    @Html.ActionLink("Удалить", "RemoveCategory", "Home", new { id = category.CategoryID }, null)
-                                }
-                            </a>
-                        }
-                        @*Just for admin*@
-                        @if (User.IsInRole("Admin"))
-                        {
-                            using (Html.BeginForm("CreateCategory", "Home"))
-                            {
-                            <div class="item3">
-                                @Html.TextBoxFor(model => model.NewCategory.CategoryName, new { @class = "fildcat" })
-                                <input type="submit" value="Новая категория" class="button-category">
+
+                    <div id="thumbs">
+                        <img src="~/Images/33.jpg" />
+                        <img src="~/Images/44.jpg" />
+                        <img src="~/Images/55.jpg" />
+                    </div>
+
+                    <a href="#" id="next">
+                        <img src="~/Images/arrow.png" />
+                    </a>
+                </div-->
+            <div>
+                <div id="glob_category">
+
+                    <div id="upkat">
+                        <div id="gl_category">
+
+                            <div id="img_category">
+                                <img src="~/Images/category.png" />
                             </div>
-                            }
-                        }
+                            <div id="category">
+                                <span>Категории</span>
 
-                    </div>
-                </div>
-            </div>
-            <div id="glob_article">
-                <div id="head_article">
-
-                    <div id="img_article">
-                    </div>
-                    @if (User.IsInRole("Admin") || User.IsInRole("Author"))
-                    {
-
-                        <div id="New_article">
-
-                            <p id="btn">
-
-                                <a href="/Home/CreateArticle">
-                                    <img class="articl-bot1" title="Добавить новую статью" src="/Images/new-4.png" onmouseover="this.src = '/Images/new-3.png'" onmouseout="    this.src = '/Images/new-4.png'" alt="Добавить новую статью" /></a>
-                            </p>
+                            </div>
                         </div>
-                    }
-                    <div style ="position:absolute; padding-top:30px; margin-left: 250px ">
-                        @Html.ActionLink("Лучшее", "Index", "Home", new { sort = "rating", categoryId = ViewBag.CategoryID }, null)
-                        @Html.ActionLink("Свежее", "Index", "Home", new { sort = "date", categoryId = ViewBag.CategoryID }, null)
-                        @Html.ActionLink("Обсуждаемое", "SortByUserDesire", "Home", new { sort = "discussed", categoryId = ViewBag.CategoryID }, null)
-                    </div>
-                    <div class="Article">                        
-                        Статьи
-                    </div>
-                    
-                    
-                </div>
-
-                <div>
-                    @foreach (var item in Model.ArticleList)
-                    {
-                        <div class="item">
-                            @Html.ActionLink(item.ArticleTitle, "ShowArticle", "Home", new { id = item.ArticleID }, new { style = "margin: 0; padding-right: 80px; line-height: 15px; color: black" })
-                            @if ((User.IsInRole("Author") && User.Identity.Name == item.User.UserFirstName) || User.IsInRole("Admin"))
+                        <div id="fild_category">
+                            <a href="@Url.Action("Index", "Home")" class="item2">
+                                <i class="fa" style="display: inline-block">Все</i>
+                            </a>
+                            @foreach (var category in Model.CategoryList)
                             {
-                                <div style="position: absolute; top:20px; right:5px">
-                                    <a href="@Url.Action("DeleteArticle", "Home", new { id = item.ArticleID })" onclick="return confirm('Вы уверены, что хотите удалить статью?') ? true : false;">
-                                        <img class="articl-bot" title="Удалить статью" src="~/Images/del.jpg" onmouseover="this.src = 'Images/del-2.jpg'" onmouseout="    this.src = 'Images/del.jpg'" alt="Удалить статью" /></a>
-                                    <a href="@Url.Action("EditArticle", "Home", new { id = item.ArticleID })" >
-                                        <img class="articl-bot" title="Редактировать статью" src="~/Images/cor.jpg" onmouseover="this.src = 'Images/cor-2.jpg'" onmouseout="    this.src = 'Images/cor.jpg'" alt="Редактировать статью" /></a>
-                                </div>
+                                <a href="@Url.Action("Index", "Home", new { categoryId = category.CategoryID })" class="item2">
+                                    <i class="fa " style="display: inline-block">@category.CategoryName</i>
+                                    @if (User.IsInRole("Admin") && category.CategoryID != 7)
+                                    {
+                                        @Html.ActionLink("Удалить", "RemoveCategory", "Home", new { id = category.CategoryID }, null)
+                                    }
+                                </a>
                             }
-                            <p>Добавлено @item.Edits.ElementAt(0).Date.ToString() пользователем @Html.ActionLink(@item.User.Login, "ShowUser", "Account", new { id = item.UserID }, new { style = "color: black" })</p>
-                            <p style="color:@(item.Ratings.ElementAt(0).RatingLike - item.Ratings.ElementAt(0).RatingDislike < 0 ? "red" : "green"); margin:0; padding:0; line-height: 15px">Рейтинг: @(item.Ratings.ElementAt(0).RatingLike - item.Ratings.ElementAt(0).RatingDislike)</p>
-                            <p>
-                                @if (item.CommentCount == 0)
+                            @*Just for admin*@
+                            @if (User.IsInRole("Admin"))
+                            {
+                                using (Html.BeginForm("CreateCategory", "Home"))
                                 {
-                                    <b>Нет комментариев</b>
+                                    <div class="item3">
+                                        @Html.TextBoxFor(model => model.NewCategory.CategoryName, new { @class = "fildcat" })
+                                        <input type="submit" value="Новая категория" class="button-category">
+                                    </div>
                                 }
-                                else
-                                {
-                                    @item.CommentCount <b>@((item.CommentCount % 100) / 10 != 1 ? item.CommentCount % 10 == 1 ? "комментарий" : (item.CommentCount % 10 > 1 && item.CommentCount % 10 < 5) ? "комментария" : "комментариев" : "комментариев")</b>
-                                }
-                                Просмотров: @item.Ratings.ElementAt(0).RatingView
-                            </p>
+                            }
+
                         </div>
-                    }
+                    </div>
+                </div>
+                <div id="glob_article">
+                    <div id="head_article">
+
+                        <div id="img_article">
+                        </div>
+                        @if (User.IsInRole("Admin") || User.IsInRole("Author"))
+                        {
+
+                            <div id="New_article">
+
+                                <p id="btn">
+
+                                    <a href="/Home/CreateArticle">
+                                        <img class="articl-bot1" title="Добавить новую статью" src="/Images/new-4.png" onmouseover="this.src = '/Images/new-3.png'" onmouseout="    this.src = '/Images/new-4.png'" alt="Добавить новую статью" />
+                                    </a>
+                                </p>
+                            </div>
+                        }
+                        <div style="position:absolute; padding-top:30px; margin-left: 250px ">
+                            @Html.ActionLink("Лучшее", "Index", "Home", new { sort = "rating", categoryId = ViewBag.CategoryID }, null)
+                            @Html.ActionLink("Свежее", "Index", "Home", new { sort = "date", categoryId = ViewBag.CategoryID }, null)
+                            @Html.ActionLink("Обсуждаемое", "SortByUserDesire", "Home", new { sort = "discussed", categoryId = ViewBag.CategoryID }, null)
+                        </div>
+                        <div class="Article">
+                            Статьи
+                        </div>
+
+
+                    </div>
+
+                    <div>
+                        @foreach (var item in Model.ArticleList)
+                        {
+                            <div class="item">
+                                @Html.ActionLink(item.ArticleTitle, "ShowArticle", "Home", new { id = item.ArticleID }, new { style = "margin: 0; padding-right: 80px; line-height: 15px; color: black" })
+                                @if ((User.IsInRole("Author") && User.Identity.Name == item.User.UserFirstName) || User.IsInRole("Admin"))
+                                {
+                                    <div style="position: absolute; top:20px; right:5px">
+                                        <a href="@Url.Action("DeleteArticle", "Home", new { id = item.ArticleID })" onclick="return confirm('Вы уверены, что хотите удалить статью?') ? true : false;">
+                                            <img class="articl-bot" title="Удалить статью" src="~/Images/del.jpg" onmouseover="this.src = 'Images/del-2.jpg'" onmouseout="    this.src = 'Images/del.jpg'" alt="Удалить статью" />
+                                        </a>
+                                        <a href="@Url.Action("EditArticle", "Home", new { id = item.ArticleID })">
+                                            <img class="articl-bot" title="Редактировать статью" src="~/Images/cor.jpg" onmouseover="this.src = 'Images/cor-2.jpg'" onmouseout="    this.src = 'Images/cor.jpg'" alt="Редактировать статью" />
+                                        </a>
+                                    </div>
+                                }
+                                <p>Добавлено @item.Edits.ElementAt(0).Date.ToString() пользователем @Html.ActionLink(@item.User.Login, "ShowUser", "Account", new { id = item.UserID }, new { style = "color: black" })</p>
+                                <p style="color:@(item.Ratings.ElementAt(0).RatingLike - item.Ratings.ElementAt(0).RatingDislike < 0 ? "red" : "green"); margin:0; padding:0; line-height: 15px">Рейтинг: @(item.Ratings.ElementAt(0).RatingLike - item.Ratings.ElementAt(0).RatingDislike)</p>
+                                <p>
+                                    @if (item.CommentCount == 0)
+                                    {
+                                        <b>Нет комментариев</b>
+                                    }
+                                    else
+                                    {
+                                        @item.CommentCount <b>@((item.CommentCount % 100) / 10 != 1 ? item.CommentCount % 10 == 1 ? "комментарий" : (item.CommentCount % 10 > 1 && item.CommentCount % 10 < 5) ? "комментария" : "комментариев" : "комментариев")</b>
+                                    }
+                                    Просмотров: @item.Ratings.ElementAt(0).RatingView
+                                </p>
+                            </div>
+                        }
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    <!--/div>
+</div-->
 <link href="~/Content/bootstrap.css" rel="stylesheet" />
