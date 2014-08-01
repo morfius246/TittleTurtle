@@ -464,6 +464,16 @@ a:hover, a:focus {
 color: #FFFFFF;
 text-decoration: underline;
 }
+
+a .blue {
+    color: #0093c7;
+    text-decoration: none;
+}
+a:hover .blue {
+    color: #104e8b;
+    text-decoration: none;
+}
+
 #New_article {
 
 float:right;
@@ -475,7 +485,7 @@ margin-top:px;
 }
 
 .Article {
-    color: #fff;
+color: #fff;
 text-transform: uppercase;
 font-family: 'PTSansNarrowBold';
 padding:10px;

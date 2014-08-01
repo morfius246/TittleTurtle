@@ -4,11 +4,16 @@
     ViewBag.Title = "Index";
     Layout = "/Views/Shared/_Layout.cshtml";
 }
+
+<link href="~/Content/style2.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.js"></script>
+
+<script src="~/Scripts/mocha.js"></script>
 <link href="~/Content/style.css" rel="stylesheet" />
 @{
     TempData["TempModel"] = Model;
 }
-@Html.ActionLink("Лучшее", "Index", "Home", new { sort = "rating", categoryId = ViewBag.CategoryID }, null)
+@Html.ActionLink("Лучшее", "Index", "Home", new { sort = "rating", categoryId = ViewBag.CategoryID }, new {@class = "blue"})
 @Html.ActionLink("Свежее", "Index", "Home", new { sort = "date", categoryId = ViewBag.CategoryID }, null)
 @Html.ActionLink("Обсуждаемое", "SortByUserDesire", "Home", new { sort = "discussed", categoryId = ViewBag.CategoryID }, null)
 <div id="bod2">
@@ -19,10 +24,7 @@
             </div>
 
             <div id="carusel">
-                <link href="~/Content/style2.css" rel="stylesheet" />
-                <script src="~/Scripts/jquery.js"></script>
-
-                <script src="~/Scripts/mocha.js"></script>
+                
 
                 <div id="gallery">
                     <img src="~/Images/3.jpg" />
