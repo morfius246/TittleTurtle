@@ -16,10 +16,10 @@
 <div id="bod2">
     <div id="bod1">
         <div id="img_header">
-            <div id="banner">
+            <!--div-- id="banner">
                 <a href="http://bionic-university.com/ru/" target="_blank">
                     <img class="banner" src="/Images/bunner.png" /></a>
-            </div>
+            </!--div-->
 
             <div id="carusel">
 
@@ -100,9 +100,9 @@
                         </div>
                     }
                     <div style ="position:absolute; padding-top:30px; margin-left: 250px ">
-                        @Html.ActionLink("Лучшее", "Index", "Home", new { sort = "rating", categoryId = ViewBag.CategoryID })
-                        @Html.ActionLink("Свежее", "Index", "Home", new { sort = "date", categoryId = ViewBag.CategoryID })
-                        @Html.ActionLink("Обсуждаемое", "SortByUserDesire", "Home", new { sort = "discussed", categoryId = ViewBag.CategoryID })
+                        @Html.ActionLink("Лучшее", "Index", "Home", new { sort = "rating", categoryId = ViewBag.CategoryID }, null)
+                        @Html.ActionLink("Свежее", "Index", "Home", new { sort = "date", categoryId = ViewBag.CategoryID }, null)
+                        @Html.ActionLink("Обсуждаемое", "SortByUserDesire", "Home", new { sort = "discussed", categoryId = ViewBag.CategoryID }, null)
                     </div>
                     <div class="Article">                        
                         Статьи
