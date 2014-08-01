@@ -14,7 +14,6 @@ namespace TitleTurtle.Models
         public DbSet<User> Users { get; set; }
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<PersonalData> PersonalDatas { get; set; }
-        public DbSet<Role> Roles { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<TagInArticle> TagInAricles { get; set; }
         public DbSet<Comment> Comments { get; set; }

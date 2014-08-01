@@ -32,7 +32,7 @@
                 }
             }
             <br>
-            <p>Добавил: @Html.ActionLink(@Model.Article.User.Login, "ShowUser", "Account", new { id = Model.Article.UserID }, new { style = "color: black" })</p>
+            <p>Добавил: @Html.ActionLink(@Model.Article.User.FullName, "ShowUser", "Account", new { id = Model.Article.UserID }, new { style = "color: black" })</p>
             <p>Дата создания: @Model.Article.Edits.ElementAt(0).Date</p>
             @if (Model.Article.Edits.Count() > 1)
             {
