@@ -452,13 +452,14 @@ namespace TitleTurtle.Controllers
             Db.SaveChanges();
             return RedirectToAction("ShowArticle/" + temp.ArticleID.ToString());
         }
-
+        [AllowAnonymous]
         public ActionResult Feedback()
         {
             return View();
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult Feedback(FeedbackModel model)
         {
             if (ModelState.IsValid)
