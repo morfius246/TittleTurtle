@@ -138,7 +138,7 @@ namespace TitleTurtle.Controllers
             {
                 if (uploadImage != null && uploadImage.ContentType == "image/jpeg" || uploadImage.ContentType == "image/jpg" || uploadImage.ContentType == "image/gif" || uploadImage.ContentType == "image/png" || uploadImage.ContentType == "image/bmp" || uploadImage.ContentType == "image/ico")
                 {
-                    if (uploadImage.ContentLength <= 100000)
+                    if (uploadImage.ContentLength <= 1000000)
                     {
 
                         // Read the uploaded file into a byte array
@@ -164,7 +164,7 @@ namespace TitleTurtle.Controllers
                 }
                 else
                 {
-                    if (uploadImage.ContentLength >= 100000)
+                    if (uploadImage.ContentLength >= 1000000)
                     {
                         ViewBag.Error = "Недопустимый размер и формат файла ";
                         return View(model);
@@ -274,7 +274,7 @@ namespace TitleTurtle.Controllers
 
                 if (uploadImage != null && uploadImage.ContentType == "image/jpeg" || uploadImage.ContentType == "image/jpg" || uploadImage.ContentType == "image/gif" || uploadImage.ContentType == "image/png" || uploadImage.ContentType == "image/bmp" || uploadImage.ContentType == "image/ico")
                 {
-                    if (uploadImage.ContentLength <= 100000)
+                    if (uploadImage.ContentLength <= 1000000)
                     { 
                     // Read the uploaded file into a byte array
                     byte[] imageData;
@@ -298,7 +298,7 @@ namespace TitleTurtle.Controllers
                 }
                 else
                 {
-                    if (uploadImage.ContentLength >= 100000)
+                    if (uploadImage.ContentLength >= 1000000)
                     {
                         ViewBag.Error = "Недопустимый размер и формат файла ";
                         return View(model);
