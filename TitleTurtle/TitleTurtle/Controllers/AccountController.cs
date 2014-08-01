@@ -518,9 +518,9 @@ namespace TitleTurtle.Controllers
                 var usphoto = new UserPhoto();
                 if (uploadImage != null)
                 {
-                    if (uploadImage.ContentType == "image/jpeg" || uploadImage.ContentType == "image/jpg" || uploadImage.ContentType == "image/gif" || uploadImage.ContentType == "image/png" || uploadImage.ContentType == "image/bmp" || uploadImage.ContentType == "image/ico")
+                    if (uploadImage.ContentType == "image/jpeg" || uploadImage.ContentType == "image/jpg" || uploadImage.ContentType == "image/gif" || uploadImage.ContentType == "image/png")
                     {
-                        if (uploadImage.ContentLength <= 10000000)
+                        if (uploadImage.ContentLength <= 2000000)
                         {
                             // Read the uploaded file into a byte array
                             byte[] imageData;
@@ -548,7 +548,7 @@ namespace TitleTurtle.Controllers
                     }
                     else
                     {
-                        if (uploadImage.ContentLength >= 10000000)
+                        if (uploadImage.ContentLength >= 2000000)
                         {
                             ViewBag.Error = "Недопустимый размер и формат файла ";
                             return View(model);
