@@ -67,7 +67,7 @@
                                 + Convert.ToBase64String(Model.NewArticle.MedialInArticles.First<TitleTurtle.Models.MediaInArticle>().Media.MediaData) + "\" />")
                 <br>
 
-                @Html.ActionLink("Удалить картинку", "DeletePicFromArticle", "Home", new { MediaId = Model.NewArticle.MedialInArticles.First<TitleTurtle.Models.MediaInArticle>().Media.MediaID, ArticleId = Model.NewArticle.ArticleID }, null)
+                @Html.ActionLink("Удалить картинку", "DeletePicFromArticle", "Home", new { MediaId = Model.NewArticle.MedialInArticles.First<TitleTurtle.Models.MediaInArticle>().Media.MediaID, ArticleId = Model.NewArticle.ArticleID }, new { @style = "color:#FF0000" })
 
 
             }
