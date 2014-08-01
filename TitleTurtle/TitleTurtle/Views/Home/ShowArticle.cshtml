@@ -10,12 +10,15 @@
     <title>@Model.CurrentArticle.ArticleTitle</title>
 </head>
 <body>
+    <div style ="width:800px; margin:0 auto;">
+
+    
     @using (Html.BeginForm("ShowArticle", "Home"))
     {
         <div class="main">
             <h2>@Html.DisplayFor(model => model.Article.ArticleTitle)</h2>
             @Html.HiddenFor(model => model.Article.ArticleID)
-            @Html.Raw(Model.Article.ArticleText);
+            @Html.Raw(Model.Article.ArticleText)
             @if (Model.CurrentArticle.MedialInArticles.Count != 0)
             {
                 try
@@ -29,7 +32,7 @@
                 }
             }
             <br>
-            <p>Добавил:@Html.ActionLink(@Model.Article.User.Login, "ShowUser", "Account", new {id=Model.Article.UserID},null)</p>
+            <p>Добавил: @Html.ActionLink(@Model.Article.User.Login, "ShowUser", "Account", new { id = Model.Article.UserID }, new { style = "color: black" })</p>
             <p>Дата создания: @Model.Article.Edits.ElementAt(0).Date</p>
             @if (Model.Article.Edits.Count() > 1)
             {
@@ -43,7 +46,8 @@
                 Dislikes: <b style="color:crimson">@Model.Article.Ratings.ElementAt(0).RatingDislike</b>
                 Rating: <b>@(Model.Article.Ratings.ElementAt(0).RatingLike - Model.Article.Ratings.ElementAt(0).RatingDislike)</b>
             </p>
-
+            @if(User.Identity.Name != Model.Article.User.Login)
+            {
             @Html.ActionLink("UpVote",
                                  "Vote",
                                  "Home",
@@ -56,8 +60,10 @@
                                  new { _id = Model.Article.ArticleID.ToString(), up = false },
                                  new { Style = "color: black" })
             <p>Просмотров: @Model.Article.Ratings.ElementAt(0).RatingView</p>
+            }
         </div>
     }
+        </div>
     <h2>Комментарии</h2>
 
     @using (Html.BeginForm("CreateComment", "Home", FormMethod.Post))
@@ -82,7 +88,7 @@
         }
     </script>
     <h3>Все записи</h3>
-    <p> всего: @Model.Article.CommentCount</p>
+    <p> Всего: @Model.Article.CommentCount</p>
     @foreach (var item in Model.CommentList)
     {
         <div style="background-color:silver; padding:3px; margin:5px;">

@@ -7,7 +7,14 @@
 
 @Html.HiddenFor(model => model.UserID)
 @Html.HiddenFor(model => model.Login)
+<div class="">
+    @if (Model.NewMedia != null)
+    {
+        @Html.Raw("<img id='img' style='width:180px; height:260px;' src=\"data:image/jpeg;base64,"
+                                + Convert.ToBase64String(Model.NewMedia.MediaData) + "\" />")
+    }
 
+</div>
 Имя:
         <div class="editor-field">
             @Html.DisplayFor(model => model.UserFirstName)
@@ -38,11 +45,11 @@ Email:
 {
     if (Model.UserIsFollowed)
     {
-        @Html.ActionLink("Отписаться", "UnFollow", "Account", new { followerID = WebSecurity.GetUserId(User.Identity.Name), followedID = Model.UserID }, null)
+    @Html.ActionLink("Отписаться", "UnFollow", "Account", new { followerID = WebSecurity.GetUserId(User.Identity.Name), followedID = Model.UserID }, null)
     }
     else
     {
-        @Html.ActionLink("Подписаться", "Follow", "Account", new { followerID = WebSecurity.GetUserId(User.Identity.Name), followedID = Model.UserID }, null)
+    @Html.ActionLink("Подписаться", "Follow", "Account", new { followerID = WebSecurity.GetUserId(User.Identity.Name), followedID = Model.UserID }, null)
     }
 }
 <p>

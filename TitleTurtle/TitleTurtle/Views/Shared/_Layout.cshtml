@@ -39,29 +39,32 @@
                 <div id="navul">
 
                     <div id="navli1" class="navli"><a href="~/">
-                        <img src="../Images/All-articals-2.png" onmouseover="this.src = '../Images/All-articals.png'" onmouseout="this.src = '../Images/All-articals-2.png'" title="Все статьи" /></a></div>
+                        <img src="/Images/All-articals-2.png" onmouseover="this.src = '/Images/All-articals.png'" onmouseout="this.src = '/Images/All-articals-2.png'" title="Все статьи" /></a></div>
+                    @if (User.IsInRole("Admin") || User.IsInRole("Author")||User.IsInRole("RegUser")){
                     <div id="navli1" class="navli"><a href = @Url.Action("News", "Account", new { userId = WebSecurity.GetUserId(User.Identity.Name) })>
-                        <img src="../Images/All-articals-2.png" onmouseover="this.src = '../Images/All-articals.png'" onmouseout="this.src = '../Images/All-articals-2.png'" title="Новости" /></a></div>
-                    <div id="navli2" class="navli"><a href="/Home/MyArticles">
-                        <img src="../Images/my-2.png" onmouseover="this.src='../Images/my.png'" onmouseout="this.src = '../Images/my-2.png'" title="Мои статьи" /></a></div>
-
+                        <img src="/Images/All-articals-2.png" onmouseover="this.src = '/Images/All-articals.png'" onmouseout="this.src = '/Images/All-articals-2.png'" title="Новости" /></a></div>
+                    }
+                    @if (User.IsInRole("Admin") || User.IsInRole("Author")){
+                           <div id="navli2" class="navli"><a href="/Home/MyArticles">
+                        <img src="/Images/my-2.png" onmouseover="this.src='/Images/my.png'" onmouseout="this.src = '/Images/my-2.png'" title="Мои статьи" /></a></div>
+                    }
                     @if (User.IsInRole("Admin"))
                     {
                         <div id="navli3" class="navli"><a href="/Account/Control">
-                            <img src="../Images/control-2.png" onmouseover="this.src = '../Images/control.png'" onmouseout="    this.src = '../Images/control-2.png'" title="Управление" /></a></div>
+                            <img src="/Images/control-2.png" onmouseover="this.src = '/Images/control.png'" onmouseout="    this.src = '/Images/control-2.png'" title="Управление" /></a></div>
                     }
                     <div id="navli4" class="navli"><a href="/Home/Sort">
-                        <img src="../Images/lans-2.png" onmouseover="this.src = '../Images/lans.png'" onmouseout="    this.src = '../Images/lans-2.png'" title="Поиск" /></a></div>
+                        <img src="/Images/lans-2.png" onmouseover="this.src = '/Images/lans.png'" onmouseout="    this.src = '/Images/lans-2.png'" title="Поиск" /></a></div>
 
 
 
                     <div id="navli6" class="navli"><a href="/Home/Feedback">
-                        <img src="../Images/repit-2.png" onmouseover="this.src = '../Images/repit.png'" onmouseout="    this.src = '../Images/repit-2.png'" title="Обратная связь" /></a></div>
+                        <img src="/Images/repit-2.png" onmouseover="this.src = '/Images/repit.png'" onmouseout="    this.src = '/Images/repit-2.png'" title="Обратная связь" /></a></div>
                     @Html.Partial("_LoginPartial")
                 </div>
             </nav>
         </div>
-        </div>
+
     </header>
     <!--<img src="~/Images/icon-faceb.png" alt="fb" title="fb" />-->
     <!--<img src="~/Images/icon-tvitt.png" />-->

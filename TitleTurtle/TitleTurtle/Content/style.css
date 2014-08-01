@@ -14,8 +14,8 @@ div, footer {
 }
 
 .fon_body {
-    background-color:#FFFFE0;
-    padding-top:0px;
+    background-color:#FFF;
+    /*padding-top:0px;*/
 }
 body {
     background: url(../img/background.jpg) fixed #ECEEE9;
@@ -31,7 +31,7 @@ body {
 }
 
 #main_content{
-	background: #FFFFFF;
+	background: #FFF;
 }
 
 #h1main {
@@ -489,7 +489,6 @@ color: #fff;
 text-transform: uppercase;
 font-family: 'PTSansNarrowBold';
 padding:10px;
-padding-top:20px;
 text-align:center;
 width:30%;
 margin-left:35%;

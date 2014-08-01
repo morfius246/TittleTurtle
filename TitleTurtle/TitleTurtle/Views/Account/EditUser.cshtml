@@ -2,56 +2,45 @@
 @{
     ViewBag.Title = "Profile";
 }
+<div style ="width: 800px; margin: 0 auto">
 @using (Html.BeginForm("EditUser", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
    
 
-<fieldset>
+
         
         <p>@ViewBag.Message</p>
 
         @Html.HiddenFor(model => model.UserID)
         @Html.HiddenFor(model => model.Login)
-        <div class="editor-label">
-            @Html.LabelFor(model => model.UserFirstName)
-        </div>
-        <div class="editor-field">
+        
+        <div class="">
              @if (Model.NewMedia != null){
-                     @Html.Raw("<img id='img' style='width:260px; height:180px;' src=\"data:image/jpeg;base64,"
+                     @Html.Raw("<img id='img' style='width:180px; height:260px;' src=\"data:image/jpeg;base64,"
                                 + Convert.ToBase64String(Model.NewMedia.MediaData) + "\" />")
-             }
-             @Html.EditorFor(model => model.UserFirstName)
+             }            
             
         </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.UserLastName)
+        <div class="">
+            <p>Имя</p>
+            @Html.EditorFor(model => model.UserFirstName)
         </div>
-        <div class="editor-field">
+        <div class="">
+            <p>Фамилия</p>
             @Html.EditorFor(model => model.UserLastName)
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ContactEmail)
-        </div>
-        <div class="editor-field">
+        <div class="">
+            <p>Контактная электропочта:</p>
             @Html.EditorFor(model => model.ContactEmail)
      
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ContactMobile)
-        </div>
-        <div class="editor-field">
+        <div class="">
+            <p>Контактный телефон:</p>
             @Html.EditorFor(model => model.ContactMobile)
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.PersDataDate)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.PersDataDate)
-        </div>
     <div class="editor-field">
                        
                         @Html.ValidationMessageFor(model => model.NewMedia.MediaData)
@@ -59,20 +48,20 @@
 
 
                     </div>
-                    <div class="editor-field">
-                        <div class="editor-label">Размер загружаемого файла не должен превышать 10 МВ и должен иметь формат (jpeg,png,gif,bmp,ico)  </div>
+                    <div class="">
+                        <div class="">Размер загружаемого файла не должен превышать 10 МВ <br />и должен иметь формат (jpeg,png,gif,bmp,ico)  </div>
                         <input type="file" accept="image/jpeg,image/png,image/gif" name="uploadImage" />
-                        <br>
-                        <br>
+                        <br/>
+                        <br/>
                         <p style="color:#FF0000">@ViewBag.Error</p>
-
+                        </div>
 
     <a class="navli-user" href="/Account/Manage" title="Manage">Изменить пароль</a>
         <p>
             <input type="submit" value="Save" />
         </p>
-    </fieldset>
+    
 }
-
+</div>   
 
 

@@ -407,6 +407,7 @@ namespace TitleTurtle.Controllers
             catch
             {
                 //you cant delete current user
+                ViewBag.Message = "Пользователь не может быть удалён";
                 return RedirectToAction("Control");
             }
         }
@@ -567,7 +568,6 @@ namespace TitleTurtle.Controllers
                 user.UserFirstName = model.UserFirstName;
                 user.Contacts.ElementAt(0).ContactEmail = model.ContactEmail;
                 user.Contacts.ElementAt(0).ContactMobile = model.ContactMobile;
-                user.PersonalDatas.ElementAt(0).PersDataDate = model.PersDataDate;
                 db.SaveChanges();
                 ViewBag.Message = "Изменения успешно сохранены";
                 return RedirectToAction("EditUser", new { userName = model.Login });
@@ -592,6 +592,10 @@ namespace TitleTurtle.Controllers
             editUser.PersDataDate = user.PersonalDatas.ElementAt(0).PersDataDate;
             editUser.ContactEmail = user.Contacts.ElementAt(0).ContactEmail;
             editUser.ContactMobile = user.Contacts.ElementAt(0).ContactMobile;
+            if (db.UserPhotos.Where(y => (y.UserID == user.UserID && y.UserPhotoCurrent == 1)).Count() != 0)
+            {
+                editUser.NewMedia = db.Medias.Where(x => x.MediaID == db.UserPhotos.Where(y => (y.UserID == user.UserID && y.UserPhotoCurrent == 1)).FirstOrDefault().MediaID).First();
+            }
             int userId = WebSecurity.GetUserId(User.Identity.Name);
             if (db.Followers.Where(x => x.FollowID == id.Value && x.UserID == userId).Count() != 0)
             {
@@ -621,8 +625,8 @@ namespace TitleTurtle.Controllers
         {
             var model = new Main
             {
-                ArticleList =  db.Articles.Where(x=> db.Followers.Where(t => t.UserID == userId).Select(y=>y.FollowID).Contains(x.UserID)
-                                                        && !db.Comments.Select(y=>y.ArticleID).Contains(x.ArticleID)).ToList(),                    
+                ArticleList = db.Articles.Where(x => db.Followers.Where(t => t.UserID == userId).Select(y => y.FollowID).Contains(x.UserID)
+                                                        && !db.Comments.Select(y => y.ArticleID).Contains(x.ArticleID)).ToList(),
                 CategoryList = db.Categories.ToList()
             };
             return View(model);

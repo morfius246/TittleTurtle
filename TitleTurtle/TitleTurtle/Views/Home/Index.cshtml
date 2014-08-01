@@ -9,22 +9,20 @@
 <script src="~/Scripts/jquery.js"></script>
 
 <script src="~/Scripts/mocha.js"></script>
-<link href="~/Content/style.css" rel="stylesheet" />
 @{
     TempData["TempModel"] = Model;
 }
-@Html.ActionLink("Лучшее", "Index", "Home", new { sort = "rating", categoryId = ViewBag.CategoryID }, new {@class = "blue"})
-@Html.ActionLink("Свежее", "Index", "Home", new { sort = "date", categoryId = ViewBag.CategoryID }, null)
-@Html.ActionLink("Обсуждаемое", "SortByUserDesire", "Home", new { sort = "discussed", categoryId = ViewBag.CategoryID }, null)
+
 <div id="bod2">
     <div id="bod1">
         <div id="img_header">
             <div id="banner">
-                <a href="http://bionic-university.com/ru/" target="_blank"> <img class="banner" src="~/Images/bunner.png" /></a>
+                <a href="http://bionic-university.com/ru/" target="_blank">
+                    <img class="banner" src="/Images/bunner.png" /></a>
             </div>
 
             <div id="carusel">
-                
+
 
                 <div id="gallery">
                     <img src="~/Images/3.jpg" />
@@ -38,11 +36,9 @@
                     <img src="~/Images/55.jpg" />
                 </div>
 
-                <a href="#" id="next"><img src="~/Images/arrow.png" /></a>
-
-
+                <a href="#" id="next">
+                    <img src="~/Images/arrow.png" /></a>
             </div>
-
         </div>
         <div>
             <div id="glob_category">
@@ -50,7 +46,8 @@
                 <div id="upkat">
                     <div id="gl_category">
 
-                        <div id="img_category"><img src="~/Images/category.png" /></div>
+                        <div id="img_category">
+                            <img src="~/Images/category.png" /></div>
                         <div id="category">
                             <span>Категории</span>
 
@@ -64,7 +61,7 @@
                         {
                             <a href="@Url.Action("Index", "Home", new { categoryId = category.CategoryID })" class="item2">
                                 <i class="fa " style="display: inline-block">@category.CategoryName</i>
-                                @if (User.IsInRole("Admin") && category.CategoryID !=7)
+                                @if (User.IsInRole("Admin") && category.CategoryID != 7)
                                 {
                                     @Html.ActionLink("Удалить", "RemoveCategory", "Home", new { id = category.CategoryID }, null)
                                 }
@@ -75,10 +72,10 @@
                         {
                             using (Html.BeginForm("CreateCategory", "Home"))
                             {
-                                <div class="item3">
-                                    @Html.TextBoxFor(model => model.NewCategory.CategoryName, new { @class = "fildcat" })
-                                    <input type="submit" value="Новая категория" class="button-category">
-                                </div>
+                            <div class="item3">
+                                @Html.TextBoxFor(model => model.NewCategory.CategoryName, new { @class = "fildcat" })
+                                <input type="submit" value="Новая категория" class="button-category">
+                            </div>
                             }
                         }
 
@@ -89,7 +86,6 @@
                 <div id="head_article">
 
                     <div id="img_article">
-                        <img src="~/Images/imgarticle.png" />
                     </div>
                     @if (User.IsInRole("Admin") || User.IsInRole("Author"))
                     {
@@ -98,11 +94,21 @@
 
                             <p id="btn">
 
-                                <a href="/Home/CreateArticle"><img class="articl-bot1" title="Добавить новую статью" src="~/Images/new-4.png" onmouseover="this.src = '~/Images/new-3.png'" onmouseout="    this.src = '~/Images/new-4.png'" alt="Добавить новую статью" /></a>
+                                <a href="/Home/CreateArticle">
+                                    <img class="articl-bot1" title="Добавить новую статью" src="/Images/new-4.png" onmouseover="this.src = '/Images/new-3.png'" onmouseout="    this.src = '/Images/new-4.png'" alt="Добавить новую статью" /></a>
                             </p>
                         </div>
                     }
-                    <div class="Article">Статьи</div>
+                    <div style ="position:absolute; padding-top:30px; margin-left: 250px ">
+                        @Html.ActionLink("Лучшее", "Index", "Home", new { sort = "rating", categoryId = ViewBag.CategoryID })
+                        @Html.ActionLink("Свежее", "Index", "Home", new { sort = "date", categoryId = ViewBag.CategoryID })
+                        @Html.ActionLink("Обсуждаемое", "SortByUserDesire", "Home", new { sort = "discussed", categoryId = ViewBag.CategoryID })
+                    </div>
+                    <div class="Article">                        
+                        Статьи
+                    </div>
+                    
+                    
                 </div>
 
                 <div>
@@ -112,11 +118,15 @@
                             @Html.ActionLink(item.ArticleTitle, "ShowArticle", "Home", new { id = item.ArticleID }, new { style = "margin: 0; padding-right: 80px; line-height: 15px; color: black" })
                             @if ((User.IsInRole("Author") && User.Identity.Name == item.User.UserFirstName) || User.IsInRole("Admin"))
                             {
-                                <a href="@Url.Action("DeleteArticle", "Home", new { id = item.ArticleID })" onclick="return confirm('Вы уверены, что хотите удалить статью?') ? true : false;"><img class="articl-bot" title="Удалить статью" src="~/Images/del.jpg" onmouseover="this.src = 'Images/del-2.jpg'" onmouseout="    this.src = 'Images/del.jpg'" alt="Удалить статью" /></a>
-                                <a href="@Url.Action("EditArticle", "Home", new { id = item.ArticleID })" ><img class="articl-bot" title="Редактировать статью" src="~/Images/cor.jpg" onmouseover="this.src = 'Images/cor-2.jpg'" onmouseout="    this.src = 'Images/cor.jpg'" alt="Редактировать статью" /></a>
+                                <div style="position: absolute; top:20px; right:5px">
+                                    <a href="@Url.Action("DeleteArticle", "Home", new { id = item.ArticleID })" onclick="return confirm('Вы уверены, что хотите удалить статью?') ? true : false;">
+                                        <img class="articl-bot" title="Удалить статью" src="~/Images/del.jpg" onmouseover="this.src = 'Images/del-2.jpg'" onmouseout="    this.src = 'Images/del.jpg'" alt="Удалить статью" /></a>
+                                    <a href="@Url.Action("EditArticle", "Home", new { id = item.ArticleID })" >
+                                        <img class="articl-bot" title="Редактировать статью" src="~/Images/cor.jpg" onmouseover="this.src = 'Images/cor-2.jpg'" onmouseout="    this.src = 'Images/cor.jpg'" alt="Редактировать статью" /></a>
+                                </div>
                             }
-                            <p>Добавлено @item.Edits.ElementAt(0).Date.ToString() пользователем @item.User.UserFirstName</p>
-                            <p style="color:@(item.Ratings.ElementAt(0).RatingLike - item.Ratings.ElementAt(0).RatingDislike < 0?"red":"green"); margin:0; padding:0; line-height: 15px"> Рейтинг: @(item.Ratings.ElementAt(0).RatingLike - item.Ratings.ElementAt(0).RatingDislike)</p>
+                            <p>Добавлено @item.Edits.ElementAt(0).Date.ToString() пользователем @Html.ActionLink(@item.User.Login, "ShowUser", "Account", new { id = item.UserID }, new { style = "color: black" })</p>
+                            <p style="color:@(item.Ratings.ElementAt(0).RatingLike - item.Ratings.ElementAt(0).RatingDislike < 0 ? "red" : "green"); margin:0; padding:0; line-height: 15px">Рейтинг: @(item.Ratings.ElementAt(0).RatingLike - item.Ratings.ElementAt(0).RatingDislike)</p>
                             <p>
                                 @if (item.CommentCount == 0)
                                 {
