@@ -14,7 +14,7 @@ namespace TitleTurtle.Models
         public string Login { get; set; }
         public string FullName
         {
-            get { return UserLastName + ", " + UserFirstName; }
+            get { return UserFirstName + " " + UserLastName; }
         }
         public virtual ICollection<UserPhoto> UserPhotos { get; set; }
         public virtual ICollection<Contact> Contacts { get; set; }

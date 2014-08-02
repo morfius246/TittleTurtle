@@ -75,7 +75,7 @@
                                 {
                                     <div class="item3">
                                         @Html.TextBoxFor(model => model.NewCategory.CategoryName, new { @class = "fildcat" })
-                                        <input type="submit" value="Новая категория" class="button-category">
+                                            <input type="submit" value="Новая категория" class="button-category">
                                     </div>
                                 }
                             }
@@ -101,7 +101,7 @@
                                 </p>
                             </div>
                         }
-                        <div style="position:absolute; padding-top:30px; margin-left: 250px ">
+                        <div style="position:absolute; padding-top:30px; margin:0 auto;">
                             @Html.ActionLink("Лучшее", "Index", "Home", new { sort = "rating", categoryId = ViewBag.CategoryID }, null)
                             @Html.ActionLink("Свежее", "Index", "Home", new { sort = "date", categoryId = ViewBag.CategoryID }, null)
                             @Html.ActionLink("Обсуждаемое", "SortByUserDesire", "Home", new { sort = "discussed", categoryId = ViewBag.CategoryID }, null)
@@ -129,7 +129,7 @@
                                         </a>
                                     </div>
                                 }
-                                <p>Добавлено @item.Edits.ElementAt(0).Date.ToString() пользователем @Html.ActionLink(@item.User.Login, "ShowUser", "Account", new { id = item.UserID }, new { style = "color: black" })</p>
+                                <p>Добавлено @item.Edits.ElementAt(0).Date.ToString() пользователем @Html.ActionLink(@item.User.FullName, "ShowUser", "Account", new { id = item.UserID }, new { style = "color: black" })</p>
                                 <p style="color:@(item.Ratings.ElementAt(0).RatingLike - item.Ratings.ElementAt(0).RatingDislike < 0 ? "red" : "green"); margin:0; padding:0; line-height: 15px">Рейтинг: @(item.Ratings.ElementAt(0).RatingLike - item.Ratings.ElementAt(0).RatingDislike)</p>
                                 <p>
                                     @if (item.CommentCount == 0)
