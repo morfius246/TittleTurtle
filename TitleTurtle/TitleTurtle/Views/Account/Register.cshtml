@@ -17,8 +17,24 @@
 
             <fieldset>
                 <legend>Registration Form</legend>
-                <ol >
-                    <li >
+                <ol>
+                    <li>
+                        @Html.LabelFor(m => m.UserFirstName)
+                        @Html.TextBoxFor(m => m.UserFirstName)
+                    </li>
+                    <li>
+                        @Html.LabelFor(m => m.UserLastName)
+                        @Html.TextBoxFor(m => m.UserLastName)
+                    </li>
+                    <li>
+                        @Html.LabelFor(m => m.ContactEmail)
+                        @Html.TextBoxFor(m => m.ContactEmail)
+                    </li>
+                    <li>
+                        @Html.LabelFor(m => m.Login)
+                        @Html.TextBoxFor(m => m.Login)
+                    </li>
+                    <li>
                         @Html.LabelFor(m => m.UserName)
                         @Html.TextBoxFor(m => m.UserName)
                     </li>
@@ -39,4 +55,5 @@
             @Scripts.Render("~/bundles/jqueryval")
         }
     </div>
+</div>
 <link href="~/Content/bootstrap.css" rel="stylesheet" />

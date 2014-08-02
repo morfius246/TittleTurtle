@@ -69,6 +69,24 @@ namespace TitleTurtle.Models
     public class RegisterModel
     {
         [Required]
+        [Display(Name = "First name")]
+        [StringLength(30, ErrorMessage = "First name cannot be longer than 30 characters.")]
+        public string UserFirstName { get; set; }
+        [Required]
+        [Display(Name = "Last name")]
+        [StringLength(30, ErrorMessage = "Last name cannot be longer than 30 characters.")]
+        public string UserLastName { get; set; }
+        [Required]
+        [Display(Name = "Email")]
+        [DataType(DataType.EmailAddress)]
+        [RegularExpression(@"[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]",
+            ErrorMessage = "Incorect email.")]
+        public string ContactEmail { get; set; }
+        [Required]
+        [Display(Name = "Login")]
+        [StringLength(15, ErrorMessage = "Login cannot be longer than 15 characters.", MinimumLength = 5)]
+        public string Login { get; set; }
+        [Required]
         [Display(Name = "User name")]
         public string UserName { get; set; }
 
