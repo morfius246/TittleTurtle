@@ -487,11 +487,11 @@ namespace TitleTurtle.Controllers
 
 
         [HttpGet]
-        public ActionResult EditUser(String userName)
+        public ActionResult EditUser(int? id)
         {
             EditUser editUser = new EditUser();
 
-            User user = db.Users.FirstOrDefault(c => c.Login == userName);
+            User user = db.Users.FirstOrDefault(c => c.UserID == id);
             editUser.UserID = user.UserID;
             editUser.Login = user.Login;
             editUser.UserFirstName = user.UserFirstName;
@@ -501,9 +501,9 @@ namespace TitleTurtle.Controllers
             editUser.ContactEmail = user.Contacts.ElementAt(0).ContactEmail;
             editUser.ContactMobile = user.Contacts.ElementAt(0).ContactMobile;
 
-            if (db.UserPhotos.Where(y => (y.UserID == user.UserID && y.UserPhotoCurrent == 1)).Count() != 0)
+            if (db.UserPhotos.Count(y => (y.UserID == user.UserID && y.UserPhotoCurrent == 1)) != 0)
             {
-                editUser.NewMedia = db.Medias.Where(x => x.MediaID == db.UserPhotos.Where(y => (y.UserID == user.UserID && y.UserPhotoCurrent == 1)).FirstOrDefault().MediaID).First();
+                editUser.NewMedia = db.Medias.First(x => x.MediaID == db.UserPhotos.FirstOrDefault(y => (y.UserID == user.UserID && y.UserPhotoCurrent == 1)).MediaID);
 
             }
             return View(editUser);
@@ -562,20 +562,22 @@ namespace TitleTurtle.Controllers
                     }
                 }
 
-                User user = new User();
-                user = db.Users.FirstOrDefault(c => c.UserID == model.UserID);
-                user.UserLastName = model.UserLastName;
-                user.UserFirstName = model.UserFirstName;
-                user.Contacts.ElementAt(0).ContactEmail = model.ContactEmail;
-                user.Contacts.ElementAt(0).ContactMobile = model.ContactMobile;
+                User user = db.Users.FirstOrDefault(c => c.UserID == model.UserID);
+                if (user != null)
+                {
+                    user.UserLastName = model.UserLastName;
+                    user.UserFirstName = model.UserFirstName;
+                    user.Contacts.ElementAt(0).ContactEmail = model.ContactEmail;
+                    user.Contacts.ElementAt(0).ContactMobile = model.ContactMobile;
+                }
                 db.SaveChanges();
                 ViewBag.Message = "Изменения успешно сохранены";
-                return RedirectToAction("EditUser", new { userName = model.Login });
+                return RedirectToAction("ShowUser", new { id = model.UserID });
             }
             else
             {
                 ViewBag.Message = "Проверте правильность введённых данных";
-                return RedirectToAction("EditUser", new { userName = model.Login });
+                return RedirectToAction("EditUser", new { id = model.UserID });
             }
         }
 
@@ -584,27 +586,23 @@ namespace TitleTurtle.Controllers
             EditUser editUser = new EditUser();
 
             User user = db.Users.FirstOrDefault(c => c.UserID == id.Value);
-            editUser.UserID = user.UserID;
-            editUser.Login = user.Login;
-            editUser.UserFirstName = user.UserFirstName;
-            editUser.UserLastName = user.UserLastName;
-            editUser.ContactEmail = user.Contacts.ElementAt(0).ContactEmail;
-            editUser.PersDataDate = user.PersonalDatas.ElementAt(0).PersDataDate;
-            editUser.ContactEmail = user.Contacts.ElementAt(0).ContactEmail;
-            editUser.ContactMobile = user.Contacts.ElementAt(0).ContactMobile;
-            if (db.UserPhotos.Where(y => (y.UserID == user.UserID && y.UserPhotoCurrent == 1)).Count() != 0)
+            if (user != null)
             {
-                editUser.NewMedia = db.Medias.Where(x => x.MediaID == db.UserPhotos.Where(y => (y.UserID == user.UserID && y.UserPhotoCurrent == 1)).FirstOrDefault().MediaID).First();
+                editUser.UserID = user.UserID;
+                editUser.Login = user.Login;
+                editUser.UserFirstName = user.UserFirstName;
+                editUser.UserLastName = user.UserLastName;
+                editUser.ContactEmail = user.Contacts.ElementAt(0).ContactEmail;
+                editUser.PersDataDate = user.PersonalDatas.ElementAt(0).PersDataDate;
+                editUser.ContactEmail = user.Contacts.ElementAt(0).ContactEmail;
+                editUser.ContactMobile = user.Contacts.ElementAt(0).ContactMobile;
+                if (db.UserPhotos.Count(y => (y.UserID == user.UserID && y.UserPhotoCurrent == 1)) != 0)
+                {
+                    editUser.NewMedia = db.Medias.First(x => x.MediaID == db.UserPhotos.Where(y => (y.UserID == user.UserID && y.UserPhotoCurrent == 1)).FirstOrDefault().MediaID);
+                }
             }
             int userId = WebSecurity.GetUserId(User.Identity.Name);
-            if (db.Followers.Where(x => x.FollowID == id.Value && x.UserID == userId).Count() != 0)
-            {
-                editUser.UserIsFollowed = true;
-            }
-            else
-            {
-                editUser.UserIsFollowed = false;
-            }
+            editUser.UserIsFollowed = db.Followers.Count(x => x.FollowID == id.Value && x.UserID == userId) != 0;
             return View(editUser);
         }
 
