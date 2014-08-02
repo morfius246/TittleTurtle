@@ -16,7 +16,7 @@
                                 <a href="@Url.Action("DeleteArticle", "Home", new { id = item.ArticleID })" onclick="return confirm('Вы уверены, что хотите удалить статью?') ? true : false;"><img class="articl-bot" title="Удалить статью" src="~/Images/del.jpg" onmouseover="this.src = 'Images/del-2.jpg'" onmouseout="    this.src = 'Images/del.jpg'" alt="Удалить статью" /></a>
                                 <a href="@Url.Action("EditArticle", "Home", new { id = item.ArticleID })" ><img class="articl-bot" title="Редактировать статью" src="~/Images/cor.jpg" onmouseover="this.src = 'Images/cor-2.jpg'" onmouseout="    this.src = 'Images/cor.jpg'" alt="Редактировать статью" /></a>
                             }
-                            <p>Добавлено @item.Edits.ElementAt(0).Date.ToString() пользователем @item.User.UserFirstName</p>
+                            <p>Добавлено @item.Edits.ElementAt(0).Date.ToString() пользователем @Html.ActionLink(@item.User.Login, "ShowUser", "Account", new { id = item.UserID }, new { style = "color: black" })</p>
                             <p style="color:@(item.Ratings.ElementAt(0).RatingLike - item.Ratings.ElementAt(0).RatingDislike < 0?"red":"green"); margin:0; padding:0; line-height: 15px"> Рейтинг: @(item.Ratings.ElementAt(0).RatingLike - item.Ratings.ElementAt(0).RatingDislike)</p>
                             <p>
                                 @if (item.CommentCount == 0)
@@ -25,7 +25,7 @@
                                 }
                                 else
                                 {
-                                    @item.CommentCount <b>@((item.CommentCount % 100) / 10 != 1 ? item.CommentCount % 10 == 1 ? "комментарий" : (item.CommentCount % 10 > 1 && item.CommentCount % 10 < 5) ? "комментария" : "комментариев" : "комментариев")</b>
+                                    <a href="@Url.Action("ShowArticle", "Home", new {id = item.ArticleID})#comments"style="color: black"><b>@item.CommentCount @((item.CommentCount % 100) / 10 != 1 ? item.CommentCount % 10 == 1 ? "комментарий" : (item.CommentCount % 10 > 1 && item.CommentCount % 10 < 5) ? "комментария" : "комментариев" : "комментариев")</b></a>
                                 }
                                 Просмотров: @item.Ratings.ElementAt(0).RatingView
                             </p>
