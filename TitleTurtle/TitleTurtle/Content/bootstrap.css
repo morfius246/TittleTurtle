@@ -29,7 +29,7 @@ summary {
 }
 audio,
 canvas,
-progress,element.style
+progress,
 video {
   display: inline-block;
   vertical-align: baseline;
@@ -44,7 +44,6 @@ template {
 }
 a {
   background: transparent;
-  color: #FFFFFF;
 }
 a:active,
 a:hover {
@@ -911,12 +910,12 @@ textarea {
   line-height: inherit;
 }
 a {
-  color: #FFFFFF;
+  color: #428bca;
   text-decoration: none;
 }
 a:hover,
 a:focus {
-  color: #FFFFFF;
+  color: #2a6496;
   text-decoration: underline;
 }
 a:focus {

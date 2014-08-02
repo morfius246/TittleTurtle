@@ -20,7 +20,7 @@ namespace TitleTurtle.Models
         public DbSet<Follower> Followers { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            System.Data.Entity.Database.SetInitializer<HomeContext>(null);
+            Database.SetInitializer<HomeContext>(null);
 
            /* modelBuilder.Entity<Comment>()
                 .HasOptional(x => x.Article)
