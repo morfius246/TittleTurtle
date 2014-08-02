@@ -15,7 +15,8 @@ namespace TitleTurtle.Models
         public int UserID { get; set; }
         [Required]
         [Display(Name = "Contact mobile")]
-        [StringLength(9, ErrorMessage = "Number cannot be longer or smaller than 9 characters.")]
+        [StringLength(9, ErrorMessage = "Number cannot be longer or smaller than 9 characters.",
+            MinimumLength = 9)]
          [RegularExpression(@"^[0-9]+$", ErrorMessage = "Incorect type of number.")]
         public string ContactMobile { get; set; }
         [Required]
