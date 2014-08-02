@@ -14,9 +14,8 @@ namespace TitleTurtle.Models
         public string UserName { get; set; }
 
         [Required]
+        [DataType(DataType.EmailAddress)]
         [Display(Name = "Адрес электронной почты")]
-        [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$",
-                        ErrorMessage = "Неверный формат электронной почты")]
         public string Email { get; set; }
 
         [Required]

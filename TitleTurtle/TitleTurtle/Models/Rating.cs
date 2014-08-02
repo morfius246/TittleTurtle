@@ -9,9 +9,13 @@ namespace TitleTurtle.Models
         public int RatingID { get; set; }
         [ForeignKey("Article")]
         public int ArticleID { get; set; }
+        [Display(Name = "Like")]
         public int RatingLike { get; set; }
+        [Display(Name = "dislike")]
         public int RatingDislike { get; set; }
+        [Display(Name = "Views")]
         public int RatingView { get; set; }
+        [Display(Name = "Reposts")]
         public int RatingRepost { get; set; }
         public virtual Article Article { get; set; }
     }
