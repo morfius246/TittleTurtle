@@ -21,14 +21,11 @@ namespace TitleTurtle.Models
         [Display(Name = "Last name")]
         [StringLength(30, ErrorMessage = "last name cannot be longer than 30 characters.")]
         public string UserLastName { get; set; }
-        [Required]
         [Display(Name = "Date of birth")]
         [DataType(DataType.DateTime)]
         public DateTime PersDataDate { get; set; }
-        [Required]
         [Display(Name = "Adress")]
         public string PersDataAdress { get; set; }
-        [Required]
         [Display(Name = "Other")]
         public string PersDataOther { get; set; }
         public int ContactID { get; set; }

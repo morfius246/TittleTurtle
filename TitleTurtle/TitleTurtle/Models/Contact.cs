@@ -15,8 +15,7 @@ namespace TitleTurtle.Models
         public int UserID { get; set; }
         [Required]
         [Display(Name = "Contact mobile")]
-        [StringLength(9, ErrorMessage = "Number cannot be longer or smaller than 9 characters.",
-            MinimumLength = 9)]
+        [StringLength(9, ErrorMessage = "Number cannot be longer or smaller than 9 characters.")]
          [RegularExpression(@"^[0-9]+$", ErrorMessage = "Incorect type of number.")]
         public string ContactMobile { get; set; }
         [Required]
@@ -25,7 +24,6 @@ namespace TitleTurtle.Models
         [RegularExpression(@"[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]",
             ErrorMessage = "Incorect email.")]
         public string ContactEmail { get; set; }
-        [Required]
         [Display(Name = "Web page")]
         [RegularExpression(@"(http(s)?://)?([\w-]+\.)+[\w-]+(/[\w- ;,./?%&=]*)?",
             ErrorMessage = "Incorect web page.")]

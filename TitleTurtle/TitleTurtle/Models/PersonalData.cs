@@ -10,7 +10,6 @@ namespace TitleTurtle.Models
         public int PersonalDataID { get; set; }
         [ForeignKey("User")]
         public int UserID { get; set; }
-        [Required]
         [Display(Name = "Date of birth")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
