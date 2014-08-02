@@ -45,6 +45,6 @@
     }
     else
     {
-        @Html.ActionLink("Редактировать", "EditUser", "Account", new { userName = User.Identity.Name }, new { style = "color:blue" })
+        @Html.ActionLink("Редактировать", "EditUser", "Account", new { id = Model.UserID }, new { style = "color:blue" })
     }
 </div>
