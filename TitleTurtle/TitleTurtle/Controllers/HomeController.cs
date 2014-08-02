@@ -11,6 +11,7 @@ using System.IO;
 using System.Drawing;
 using System.Text.RegularExpressions;
 using System.Web.Security;
+using WebMatrix.WebData;
 namespace TitleTurtle.Controllers
 {
     /// <summary>
@@ -30,20 +31,122 @@ namespace TitleTurtle.Controllers
         [AllowAnonymous]
         public ActionResult Index(Main model, int? categoryId, string sort)
         {
-            model = new Main
+            if (categoryId == null)
             {
-                ArticleList =
-                    categoryId == null
-                        ? (from article in Db.Articles
-                           where !(from comment in Db.Comments
-                                   select comment.ArticleID).Contains(article.ArticleID)
-                           select article).Where(x => x.ArticleStatus == 1).ToList().OrderByDescending(a => (sort == "rating" ? (a.Ratings.ElementAt(0).RatingLike - a.Ratings.ElementAt(0).RatingDislike) : (object)a.Edits.ElementAt(0).Date))
-                        : (from article in Db.Articles
-                           where article.CategoryID == categoryId && !(from comment in Db.Comments
-                                                                       select comment.ArticleID).Contains(article.ArticleID)
-                           select article).Where(x => x.ArticleStatus == 1).ToList().OrderByDescending(a => (sort == "rating" ? (a.Ratings.ElementAt(0).RatingLike - a.Ratings.ElementAt(0).RatingDislike) : (object)a.Edits.ElementAt(0).Date)),
-                CategoryList = Db.Categories.ToList()
-            };
+                if (sort == null)
+                {
+                    sort = "rating";
+                }
+                switch (sort)
+                {
+                    case "rating":
+                        {
+                            model = new Main
+                            {
+                                ArticleList =
+                                     (from article in Db.Articles
+                                      where !(from comment in Db.Comments
+                                              select comment.ArticleID).Contains(article.ArticleID)
+                                      select article).Where(x => x.ArticleStatus == 1).ToList().OrderByDescending(a => a.Ratings.ElementAt(0).RatingLike - a.Ratings.ElementAt(0).RatingDislike),
+                                CategoryList = Db.Categories.ToList()
+                            };
+                        }; break;
+                    case "date":
+                        {
+                            model = new Main
+                            {
+                                ArticleList =
+                                     (from article in Db.Articles
+                                      where !(from comment in Db.Comments
+                                              select comment.ArticleID).Contains(article.ArticleID)
+                                      select article).Where(x => x.ArticleStatus == 1).ToList().OrderByDescending(a => a.Edits.ElementAt(0).Date),
+                                CategoryList = Db.Categories.ToList()
+                            };
+                        }; break;
+                    case "discussed":
+                        {
+                            //тут нужен запрос сортировки по комментариям
+                        }; break;
+                    case "news":
+                        {
+                            model = new Main
+                            {
+                                ArticleList = Db.Articles.Where(x => Db.Followers.Where(t => t.UserID == WebSecurity.CurrentUserId).Select(y => y.FollowID).Contains(x.UserID)
+                                                                        && !Db.Comments.Select(y => y.ArticleID).Contains(x.ArticleID)).ToList(),
+                                CategoryList = Db.Categories.ToList()
+                            };
+                        }; break;
+                    case "my":
+                        {
+                            model = new Main
+                            {
+                                ArticleList =
+                                     (from article in Db.Articles
+                                           where !(from comment in Db.Comments
+                                                   select comment.ArticleID).Contains(article.ArticleID) && (article.User.Login == User.Identity.Name)
+                                           select article).Where(x => x.ArticleStatus == 1).ToList(),
+                                CategoryList = Db.Categories.ToList()
+                            };
+                        }; break;
+                };
+            }
+            else
+            {
+                if (sort == null)
+                {
+                    sort = "rating";
+                }
+                switch (sort)
+                {
+                    case "rating":
+                        {
+                            model = new Main
+               {
+                   ArticleList = (from article in Db.Articles
+                                  where article.CategoryID == categoryId && !(from comment in Db.Comments
+                                                                              select comment.ArticleID).Contains(article.ArticleID)
+                                  select article).Where(x => x.ArticleStatus == 1).ToList().OrderByDescending(a => a.Ratings.ElementAt(0).RatingLike - a.Ratings.ElementAt(0).RatingDislike),
+                   CategoryList = Db.Categories.ToList()
+               };
+                        }; break;
+                    case "date":
+                        {
+                            model = new Main
+               {
+                   ArticleList = (from article in Db.Articles
+                                  where article.CategoryID == categoryId && !(from comment in Db.Comments
+                                                                              select comment.ArticleID).Contains(article.ArticleID)
+                                  select article).Where(x => x.ArticleStatus == 1).ToList().OrderByDescending(a => a.Edits.ElementAt(0).Date),
+                   CategoryList = Db.Categories.ToList()
+               };
+                        }; break;
+                    case "discussed":
+                        {
+                            //тут нужен запрос сортировки по комментариям с проверкой на категорию
+                        }; break;
+                    case "news":
+                        {
+                            //тут добавить проверку категории
+                            model = new Main
+                            {
+                                ArticleList = Db.Articles.Where(x => Db.Followers.Where(t => t.UserID == WebSecurity.CurrentUserId).Select(y => y.FollowID).Contains(x.UserID)
+                                                                        && !Db.Comments.Select(y => y.ArticleID).Contains(x.ArticleID)).ToList(),
+                                CategoryList = Db.Categories.ToList()
+                            };
+                        }; break;
+                    case "my":
+                        {
+                            model = new Main
+                            {
+                                ArticleList = (from article in Db.Articles
+                                           where (article.User.Login == User.Identity.Name) && (article.CategoryID == categoryId) && !(from comment in Db.Comments
+                                                                                                                                       select comment.ArticleID).Contains(article.ArticleID)
+                                           select article).Where(x => x.ArticleStatus == 1).ToList(),
+                                CategoryList = Db.Categories.ToList()
+                            };
+                        }; break;
+                }
+            }
             if (categoryId != null)
             {
                 ViewBag.CategoryID = categoryId;
@@ -89,7 +192,7 @@ namespace TitleTurtle.Controllers
                            select article).Where(x => x.ArticleStatus == 1).ToList()
                         : (from article in Db.Articles
                            where (article.User.Login == User.Identity.Name) && (article.CategoryID == categoryId) && !(from comment in Db.Comments
-                                                                                                                               select comment.ArticleID).Contains(article.ArticleID)
+                                                                                                                       select comment.ArticleID).Contains(article.ArticleID)
                            select article).Where(x => x.ArticleStatus == 1).ToList(),
                 CategoryList = Db.Categories.ToList()
             };
@@ -176,22 +279,22 @@ namespace TitleTurtle.Controllers
                     }
 
                 }
-   
+
             }
             catch
             {
 
             }
-       
+
             Db.Edits.Add(newEdit);
-            Db.Ratings.Add(newRating);   
-            Db.Articles.Add(newArticle); 
+            Db.Ratings.Add(newRating);
+            Db.Articles.Add(newArticle);
             mediainart.ArticleID = newArticle.ArticleID;
             Db.SaveChanges();
             return RedirectToAction("Index");
         }
 
-       
+
 
         public ActionResult AddPictureInEdit()
         {
@@ -275,18 +378,18 @@ namespace TitleTurtle.Controllers
                 if (uploadImage != null && uploadImage.ContentType == "image/jpeg" || uploadImage.ContentType == "image/jpg" || uploadImage.ContentType == "image/gif" || uploadImage.ContentType == "image/png")
                 {
                     if (uploadImage.ContentLength <= 2000000)
-                    { 
-                    // Read the uploaded file into a byte array
-                    byte[] imageData;
-                    using (var binaryReader = new BinaryReader(uploadImage.InputStream))
                     {
-                        imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
-                    }
-                    // Set byte array
-                    pic.MediaData = imageData;
-                    Db.Medias.Add(pic);
-                    mediainart.MediaID = pic.MediaID;
-                    Db.MediaInArticles.Add(mediainart);
+                        // Read the uploaded file into a byte array
+                        byte[] imageData;
+                        using (var binaryReader = new BinaryReader(uploadImage.InputStream))
+                        {
+                            imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
+                        }
+                        // Set byte array
+                        pic.MediaData = imageData;
+                        Db.Medias.Add(pic);
+                        mediainart.MediaID = pic.MediaID;
+                        Db.MediaInArticles.Add(mediainart);
                     }
                     else
                     {
@@ -294,7 +397,7 @@ namespace TitleTurtle.Controllers
                         return View(model);
 
                     }
-                    
+
                 }
                 else
                 {

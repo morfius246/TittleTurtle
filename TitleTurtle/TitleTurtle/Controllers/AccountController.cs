@@ -619,15 +619,5 @@ namespace TitleTurtle.Controllers
             return RedirectToAction("ShowUser", new { id = followedID });
         }
 
-        public ActionResult News(int userId)
-        {
-            var model = new Main
-            {
-                ArticleList = db.Articles.Where(x => db.Followers.Where(t => t.UserID == userId).Select(y => y.FollowID).Contains(x.UserID)
-                                                        && !db.Comments.Select(y => y.ArticleID).Contains(x.ArticleID)).ToList(),
-                CategoryList = db.Categories.ToList()
-            };
-            return View(model);
-        }
     }
 }
