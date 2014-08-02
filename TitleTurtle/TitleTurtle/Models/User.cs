@@ -9,8 +9,17 @@ namespace TitleTurtle.Models
     {
         [Key, DatabaseGeneratedAttribute(DatabaseGeneratedOption.None), Required]
         public int UserID { get; set; }
+        [Required]
+        [Display(Name = "First name")]
+        [StringLength(30, ErrorMessage = "First name cannot be longer than 30 characters.")]
         public string UserFirstName { get; set; }
+        [Required]
+        [Display(Name = "Last name")]
+        [StringLength(30, ErrorMessage = "Last name cannot be longer than 30 characters.")]
         public string UserLastName { get; set; }
+        [Required]
+        [Display(Name = "Login")]
+        [StringLength(15, ErrorMessage = "Login cannot be longer than 15 characters.", MinimumLength = 5)]
         public string Login { get; set; }
         public string FullName
         {
