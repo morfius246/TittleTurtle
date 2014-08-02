@@ -118,7 +118,7 @@
                         {
                             <div class="item">
                                 @Html.ActionLink(item.ArticleTitle, "ShowArticle", "Home", new { id = item.ArticleID }, new { style = "margin: 0; padding-right: 80px; line-height: 15px; color: black" })
-                                @if ((User.IsInRole("Author") && User.Identity.Name == item.User.FullName) || User.IsInRole("Admin"))
+                                @if ((User.IsInRole("Author") && User.Identity.Name == item.User.UserFirstName) || User.IsInRole("Admin"))
                                 {
                                     <div style="position: absolute; top:20px; right:5px">
                                         <a href="@Url.Action("DeleteArticle", "Home", new { id = item.ArticleID })" onclick="return confirm('Вы уверены, что хотите удалить статью?') ? true : false;">

@@ -25,8 +25,10 @@ namespace TitleTurtle.Models
         [Display(Name = "Date of birth")]
         [DataType(DataType.DateTime)]
         public DateTime PersDataDate { get; set; }
+        [Required]
         [Display(Name = "Adress")]
         public string PersDataAdress { get; set; }
+        [Required]
         [Display(Name = "Other")]
         public string PersDataOther { get; set; }
         public int ContactID { get; set; }

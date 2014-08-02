@@ -17,6 +17,7 @@ namespace TitleTurtle.Models
         [Display(Name = "Last name")]
         [StringLength(30, ErrorMessage = "Last name cannot be longer than 30 characters.")]
         public string UserLastName { get; set; }
+        [Required]
         [Display(Name = "Login")]
         [StringLength(15, ErrorMessage = "Login cannot be longer than 15 characters.", MinimumLength = 5)]
         public string Login { get; set; }
