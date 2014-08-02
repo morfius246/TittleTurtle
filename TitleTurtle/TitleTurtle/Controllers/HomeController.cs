@@ -153,21 +153,6 @@ namespace TitleTurtle.Controllers
             }
             return View(model);
         }
-
-        [AllowAnonymous]
-        public ActionResult SortByUserDesire(string sort)
-        {
-            var model = (Main)TempData["TempModel"];
-            if (sort == "rating")
-            {
-                model.ArticleList.OrderBy(a => a.Ratings.ElementAt(0).RatingLike - a.Ratings.ElementAt(0).RatingDislike);
-            }
-            if (sort == "date")
-            {
-                model.ArticleList.OrderBy(a => a.Edits.ElementAt(0).Date);
-            }
-            return View("Index", model);
-        }
         /// <summary>
         /// Redirect to CreateAction page
         /// </summary>
@@ -176,26 +161,6 @@ namespace TitleTurtle.Controllers
         public ActionResult CreateArticle()
         {
             var model = new Main { CategoryList = Db.Categories.ToList() };
-            return View(model);
-        }
-
-        [Authorize(Roles = "Admin, Author")]
-        public ActionResult MyArticles(int? categoryId)
-        {
-            var model = new Main
-            {
-                ArticleList =
-                    categoryId == null
-                        ? (from article in Db.Articles
-                           where !(from comment in Db.Comments
-                                   select comment.ArticleID).Contains(article.ArticleID) && (article.User.Login == User.Identity.Name)
-                           select article).Where(x => x.ArticleStatus == 1).ToList()
-                        : (from article in Db.Articles
-                           where (article.User.Login == User.Identity.Name) && (article.CategoryID == categoryId) && !(from comment in Db.Comments
-                                                                                                                       select comment.ArticleID).Contains(article.ArticleID)
-                           select article).Where(x => x.ArticleStatus == 1).ToList(),
-                CategoryList = Db.Categories.ToList()
-            };
             return View(model);
         }
 
