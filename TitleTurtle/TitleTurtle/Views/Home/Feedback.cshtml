@@ -1,13 +1,13 @@
 ﻿<div class="container">
     <div class="root">
 
-    @model TitleTurtle.Models.FeedbackModel
+        @model TitleTurtle.Models.FeedbackModel
 
-    @{
-        ViewBag.Title = "Feedback";
-    }
+        @{
+            ViewBag.Title = "Feedback";
+        }
 
-    @using (Ajax.BeginForm(
+        @using (Ajax.BeginForm(
 "feedback",
 "home",
 new AjaxOptions
@@ -17,78 +17,71 @@ new AjaxOptions
     LoadingElementId = "sendingProgress",
     InsertionMode = InsertionMode.Replace
 }))
-    {
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true)
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
 
-            
-                <div id="MyArticle">
-                    <img id="img_article" src="/Images/regist.png" />
-                    <div class="Article">Обратная связь</div>
-                </div>
-                
 
-            @Html.LabelFor(model => model.Email)
+            <div id="MyArticle">
+                <img id="img_article" src="/Images/regist.png" />
+                <div class="Article">Обратная связь</div>
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Email)
+            </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.Email)
+                <input class="form-control" placeholder="Email address" data-val="true" data-val-required="Требуется поле Адрес электронной почты." id="Email" name="Email" type="email" value="">
                 <div id="errmas">
                     @Html.ValidationMessageFor(model => model.Email)
                 </div>
-                <div class="editor-field">
-                    <input data-val="true" class="form-control" placeholder="User name" data-val-length="Поле Имя пользователя должно иметь строковое значение, максимальная длина которого — 50." data-val-length-max="50" data-val-required="Требуется поле Имя пользователя." id="UserName" name="UserName" type="text" value="">
+            </div>
 
-            @Html.LabelFor(model => model.MessageTopic)
+            <div class="editor-label">
+                @Html.LabelFor(model => model.MessageTopic)
+            </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.MessageTopic)
+                <input data-val="true" class="form-control" placeholder="User name" data-val-length="Поле Имя пользователя должно иметь строковое значение, максимальная длина которого — 50." data-val-length-max="50" data-val-required="Требуется поле Имя пользователя." id="UserName" name="UserName" type="text" value="">
+
                 <div id="errmas">
                     @Html.ValidationMessageFor(model => model.MessageTopic)
                 </div>
             </div>
 
-            @Html.LabelFor(model => model.MessageText)
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.MessageText)
+            </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.MessageText)
+                <textarea class="form-control" placeholder="Message" data-val="true" data-val-length="Поле Сообщение должно иметь строковое значение, максимальная длина которого — 250." data-val-length-max="250" data-val-required="Требуется поле Сообщение." id="MessageText" name="MessageText"></textarea>
                 <div id="errmas">
                     @Html.ValidationMessageFor(model => model.MessageText)
                 </div>
-                <div class="editor-field">
-                    <input class="form-control" placeholder="Email address" data-val="true" data-val-required="Требуется поле Адрес электронной почты." id="Email" name="Email" type="email" value="">
-                    <div id="errmas">
-                        @Html.ValidationMessageFor(model => model.Email)
-                    </div>
-                </div>
-
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.MessageText)
-                </div>
-                <div class="editor-field">
-                    <textarea class="form-control"  placeholder="Message" data-val="true" data-val-length="Поле Сообщение должно иметь строковое значение, максимальная длина которого — 250." data-val-length-max="250" data-val-required="Требуется поле Сообщение." id="MessageText" name="MessageText"></textarea>
-                    <div id="errmas">
-                        @Html.ValidationMessageFor(model => model.MessageText)
-                    </div>
-                </div>
-                <div id="input_back">
-                    <p>
-                        <input type="submit" value="Отправить" />
-                        <span id="sendingProgress" style="display: none;">
-                            ждите, идет отправка сообщения...
-
-                            <img src='@Href("~/Content/Images/ajax_loader_big.gif")' alt="Ждите" />
-                        </span>
-                    </p>
-                    <p id="target">
-                </div>
-           
-        }
+            </div>
+            <div id="input_back">
+                <p>
+                    <input type="submit" value="Отправить" />
+                    <span id="sendingProgress" style="display: none;">
+                        ждите, идет отправка сообщения...
 
                         <img src='@Href("~/Content/Images/ajax_loader_big.gif")' alt="Ждите" />
                     </span>
                 </p>
                 <p id="target">
             </div>
-        </fieldset>
-    }
-    @section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
-    }
+
+        }
+
+        <div>
+            @Html.ActionLink("Назад", "Index")
+        </div>
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }
+    </div>
 </div>
+
+
+
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
