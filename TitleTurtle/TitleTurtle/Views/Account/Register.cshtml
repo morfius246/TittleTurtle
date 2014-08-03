@@ -1,42 +1,37 @@
 ﻿<div class="container">
-
+    <div class="root">
         @model TitleTurtle.Models.RegisterModel
         @{
             ViewBag.Title = "Register";
         }
 
-        <hgroup class="title">
-            <h1>@ViewBag.Title.</h1>
-            <h2>Create a new account.</h2>
-        </hgroup>
+        
+            <div id="MyArticle">
+                <img id="img_article" src="/Images/regist.png" />
+                <div class="Article">Registration Form</div>
+            </div>
+             @using (Html.BeginForm())
+                {
+                   <div class="regist-head"> @Html.AntiForgeryToken()
+                    @Html.ValidationSummary()</div>
 
-        @using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
-            @Html.ValidationSummary()
-
-            <fieldset>
-                <legend>Registration Form</legend>
-                <ol >
-                    <li >
-                        @Html.LabelFor(m => m.UserName)
-                        @Html.TextBoxFor(m => m.UserName)
-                    </li>
-                    <li>
-                        @Html.LabelFor(m => m.Password)
-                        @Html.PasswordFor(m => m.Password)
-                    </li>
-                    <li>
-                        @Html.LabelFor(m => m.ConfirmPassword)
-                        @Html.PasswordFor(m => m.ConfirmPassword)
-                    </li>
-                </ol>
-                <input type="submit" value="Register" />
-            </fieldset>
-        }
-
-        @section Scripts {
-            @Scripts.Render("~/bundles/jqueryval")
-        }
-    </div>
+                      <div id="form">
+                        <form class="form-signin">
+                            <input data-val="true" placeholder="User name" class="form-control" data-val-required="Fill in the Password field!" id="UserName" name="UserName" type="text" value="" />
+                            <input data-val="true" placeholder="Password" class="form-control" data-val-length="Weak password!" data-val-length-max="100" data-val-length-min="6" data-val-required="Fill in the Password field!" id="Password" name="Password" type="password" />
+                            
+                            <input data-val="true" placeholder="Confirm Password" class="form-control" data-val-length="Weak password!" data-val-length-max="100" data-val-length-min="6" data-val-required="Fill in the Password field!" id="Password" name="Password" type="password" />
+                            
+                        
+                            <input type="submit" value="Register" class="button-regist" />
+                    </form>
+                        </div>
+                }
+           
+                @section Scripts {
+                    @Scripts.Render("~/bundles/jqueryval")
+                }
+            </div>
+        </div>
+    
 <link href="~/Content/bootstrap.css" rel="stylesheet" />

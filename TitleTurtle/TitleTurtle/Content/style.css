@@ -25,6 +25,61 @@ body {
 	
 }
 
+
+.regist-head {
+margin-top:30px;
+height:70px;
+width: 250px;
+text-align:center;
+color: #CD0000;
+}
+
+ul {
+    padding-left:0px;
+  list-style-type: none;
+}
+
+#form {
+   margin-top:40px;
+
+}
+
+.button-regist {
+    margin-top:40px;
+    text-align:center;
+    width:100px;
+    padding:7px;
+    color:#FFFFFF;
+    background-color:#CD0000;
+    text-transform: uppercase;
+font-family: 'PTSansNarrowBold';
+transition: 0.7s;
+
+}
+
+.button-regist a{
+    
+    color:#FFFFFF;
+    background-color:#CD0000;
+}
+
+.button-regist:hover{
+    
+    color:#FFFFFF;
+    background-color:#484848;
+}
+
+
+/*form {
+margin-left:40%;
+}*/
+.root {
+width: 777px;
+margin: 14px auto 0 auto;
+text-align: center;
+
+}
+
 ::selection{
 	background: #7cd693;
     color: #000;
