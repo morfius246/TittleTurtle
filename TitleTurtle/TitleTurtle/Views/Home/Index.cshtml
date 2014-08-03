@@ -44,7 +44,7 @@
             <img src="~/Images/arrow.png" />
         </a>
     </div-->
-    <div class ="row">
+    <div class="row">
         <div class="col-md-9">
             <div id="head_article">
 
@@ -52,11 +52,8 @@
                 </div>
                 @if (User.IsInRole("Admin") || User.IsInRole("Author"))
                 {
-
                     <div id="New_article">
-
                         <p id="btn">
-
                             <a href="/Home/CreateArticle">
                                 <img class="articl-bot1" title="Добавить новую статью" src="/Images/new-4.png" onmouseover="this.src = '/Images/new-3.png'" onmouseout="    this.src = '/Images/new-4.png'" alt="Добавить новую статью" />
                             </a>
@@ -66,16 +63,12 @@
                 <div class="Article">
                     Статьи
                 </div>
-                <div>
-                    <ul class="nav navbar-nav" role="tablist">
-                        <li><a href="@Url.Action("Index", "Home", new { sort = "rating", categoryId = ViewBag.CategoryID })">Лучшее</a></li>
-                        <li><a href="@Url.Action("Index", "Home", new { sort = "date", categoryId = ViewBag.CategoryID })">Свежее</a></li>
-                        <li><a href="@Url.Action("Index", "Home", new { sort = "discussed", categoryId = ViewBag.CategoryID })">Обсуждаемое</a></li>
-                        <li><a href="@Url.Action("Index", "Home", new { sort = "news", categoryId = ViewBag.CategoryID })">Подписки</a></li>
-                    </ul>
-                </div>
-
-
+                <ul class="nav navbar-nav" role="tablist">
+                    <li><a href="@Url.Action("Index", "Home", new { sort = "rating", categoryId = ViewBag.CategoryID })">Лучшее</a></li>
+                    <li><a href="@Url.Action("Index", "Home", new { sort = "date", categoryId = ViewBag.CategoryID })">Свежее</a></li>
+                    <li><a href="@Url.Action("Index", "Home", new { sort = "discussed", categoryId = ViewBag.CategoryID })">Обсуждаемое</a></li>
+                    <li><a href="@Url.Action("Index", "Home", new { sort = "news", categoryId = ViewBag.CategoryID })">Подписки</a></li>
+                </ul>
             </div>
 
             <div>
@@ -112,16 +105,13 @@
             </div>
         </div>
         <div class="col-md-3">
-
             <div id="upkat">
                 <div id="gl_category">
-
                     <div id="img_category">
-                        <img src="~/Images/category.png" />
+                        <img src="~/Images/category.png" alt=""/>
                     </div>
                     <div id="category">
                         <span>Категории</span>
-
                     </div>
                 </div>
                 <div id="fild_category">
@@ -148,7 +138,7 @@
                                 @Html.ValidationMessageFor(model => model.NewCategory.CategoryName)
                                 @Html.TextBoxFor(model => model.NewCategory.CategoryDescription, new { @class = "fildcat" })
                                 @Html.ValidationMessageFor(model => model.NewCategory.CategoryDescription)
-                                <input type="submit" value="Новая категория" class="button-category">
+                                <input type="submit" value="Новая категория" class="btn btn-primary btn-lg btn-block">
                             </div>
                         }
                     }
