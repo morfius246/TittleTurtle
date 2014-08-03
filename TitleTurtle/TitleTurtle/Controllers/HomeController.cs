@@ -231,9 +231,7 @@ namespace TitleTurtle.Controllers
                     {
                         ViewBag.Error = "Недопустимый размер файла";
                         return View(model);
-
                     }
-
                 }
                 else
                 {
@@ -247,13 +245,12 @@ namespace TitleTurtle.Controllers
                         ViewBag.Error = "Недопустимый формат файла";
                         return View(model);
                     }
-
                 }
-
             }
             catch
             {
-
+                ViewBag.Error = "Ошибка добавления файла";
+                return View(model);
             }
 
             Db.Edits.Add(newEdit);
@@ -261,7 +258,7 @@ namespace TitleTurtle.Controllers
             Db.Articles.Add(newArticle);
             mediainart.ArticleID = newArticle.ArticleID;
             Db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("ShowArticle", new {id = newArticle.ArticleID});
         }
 
 
@@ -429,11 +426,9 @@ namespace TitleTurtle.Controllers
         public ActionResult CreateCategory(Main model)
         {
             var newCategory = model.NewCategory;
-            if (model.NewCategory.CategoryName != null)
-            {
-                Db.Categories.Add(newCategory);
-                Db.SaveChanges();
-            }
+            if (model.NewCategory.CategoryName == null) return RedirectToAction("Index");
+            Db.Categories.Add(newCategory);
+            Db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -442,7 +437,7 @@ namespace TitleTurtle.Controllers
         {
             foreach (var article in Db.Articles.Where(x => x.CategoryID == id))
             {
-                article.CategoryID = 7;
+                article.CategoryID = 1011;
             }
             Db.SaveChanges();
             Db.Categories.Remove(Db.Categories.First(x => x.CategoryID == id.Value));
@@ -535,7 +530,7 @@ namespace TitleTurtle.Controllers
         [AllowAnonymous]
         public ActionResult Feedback(FeedbackModel model)
         {
-            FeedbackModel Message = new FeedbackModel();
+            var Message = new FeedbackModel();
                     using (var client = new SmtpClient("smtp.gmail.com", 587))
                     {
                         client.Credentials = new NetworkCredential("titleturtleua@gmail.com", "54321erhnx");

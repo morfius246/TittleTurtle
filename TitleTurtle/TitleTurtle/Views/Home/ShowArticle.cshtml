@@ -94,6 +94,8 @@
 
             <p>
                 @item.Article.ArticleText
+                @Html.ActionLink("Ответить", "CreateComment", "Home", null)
+
             </p>
             @*using(Html.BeginForm("Delete","Home",FormMethod.Post))
                 {
