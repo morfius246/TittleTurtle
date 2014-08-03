@@ -41,12 +41,13 @@ new AjaxOptions
                 @Html.LabelFor(model => model.MessageTopic)
             </div>
             <div class="editor-field">
-                <input data-val="true" class="form-control" placeholder="User name" data-val-length="Поле Имя пользователя должно иметь строковое значение, максимальная длина которого — 50." data-val-length-max="50" data-val-required="Требуется поле Имя пользователя." id="UserName" name="UserName" type="text" value="">
+                <input data-val="true" class="form-control" placeholder="Problem" data-val-length="Поле Тема пользователя должно иметь строковое значение, максимальная длина которого — 50." data-val-length-max="50" data-val-required="Требуется поле Тема пользователя." id="MessageTopic" name="MessageTopic" type="text" value="">
 
                 <div id="errmas">
                     @Html.ValidationMessageFor(model => model.MessageTopic)
                 </div>
             </div>
+
 
 
             <div class="editor-label">
