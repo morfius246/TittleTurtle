@@ -12,6 +12,11 @@
 @{
     TempData["TempModel"] = Model;
 }
+@Html.AntiForgeryToken()
+@Html.ValidationSummary()
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
 <div class="container-fluid">
     <!--div id="bod2">
         <div id="bod1">-->
