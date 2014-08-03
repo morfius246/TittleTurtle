@@ -1,13 +1,13 @@
 ﻿<div class="container">
     <div class="root">
 
-        @model TitleTurtle.Models.FeedbackModel
+    @model TitleTurtle.Models.FeedbackModel
 
-        @{
-            ViewBag.Title = "Feedback";
-        }
+    @{
+        ViewBag.Title = "Feedback";
+    }
 
-        @using (Ajax.BeginForm(
+    @using (Ajax.BeginForm(
 "feedback",
 "home",
 new AjaxOptions
@@ -17,9 +17,9 @@ new AjaxOptions
     LoadingElementId = "sendingProgress",
     InsertionMode = InsertionMode.Replace
 }))
-        {
-            @Html.AntiForgeryToken()
-            @Html.ValidationSummary(true)
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
 
             
                 <div id="MyArticle">
@@ -28,19 +28,28 @@ new AjaxOptions
                 </div>
                 
 
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.UserName)
+            @Html.LabelFor(model => model.Email)
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Email)
+                <div id="errmas">
+                    @Html.ValidationMessageFor(model => model.Email)
                 </div>
                 <div class="editor-field">
                     <input data-val="true" class="form-control" placeholder="User name" data-val-length="Поле Имя пользователя должно иметь строковое значение, максимальная длина которого — 50." data-val-length-max="50" data-val-required="Требуется поле Имя пользователя." id="UserName" name="UserName" type="text" value="">
 
-                    <div id="errmas">
-                        @Html.ValidationMessageFor(model => model.UserName)
-                    </div>
+            @Html.LabelFor(model => model.MessageTopic)
+            <div class="editor-field">
+                @Html.EditorFor(model => model.MessageTopic)
+                <div id="errmas">
+                    @Html.ValidationMessageFor(model => model.MessageTopic)
                 </div>
+            </div>
 
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.Email)
+            @Html.LabelFor(model => model.MessageText)
+            <div class="editor-field">
+                @Html.EditorFor(model => model.MessageText)
+                <div id="errmas">
+                    @Html.ValidationMessageFor(model => model.MessageText)
                 </div>
                 <div class="editor-field">
                     <input class="form-control" placeholder="Email address" data-val="true" data-val-required="Требуется поле Адрес электронной почты." id="Email" name="Email" type="email" value="">
@@ -72,16 +81,14 @@ new AjaxOptions
            
         }
 
-        <div>
-            @Html.ActionLink("Назад", "Index")
-        </div>
-
-        @section Scripts {
-            @Scripts.Render("~/bundles/jqueryval")
-        }
-    </div>
+                        <img src='@Href("~/Content/Images/ajax_loader_big.gif")' alt="Ждите" />
+                    </span>
+                </p>
+                <p id="target">
+            </div>
+        </fieldset>
+    }
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
 </div>
-
-
-
-<link href="~/Content/bootstrap.css" rel="stylesheet" />

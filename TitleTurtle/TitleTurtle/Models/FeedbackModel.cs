@@ -9,14 +9,14 @@ namespace TitleTurtle.Models
     public class FeedbackModel
     {
         [Required]
-        [Display(Name = "Имя пользователя")]
-        [StringLength(50)]
-        public string UserName { get; set; }
-
-        [Required]
         [DataType(DataType.EmailAddress)]
         [Display(Name = "Адрес электронной почты")]
         public string Email { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        [Display(Name = "Тема")]
+        public string MessageTopic { get; set; }
 
         [Required]
         [StringLength(250)]
