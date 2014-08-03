@@ -12,7 +12,7 @@
 @{
     TempData["TempModel"] = Model;
 }
-<div class="container">
+<div class="container-fluid">
     <!--div id="bod2">
         <div id="bod1">-->
     <!--div id="img_header">
@@ -39,53 +39,8 @@
             <img src="~/Images/arrow.png" />
         </a>
     </div-->
-    <div>
-        <div id="glob_category">
-
-            <div id="upkat">
-                <div id="gl_category">
-
-                    <div id="img_category">
-                        <img src="~/Images/category.png" />
-                    </div>
-                    <div id="category">
-                        <span>Категории</span>
-
-                    </div>
-                </div>
-                <div id="fild_category">
-                    <a href="@Url.Action("Index", "Home")" class="item2">
-                        <i class="fa" style="display: inline-block">Все</i>
-                    </a>
-                    @foreach (var category in Model.CategoryList)
-                    {
-                        <a href="@Url.Action("Index", "Home", new { categoryId = category.CategoryID })" class="item2">
-                            <i class="fa " style="display: inline-block">@category.CategoryName</i>
-                            @if (User.IsInRole("Admin") && category.CategoryID != 1011)
-                            {
-                                @Html.ActionLink("Удалить", "RemoveCategory", "Home", new { id = category.CategoryID }, null)
-                            }
-                        </a>
-                    }
-                    @*Just for admin*@
-                    @if (User.IsInRole("Admin"))
-                    {
-                        using (Html.BeginForm("CreateCategory", "Home"))
-                        {
-                            <div class="item3">
-                                @Html.TextBoxFor(model => model.NewCategory.CategoryName, new { @class = "fildcat" })
-                                @Html.ValidationMessageFor(model => model.NewCategory.CategoryName)
-                                @Html.TextBoxFor(model => model.NewCategory.CategoryDescription, new { @class = "fildcat" })
-                                @Html.ValidationMessageFor(model => model.NewCategory.CategoryDescription)
-                                <input type="submit" value="Новая категория" class="button-category">
-                            </div>
-                        }
-                    }
-
-                </div>
-            </div>
-        </div>
-        <div id="glob_article">
+    <div class ="row">
+        <div class="col-md-9">
             <div id="head_article">
 
                 <div id="img_article">
@@ -103,14 +58,16 @@
                         </p>
                     </div>
                 }
-                <div style="position:absolute; padding-top:30px; margin:0 auto;">
-                    @Html.ActionLink("Лучшее", "Index", "Home", new { sort = "rating", categoryId = ViewBag.CategoryID }, null)
-                    @Html.ActionLink("Свежее", "Index", "Home", new { sort = "date", categoryId = ViewBag.CategoryID }, null)
-                    @Html.ActionLink("Обсуждаемое", "Index", "Home", new { sort = "discussed", categoryId = ViewBag.CategoryID }, null)
-                    @Html.ActionLink("Подписки", "Index", "Home", new { sort = "news", categoryId = ViewBag.CategoryID })
-                </div>
                 <div class="Article">
                     Статьи
+                </div>
+                <div>
+                    <ul class="nav navbar-nav" role="tablist">
+                        <li><a href="@Url.Action("Index", "Home", new { sort = "rating", categoryId = ViewBag.CategoryID })">Лучшее</a></li>
+                        <li><a href="@Url.Action("Index", "Home", new { sort = "date", categoryId = ViewBag.CategoryID })">Свежее</a></li>
+                        <li><a href="@Url.Action("Index", "Home", new { sort = "discussed", categoryId = ViewBag.CategoryID })">Обсуждаемое</a></li>
+                        <li><a href="@Url.Action("Index", "Home", new { sort = "news", categoryId = ViewBag.CategoryID })">Подписки</a></li>
+                    </ul>
                 </div>
 
 
@@ -147,6 +104,51 @@
                         </p>
                     </div>
                 }
+            </div>
+        </div>
+        <div class="col-md-3">
+
+            <div id="upkat">
+                <div id="gl_category">
+
+                    <div id="img_category">
+                        <img src="~/Images/category.png" />
+                    </div>
+                    <div id="category">
+                        <span>Категории</span>
+
+                    </div>
+                </div>
+                <div id="fild_category">
+                    <a href="@Url.Action("Index", "Home")" class="item2">
+                        <i class="fa" style="display: inline-block">Все</i>
+                    </a>
+                    @foreach (var category in Model.CategoryList)
+                    {
+                        <a href="@Url.Action("Index", "Home", new { categoryId = category.CategoryID })" class="item2">
+                            <i class="" style="display: inline-block">@category.CategoryName</i>
+                            @if (User.IsInRole("Admin") && category.CategoryID != 1011)
+                            {
+                                @Html.ActionLink("Удалить", "RemoveCategory", "Home", new { id = category.CategoryID }, null)
+                            }
+                        </a>
+                    }
+                    @*Just for admin*@
+                    @if (User.IsInRole("Admin"))
+                    {
+                        using (Html.BeginForm("CreateCategory", "Home"))
+                        {
+                            <div class="item3">
+                                @Html.TextBoxFor(model => model.NewCategory.CategoryName, new { @class = "fildcat" })
+                                @Html.ValidationMessageFor(model => model.NewCategory.CategoryName)
+                                @Html.TextBoxFor(model => model.NewCategory.CategoryDescription, new { @class = "fildcat" })
+                                @Html.ValidationMessageFor(model => model.NewCategory.CategoryDescription)
+                                <input type="submit" value="Новая категория" class="button-category">
+                            </div>
+                        }
+                    }
+
+                </div>
             </div>
         </div>
     </div>

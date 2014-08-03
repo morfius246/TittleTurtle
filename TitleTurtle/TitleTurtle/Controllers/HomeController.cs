@@ -188,7 +188,7 @@ namespace TitleTurtle.Controllers
             }
             var newArticle = model.NewArticle;
             newArticle.ArticleStatus = 1; //1 -- active //0 -- not confirmed //2 -- deleted
-            newArticle.UserID = Db.Users.First(x => x.Login == User.Identity.Name).UserID;
+            newArticle.UserID = WebSecurity.GetUserId(User.Identity.Name);
             Db.Articles.Add(newArticle);
             var newEdit = new Edit
             {
@@ -249,8 +249,8 @@ namespace TitleTurtle.Controllers
             }
             catch
             {
-                ViewBag.Error = "Ошибка добавления файла";
-                return View(model);
+                //ViewBag.Error = "Ошибка добавления файла";
+                //return View(model);
             }
 
             Db.Edits.Add(newEdit);
