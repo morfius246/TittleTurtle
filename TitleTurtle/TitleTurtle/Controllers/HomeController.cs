@@ -12,6 +12,11 @@ using System.Drawing;
 using System.Text.RegularExpressions;
 using System.Web.Security;
 using WebMatrix.WebData;
+using System.Net;
+using System.Net.Mail;
+using System.Text;
+using System.Threading.Tasks;
+using System.Net.Security;
 namespace TitleTurtle.Controllers
 {
     /// <summary>
@@ -530,17 +535,15 @@ namespace TitleTurtle.Controllers
         [AllowAnonymous]
         public ActionResult Feedback(FeedbackModel model)
         {
-            if (ModelState.IsValid)
-            {
-
-                if (Request.IsAjaxRequest())
-                {
-                    return PartialView("FeedbackSent");
-                }
-
-                return View("FeedbackSent");
-            }
-            return View();
+            FeedbackModel Message = new FeedbackModel();
+                    using (var client = new SmtpClient("smtp.gmail.com", 587))
+                    {
+                        client.Credentials = new NetworkCredential("titleturtleua@gmail.com", "54321erhnx");
+                        client.EnableSsl = true;
+                        client.Send("titleturtleua@gmail.com", "vgrinda97@gmail.com",
+                            model.MessageTopic, model.MessageText + model.Email);
+                    }
+            return View("FeedbackSent");
         }
     }
 }
