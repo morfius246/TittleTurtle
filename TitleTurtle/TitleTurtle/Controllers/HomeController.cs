@@ -524,6 +524,7 @@ namespace TitleTurtle.Controllers
         public ActionResult CreateComment(ShowArticle model, string userName)
         {
             Comment newComment = model.NewComment;
+            newComment.Article.ArticleTitle = "Комментарий";
             int currentArticleId = model.CurrentArticle.ArticleID;//отримаэм ід поточ статті
             Article temp = Db.Articles.SingleOrDefault(x => x.ArticleID == currentArticleId);//отрим цю статтю за ід
             temp.CommentCount++;
