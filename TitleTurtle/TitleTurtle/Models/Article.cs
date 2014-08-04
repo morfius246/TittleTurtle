@@ -22,7 +22,6 @@ namespace TitleTurtle.Models
         [Display(Name = "Text")]
         [StringLength(50, ErrorMessage = "String cannot be longer than 50 characters.")]
         public string ArticleText { get; set; }
-        [Required]
         [Display(Name = "Status")]
         public int ArticleStatus { get; set; }
         [Display(Name = "Quantity of comments")]

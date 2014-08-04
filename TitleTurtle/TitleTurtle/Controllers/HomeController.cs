@@ -96,7 +96,7 @@ namespace TitleTurtle.Controllers
                                 ArticleList =
                                      (from article in Db.Articles
                                       where !(from comment in Db.Comments
-                                              select comment.ArticleID).Contains(article.ArticleID) && (article.User.Login == User.Identity.Name)
+                                              select comment.ArticleID).Contains(article.ArticleID) && (article.User.UserName == User.Identity.Name)
                                       select article).Where(x => x.ArticleStatus == 1).ToList(),
                                 CategoryList = Db.Categories.ToList()
                             };
@@ -160,7 +160,7 @@ namespace TitleTurtle.Controllers
                             model = new Main
                             {
                                 ArticleList = (from article in Db.Articles
-                                               where (article.User.Login == User.Identity.Name) && (article.CategoryID == categoryId) && !(from comment in Db.Comments
+                                               where (article.User.UserName == User.Identity.Name) && (article.CategoryID == categoryId) && !(from comment in Db.Comments
                                                                                                                                            select comment.ArticleID).Contains(article.ArticleID)
                                                select article).Where(x => x.ArticleStatus == 1).ToList(),
                                 CategoryList = Db.Categories.ToList()
@@ -529,7 +529,7 @@ namespace TitleTurtle.Controllers
             newComment.ArticleID = temp.ArticleID;
             newComment.MainArticle = temp;
             newComment.MainArticleID = temp.ArticleID;
-            newComment.Article.UserID = Db.Users.First(x => x.Login == userName).UserID;
+            newComment.Article.UserID = Db.Users.First(x => x.UserName == userName).UserID;
             //newComment.Article.User.UserFirstName = db.Users.First(x => x.UserFirstName == userName).UserFirstName;
             //newComment.UserID = db.Users.First(x => x.UserFirstName == User.Identity.Name).UserID;
             Db.Comments.Add(newComment);

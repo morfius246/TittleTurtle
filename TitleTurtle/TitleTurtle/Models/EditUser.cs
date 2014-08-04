@@ -9,10 +9,9 @@ namespace TitleTurtle.Models
     public class EditUser
     {
         public int UserID { get; set; }
-        [Required]
-        [Display(Name = "Login")]
-        [StringLength(30, ErrorMessage = "Login cannot be longer than 30 characters.")]
-        public string Login { get; set; }
+        [Display(Name = "User name")]
+        [StringLength(30, ErrorMessage = "User name cannot be longer than 30 characters.")]
+        public string UserName { get; set; }
         [Required]
         [Display(Name = "First name")]
         [StringLength(30, ErrorMessage = "First name cannot be longer than 30 characters.")]
