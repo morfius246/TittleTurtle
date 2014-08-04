@@ -17,7 +17,7 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
-<div class="container-fluid">
+<div class="container">
     <!--div id="bod2">
         <div id="bod1">-->
     <!--div id="img_header">
@@ -63,7 +63,7 @@
                 <div class="Article">
                     Статьи
                 </div>
-                <ul class="nav navbar-nav" role="tablist">
+                <ul class="nav nav-pills" role="tablist">
                     <li><a href="@Url.Action("Index", "Home", new { sort = "rating", categoryId = ViewBag.CategoryID })">Лучшее</a></li>
                     <li><a href="@Url.Action("Index", "Home", new { sort = "date", categoryId = ViewBag.CategoryID })">Свежее</a></li>
                     <li><a href="@Url.Action("Index", "Home", new { sort = "discussed", categoryId = ViewBag.CategoryID })">Обсуждаемое</a></li>
@@ -114,20 +114,19 @@
                         <span>Категории</span>
                     </div>
                 </div>
-                <div id="fild_category">
-                    <a href="@Url.Action("Index", "Home")" class="item2">
-                        <h4><i class="fa label" style="display: inline-block">Все</i></h4>
-                    </a>
+                <div id="list-group">
+                    <a href="@Url.Action("Index", "Home", new { sort = ViewBag.Sort})" class="list-group-item">Все</a>
                     @foreach (var category in Model.CategoryList)
                     {
-                        <a href="@Url.Action("Index", "Home", new { categoryId = category.CategoryID })" class="item2">
-                            <h4><i class="label" title="@category.CategoryDescription" style="display: inline-block">@category.CategoryName</i></h4>
-                            @if (User.IsInRole("Admin") && category.CategoryID != 1011)
-                            {
-                                @Html.ActionLink("Удалить", "RemoveCategory", "Home", new { id = category.CategoryID }, null)
+                        <a title="@category.CategoryDescription" href="@Url.Action("Index", "Home", new { categoryId = category.CategoryID, sort = ViewBag.Sort })" class="list-group-item">@category.CategoryName</a>
+
+                        if (User.IsInRole("Admin") && category.CategoryID != 1011)
+                        {
+                                <a href="@Url.Action("RemoveCategory", "Home", new { id = category.CategoryID })" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></a>
                             }
-                        </a>
+
                     }
+                    
                     @*Just for admin*@
                     @if (User.IsInRole("Admin"))
                     {
@@ -147,10 +146,8 @@
                                     <input type="submit" value="Новая категория" class="btn btn-primary btn-lg btn-block">
                                 </div>
                             </div>
-
                         }
                     }
-
                 </div>
             </div>
         </div>
@@ -159,3 +156,9 @@
 <!--/div>
 </div-->
 <link href="~/Content/bootstrap.css" rel="stylesheet" />
+<script>
+    $(document).ready(function () {
+        var url = window.location.search;
+        $('a[href="' + "/" + url + '"]').parent().addClass('active');
+    });
+</script>

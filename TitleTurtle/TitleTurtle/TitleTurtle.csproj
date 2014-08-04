@@ -434,6 +434,8 @@
     <Content Include="Images\del.jpg" />
     <Content Include="Images\del.png" />
     <Content Include="Images\noavatar.png" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Editor\langs\readme.md" />
     <Content Include="Scripts\Editor\skins\lightgray\fonts\readme.md" />
     <Content Include="Scripts\Editor\skins\lightgray\fonts\tinymce-small.eot" />
@@ -476,8 +478,6 @@
     <Content Include="Scripts\app\site.controls.js" />
     <Content Include="Scripts\app\site.core.js" />
     <Content Include="Scripts\app\site.services.js" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Editor\langs\uk.js" />
     <Content Include="Scripts\Editor\license.txt" />
     <Content Include="Scripts\Editor\plugins\advlist\plugin.min.js" />

@@ -10,102 +10,135 @@
     <title>@Model.CurrentArticle.ArticleTitle</title>
 </head>
 <body>
-    <div style ="width:800px; margin:0 auto;">
+    <div style="width:800px; margin:0 auto;">
 
-    
-    @using (Html.BeginForm("ShowArticle", "Home"))
-    {
-        <div class="main">
-            <h2>@Html.DisplayFor(model => model.Article.ArticleTitle)</h2>
-            @Html.HiddenFor(model => model.Article.ArticleID)
-            @Html.Raw(Model.Article.ArticleText)
-            @if (Model.CurrentArticle.MedialInArticles.Count != 0)
-            {
-                try
+
+        @using (Html.BeginForm("ShowArticle", "Home"))
+        {
+            <div class="main">
+                <h2>@Html.DisplayFor(model => model.Article.ArticleTitle)</h2>
+                @Html.HiddenFor(model => model.Article.ArticleID)
+                @Html.Raw(Model.Article.ArticleText)
+                @if (Model.CurrentArticle.MedialInArticles.Count != 0)
                 {
-                    @Html.Raw("<img style='' src=\"data:image/jpeg;base64,"
+                    try
+                    {
+                        @Html.Raw("<img style='' src=\"data:image/jpeg;base64,"
                                                                           + Convert.ToBase64String(Model.Article.MedialInArticles.First().Media.MediaData) + "\" />")
-                }
-                catch (Exception)
-                {
+                    }
+                    catch (Exception)
+                    {
 
+                    }
                 }
-            }
-            <br>
-            <p>Добавил: @Html.ActionLink(@Model.Article.User.FullName, "ShowUser", "Account", new { id = Model.Article.UserID }, new { style = "color: black" })</p>
-            <p>Дата создания: @Model.Article.Edits.ElementAt(0).Date</p>
-            @if (Model.Article.Edits.Count() > 1)
-            {
+                <br>
+                <p>Добавил: @Html.ActionLink(@Model.Article.User.FullName, "ShowUser", "Account", new { id = Model.Article.UserID }, new { style = "color: black" })</p>
+                <p>Дата создания: @Model.Article.Edits.ElementAt(0).Date</p>
+                @if (Model.Article.Edits.Count() > 1)
+                {
+                    <p>
+                        Дата последнего изменения:
+                        @Model.Article.Edits.ElementAt(Model.Article.Edits.Count() - 1).Date
+                    </p>
+                }
                 <p>
-                    Дата последнего изменения:
-                    @Model.Article.Edits.ElementAt(Model.Article.Edits.Count() - 1).Date
+                    Likes: <b style="color:chartreuse">@Model.Article.Ratings.ElementAt(0).RatingLike</b>
+                    Dislikes: <b style="color:crimson">@Model.Article.Ratings.ElementAt(0).RatingDislike</b>
+                    Rating: <b>@(Model.Article.Ratings.ElementAt(0).RatingLike - Model.Article.Ratings.ElementAt(0).RatingDislike)</b>
                 </p>
-            }
-            <p>
-                Likes: <b style="color:chartreuse">@Model.Article.Ratings.ElementAt(0).RatingLike</b>
-                Dislikes: <b style="color:crimson">@Model.Article.Ratings.ElementAt(0).RatingDislike</b>
-                Rating: <b>@(Model.Article.Ratings.ElementAt(0).RatingLike - Model.Article.Ratings.ElementAt(0).RatingDislike)</b>
-            </p>
-            @if(User.Identity.Name != Model.Article.User.Login)
-            {
-            @Html.ActionLink("UpVote",
+                @if (User.Identity.Name != Model.Article.User.Login)
+                {
+                    @Html.ActionLink("UpVote",
                                  "Vote",
                                  "Home",
                                  new { _id = Model.Article.ArticleID.ToString(), up = true },
                                  new { Style = "color: black" })
-            <br />
-            @Html.ActionLink("DownVote",
+                    <br />
+                    @Html.ActionLink("DownVote",
                                  "Vote",
                                  "Home",
                                  new { _id = Model.Article.ArticleID.ToString(), up = false },
                                  new { Style = "color: black" })
-            <p>Просмотров: @Model.Article.Ratings.ElementAt(0).RatingView</p>
+                    <p>Просмотров: @Model.Article.Ratings.ElementAt(0).RatingView</p>
+                }
+            </div>
+        }
+        <h2>Комментарии</h2>
+        <div id="mainComment">
+            @using (Html.BeginForm("CreateComment", "Home", FormMethod.Post))
+            {
+                <input type="hidden" name="currentArticle.ArticleID" value=@Model.CurrentArticle.ArticleID.ToString() />
+                <input type="hidden" name="CommentList" value=@Model.CommentList />
+                <input type="hidden" name="Username" value=@User.Identity.Name />
+                <fieldset>
+                    <legend>Добавить комментарий</legend>
+
+                    @User.Identity.Name, введите сообщение:
+                    <br />
+                    @Html.TextAreaFor(model => model.NewComment.Article.ArticleText)
+                    <br />
+                    <input type="submit" value="Отправить" name="Username" />
+                </fieldset>
             }
         </div>
-    }
-         <h2>Комментарии</h2>
 
-    @using (Html.BeginForm("CreateComment", "Home", FormMethod.Post))
-    {
-        <input type="hidden" name="currentArticle.ArticleID" value=@Model.CurrentArticle.ArticleID.ToString() />
-        <input type="hidden" name="CommentList" value=@Model.CommentList />
-        <input type="hidden" name="Username" value=@User.Identity.Name />
-        <fieldset>
-            <legend>Добавить комментарий</legend>
 
-            @User.Identity.Name, введите сообщение:
-            <br />
-            @Html.TextAreaFor(model => model.NewComment.Article.ArticleText)
-            <br />
-            <input type="submit" value="Отправить" name="Username" />
+        <h3>Все записи</h3>
+        <p> Всего: @Model.Article.CommentCount</p>
+        @foreach (var item in Model.CommentList)
+        {
+            <div style="background-color:silver; padding:3px; margin:5px;">
 
-        </fieldset>
-    }
+                <p>
+                    @item.Article.ArticleText
+                    <a id ="reply">Ответить</a>
+                    @Html.ActionLink("Ответить", "CreateComment", "Home", null)
+
+                </p>
+                <div id="subComment" style="visibility: hidden">
+                    @using (Html.BeginForm("CreateComment", "Home", FormMethod.Post))
+                    {
+                        <input type="hidden" name="currentArticle.ArticleID" value=@Model.CurrentArticle.ArticleID.ToString() />
+                        <input type="hidden" name="CommentList" value=@Model.CommentList />
+                        <input type="hidden" name="Username" value=@User.Identity.Name />
+                        <fieldset>
+                            <legend>Добавить комментарий</legend>
+
+                            @User.Identity.Name, введите сообщение:
+                            <br />
+                            @Html.TextAreaFor(model => model.NewComment.Article.ArticleText)
+                            <br />
+                            <input type="submit" value="Отправить" name="Username" />
+                        </fieldset>
+                    }
+                </div>
+                @*using(Html.BeginForm("Delete","Home",FormMethod.Post))
+                    {
+                    <input id='sub' type="submit" value=@item.Article.ArticleID name="CommentID" hidden="true">
+                    <input type="button" value="delete" name="CommentID" onclick="clickIt()">
+                    }*@
+            </div>
+
+        }
+    </div>
+
     <script>
+        $(document).ready(function () {
+
+            $("#reply").click(function () {
+                //need the following to toggle
+                $("#subComment").css("visibility", "visible");
+            });
+
+            $("#overlay").click(function () {
+                window.location = $(this).find("a").attr("href");
+                return false;
+            });
+
+        });
         function clickIt() {
             $("#sub").click();
         }
     </script>
-    <h3>Все записи</h3>
-    <p> Всего: @Model.Article.CommentCount</p>
-    @foreach (var item in Model.CommentList)
-    {
-        <div style="background-color:silver; padding:3px; margin:5px;">
-
-            <p>
-                @item.Article.ArticleText
-                @Html.ActionLink("Ответить", "CreateComment", "Home", null)
-
-            </p>
-            @*using(Html.BeginForm("Delete","Home",FormMethod.Post))
-                {
-                <input id='sub' type="submit" value=@item.Article.ArticleID name="CommentID" hidden="true">
-                <input type="button" value="delete" name="CommentID" onclick="clickIt()">
-                }*@
-        </div>
-
-    }
-        </div>
-   
 
 </body>
