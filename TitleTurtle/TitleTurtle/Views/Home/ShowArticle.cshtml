@@ -93,10 +93,20 @@
 
                 <p>
                     @item.Article.ArticleText
-                    <a id ="reply">Ответить</a>
-                    @Html.ActionLink("Ответить", "CreateComment", "Home", null)
-
+                    <a id="reply">Ответить</a>
+                    @*Html.ActionLink("Ответить", "CreateComment", "Home", null)*@
+                    <a href ="" id ="reply">Ответить</a>
                 </p>
+                <script>
+                    $("#reply").click(function () {
+                        $("#comment").css("display", "block");
+                    });
+                </script>
+                <div style="background-color:silver; padding:3px; margin:5px; display:none" id="comment">
+                    <p>
+                        @item.Article.ArticleText
+                    </p>
+                </div>
                 <div id="subComment" style="visibility: hidden">
                     @using (Html.BeginForm("CreateComment", "Home", FormMethod.Post))
                     {
