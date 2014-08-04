@@ -13,7 +13,6 @@ namespace TitleTurtle.Models
         public int ContactID { get; set; }
         [ForeignKey("User")]
         public int UserID { get; set; }
-        [Required]
         [Display(Name = "Contact mobile")]
         [StringLength(9, ErrorMessage = "Number cannot be longer or smaller than 9 characters.")]
         public string ContactMobile { get; set; }
