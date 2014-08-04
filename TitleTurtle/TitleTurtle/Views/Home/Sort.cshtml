@@ -44,7 +44,7 @@
                         shortText = item.ArticleText;
                     }
                             }
-                            <p>@shortText</p>
+                            <p>@Html.Raw(shortText)<p>
                             @Html.ActionLink("Подробнее", "ShowArticle", "Home", new { id = item.ArticleID }, null)
                         </td>
                     </tr>
