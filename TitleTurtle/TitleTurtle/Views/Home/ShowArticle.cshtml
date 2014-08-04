@@ -10,7 +10,6 @@
     <title>@Model.CurrentArticle.ArticleTitle</title>
     <script src="~/Scripts/jquery-1.9.1.js"></script>
 </head>
-
 <body>
     <div style="width:800px; margin:0 auto;">
 
@@ -89,25 +88,15 @@
         <p> Всего: @Model.Article.CommentCount</p>
         @foreach (var item in Model.CommentList)
         {
-            <div style="background-color:silver; padding:3px; margin:5px;">
+            <div>
+                <div style="background-color:silver; padding:3px; margin:5px;">
 
-                <p>
-                    @item.Article.ArticleText
-                    <a id="reply">Ответить</a>
-                    @*Html.ActionLink("Ответить", "CreateComment", "Home", null)*@
-                    <a href ="" id ="reply">Ответить</a>
-                </p>
-                <script>
-                    $("#reply").click(function () {
-                        $("#comment").css("display", "block");
-                    });
-                </script>
-                <div style="background-color:silver; padding:3px; margin:5px; display:none" id="comment">
                     <p>
                         @item.Article.ArticleText
+                        <a class="reply">Ответить</a>
                     </p>
                 </div>
-                <div id="subComment" style="visibility: hidden">
+                <div id="subComment" style="display:none">
                     @using (Html.BeginForm("CreateComment", "Home", FormMethod.Post))
                     {
                         <input type="hidden" name="currentArticle.ArticleID" value=@Model.CurrentArticle.ArticleID.ToString() />
@@ -123,12 +112,13 @@
                             <input type="submit" value="Отправить" name="Username" />
                         </fieldset>
                     }
+
+                    @*using(Html.BeginForm("Delete","Home",FormMethod.Post))
+                        {
+                        <input id='sub' type="submit" value=@item.Article.ArticleID name="CommentID" hidden="true">
+                        <input type="button" value="delete" name="CommentID" onclick="clickIt()">
+                        }*@
                 </div>
-                @*using(Html.BeginForm("Delete","Home",FormMethod.Post))
-                    {
-                    <input id='sub' type="submit" value=@item.Article.ArticleID name="CommentID" hidden="true">
-                    <input type="button" value="delete" name="CommentID" onclick="clickIt()">
-                    }*@
             </div>
 
         }
@@ -136,21 +126,12 @@
 
     <script>
         $(document).ready(function () {
-
             $("#reply").click(function () {
-                //need the following to toggle
-                $("#subComment").css("visibility", "visible");
+                $(".subComment").css("display", "block");
             });
-
-            $("#overlay").click(function () {
-                window.location = $(this).find("a").attr("href");
-                return false;
-            });
-
         });
-        function clickIt() {
-            $("#sub").click();
-        }
     </script>
+
+
 
 </body>
