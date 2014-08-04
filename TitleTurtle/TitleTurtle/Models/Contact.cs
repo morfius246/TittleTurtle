@@ -14,11 +14,11 @@ namespace TitleTurtle.Models
         [ForeignKey("User")]
         public int UserID { get; set; }
         [Display(Name = "Контактный номер")]
-        [StringLength(9, ErrorMessage = "Номер не может быть больше, чем 50 символов.")]
+        [RegularExpression(@"^[0-9]+$", ErrorMessage = "Номер не может включать в себя другие символы кроме цифр!")]
+        [StringLength(10, MinimumLength = 10, ErrorMessage = "Номер должен включать в себя 10 цифр.")]
         public string ContactMobile { get; set; }
         [Required]
         [Display(Name = "E-mail")]
-        [DataType(DataType.EmailAddress)]
         [RegularExpression(@"[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]",
             ErrorMessage = "Неверный адрес электронной почты.")]
         public string ContactEmail { get; set; }

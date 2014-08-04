@@ -500,6 +500,9 @@ namespace TitleTurtle.Controllers
             editUser.PersDataDate = user.PersonalDatas.ElementAt(0).PersDataDate;
             editUser.ContactEmail = user.Contacts.ElementAt(0).ContactEmail;
             editUser.ContactMobile = user.Contacts.ElementAt(0).ContactMobile;
+            editUser.ContactWebPage = user.Contacts.ElementAt(0).ContactWebPage;
+            editUser.PersDataOther = user.PersonalDatas.ElementAt(0).PersDataOther;
+            editUser.PersDataAdress = user.PersonalDatas.ElementAt(0).PersDataAdress;
 
             if (db.UserPhotos.Count(y => (y.UserID == user.UserID && y.UserPhotoCurrent == 1)) != 0)
             {
@@ -569,6 +572,10 @@ namespace TitleTurtle.Controllers
                     user.UserFirstName = model.UserFirstName;
                     user.Contacts.ElementAt(0).ContactEmail = model.ContactEmail;
                     user.Contacts.ElementAt(0).ContactMobile = model.ContactMobile;
+                    user.Contacts.ElementAt(0).ContactWebPage = model.ContactWebPage;
+                    user.PersonalDatas.ElementAt(0).PersDataAdress = model.PersDataAdress;
+                    user.PersonalDatas.ElementAt(0).PersDataOther = model.PersDataOther;
+
                 }
                 db.SaveChanges();
                 ViewBag.Message = "Изменения успешно сохранены";
@@ -592,10 +599,12 @@ namespace TitleTurtle.Controllers
                 editUser.Login = user.Login;
                 editUser.UserFirstName = user.UserFirstName;
                 editUser.UserLastName = user.UserLastName;
-                editUser.ContactEmail = user.Contacts.ElementAt(0).ContactEmail;
                 editUser.PersDataDate = user.PersonalDatas.ElementAt(0).PersDataDate;
                 editUser.ContactEmail = user.Contacts.ElementAt(0).ContactEmail;
                 editUser.ContactMobile = user.Contacts.ElementAt(0).ContactMobile;
+                editUser.ContactWebPage = user.Contacts.ElementAt(0).ContactWebPage;
+                editUser.PersDataOther = user.PersonalDatas.ElementAt(0).PersDataOther;
+                editUser.PersDataAdress = user.PersonalDatas.ElementAt(0).PersDataAdress;
                 if (db.UserPhotos.Count(y => (y.UserID == user.UserID && y.UserPhotoCurrent == 1)) != 0)
                 {
                     editUser.NewMedia = db.Medias.First(x => x.MediaID == db.UserPhotos.Where(y => (y.UserID == user.UserID && y.UserPhotoCurrent == 1)).FirstOrDefault().MediaID);

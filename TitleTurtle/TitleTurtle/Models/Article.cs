@@ -16,7 +16,7 @@ namespace TitleTurtle.Models
         public int CategoryID { get; set; }
         [Required]
         [Display(Name = "Название")]
-        [StringLength(50, ErrorMessage = "Строка не может быть больше, чем 50 символов.")]
+        [StringLength(50, ErrorMessage = "Строка не может быть меньше 5 сымволов и больше 50 символов.", MinimumLength = 5)]
         public string ArticleTitle { get; set; }
         [Required]
         [Display(Name = "Текст статьи")]

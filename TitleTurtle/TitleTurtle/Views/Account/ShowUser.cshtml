@@ -24,12 +24,16 @@
     </div>
 
     <table border ="0" cellpadding ="7" cellspacing="7">
+        <tr><td>Персональная страница</td><td>@Model.ContactWebPage</td></tr>
         <tr><td>Имя</td><td>@Model.UserFirstName</td></tr>
         <tr><td>Фамилия</td><td>@Model.UserLastName</td></tr>
         <tr><td>Электронная почта</td><td>@Model.ContactEmail</td></tr>
+        <tr><td>Веб-страницы</td><td>@Model.ContactWebPage</td></tr>
         <tr><td>Телефон</td><td>@Model.ContactMobile</td></tr>
-        <tr><td>Персональная страница</td><td>@Model.ContactWebPage</td></tr>
         <tr><td>Дата рождения</td><td>@Model.PersDataDate</td></tr>
+        <tr><td>Адрес</td><td>@Model.PersDataAdress</td></tr>
+        <tr><td>Другое</td><td>@Model.PersDataOther</td></tr>
+        
     </table>
 
     @if (User.Identity.Name != Model.Login)
