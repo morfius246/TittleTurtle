@@ -82,6 +82,23 @@ namespace TitleTurtle.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [Display(Name = "Имя")]
+        [StringLength(30, ErrorMessage = "Имя пользователя не может быть длиннее 30 символов.")]
+        public string UserFirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Фамилия")]
+        [StringLength(30, ErrorMessage = "Фамилия пользователя не может быть длиннее 30 символов.")]
+        public string UserLastName { get; set; }
+
+        [Required]
+        [Display(Name = "E-mail")]
+        [DataType(DataType.EmailAddress)]
+        [RegularExpression(@"[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]",
+            ErrorMessage = "Неверный адрес электронной почты.")]
+        public string ContactEmail { get; set; }
     }
 
     public class ExternalLogin

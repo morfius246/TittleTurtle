@@ -17,12 +17,13 @@
 
                       <div id="form">
                         <form class="form-signin">
+                            @Html.TextBoxFor(x => x.UserFirstName)
+                            @Html.TextBoxFor(x => x.UserLastName)
+                            @Html.TextBoxFor(x => x.ContactEmail)
                             <input data-val="true" placeholder="User name" class="form-control" data-val-required="Fill in the Password field!" id="UserName" name="UserName" type="text" value="" />
                             <input data-val="true" placeholder="Password" class="form-control" data-val-length="Weak password!" data-val-length-max="100" data-val-length-min="6" data-val-required="Fill in the Password field!" id="Password" name="Password" type="password" />
+                            <input data-val="true" placeholder="Confirm Password" class="form-control" data-val-length="Weak password!" data-val-length-max="100" data-val-length-min="6" data-val-required="Fill in the Password field!" id="ConfirmPassword" name="ConfirmPassword" type="password" />
                             
-                            <input data-val="true" placeholder="Confirm Password" class="form-control" data-val-length="Weak password!" data-val-length-max="100" data-val-length-min="6" data-val-required="Fill in the Password field!" id="Password" name="Password" type="password" />
-                            
-                        
                             <input type="submit" value="Register" class="button-regist" />
                     </form>
                         </div>

@@ -86,9 +86,9 @@ namespace TitleTurtle.Controllers
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     WebSecurity.Login(model.UserName, model.Password);
                     Roles.AddUserToRole(model.UserName, "RegUser");
-                    db.Contacts.Add(new Contact { ContactEmail = "", ContactMobile = "", ContactWebPage = "", UserID = WebSecurity.GetUserId(model.UserName) });
+                    db.Contacts.Add(new Contact { ContactEmail = model.ContactEmail, ContactMobile = "", ContactWebPage = "", UserID = WebSecurity.GetUserId(model.UserName) });
                     db.PersonalDatas.Add(new PersonalData { PersDataAdress = "", PersDataDate = DateTime.Now, PersDataOther = "", UserID = WebSecurity.GetUserId(model.UserName) });
-                    var user = new User { Login = model.UserName, UserID = WebSecurity.GetUserId(model.UserName), UserFirstName = "", UserLastName = "" };
+                    var user = new User { Login = model.UserName, UserID = WebSecurity.GetUserId(model.UserName), UserFirstName = model.UserFirstName, UserLastName = model.UserLastName };
                     db.Users.Add(user);
                     db.SaveChanges();
                     return RedirectToAction("Index", "Home");

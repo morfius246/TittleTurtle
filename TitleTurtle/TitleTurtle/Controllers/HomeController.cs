@@ -149,10 +149,11 @@ namespace TitleTurtle.Controllers
                         {
                             model = new Main
                             {
-                                ArticleList = (from article in Db.Articles
-                                               where !(from comment in Db.Comments
-                                                       select comment.ArticleID).Contains(article.ArticleID)
-                                               select article).Where(x => Db.Followers.Where(t => t.UserID == WebSecurity.CurrentUserId).Select(y => y.FollowID).Contains(x.UserID)
+
+                                ArticleList =  (from article in Db.Articles
+                                          where article.CategoryID == categoryId && !(from comment in Db.Comments
+                                         select comment.ArticleID).Contains(article.ArticleID)
+                                 select article).Where(x => Db.Followers.Where(t => t.UserID == WebSecurity.CurrentUserId).Select(y => y.FollowID).Contains(x.UserID)
                                                                         && !Db.Comments.Select(y => y.ArticleID).Contains(x.ArticleID)).ToList(),
                                 CategoryList = Db.Categories.ToList()
                             };
