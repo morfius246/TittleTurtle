@@ -1,4 +1,5 @@
 ﻿@using System.Diagnostics.Eventing.Reader
+@using System.IdentityModel.Tokens
 @model TitleTurtle.Models.Main
 @{
     ViewBag.Title = "Index";
@@ -18,38 +19,9 @@
     @Scripts.Render("~/bundles/jqueryval")
 }
 <div class="container">
-    <!--div id="bod2">
-        <div id="bod1">-->
-    <!--div id="img_header">
-        <!--div-- id="banner">
-            <a href="http://bionic-university.com/ru/" target="_blank">
-                <img class="banner" src="/Images/bunner.png" /></a>
-            </!--div-->
-    <!--div id="carusel">
-
-
-        <div id="gallery">
-            <img src="~/Images/3.jpg" />
-            <img src="~/Images/4.jpg" />
-            <img src="~/Images/5.jpg" />
-        </div>
-
-        <div id="thumbs">
-            <img src="~/Images/33.jpg" />
-            <img src="~/Images/44.jpg" />
-            <img src="~/Images/55.jpg" />
-        </div>
-
-        <a href="#" id="next">
-            <img src="~/Images/arrow.png" />
-        </a>
-    </div-->
     <div class="row">
         <div class="col-md-9">
             <div id="head_article">
-
-                <div id="img_article">
-                </div>
                 @if (User.IsInRole("Admin") || User.IsInRole("Author"))
                 {
                     <div id="New_article">
@@ -63,27 +35,29 @@
                 <div class="Article">
                     Статьи
                 </div>
-                <ul class="nav nav-pills" role="tablist">
-                    <li><a href="@Url.Action("Index", "Home", new { sort = "rating", categoryId = ViewBag.CategoryID })">Лучшее</a></li>
-                    <li><a href="@Url.Action("Index", "Home", new { sort = "date", categoryId = ViewBag.CategoryID })">Свежее</a></li>
-                    <li><a href="@Url.Action("Index", "Home", new { sort = "discussed", categoryId = ViewBag.CategoryID })">Обсуждаемое</a></li>
-                    <li><a href="@Url.Action("Index", "Home", new { sort = "news", categoryId = ViewBag.CategoryID })">Подписки</a></li>
-                </ul>
+                
             </div>
-
-            <div>
+        <div class="container">
+                    <ul class="nav nav-pills" role="tablist">
+                        <li><a href="@Url.Action("Index", "Home", new { sort = "rating", categoryId = ViewBag.CategoryID })">Лучшее</a></li>
+                        <li><a href="@Url.Action("Index", "Home", new { sort = "date", categoryId = ViewBag.CategoryID })">Свежее</a></li>
+                        <li><a href="@Url.Action("Index", "Home", new { sort = "discussed", categoryId = ViewBag.CategoryID })">Обсуждаемое</a></li>
+                        <li><a href="@Url.Action("Index", "Home", new { sort = "news", categoryId = ViewBag.CategoryID })">Подписки</a></li>
+                    </ul>
+                </div>
+           
                 @foreach (var item in Model.ArticleList)
                 {
-                    <div class="item">
+                    <div class="well well-sm">
                         @Html.ActionLink(item.ArticleTitle, "ShowArticle", "Home", new { id = item.ArticleID }, new { style = "margin: 0; padding-right: 80px; line-height: 15px; color: black" })
                         @if ((User.IsInRole("Author") && User.Identity.Name == item.User.UserFirstName) || User.IsInRole("Admin"))
                         {
-                            <div style="position: absolute; top:20px; right:5px">
+                            <div class="float-right">
                                 <a href="@Url.Action("DeleteArticle", "Home", new { id = item.ArticleID })" onclick="return confirm('Вы уверены, что хотите удалить статью?') ? true : false;">
-                                    <img class="articl-bot" title="Удалить статью" src="~/Images/del.jpg" onmouseover="this.src = 'Images/del-2.jpg'" onmouseout="    this.src = 'Images/del.jpg'" alt="Удалить статью" />
+                                    <img class="articl-bot" title="Удалить статью" src="~/Images/del.png" onmouseover="this.src = 'Images/del-2.png'" onmouseout="    this.src = 'Images/del.png'" alt="Удалить статью" />
                                 </a>
                                 <a href="@Url.Action("EditArticle", "Home", new { id = item.ArticleID })">
-                                    <img class="articl-bot" title="Редактировать статью" src="~/Images/cor.jpg" onmouseover="this.src = 'Images/cor-2.jpg'" onmouseout="    this.src = 'Images/cor.jpg'" alt="Редактировать статью" />
+                                    <img class="articl-bot" title="Редактировать статью" src="~/Images/cor.png" onmouseover="this.src = 'Images/cor-2.png'" onmouseout="    this.src = 'Images/cor.png'" alt="Редактировать статью" />
                                 </a>
                             </div>
                         }
@@ -100,10 +74,10 @@
                             }
                             Просмотров: @item.Ratings.ElementAt(0).RatingView
                         </p>
-                    </div>
+                    </div> <!--well-->
                 }
-            </div>
-        </div>
+             <!--container-->
+        </div> <!--col-md-3-->
         <div class="col-md-3">
             <div id="upkat">
                 <div id="gl_category">
@@ -118,43 +92,40 @@
                     <a href="@Url.Action("Index", "Home", new { sort = ViewBag.Sort})" class="list-group-item">Все</a>
                     @foreach (var category in Model.CategoryList)
                     {
-                        <a title="@category.CategoryDescription" href="@Url.Action("Index", "Home", new { categoryId = category.CategoryID, sort = ViewBag.Sort })" class="list-group-item">@category.CategoryName</a>
+                        <div class="list-group-item">
+                            <a title="@category.CategoryDescription" href="@Url.Action("Index", "Home", new { categoryId = category.CategoryID, sort = ViewBag.Sort })">@category.CategoryName</a>
 
-                        if (User.IsInRole("Admin") && category.CategoryID != 1011)
-                        {
-                                <a href="@Url.Action("RemoveCategory", "Home", new { id = category.CategoryID })" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></a>
+                            @if (User.IsInRole("Admin") && category.CategoryID != 1011)
+                            {
+                            <a href="@Url.Action("RemoveCategory", "Home", new { id = category.CategoryID })" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></a>
                             }
-
+                        </div>
                     }
                     
                     @*Just for admin*@
                     @if (User.IsInRole("Admin"))
                     {
-                        using (Html.BeginForm("CreateCategory", "Home"))
-                        {
-                            <div class="panel panel-default">
-                                <div class="panel-heading">Новая категория</div>
-                                <div class="panel-body">
-                                    <div class="form-group">
-                                        @Html.TextBoxFor(model => model.NewCategory.CategoryName, new { @class = "form-control", placeholder = "Название" })
-                                        @Html.ValidationMessageFor(model => model.NewCategory.CategoryName, null, new { style = "color:red" })
+                            using (Html.BeginForm("CreateCategory", "Home", new {}, FormMethod.Post, new {role = "form"}))
+                            {
+                                    <div class="panel-heading">Новая категория</div>
+                                    <div class="panel-body">
+                                        <div class="form-group">
+                                            @Html.TextBoxFor(model => model.NewCategory.CategoryName, new { @class = "form-control", placeholder = "Название" })
+                                            @Html.ValidationMessageFor(model => model.NewCategory.CategoryName)
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.TextBoxFor(model => model.NewCategory.CategoryDescription, new { @class = "form-control", placeholder = "Описание" })
+                                            @Html.ValidationMessageFor(model => model.NewCategory.CategoryDescription)
+                                        </div>
+                                        <input type="submit" value="Новая категория" class="btn btn-primary btn-lg btn-block">
                                     </div>
-                                    <div class="form-group">
-                                        @Html.TextBoxFor(model => model.NewCategory.CategoryDescription, new { @class = "form-control", placeholder = "Описание" })
-                                        @Html.ValidationMessageFor(model => model.NewCategory.CategoryDescription, null, new { style = "color:red" })
-                                    </div>
-                                    <input type="submit" value="Новая категория" class="btn btn-primary btn-lg btn-block">
-                                </div>
-                            </div>
-                        }
+                            }
                     }
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!--/div>
-</div-->
 <link href="~/Content/bootstrap.css" rel="stylesheet" />
 <script>
     $(document).ready(function () {

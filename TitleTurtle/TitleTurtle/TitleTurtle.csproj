@@ -468,9 +468,11 @@
     <Content Include="Images\control-2.png" />
     <Content Include="Images\control.png" />
     <Content Include="Images\cor-2.jpg" />
+    <Content Include="Images\cor-2.png" />
     <Content Include="Images\cor.jpg" />
     <Content Include="Images\cor.png" />
     <Content Include="Images\del-2.jpg" />
+    <Content Include="Images\del-2.png" />
     <Content Include="Images\del.jpg" />
     <Content Include="Images\del.png" />
     <Content Include="Images\noavatar.png" />
