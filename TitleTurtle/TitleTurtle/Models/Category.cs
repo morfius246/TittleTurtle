@@ -7,11 +7,11 @@ namespace TitleTurtle.Models
         [Key]
         public int CategoryID { get; set; }
         [Required]
-        [Display(Name = "Name")]
-        [StringLength(50, ErrorMessage = "String cannot be longer than 50 characters.")]
+        [Display(Name = "Имя")]
+        [StringLength(50, ErrorMessage = "Строка не может быть больше, чем 50 символов.")]
         public string CategoryName { get; set; }
-        [Display(Name = "Description")]
-        [StringLength(500, ErrorMessage = "String cannot be longer than 500 characters.")]
+        [Display(Name = "Описание")]
+        [StringLength(500, ErrorMessage = "Строка не может быть больше, чем 500 символов.")]
         public string CategoryDescription { get; set; }
     }
 }

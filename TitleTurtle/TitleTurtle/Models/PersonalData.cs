@@ -10,15 +10,15 @@ namespace TitleTurtle.Models
         public int PersonalDataID { get; set; }
         [ForeignKey("User")]
         public int UserID { get; set; }
-        [Display(Name = "Date of birth")]
+        [Display(Name = "Дата рождения")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime PersDataDate { get; set; }
-        [Display(Name = "Adress")]
-        [StringLength(300, ErrorMessage = "String cannot be longer than 300 characters.")]
+        [Display(Name = "Адрес")]
+        [StringLength(300, ErrorMessage = "Адрес пользователя не может быть длиннее 30 символов.")]
         public string PersDataAdress { get; set; }
-        [Display(Name = "Other")]
-        [StringLength(500, ErrorMessage = "String cannot be longer than 500 characters.")]
+        [Display(Name = "Другое")]
+        [StringLength(500, ErrorMessage = "Ета строка не может быть длиннее 30 символов.")]
         public string PersDataOther { get; set; }
         public virtual User User { get; set; }
     }

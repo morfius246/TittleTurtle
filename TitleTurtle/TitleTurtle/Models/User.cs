@@ -10,16 +10,16 @@ namespace TitleTurtle.Models
         [Key, DatabaseGeneratedAttribute(DatabaseGeneratedOption.None), Required]
         public int UserID { get; set; }
         [Required]
-        [Display(Name = "First name")]
-        [StringLength(30, ErrorMessage = "First name cannot be longer than 30 characters.")]
+        [Display(Name = "Имя")]
+        [StringLength(30, ErrorMessage = "Имя пользователя не может быть длиннее 30 символов.")]
         public string UserFirstName { get; set; }
         [Required]
-        [Display(Name = "Last name")]
-        [StringLength(30, ErrorMessage = "Last name cannot be longer than 30 characters.")]
+        [Display(Name = "Фамилия")]
+        [StringLength(30, ErrorMessage = "Фамилия пользователя не может быть длиннее 30 символов.")]
         public string UserLastName { get; set; }
         [Required]
-        [Display(Name = "User name")]
-        [StringLength(15, ErrorMessage = "User name cannot be longer than 15 characters.", MinimumLength = 5)]
+        [Display(Name = "Логин")]
+        [StringLength(15, ErrorMessage = "Логин пользователя не может быть длиннее 30 символов.", MinimumLength = 5)]
         public string UserName { get; set; }
         public string FullName
         {

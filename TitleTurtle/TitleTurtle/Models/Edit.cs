@@ -12,7 +12,7 @@ namespace TitleTurtle.Models
         public int EditID { get; set; }
         [ForeignKey("Article")]
         public int ArticleID { get; set; }
-        [Display(Name = "Date")]
+        [Display(Name = "Дата")]
         [DataType(DataType.DateTime)]
         public DateTime Date { get; set; }
         public type Type { get; set; }

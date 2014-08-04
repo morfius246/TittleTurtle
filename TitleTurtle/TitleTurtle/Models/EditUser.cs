@@ -9,23 +9,23 @@ namespace TitleTurtle.Models
     public class EditUser
     {
         public int UserID { get; set; }
-        [Display(Name = "User name")]
-        [StringLength(30, ErrorMessage = "User name cannot be longer than 30 characters.")]
+        [Display(Name = "Логин")]
+        [StringLength(30, ErrorMessage = "Логин пользователя не может быть длиннее 30 символов.")]
         public string UserName { get; set; }
         [Required]
-        [Display(Name = "First name")]
-        [StringLength(30, ErrorMessage = "First name cannot be longer than 30 characters.")]
+        [Display(Name = "Имя")]
+        [StringLength(30, ErrorMessage = "Имя пользователя не может быть длиннее 30 символов.")]
         public string UserFirstName { get; set; }
         [Required]
-        [Display(Name = "Last name")]
-        [StringLength(30, ErrorMessage = "last name cannot be longer than 30 characters.")]
+        [Display(Name = "Фамилия")]
+        [StringLength(30, ErrorMessage = "Фамилия пользователя не может быть длиннее 30 символов.")]
         public string UserLastName { get; set; }
-        [Display(Name = "Date of birth")]
+        [Display(Name = "Дата рождения")]
         [DataType(DataType.DateTime)]
         public DateTime PersDataDate { get; set; }
-        [Display(Name = "Adress")]
+        [Display(Name = "Адрес")]
         public string PersDataAdress { get; set; }
-        [Display(Name = "Other")]
+        [Display(Name = "Другое")]
         public string PersDataOther { get; set; }
         public int ContactID { get; set; }
         public Media NewMedia { get; set; }

@@ -7,7 +7,7 @@ namespace TitleTurtle.Models
     {
         [Key]
         public int TagID { get; set; }
-        [Display(Name = "Name")]
+        [Display(Name = "Имя")]
         public string TagName { get; set; }
         public virtual ICollection<TagInArticle> TagInArticles { get; set; }
     }

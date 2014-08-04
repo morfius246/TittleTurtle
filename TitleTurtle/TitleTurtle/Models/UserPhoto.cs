@@ -11,7 +11,7 @@ namespace TitleTurtle.Models
         public int MediaID { get; set; }
         [ForeignKey("User")]
         public int UserID { get; set; }
-        [Display(Name = "Photo")]
+        [Display(Name = "Фото пользователя")]
         public int UserPhotoCurrent { get; set; }
         public Media Media { get; set; }
         public User User { get; set; }
