@@ -20,7 +20,7 @@ namespace TitleTurtle.Models
         public string ArticleTitle { get; set; }
         [Required]
         [Display(Name = "Текст статьи")]
-        [StringLength(50, ErrorMessage = "Строка не может быть больше, чем 50 символов.")]
+        [StringLength(500000, ErrorMessage = "Строка не может быть больше, чем 500000 символов.")]
         public string ArticleText { get; set; }
         [Display(Name = "Статус")]
         public int ArticleStatus { get; set; }

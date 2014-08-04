@@ -20,6 +20,11 @@
         <body class="main">
             @using (Html.BeginForm("CreateArticle", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary()
+                @section Scripts {
+                    @Scripts.Render("~/bundles/jqueryval")
+                }
                 <div style="margin: 0 auto">
                     Категория:
                     @{
@@ -44,18 +49,20 @@
                         <br>
                         <br>
                         <p style="color:#FF0000">@ViewBag.Error</p>
-                        
-                        
+
+
                     </div>
 
                     <p>
                     <p>
 
                         Название: @Html.TextBoxFor(model => model.NewArticle.ArticleTitle, new { @class = "form-control", @style = "margin: 0 auto;" })
+                        @Html.ValidationMessageFor(model => model.NewArticle.ArticleTitle, null, new { style = "color:red" })
                         <br>
                         Cодержимое: @Html.TextAreaFor(model => model.NewArticle.ArticleText, new { @class = "form-control", @style = "min-height:200px;margin: 0 auto;" })
+                        @Html.ValidationMessageFor(model => model.NewArticle.ArticleText, null, new { style = "color:red" })
                         <br>
-                        <input type="submit"  value="Сохранить" class="btn" />
+                        <input type="submit" value="Сохранить" class="btn" />
                 </div>
             }
         </body>

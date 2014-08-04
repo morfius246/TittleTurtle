@@ -288,6 +288,22 @@
     <Compile Include="Migrations\201408040955115_Init13.Designer.cs">
       <DependentUpon>201408040955115_Init13.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201408041139442_Init14.cs" />
+    <Compile Include="Migrations\201408041139442_Init14.Designer.cs">
+      <DependentUpon>201408041139442_Init14.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408041143343_Init15.cs" />
+    <Compile Include="Migrations\201408041143343_Init15.Designer.cs">
+      <DependentUpon>201408041143343_Init15.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408041144297_Init16.cs" />
+    <Compile Include="Migrations\201408041144297_Init16.Designer.cs">
+      <DependentUpon>201408041144297_Init16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408041145550_Init17.cs" />
+    <Compile Include="Migrations\201408041145550_Init17.Designer.cs">
+      <DependentUpon>201408041145550_Init17.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Article.cs" />
@@ -697,6 +713,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201408040955115_Init13.resx">
       <DependentUpon>201408040955115_Init13.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408041139442_Init14.resx">
+      <DependentUpon>201408041139442_Init14.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408041143343_Init15.resx">
+      <DependentUpon>201408041143343_Init15.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408041144297_Init16.resx">
+      <DependentUpon>201408041144297_Init16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408041145550_Init17.resx">
+      <DependentUpon>201408041145550_Init17.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
