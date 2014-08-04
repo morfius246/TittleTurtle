@@ -406,7 +406,7 @@ namespace TitleTurtle.Controllers
             }
             mediainart.ArticleID = newArticle.ArticleID;
             Db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("ShowArticle",new { id = model.NewArticle.ArticleID});
         }
 
 
