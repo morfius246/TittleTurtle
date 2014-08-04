@@ -8,7 +8,6 @@ namespace TitleTurtle.Models
 
     public class Article
     {
-
         [Key]
         public int ArticleID { get; set; }
         public int UserID { get; set; }
