@@ -71,6 +71,15 @@ namespace TitleTurtle.Controllers
                     case "discussed":
                         {
                             //тут нужен запрос сортировки по комментариям
+                            model = new Main
+                            {
+                                ArticleList =
+                                (from article in Db.Articles
+                                 where !(from comment in Db.Comments
+                                         select comment.ArticleID).Contains(article.ArticleID)
+                                 select article).Where(x => x.ArticleStatus == 1).ToList().OrderByDescending(a => a.CommentCount),
+                                CategoryList = Db.Categories.ToList()
+                            };
                         }; break;
                     case "news":
                         {
@@ -87,9 +96,9 @@ namespace TitleTurtle.Controllers
                             {
                                 ArticleList =
                                      (from article in Db.Articles
-                                           where !(from comment in Db.Comments
-                                                   select comment.ArticleID).Contains(article.ArticleID) && (article.User.Login == User.Identity.Name)
-                                           select article).Where(x => x.ArticleStatus == 1).ToList(),
+                                      where !(from comment in Db.Comments
+                                              select comment.ArticleID).Contains(article.ArticleID) && (article.User.Login == User.Identity.Name)
+                                      select article).Where(x => x.ArticleStatus == 1).ToList(),
                                 CategoryList = Db.Categories.ToList()
                             };
                         }; break;
@@ -144,9 +153,9 @@ namespace TitleTurtle.Controllers
                             model = new Main
                             {
                                 ArticleList = (from article in Db.Articles
-                                           where (article.User.Login == User.Identity.Name) && (article.CategoryID == categoryId) && !(from comment in Db.Comments
-                                                                                                                                       select comment.ArticleID).Contains(article.ArticleID)
-                                           select article).Where(x => x.ArticleStatus == 1).ToList(),
+                                               where (article.User.Login == User.Identity.Name) && (article.CategoryID == categoryId) && !(from comment in Db.Comments
+                                                                                                                                           select comment.ArticleID).Contains(article.ArticleID)
+                                               select article).Where(x => x.ArticleStatus == 1).ToList(),
                                 CategoryList = Db.Categories.ToList()
                             };
                         }; break;
@@ -258,7 +267,7 @@ namespace TitleTurtle.Controllers
             Db.Articles.Add(newArticle);
             mediainart.ArticleID = newArticle.ArticleID;
             Db.SaveChanges();
-            return RedirectToAction("ShowArticle", new {id = newArticle.ArticleID});
+            return RedirectToAction("ShowArticle", new { id = newArticle.ArticleID });
         }
 
 
@@ -531,13 +540,13 @@ namespace TitleTurtle.Controllers
         public ActionResult Feedback(FeedbackModel model)
         {
             var Message = new FeedbackModel();
-                    using (var client = new SmtpClient("smtp.gmail.com", 587))
-                    {
-                        client.Credentials = new NetworkCredential("titleturtleua@gmail.com", "54321erhnx");
-                        client.EnableSsl = true;
-                        client.Send("titleturtleua@gmail.com", "vgrinda97@gmail.com",
-                            model.MessageTopic, model.MessageText + model.Email);
-                    }
+            using (var client = new SmtpClient("smtp.gmail.com", 587))
+            {
+                client.Credentials = new NetworkCredential("titleturtleua@gmail.com", "54321erhnx");
+                client.EnableSsl = true;
+                client.Send("titleturtleua@gmail.com", "vgrinda97@gmail.com",
+                    model.MessageTopic, model.MessageText + model.Email);
+            }
             return View("FeedbackSent");
         }
     }
