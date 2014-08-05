@@ -1,32 +1,34 @@
 ﻿@*<div id="bod">
     <div id="manage2">*@
-        @model TitleTurtle.Models.LoginModel
+@model TitleTurtle.Models.LoginModel
 
-        <hgroup class="title">
-            <h1>@ViewBag.Title</h1>
-        </hgroup>
+<hgroup class="title">
+    <h1>@ViewBag.Title</h1>
+</hgroup>
 
-        
-        <div class="container">
-            
-        <section id="loginForm">
+
+<div class="container">
+
+    <section id="loginForm">
         @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
         {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true)
-
+            @section Scripts {
+                @Scripts.Render("~/bundles/jqueryval")
+            }
             <fieldset>
                 <legend>Log in Form</legend>
                 <ol>
                     <li>
                         @Html.LabelFor(m => m.UserName)
                         @Html.TextBoxFor(m => m.UserName)
-                        @Html.ValidationMessageFor(m => m.UserName)
+                        @Html.ValidationMessageFor(model => model.UserName, null, new { style = "color:red" })
                     </li>
                     <li>
                         @Html.LabelFor(m => m.Password)
                         @Html.PasswordFor(m => m.Password)
-                        @Html.ValidationMessageFor(m => m.Password)
+                        @Html.ValidationMessageFor(model => model.Password, null, new { style = "color:red" })
                     </li>
                     <li>
                         @Html.CheckBoxFor(m => m.RememberMe)
@@ -40,8 +42,4 @@
             </p>
         }
     </section>
-
-    @section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
-    }
-    </div>
+</div>

@@ -585,7 +585,7 @@ namespace TitleTurtle.Controllers
                 client.Credentials = new NetworkCredential("titleturtleua@gmail.com", "54321erhnx");
                 client.EnableSsl = true;
                 client.Send("titleturtleua@gmail.com", "vgrinda97@gmail.com",
-                    model.MessageTopic, model.MessageText + model.Email);
+                    model.MessageTopic, model.MessageText + '\n' + model.Email);
             }
             return View("FeedbackSent");
         }
