@@ -1,12 +1,12 @@
 ﻿@if (Request.IsAuthenticated)
 {
     <text>
-        <li><a href=@Url.Action("ShowUser", "Account", new { id = WebSecurity.GetUserId(User.Identity.Name) })>@User.Identity.Name</a></li>
-        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
-        {
-            @Html.AntiForgeryToken()
-            <li><a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></li>
-        }
+    <li><a href=@Url.Action("ShowUser", "Account", new { id = WebSecurity.GetUserId(User.Identity.Name) })>@User.Identity.Name</a></li>
+   <li> @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+    {
+        @Html.AntiForgeryToken()
+        <a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a>
+    }</li>
     </text>
 }
 

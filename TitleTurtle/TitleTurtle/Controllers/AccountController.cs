@@ -615,7 +615,11 @@ namespace TitleTurtle.Controllers
             }
             int userId = WebSecurity.GetUserId(User.Identity.Name);
             editUser.UserIsFollowed = db.Followers.Count(x => x.FollowID == id.Value && x.UserID == userId) != 0;
-            editUser.FellowedUsers = db.Users.Where(x => db.Followers.Where(t => t.UserID == WebSecurity.CurrentUserId).Select(y => y.FollowID).Contains(x.UserID)).ToList();
+            editUser.FollowedUsers = db.Users.Where(x => db.Followers.Where(t => t.UserID == WebSecurity.CurrentUserId).Select(y => y.FollowID).Contains(x.UserID)).ToList();
+            editUser.ListofArticles = (from article in db.Articles
+                                       where !(from comment in db.Comments
+                                               select comment.ArticleID).Contains(article.ArticleID) && (article.User.Login == editUser.Login)
+                                       select article).Where(x => x.ArticleStatus == 1).ToList();
             return View(editUser);
         }
 

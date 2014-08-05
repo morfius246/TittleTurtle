@@ -48,6 +48,7 @@ namespace TitleTurtle.Models
         public Media NewMedia { get; set; }
         public UserPhoto NewUserPhoto { get; set; }
         public bool UserIsFollowed { get; set; }
-        public List<User> FellowedUsers { get; set; }
+        public List<User> FollowedUsers { get; set; }
+        public List<Article> ListofArticles { get; set; }
     }
 }
