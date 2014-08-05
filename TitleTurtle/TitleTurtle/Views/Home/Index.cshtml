@@ -1,5 +1,6 @@
 ﻿@using System.Diagnostics.Eventing.Reader
 @using System.IdentityModel.Tokens
+@using PagedList.Mvc;
 @model TitleTurtle.Models.Main
 @{
     ViewBag.Title = "Index";
@@ -46,7 +47,7 @@
                     </ul>
                 </div>
            
-                @foreach (var item in Model.ArticleList)
+                @foreach (var item in Model.PagedList)
                 {
                     <div class="well well-sm">
                         @Html.ActionLink(item.ArticleTitle, "ShowArticle", "Home", new { id = item.ArticleID }, new { style = "margin: 0; padding-right: 80px; line-height: 15px; color: black" })
@@ -76,6 +77,10 @@
                         </p>
                     </div> <!--well-->
                 }
+            Page @(Model.PagedList.PageCount < Model.PagedList.PageNumber ? 0 : Model.PagedList.PageNumber) of @Model.PagedList.PageCount
+
+            
+            @Html.PagedListPager(Model.PagedList, page => Url.Action("Index", new { page, sort = ViewBag.Sort, categoryId = ViewBag.CategoryID }))
              <!--container-->
         </div> <!--col-md-3-->
         <div class="col-md-3">

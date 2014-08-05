@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using PagedList;
+using System.Collections.Generic;
 
 namespace TitleTurtle.Models
 {
@@ -10,6 +11,7 @@ namespace TitleTurtle.Models
         public Article NewArticle { get; set; }
         public Media NewMedia { get; set; }
         public MediaInArticle MediaInArticles { get; set; }
+        public PagedList<Article> PagedList { get; set; }
     }
 
 }

@@ -34,13 +34,14 @@ namespace TitleTurtle.Controllers
         /// <param name="categoryId">ID of category to show Articles from</param>
         /// <returns>View 'Index' with Articles in Main model</returns>
         [AllowAnonymous]
-        public ActionResult Index(Main model, int? categoryId, string sort)
+        public ActionResult Index(Main model, int? categoryId, string sort, int? page)
         {
             if (categoryId == null)
             {
                 if (sort == null)
                 {
                     sort = "rating";
+                    ViewBag.Sort = "rating";
                 }
                 switch (sort)
                 {
@@ -55,6 +56,7 @@ namespace TitleTurtle.Controllers
                                       select article).Where(x => x.ArticleStatus == 1).ToList().OrderByDescending(a => a.Ratings.ElementAt(0).RatingLike - a.Ratings.ElementAt(0).RatingDislike),
                                 CategoryList = Db.Categories.ToList()
                             };
+                            ViewBag.Sort = "rating";
                         }; break;
                     case "date":
                         {
@@ -67,6 +69,7 @@ namespace TitleTurtle.Controllers
                                       select article).Where(x => x.ArticleStatus == 1).ToList().OrderByDescending(a => a.Edits.ElementAt(0).Date),
                                 CategoryList = Db.Categories.ToList()
                             };
+                            ViewBag.Sort = "date";
                         }; break;
                     case "discussed":
                         {
@@ -79,6 +82,7 @@ namespace TitleTurtle.Controllers
                                  select article).Where(x => x.ArticleStatus == 1).ToList().OrderByDescending(a => a.CommentCount),
                                 CategoryList = Db.Categories.ToList()
                             };
+                            ViewBag.Sort = "discussed";
                         }; break;
                     case "news":
                         {
@@ -88,6 +92,7 @@ namespace TitleTurtle.Controllers
                                                                         && !Db.Comments.Select(y => y.ArticleID).Contains(x.ArticleID)).ToList(),
                                 CategoryList = Db.Categories.ToList()
                             };
+                            ViewBag.Sort = "news";
                         }; break;
                     case "my":
                         {
@@ -100,6 +105,7 @@ namespace TitleTurtle.Controllers
                                       select article).Where(x => x.ArticleStatus == 1).ToList(),
                                 CategoryList = Db.Categories.ToList()
                             };
+                            ViewBag.Sort = "news";
                         }; break;
                 };
             }
@@ -108,19 +114,21 @@ namespace TitleTurtle.Controllers
                 if (sort == null)
                 {
                     sort = "rating";
+                    ViewBag.Sort = "rating";
                 }
                 switch (sort)
                 {
                     case "rating":
                         {
                             model = new Main
-               {
-                   ArticleList = (from article in Db.Articles
-                                  where article.CategoryID == categoryId && !(from comment in Db.Comments
-                                                                              select comment.ArticleID).Contains(article.ArticleID)
-                                  select article).Where(x => x.ArticleStatus == 1).ToList().OrderByDescending(a => a.Ratings.ElementAt(0).RatingLike - a.Ratings.ElementAt(0).RatingDislike),
-                   CategoryList = Db.Categories.ToList()
-               };
+                               {
+                                   ArticleList = (from article in Db.Articles
+                                                  where article.CategoryID == categoryId && !(from comment in Db.Comments
+                                                                                              select comment.ArticleID).Contains(article.ArticleID)
+                                                  select article).Where(x => x.ArticleStatus == 1).ToList().OrderByDescending(a => a.Ratings.ElementAt(0).RatingLike - a.Ratings.ElementAt(0).RatingDislike),
+                                   CategoryList = Db.Categories.ToList()
+                               };
+                            ViewBag.Sort = "rating";
                         }; break;
                     case "date":
                         {
@@ -132,6 +140,7 @@ namespace TitleTurtle.Controllers
                                   select article).Where(x => x.ArticleStatus == 1).ToList().OrderByDescending(a => a.Edits.ElementAt(0).Date),
                    CategoryList = Db.Categories.ToList()
                };
+                            ViewBag.Sort = "date";
                         }; break;
                     case "discussed":
                         {
@@ -140,23 +149,25 @@ namespace TitleTurtle.Controllers
                                 ArticleList =
                                 (from article in Db.Articles
                                  where article.CategoryID == categoryId && !(from comment in Db.Comments
-                                         select comment.ArticleID).Contains(article.ArticleID)
+                                                                             select comment.ArticleID).Contains(article.ArticleID)
                                  select article).Where(x => x.ArticleStatus == 1).ToList().OrderByDescending(a => a.CommentCount),
                                 CategoryList = Db.Categories.ToList()
                             };
+                            ViewBag.Sort = "discussed";
                         }; break;
                     case "news":
                         {
                             model = new Main
                             {
 
-                                ArticleList =  (from article in Db.Articles
-                                          where article.CategoryID == categoryId && !(from comment in Db.Comments
-                                         select comment.ArticleID).Contains(article.ArticleID)
-                                 select article).Where(x => Db.Followers.Where(t => t.UserID == WebSecurity.CurrentUserId).Select(y => y.FollowID).Contains(x.UserID)
+                                ArticleList = (from article in Db.Articles
+                                               where article.CategoryID == categoryId && !(from comment in Db.Comments
+                                                                                           select comment.ArticleID).Contains(article.ArticleID)
+                                               select article).Where(x => Db.Followers.Where(t => t.UserID == WebSecurity.CurrentUserId).Select(y => y.FollowID).Contains(x.UserID)
                                                                         && !Db.Comments.Select(y => y.ArticleID).Contains(x.ArticleID)).ToList(),
                                 CategoryList = Db.Categories.ToList()
                             };
+                            ViewBag.Sort = "news";
                         }; break;
                     case "my":
                         {
@@ -168,6 +179,7 @@ namespace TitleTurtle.Controllers
                                                select article).Where(x => x.ArticleStatus == 1).ToList(),
                                 CategoryList = Db.Categories.ToList()
                             };
+                            ViewBag.Sort = "my";
                         }; break;
                 }
             }
@@ -175,6 +187,18 @@ namespace TitleTurtle.Controllers
             {
                 ViewBag.CategoryID = categoryId;
             }
+            int pageNumber;
+            if(page==null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                pageNumber = page.Value;
+            }
+            
+            int pageSize = 2;
+            model.PagedList = (PagedList<Article>)model.ArticleList.ToPagedList<Article>(pageNumber, pageSize);
             return View(model);
         }
         /// <summary>
@@ -406,7 +430,7 @@ namespace TitleTurtle.Controllers
             }
             mediainart.ArticleID = newArticle.ArticleID;
             Db.SaveChanges();
-            return RedirectToAction("ShowArticle",new { id = model.NewArticle.ArticleID});
+            return RedirectToAction("ShowArticle", new { id = model.NewArticle.ArticleID });
         }
 
 
