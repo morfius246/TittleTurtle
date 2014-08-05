@@ -1,20 +1,36 @@
 ﻿@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    <script>
+    <script src="~/Scripts/jquery.capslockstate.js" type="text/javascript"></script>
+    <script type="text/javascript">
         $(document).ready(function () {
+            $(window).capslockstate();
+
             $(window).bind("capsOn", function (event) {
-                $("#statetext").html("Caps Lock включен");
+                if ($("#Password:focus").length > 0 || $("#ConfirmPassword:focus").length > 0) {
+                    $("#capsWarning").show();
+                }
             });
             $(window).bind("capsOff", function (event) {
-                $("#statetext").html("");
+                $("#capsWarning").hide();
             });
             $(window).bind("capsUnknown", function (event) {
-                $("#statetext").html("");
+                $("#capsWarning").hide();
             });
-
-            $(window).capslockstate();
-            var initialState = $(window).capslockstate("state");
-            $("#statetext").html(initialState);
+            $("#Password").bind("focusout", function (event) {
+                $("#capsWarning").hide();
+            });
+            $("#ConfirmPassword").bind("focusout", function (event) {
+                $("#capsWarning").hide();
+            });
+            $("#Password").bind("focusin", function (event) {
+                if ($(window).capslockstate("state") === true) {
+                    $("#capsWarning").show();
+                }
+            });
+            $("#ConfirmPassword").bind("focusin", function (event) {
+                if ($(window).capslockstate("state") === true) {
+                    $("#capsWarning").show();
+                }
+            });
         });
     </script>
 }
@@ -23,6 +39,7 @@
 @{
     ViewBag.Title = "Register";
 }
+
 <div class="container">
     <div class="root">
         <div id="MyArticle">
