@@ -48,34 +48,27 @@
         </div>
         @using (Html.BeginForm())
         {
-            @Html.AntiForgeryToken()
-            @Html.ValidationSummary()
-           
             <div class="regist-head">
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary()
             </div>
 
             <div id="form">
-                <form class="form-signin">
-                    @Html.TextBoxFor(x => x.UserFirstName, new { @class = "form-control", @placeholder = "Имя" })
-                    @Html.ValidationMessageFor(model => model.UserFirstName, null, new { style = "color:red" })
-                    @Html.TextBoxFor(x => x.UserLastName, new { @class = "form-control", @placeholder = "Фамилия" })
-                    @Html.ValidationMessageFor(model => model.UserLastName, null, new { style = "color:red" })
-                    @Html.TextBoxFor(x => x.ContactEmail, new { @class = "form-control", @placeholder = "Електронная почта" })
-                    @Html.ValidationMessageFor(model => model.ContactEmail, null, new { style = "color:red" })
-                    @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", @placeholder = "Логин" })
-                    @Html.ValidationMessageFor(model => model.UserName, null, new { style = "color:red" })
-                    @Html.TextBoxFor(x => x.Password, new { @class = "form-control", @placeholder = "Пароль", @type = "password" })
-                    @Html.ValidationMessageFor(model => model.Password, null, new { style = "color:red" })
-                    @Html.TextBoxFor(x => x.ConfirmPassword, new { @class = "form-control", @placeholder = "Подтвердите пароль", @type = "password" })
-                    @Html.ValidationMessageFor(model => model.ConfirmPassword, null, new { style = "color:red" })
-                    <input type="submit" value="Register" class="button-regist" />
-                </form>
+                @Html.TextBoxFor(x => x.UserFirstName, new { @class = "form-control", @placeholder = "Имя" })
+                @Html.ValidationMessageFor(model => model.UserFirstName, null, new { style = "color:red" })
+                @Html.TextBoxFor(x => x.UserLastName, new { @class = "form-control", @placeholder = "Фамилия" })
+                @Html.ValidationMessageFor(model => model.UserLastName, null, new { style = "color:red" })
+                @Html.TextBoxFor(x => x.ContactEmail, new { @class = "form-control", @placeholder = "Електронная почта" })
+                @Html.ValidationMessageFor(model => model.ContactEmail, null, new { style = "color:red" })
+                @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", @placeholder = "Логин" })
+                @Html.ValidationMessageFor(model => model.UserName, null, new { style = "color:red" })
+                @Html.TextBoxFor(x => x.Password, new { @class = "form-control", @placeholder = "Пароль", @type = "password" })
+                @Html.ValidationMessageFor(model => model.Password, null, new { style = "color:red" })
+                @Html.TextBoxFor(x => x.ConfirmPassword, new { @class = "form-control", @placeholder = "Подтвердите пароль", @type = "password" })
+                @Html.ValidationMessageFor(model => model.ConfirmPassword, null, new { style = "color:red" })
+                <div id="capsWarning" style="display:none">Caps Lock включен!</div>
+                <input type="submit" value="Далее" class="btn btn-primary" />
             </div>
-            <span id="statetext"></span>
         }
     </div>
 </div>
-
-<link href="~/Content/bootstrap.css" rel="stylesheet" />

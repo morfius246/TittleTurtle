@@ -1,4 +1,5 @@
 ﻿@model TitleTurtle.Models.EditUser
+
 @{
     Layout = "/Views/Shared/_Layout.cshtml";
 }
@@ -14,17 +15,17 @@
     <div>
         @if (Model.NewMedia != null)
         {
-            @Html.Raw("<img id='img' style='' src=\"data:image/jpeg;base64,"
+            @Html.Raw("<img id='img' style='max-width: 360px; max-height: 500px' src=\"data:image/jpeg;base64,"
                       + Convert.ToBase64String(Model.NewMedia.MediaData) + "\" />")
         }
         else
         {
-            <img id ="img" style="width: 120px; height: 90px" src="/Images/noavatar.png"/>
+            <img id ="img" style="width: 350px; height: 260px" src="/Images/noavatar.png"/>
         }
     </div>
 
     <table border ="0" cellpadding ="7" cellspacing="7">
-        <tr><td>Персональная страница</td><td>@Model.ContactWebPage</td></tr>
+        </br>
         <tr><td>Имя</td><td>@Model.UserFirstName</td></tr>
         <tr><td>Фамилия</td><td>@Model.UserLastName</td></tr>
         <tr><td>Электронная почта</td><td>@Model.ContactEmail</td></tr>
@@ -51,4 +52,10 @@
     {
         @Html.ActionLink("Редактировать", "EditUser", "Account", new { id = Model.UserID }, new { style = "color:blue" })
     }
+    <p>
+    @foreach(var user in Model.FellowedUsers)
+    {
+        @user.FullName
+    }
+    </p>
 </div>

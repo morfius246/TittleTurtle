@@ -1,15 +1,11 @@
 ﻿@if (Request.IsAuthenticated)
 {
     <text>
-        <a class="navli-user" href=@Url.Action("ShowUser", "Account", new { id = WebSecurity.GetUserId(User.Identity.Name) }) title="Manage"><img src="/Images/meneg-2.png" onmouseover="this.src = '/Images/meneg.png'" onmouseout="    this.src = '/Images/meneg-2.png'" title="Профиль" /></a>
+        <li><a href=@Url.Action("ShowUser", "Account", new { id = WebSecurity.GetUserId(User.Identity.Name) })>@User.Identity.Name</a></li>
         @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
         {
             @Html.AntiForgeryToken()
-            <div id="navli9" class="navli">
-                <a href="javascript:document.getElementById('logoutForm').submit()">
-                    <img src="/Images/Exit-2.png" onmouseover="this.src = '/Images/Exit.png'" onmouseout="    this.src = '/Images/Exit-2.png'" title="Выйти" />
-                </a>
-            </div>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></li>
         }
     </text>
 }
@@ -17,6 +13,6 @@
 
 else
 {
-    <div id="navli7" class="navli"><a href="/Account/Register" id="registerLink"><img src="/Images/regist-2.png" onmouseover="this.src = '/Images/regist.png'" onmouseout="    this.src = '/Images/regist-2.png'" title="Регистрация" /></a></div>
-    <div id="navli8" class="navli"><a href="/Account/Login" id="loginLink"><img src="/Images/Exit-2.png" onmouseover="this.src = '/Images/Exit.png'" onmouseout="    this.src = '/Images/Exit-2.png'" title="Войти" /></a></div>
+    <li><a href="/Account/Register" id="registerLink">Регистрация</a></li>
+    <li><a href="/Account/Login" id="loginLink">Войти</a></li>
 }

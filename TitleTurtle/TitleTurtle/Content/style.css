@@ -18,7 +18,7 @@ div, footer {
     /*padding-top:0px;*/
 }
 body {
-    background: url(../img/background.jpg) fixed #ECEEE9;
+    /*background: url(../img/background.jpg) fixed #ECEEE9;*/
     color: #555;
     font-family: Verdana, Arial, sans-serif;
     margin:0;
@@ -40,8 +40,8 @@ ul {
 }
 
 #form {
-   margin-top:40px;
-
+   //margin-top:40px;
+   
 }
 
 .button-regist {
@@ -743,7 +743,7 @@ b4order: 1px solid #ddd;
 }
 
 form {
- display: inline-block;
+ /*display: inline-block;*/
  /*line-height:100px;*/
 
 }

@@ -71,18 +71,16 @@
 
 
         </div>
-        <div class="">
-            <div class="">Размер загружаемого файла не должен превышать 2 МВ <br />и должен иметь формат (jpeg,jpg,png,gif)  </div>
-            <input id="inputImage" type="file" accept="image/jpeg,image/png,image/gif" name="uploadImage" />
+        <div>
+            <div>Размер загружаемого файла не должен превышать 2 МВ <br />и должен иметь формат (jpeg,jpg,png,gif)  </div>
+            <input id="inputImage" class="btn btn-default" type="file" accept="image/jpeg,image/png,image/gif" name="uploadImage" />
             <br />
             <br />
-            <p style="color:#FF0000">@ViewBag.Error</p>
+            <p style="color:red">@ViewBag.Error</p>
         </div>
 
-        <a class="navli-user" href="/Account/Manage" title="Manage">Изменить пароль</a>
-        <p>
-            <input type="submit" value="Save" />
-        </p>
+        <a class="btn-default btn btn-sm" href="/Account/Manage">Изменить пароль</a><br/>
+    <p><input type="submit" class="btn btn-primary btn-lg" value="Save" /></p>
 
     }
 
