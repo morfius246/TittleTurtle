@@ -119,11 +119,11 @@
                 alert('Максимальный размер файла 2 MB!');
                 return false;
             }
-            else if (inputImage.files[0].type != "gif" || inputImage.files[0].type != "jpg" || inputImage.files[0].type != "jpeg" || inputImage.files[0].type != "png") {
+            @*else if (inputImage.files[0].type != "gif" || inputImage.files[0].type != "jpg" || inputImage.files[0].type != "jpeg" || inputImage.files[0].type != "png") {
                 inputImage.value = null;
                 alert('Недопустимый формат файла');
                 return false;
-            }
+            }*@
             return true;
         });
     }

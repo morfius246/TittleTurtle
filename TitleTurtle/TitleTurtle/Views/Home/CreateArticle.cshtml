@@ -41,7 +41,7 @@
                     </div>
                     <div class="editor-field">
                         <div class="editor-label">Размер загружаемого файла не должен превышать 2 МВ и должен иметь формат (jpeg,jpg,png,gif)  </div>
-                        <input id="inputImage" type="file" accept="image/jpeg,image/png,image/gif" name="uploadImage" />
+                        <input id="inputImage"  type="file" accept="image/jpeg,image/png,image/gif" name="uploadImage" />
                         <br/>
                         <br/>
                         <p style="color:#FF0000">@ViewBag.Error</p>
@@ -78,12 +78,13 @@
                  alert('Максимальный размер файла 2 MB!');
                  return false;
              }
-             else if (inputImage.files[0].type != "gif" || inputImage.files[0].type != "jpg" || inputImage.files[0].type != "jpeg" || inputImage.files[0].type != "png") {
+             @*else if (inputImage.files[0].type != "gif" || inputImage.files[0].type != "jpg" || inputImage.files[0].type != "jpeg" || inputImage.files[0].type != "png") {
                  inputImage.value = null;
                  alert('Недопустимый формат файла');
                  return false;
-             }
+             }*@
              return true;
          });
      }
+     
         </script>
