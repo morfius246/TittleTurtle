@@ -18,6 +18,7 @@ namespace TitleTurtle.Models
         public DbSet<TagInArticle> TagInAricles { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Follower> Followers { get; set; }
+        public DbSet<Like> Likes { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             Database.SetInitializer<HomeContext>(null);

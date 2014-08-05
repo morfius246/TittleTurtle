@@ -344,11 +344,16 @@
     <Compile Include="Migrations\201408041353535_Init27.Designer.cs">
       <DependentUpon>201408041353535_Init27.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201408051002127_Init28.cs" />
+    <Compile Include="Migrations\201408051002127_Init28.Designer.cs">
+      <DependentUpon>201408051002127_Init28.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Article.cs" />
     <Compile Include="Models\EditUser.cs" />
     <Compile Include="Models\Follower.cs" />
+    <Compile Include="Models\Like.cs" />
     <Compile Include="Models\ShowArticle.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -797,6 +802,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201408041353535_Init27.resx">
       <DependentUpon>201408041353535_Init27.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408051002127_Init28.resx">
+      <DependentUpon>201408051002127_Init28.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
