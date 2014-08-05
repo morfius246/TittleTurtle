@@ -27,7 +27,7 @@ namespace TitleTurtle.Models
         public int CommentCount { get; set; }
         public virtual Category Category { get; set; }
         public virtual User User { get; set; }
-
+        public virtual Like Like { get; set; }
         public virtual ICollection<Rating> Ratings { get; set; }
         public virtual ICollection<Edit> Edits { get; set; }
         public virtual ICollection<MediaInArticle> MedialInArticles { get; set; }

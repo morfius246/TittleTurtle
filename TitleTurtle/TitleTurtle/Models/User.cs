@@ -25,6 +25,7 @@ namespace TitleTurtle.Models
         {
             get { return UserFirstName + " " + UserLastName; }
         }
+        public virtual Like Like { get; set; }
         public virtual ICollection<UserPhoto> UserPhotos { get; set; }
         public virtual ICollection<Contact> Contacts { get; set; }
         public virtual ICollection<PersonalData> PersonalDatas { get; set; }

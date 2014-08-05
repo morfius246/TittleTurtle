@@ -351,6 +351,14 @@
     <Compile Include="Migrations\201408051002127_Init28.Designer.cs">
       <DependentUpon>201408051002127_Init28.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201408051421375_Init29.cs" />
+    <Compile Include="Migrations\201408051421375_Init29.Designer.cs">
+      <DependentUpon>201408051421375_Init29.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408051423344_Init30.cs" />
+    <Compile Include="Migrations\201408051423344_Init30.Designer.cs">
+      <DependentUpon>201408051423344_Init30.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Article.cs" />
@@ -616,6 +624,7 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
+    <Content Include="Scripts\jquery.capslockstate.js" />
     <Content Include="Scripts\jquery.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
@@ -810,6 +819,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201408051002127_Init28.resx">
       <DependentUpon>201408051002127_Init28.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408051421375_Init29.resx">
+      <DependentUpon>201408051421375_Init29.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408051423344_Init30.resx">
+      <DependentUpon>201408051423344_Init30.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

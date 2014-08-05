@@ -15,7 +15,6 @@ namespace TitleTurtle.Models
         public int ArticleID { get; set; }
         [ForeignKey("User")]
         public int UserID { get; set; }
-        [Required]
         [Display(Name = "Лайки")]
         public bool Likes { get; set; }
         public virtual ICollection<Article> Article { get; set; }

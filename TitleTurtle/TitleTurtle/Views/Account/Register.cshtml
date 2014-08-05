@@ -1,12 +1,31 @@
-﻿<div class="container">
-    <div class="root">
-        @model TitleTurtle.Models.RegisterModel
-        @{
-            ViewBag.Title = "Register";
-        }
+﻿@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script>
+    $(document).ready(function () {
+        $(window).bind("capsOn", function (event) {
+            $("#statetext").html("Caps Lock включен");
+        });
+        $(window).bind("capsOff", function (event) {
+            $("#statetext").html("");
+        });
+        $(window).bind("capsUnknown", function (event) {
+            $("#statetext").html("");
+        });
 
-        
-            <div id="MyArticle">
+        $(window).capslockstate();
+        var initialState = $(window).capslockstate("state");
+        $("#statetext").html(initialState);
+    });
+</script>
+}
+
+@model TitleTurtle.Models.RegisterModel
+@{
+    ViewBag.Title = "Register";
+}
+<div class="container">
+    <div class="root">
+        <div id="MyArticle">
                 <img id="img_article" src="/Images/regist.png" />
                 <div class="Article">Registration Form</div>
             </div>
@@ -17,21 +36,17 @@
 
                       <div id="form">
                         <form class="form-signin">
-                            @Html.TextBoxFor(x => x.UserFirstName)
-                            @Html.TextBoxFor(x => x.UserLastName)
-                            @Html.TextBoxFor(x => x.ContactEmail)
-                            <input data-val="true" placeholder="User name" class="form-control" data-val-required="Fill in the Password field!" id="UserName" name="UserName" type="text" value="" />
-                            <input data-val="true" placeholder="Password" class="form-control" data-val-length="Weak password!" data-val-length-max="100" data-val-length-min="6" data-val-required="Fill in the Password field!" id="Password" name="Password" type="password" />
-                            <input data-val="true" placeholder="Confirm Password" class="form-control" data-val-length="Weak password!" data-val-length-max="100" data-val-length-min="6" data-val-required="Fill in the Password field!" id="ConfirmPassword" name="ConfirmPassword" type="password" />
-                            
+                            @Html.TextBoxFor(x => x.UserFirstName, new { @class = "form-control", @placeholder = "Имя" })
+                            @Html.TextBoxFor(x => x.UserLastName, new { @class = "form-control", @placeholder = "Фамилия" })
+                            @Html.TextBoxFor(x => x.ContactEmail, new { @class = "form-control", @placeholder = "Електронная почта" })
+                            @Html.TextBoxFor(x => x.UserName, new  { @class = "form-control", @placeholder = "Логин" })
+                            @Html.TextBoxFor(x => x.Password, new { @class = "form-control", @placeholder = "Пароль", @type = "password"  })
+                            @Html.TextBoxFor(x => x.ConfirmPassword, new { @class = "form-control", @placeholder = "Подтвердите пароль", @type = "password" })
                             <input type="submit" value="Register" class="button-regist" />
                     </form>
                         </div>
-                }
-           
-                @section Scripts {
-                    @Scripts.Render("~/bundles/jqueryval")
-                }
+                 <span id="statetext"></span>
+                }  
             </div>
         </div>
     
