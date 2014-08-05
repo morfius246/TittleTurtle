@@ -1,22 +1,17 @@
-﻿@model TitleTurtle.Models.ShowArticle
+﻿@using System.Text
+@using TitleTurtle.Models
+@model TitleTurtle.Models.ShowArticle
 
 
 @{
     ViewBag.Title = "Show";
     Layout = "/Views/Shared/_Layout.cshtml";
 }
-
-<head>
-    <title>@Model.CurrentArticle.ArticleTitle</title>
-    <script src="~/Scripts/jquery-1.9.1.js"></script>
-</head>
 <body>
-    <div style="width:800px; margin:0 auto;">
-
-
+    <div class="container" style="width:800px; margin:0 auto;">
         @using (Html.BeginForm("ShowArticle", "Home"))
         {
-            <div class="main">
+            <div class="">
                 <h2>@Html.DisplayFor(model => model.Article.ArticleTitle)</h2>
                 @Html.HiddenFor(model => model.Article.ArticleID)
                 @Html.Raw(Model.Article.ArticleText)
@@ -34,7 +29,7 @@
                     }
                 }
                 <br>
-                <p>Добавил: @Html.ActionLink(@Model.Article.User.FullName, "ShowUser", "Account", new { id = Model.Article.UserID }, new { style = "color: black" })</p>
+                <p title="@Model.Article.User.FullName"><span class="glyphicon glyphicon-user"></span> @Html.ActionLink(@Model.Article.User.Login, "ShowUser", "Account", new { id = Model.Article.UserID }, new { style = "color: black" })</p>
                 <p>Дата создания: @Model.Article.Edits.ElementAt(0).Date</p>
                 @if (Model.Article.Edits.Count() > 1)
                 {
@@ -43,25 +38,15 @@
                         @Model.Article.Edits.ElementAt(Model.Article.Edits.Count() - 1).Date
                     </p>
                 }
-                <p>
-                    Likes: <b style="color:chartreuse">@Model.Article.Ratings.ElementAt(0).RatingLike</b>
-                    Dislikes: <b style="color:crimson">@Model.Article.Ratings.ElementAt(0).RatingDislike</b>
-                    Rating: <b>@(Model.Article.Ratings.ElementAt(0).RatingLike - Model.Article.Ratings.ElementAt(0).RatingDislike)</b>
-                </p>
+                <p><span class="glyphicon glyphicon-thumbs-up"></span><span class="badge">@Model.Article.Ratings.ElementAt(0).RatingLike</span></p>
+                <p><span class="glyphicon glyphicon-thumbs-down"></span><span class="badge">@Model.Article.Ratings.ElementAt(0).RatingDislike</span></p>
+                <p><span class=" glyphicon glyphicon-heart-empty"></span><span class="badge">@(Model.Article.Ratings.ElementAt(0).RatingLike - Model.Article.Ratings.ElementAt(0).RatingDislike)</span></p>
+                    
                 @if (User.Identity.Name != Model.Article.User.Login)
                 {
-                    @Html.ActionLink("UpVote",
-                                 "Vote",
-                                 "Home",
-                                 new { _id = Model.Article.ArticleID.ToString(), up = true },
-                                 new { Style = "color: black" })
-                    <br />
-                    @Html.ActionLink("DownVote",
-                                 "Vote",
-                                 "Home",
-                                 new { _id = Model.Article.ArticleID.ToString(), up = false },
-                                 new { Style = "color: black" })
-                    <p>Просмотров: @Model.Article.Ratings.ElementAt(0).RatingView</p>
+                    <a href ="@Url.Action("Vote", "Home", new { _id = Model.Article.ArticleID.ToString(), up = true })"><span class="glyphicon glyphicon-chevron-up"></span></a>
+                    <a href="@Url.Action("Vote", "Home", new { _id = Model.Article.ArticleID.ToString(), up = false })"><span class="glyphicon glyphicon-chevron-down"></span></a>
+                    <p><span class="glyphicon glyphicon-eye-open"></span> @Model.Article.Ratings.ElementAt(0).RatingView</p>
                 }
             </div>
         }
@@ -73,13 +58,10 @@
                 <input type="hidden" name="CommentList" value=@Model.CommentList />
                 <input type="hidden" name="Username" value=@User.Identity.Name />
                 <fieldset>
-                    <legend>Добавить комментарий</legend>
-
-                    @User.Identity.Name, введите сообщение:
-                    <br />
-                    @Html.TextAreaFor(model => model.NewComment.Article.ArticleText)
-                    <br />
-                    <input type="submit" value="Отправить" name="Username" />
+                    <h5>Добавить комментарий</h5>
+                    <p>Введите сообщение:</p>
+                    @Html.TextAreaFor(model => model.NewComment.Article.ArticleText, new {@class = "form-control", rows = "3"})
+                    <input type="submit" value="Отправить" name="Username" class="btn btn-primary" />
                 </fieldset>
             }
         </div>
@@ -87,52 +69,116 @@
 
         <h3>Все записи</h3>
         <p> Всего: @Model.Article.CommentCount</p>
-        @foreach (var item in Model.CommentList)
-        {
-            <div>
-                <div style="background-color:silver; padding:3px; margin:5px;">
-
-                    <p>
-                        @item.Article.ArticleText
-                        <a class="reply">Ответить</a>
-                    </p>
-                </div>
-                <div id="subComment" style="display:none">
-                    @using (Html.BeginForm("CreateComment", "Home", FormMethod.Post))
-                    {
-                        <input type="hidden" name="currentArticle.ArticleID" value=@Model.CurrentArticle.ArticleID.ToString() />
-                        <input type="hidden" name="CommentList" value=@Model.CommentList />
-                        <input type="hidden" name="Username" value=@User.Identity.Name />
-                        <fieldset>
-                            <legend>Добавить комментарий</legend>
-
-                            @User.Identity.Name, введите сообщение:
-                            <br />
-                            @Html.TextAreaFor(model => model.NewComment.Article.ArticleText)
-                            <br />
-                            <input type="submit" value="Отправить" name="Username" />
-                        </fieldset>
-                    }
-
-                    @*using(Html.BeginForm("Delete","Home",FormMethod.Post))
-                        {
-                        <input id='sub' type="submit" value=@item.Article.ArticleID name="CommentID" hidden="true">
-                        <input type="button" value="delete" name="CommentID" onclick="clickIt()">
-                        }*@
-                </div>
-            </div>
-
-        }
+        <div id="comments">
+            @ShowComments(Model.CommentList, 20)
+        </div>
     </div>
-
     <script>
-        $(document).ready(function () {
-            $("#reply").click(function () {
-                $(".subComment").css("display", "block");
+        $("document").ready(function () {
+            $('#comments #first').click(function (selected) {
+                $("#comments #second").hide();
+                $("#second[name='" + $(this).attr("name") + "']").toggle();
+            });
+            $('#comments #branchclose').click(function (selected) {
+                $(this).text($(this).text() == "Свернуть ветку" ? "Развернуть ветку" : "Свернуть ветку");
+                $("#children[name='" + $(this).attr("name") + "']").toggle();
             });
         });
+
     </script>
+    <style>
+        #comments #second {
+            display: none;
+        }
+    </style>
+    @helper ShowComments(IEnumerable<TitleTurtle.Models.ShowArticle> sal, int mar)
+{
+    
+        foreach (var item in sal)
+        {
+            <div class="well well-sm">
+                <p>
+                    Добавил <a href="@Url.Action("ShowUser", "Account", new{id = item.Article.UserID})">@item.Article.User.Login</a>
+                    @Ago(item.Article.Edits.First().Date)
+                </p>
+                <p>@item.Article.ArticleText</p>
+                <p>
+                    <a class="btn btn-default" id="first" name=@("subpost"+item.Article.ArticleID)>Ответить</a>
+                
+                    Likes: <b style="color:chartreuse">@item.Article.Ratings.ElementAt(0).RatingLike</b>
+                    Dislikes: <b style="color:crimson">@item.Article.Ratings.ElementAt(0).RatingDislike</b>
+                    Rating: <b>@(item.Article.Ratings.ElementAt(0).RatingLike - item.Article.Ratings.ElementAt(0).RatingDislike)</b>
+                @if (User.Identity.Name != item.Article.User.Login)
+                {
+                    <a href="@Url.Action("Vote", "Home", new { _id = item.Article.ArticleID.ToString(), up = true })"><span class="glyphicon glyphicon-chevron-up"></span></a>
+                    <a href="@Url.Action("Vote", "Home", new { _id = item.Article.ArticleID.ToString(), up = false })"><span class="glyphicon glyphicon-chevron-down"></span></a>
+                }
+                </p>
+                <a class="btn btn-link" id="branchclose" name=@("branchclose"+item.Article.ArticleID)>
+                    <span class="badge">@item.Article.CommentCount</span>
+                    Свернуть ветку
+                </a>
+            </div>
+            <div id="second" name=@("subpost" + item.Article.ArticleID)>
+                @using (Html.BeginForm("CreateComment", "Home", FormMethod.Post))
+                {
+                    <input type="hidden" name="currentArticle.ArticleID" value=@item.Article.ArticleID />
+                    <input type="hidden" name="CommentList" value=@Model.CommentList />
+                    <input type="hidden" name="Username" value=@User.Identity.Name />
+                    <fieldset>
+                        <p>Введите сообщение:</p>
+                        @Html.TextAreaFor(model => model.NewComment.Article.ArticleText, new { @class = "form-control", rows = "3" })
+                        <input type="submit" value="Отправить" name="Username" class="btn btn-primary" />
+                    </fieldset>
+                }
+            </div>
+            if (item.CommentList != null)
+            {
+                <div style="margin-left: @(mar+"px")" id="children" name=@("branchclose" + item.Article.ArticleID)>
+                    @ShowComments(item.CommentList, mar + 20)
+                </div>
+            }
+        }
 
+}
 
-
+    @helper  Ago(DateTime added)
+{
+    //DateTime added = item.Article.Edits.First().Date;
+    var ago = DateTime.Now - added;
+    var agoString = new StringBuilder();
+    if (ago.TotalDays >= 2)
+    {
+        agoString.Append((int)ago.TotalDays + " дней назад");
+    }
+    else if (ago.TotalDays >= 1)
+    {
+        agoString.Append((int)ago.TotalDays + " день " + (int)ago.TotalHours%24 + " часов назад");
+    }
+    else if (ago.TotalHours >= 2)
+    {
+        agoString.Append((int)ago.TotalHours + " часов назад");
+    }
+    else if (ago.TotalHours > 1)
+    {
+        agoString.Append((int)ago.TotalHours + " час " + (int)ago.TotalMinutes%60 + " минут назад");
+    }
+    else if (ago.TotalMinutes >= 20)
+    {
+        agoString.Append((int)ago.TotalMinutes + " минуты назад");
+    }
+    else if (ago.TotalMinutes >= 1)
+    {
+        agoString.Append((int)ago.TotalMinutes + " минут " + (int)ago.TotalSeconds%60 + " секунд назад");
+    }
+    else if (ago.TotalSeconds >= 30)
+    {
+        agoString.Append((int)ago.TotalSeconds + " секунд назад");
+    }
+    else
+    {
+        agoString.Append("только что");
+    }
+    @agoString.ToString()
+}
 </body>

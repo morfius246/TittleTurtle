@@ -322,23 +322,41 @@ namespace TitleTurtle.Controllers
         /// <param name="id">ID of article to open</param>
         /// <returns>View with model of article</returns>
         [AllowAnonymous]
-        public ActionResult ShowArticle(int? id)
+        public ActionResult ShowArticle(int id)
         {
-            ShowArticle model = new ShowArticle();
+            var model = new ShowArticle();
             model.Article = Db.Articles.SingleOrDefault(x => x.ArticleID == id);
             model.CurrentArticle = Db.Articles.SingleOrDefault(x => x.ArticleID == id);
-            Db.Articles.SingleOrDefault(x => x.ArticleID == id).Ratings.First().RatingView++;
+            var singleOrDefault = Db.Articles.SingleOrDefault(x => x.ArticleID == id);
+            if (singleOrDefault != null)
+                singleOrDefault.Ratings.First().RatingView++;
             Db.SaveChanges();
+            model.CommentList = readArticles(id);
+            return View(model);
+        }
+
+        IEnumerable<ShowArticle> readArticles(int id)
+        {
+            var artLst = new List<ShowArticle>();
             var t =
-                from comment in Db.Comments
+                (from comment in Db.Comments
                 join article in Db.Articles
                 on comment.ArticleID equals article.ArticleID
                 where comment.MainArticleID == id
-                select comment;
-
-            model.CommentList = t.ToArray();
-
-            return View(model);
+                select article).ToList();
+            foreach (var item in t)
+            {
+                var sm = new ShowArticle()
+                {
+                    Article = item
+                };
+                if (item.CommentCount > 0)
+                {
+                    sm.CommentList = readArticles(item.ArticleID);
+                }
+                artLst.Add(sm);
+            }
+            return artLst;
         }
 
 
@@ -550,25 +568,70 @@ namespace TitleTurtle.Controllers
             return RedirectToAction("ShowArticle", new { id = _id });
         }
 
+        private void IncreaseParentCoommentCount(int id)
+        {
+            while (true)
+            {
+                var mainArticle = (
+                    from article in Db.Articles 
+                    join comment in Db.Comments 
+                    on article.ArticleID equals comment.MainArticleID 
+                    where comment.ArticleID == id 
+                    select article
+                    ).FirstOrDefault();
+
+                if (mainArticle != null)
+                {
+                    mainArticle.CommentCount++;
+                    id = mainArticle.ArticleID;
+                    continue;
+                }
+                break;
+            }
+        }
+
         public ActionResult CreateComment(ShowArticle model, string userName)
         {
+            int currentArticleId = model.CurrentArticle.ArticleID;//отримаэм ід поточ статті
+            Article currentArticle = Db.Articles.SingleOrDefault(x => x.ArticleID == currentArticleId);//отрим цю статтю за ід
+            currentArticle.CommentCount++;
+            IncreaseParentCoommentCount(currentArticleId);
             Comment newComment = model.NewComment;
             newComment.Article.ArticleTitle = "Комментарий";
-            int currentArticleId = model.CurrentArticle.ArticleID;//отримаэм ід поточ статті
-            Article temp = Db.Articles.SingleOrDefault(x => x.ArticleID == currentArticleId);//отрим цю статтю за ід
-            temp.CommentCount++;
-            newComment.Article.Category = temp.Category;//коментар має таку ж каегор як стаття
+            newComment.Article.Category = currentArticle.Category;//коментар має таку ж каегор як стаття
             newComment.Article.ArticleStatus = 1;
-            newComment.ArticleID = temp.ArticleID;
-            newComment.MainArticle = temp;
-            newComment.MainArticleID = temp.ArticleID;
+            newComment.ArticleID = currentArticle.ArticleID;
+            newComment.MainArticle = currentArticle;
+            newComment.MainArticleID = currentArticle.ArticleID;
             newComment.Article.UserID = Db.Users.First(x => x.Login == userName).UserID;
-            //newComment.Article.User.UserFirstName = db.Users.First(x => x.UserFirstName == userName).UserFirstName;
-            //newComment.UserID = db.Users.First(x => x.UserFirstName == User.Identity.Name).UserID;
+            newComment.Article.Edits = new List<Edit>
+            {
+                new Edit
+                {
+                    Article = newComment.Article,
+                    ArticleID = newComment.ArticleID.Value,
+                    Date = DateTime.Now,
+                    Type = type.Create
+                }
+            };
+            newComment.Article.Ratings = new List<Rating>
+            {
+                new Rating
+                {
+                    RatingID = 1,
+                    Article = newComment.Article,
+                    ArticleID = newComment.ArticleID.Value,
+                    RatingDislike = 0,
+                    RatingLike = 1,
+                    RatingRepost = 0,
+                    RatingView = 1
+                }
+            };
             Db.Comments.Add(newComment);
             Db.SaveChanges();
-            return RedirectToAction("ShowArticle/" + temp.ArticleID.ToString());
+            return RedirectToAction("ShowArticle/" + currentArticle.ArticleID);
         }
+
         [AllowAnonymous]
         public ActionResult Feedback()
         {
