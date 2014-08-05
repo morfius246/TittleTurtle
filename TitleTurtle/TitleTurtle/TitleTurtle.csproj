@@ -491,6 +491,8 @@
     <Content Include="Scripts\Editor\skins\lightgray\fonts\tinymce.eot" />
     <Content Include="Scripts\Editor\skins\lightgray\fonts\tinymce.ttf" />
     <Content Include="Scripts\Editor\skins\lightgray\fonts\tinymce.woff" />
+    <Content Include="ClassDiagram1.cd" />
+    <Content Include="ClassDiagram2.cd" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Images\background.png" />
     <Content Include="Images\Exit-2.png" />
