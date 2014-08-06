@@ -104,7 +104,7 @@
         {
             <div class="well well-sm">
                 <p>
-                    Добавил <a href="@Url.Action("ShowUser", "Account", new{id = item.Article.UserID})">@item.Article.User.Login</a>
+                    Добавил <a href="@Url.Action("ShowUser", "Account", new{id = item.Article.UserID})">@item.Article.User.FullName</a>
                     @Ago(item.Article.Edits.First().Date)
                 </p>
                 <p>@item.Article.ArticleText</p>

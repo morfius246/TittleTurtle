@@ -57,7 +57,7 @@
                                 </a>
                             </div>
                         }
-                        <p>Добавлено @item.Edits.ElementAt(0).Date.ToString() пользователем @Html.ActionLink(@item.User.Login, "ShowUser", "Account", new { id = item.UserID }, new { style = "color: black" })</p>
+                        <p>Добавлено @item.Edits.ElementAt(0).Date.ToString() пользователем @Html.ActionLink(@item.User.FullName, "ShowUser", "Account", new { id = item.UserID }, new { style = "color: black" })</p>
                         <p style="color:@(item.Ratings.ElementAt(0).RatingLike - item.Ratings.ElementAt(0).RatingDislike < 0 ? "red" : "green"); margin:0; padding:0; line-height: 15px">Рейтинг: @(item.Ratings.ElementAt(0).RatingLike - item.Ratings.ElementAt(0).RatingDislike)</p>
                         <p>
                             @if (item.CommentCount == 0)
