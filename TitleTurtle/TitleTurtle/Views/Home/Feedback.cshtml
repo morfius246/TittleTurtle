@@ -21,42 +21,46 @@ new AjaxOptions
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true)
 
-
+        
             <div id="MyArticle">
                 <img id="img_article" src="/Images/regist.png" />
                 <div class="Article">Обратная связь</div>
             </div>
 
             <div class="editor-label">
-                @Html.LabelFor(model => model.Email)
+                @Html.LabelFor(model => model.Email)<br/>
+                @Html.ValidationMessageFor(model => model.Email)
             </div>
-            <div class="editor-field">
-                <input class="form-control" placeholder="Email address" data-val="true" data-val-required="Требуется поле Адрес электронной почты." id="Email" name="Email" type="email" value="">
+            <div class="editor-field" >
+                <input class="form-control" style="margin:0 auto" placeholder="Email address" data-val="true" data-val-required="Требуется поле Адрес электронной почты." id="Email" name="Email" type="email" value="">
                 <div id="errmas">
-                    @Html.ValidationMessageFor(model => model.Email)
+                    
                 </div>
             </div>
 
             <div class="editor-label">
-                @Html.LabelFor(model => model.MessageTopic)
+                @Html.LabelFor(model => model.MessageTopic)<br/>
+                @Html.ValidationMessageFor(model => model.MessageTopic)
             </div>
             <div class="editor-field">
-                <input data-val="true" class="form-control" placeholder="Problem" data-val-length="Поле Тема пользователя должно иметь строковое значение, максимальная длина которого — 50." data-val-length-max="50" data-val-required="Требуется поле Тема пользователя." id="MessageTopic" name="MessageTopic" type="text" value="">
+                <input data-val="true" style="margin:0 auto" class="form-control" placeholder="Problem" data-val-length="Поле Тема пользователя должно иметь строковое значение, максимальная длина которого — 50." data-val-length-max="50" data-val-required="Требуется поле Тема пользователя." id="MessageTopic" name="MessageTopic" type="text" value="">
 
                 <div id="errmas">
-                    @Html.ValidationMessageFor(model => model.MessageTopic)
+                    
                 </div>
             </div>
 
 
 
             <div class="editor-label">
-                @Html.LabelFor(model => model.MessageText)
+                @Html.LabelFor(model => model.MessageText)<br/>
+                @Html.ValidationMessageFor(model => model.MessageText)
             </div>
             <div class="editor-field">
-                <textarea class="form-control" placeholder="Message" data-val="true" data-val-length="Поле Сообщение должно иметь строковое значение, максимальная длина которого — 250." data-val-length-max="250" data-val-required="Требуется поле Сообщение." id="MessageText" name="MessageText"></textarea>
+                
+                <textarea class="form-control" style="margin:0 auto" placeholder="Message" data-val="true" data-val-length="Поле Сообщение должно иметь строковое значение, максимальная длина которого — 250." data-val-length-max="250" data-val-required="Требуется поле Сообщение." id="MessageText" name="MessageText"></textarea>
                 <div id="errmas">
-                    @Html.ValidationMessageFor(model => model.MessageText)
+                   
                 </div>
             </div>
             <div id="input_back">
@@ -65,7 +69,7 @@ new AjaxOptions
                     <span id="sendingProgress" style="display: none;">
                         ждите, идет отправка сообщения...
 
-                        <img src='@Href("~/Content/Images/ajax_loader_big.gif")' alt="Ждите" />
+                        <img src='@Href("~/Content/Images/ajax_loader_big.gif")' alt="" />
                     </span>
                 </p>
                 <p id="target">

@@ -9,7 +9,7 @@ namespace TitleTurtle.Models
     public class FeedbackModel
     {
         [Required]
-        [DataType(DataType.EmailAddress)]
+        [DataType(DataType.EmailAddress, ErrorMessage = "Введите корректный email.")]
         [Display(Name = "Адрес электронной почты")]
         public string Email { get; set; }
 

@@ -92,7 +92,7 @@ namespace TitleTurtle.Controllers
                             model = new Main
                             {
                                 ArticleList = Db.Articles.Where(x => Db.Followers.Where(t => t.UserID == WebSecurity.CurrentUserId).Select(y => y.FollowID).Contains(x.UserID)
-                                                                        && !Db.Comments.Select(y => y.ArticleID).Contains(x.ArticleID)).ToList(),
+                                                                        && !Db.Comments.Select(y => y.ArticleID).Contains(x.ArticleID)).Where(r => r.ArticleStatus == 1).ToList().OrderByDescending(a => a.Edits.ElementAt(0).Date),
                                 CategoryList = Db.Categories.ToList()
                             };
                             ViewBag.Sort = "news";
@@ -105,7 +105,7 @@ namespace TitleTurtle.Controllers
                                      (from article in Db.Articles
                                       where !(from comment in Db.Comments
                                               select comment.ArticleID).Contains(article.ArticleID) && (article.User.Login == User.Identity.Name)
-                                      select article).Where(x => x.ArticleStatus == 1).ToList(),
+                                      select article).Where(x => x.ArticleStatus == 1).ToList().OrderByDescending(a => a.Edits.ElementAt(0).Date),
                                 CategoryList = Db.Categories.ToList()
                             };
                             ViewBag.Sort = "news";
@@ -164,10 +164,10 @@ namespace TitleTurtle.Controllers
                             {
 
                                 ArticleList = (from article in Db.Articles
-                                               where article.CategoryID == categoryId && !(from comment in Db.Comments
-                                                                                           select comment.ArticleID).Contains(article.ArticleID)
+                                               where article.CategoryID == categoryId && article.ArticleStatus == 1 && !(from comment in Db.Comments
+                                                                                           select comment.ArticleID).Contains(article.ArticleID) 
                                                select article).Where(x => Db.Followers.Where(t => t.UserID == WebSecurity.CurrentUserId).Select(y => y.FollowID).Contains(x.UserID)
-                                                                        && !Db.Comments.Select(y => y.ArticleID).Contains(x.ArticleID)).ToList(),
+                                                                        && !Db.Comments.Select(y => y.ArticleID).Contains(x.ArticleID)).ToList().OrderByDescending(a => a.Edits.ElementAt(0).Date),
                                 CategoryList = Db.Categories.ToList()
                             };
                             ViewBag.Sort = "news";
@@ -179,7 +179,7 @@ namespace TitleTurtle.Controllers
                                 ArticleList = (from article in Db.Articles
                                                where (article.User.Login == User.Identity.Name) && (article.CategoryID == categoryId) && !(from comment in Db.Comments
                                                                                                                                            select comment.ArticleID).Contains(article.ArticleID)
-                                               select article).Where(x => x.ArticleStatus == 1).ToList(),
+                                               select article).Where(x => x.ArticleStatus == 1).ToList().OrderByDescending(a => a.Edits.ElementAt(0).Date),
                                 CategoryList = Db.Categories.ToList()
                             };
                             ViewBag.Sort = "my";
@@ -191,7 +191,7 @@ namespace TitleTurtle.Controllers
                 ViewBag.CategoryID = categoryId;
             }
             int pageNumber;
-            if(page==null)
+            if (page == null)
             {
                 pageNumber = 1;
             }
@@ -199,7 +199,7 @@ namespace TitleTurtle.Controllers
             {
                 pageNumber = page.Value;
             }
-            
+
             int pageSize = 2;
             model.PagedList = (PagedList<Article>)model.ArticleList.ToPagedList<Article>(pageNumber, pageSize);
             return View(model);
@@ -295,7 +295,7 @@ namespace TitleTurtle.Controllers
                     }
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 //ViewBag.Error = "Ошибка добавления файла";
                 //return View(model);
@@ -340,10 +340,10 @@ namespace TitleTurtle.Controllers
             var artLst = new List<ShowArticle>();
             var t =
                 (from comment in Db.Comments
-                join article in Db.Articles
-                on comment.ArticleID equals article.ArticleID
-                where comment.MainArticleID == id
-                select article).ToList();
+                 join article in Db.Articles
+                 on comment.ArticleID equals article.ArticleID
+                 where comment.MainArticleID == id
+                 select article).ToList();
             foreach (var item in t)
             {
                 var sm = new ShowArticle()
@@ -573,10 +573,10 @@ namespace TitleTurtle.Controllers
             while (true)
             {
                 var mainArticle = (
-                    from article in Db.Articles 
-                    join comment in Db.Comments 
-                    on article.ArticleID equals comment.MainArticleID 
-                    where comment.ArticleID == id 
+                    from article in Db.Articles
+                    join comment in Db.Comments
+                    on article.ArticleID equals comment.MainArticleID
+                    where comment.ArticleID == id
                     select article
                     ).FirstOrDefault();
 
@@ -711,7 +711,7 @@ namespace TitleTurtle.Controllers
                 }
             }
         }
-   
+
     }
 
 }

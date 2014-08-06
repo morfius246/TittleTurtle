@@ -76,7 +76,7 @@
     {
         @Html.ActionLink("Редактировать", "EditUser", "Account", new { id = Model.UserID }, new { style = "color:blue" })
     }
-    Статьи:
+    <p>Статьи:<p>
      @foreach (var item in Model.ListofArticles)
                 {
                     <div class="well well-sm">

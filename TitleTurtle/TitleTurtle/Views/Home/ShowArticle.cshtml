@@ -38,9 +38,12 @@
                         @Model.Article.Edits.ElementAt(Model.Article.Edits.Count() - 1).Date
                     </p>
                 }
-                <p><span class="glyphicon glyphicon-thumbs-up"></span><span class="badge">@Model.Article.Ratings.ElementAt(0).RatingLike</span></p>
-                <p><span class="glyphicon glyphicon-thumbs-down"></span><span class="badge">@Model.Article.Ratings.ElementAt(0).RatingDislike</span></p>
-                <p><span class=" glyphicon glyphicon-heart-empty"></span><span class="badge">@(Model.Article.Ratings.ElementAt(0).RatingLike - Model.Article.Ratings.ElementAt(0).RatingDislike)</span></p>
+                <div>
+                <span class="glyphicon glyphicon-thumbs-up"></span><span class="badge">@Model.Article.Ratings.ElementAt(0).RatingLike</span>
+                <span class="glyphicon glyphicon-thumbs-down"></span><span class="badge">@Model.Article.Ratings.ElementAt(0).RatingDislike</span>
+                <span class=" glyphicon glyphicon-heart-empty"></span><span class="badge">@(Model.Article.Ratings.ElementAt(0).RatingLike - Model.Article.Ratings.ElementAt(0).RatingDislike)</span>
+                    </div>
+                <br/>
                     
                 @if (User.Identity.Name != Model.Article.User.Login)
                 {
@@ -55,7 +58,6 @@
 <span class='st_facebook_large' displayText='Facebook'></span>
 <span class='st_livejournal_large' displayText='LiveJournal'></span>
 <span class='st_googleplus_large' displayText='Google +'></span>
-        <h2>Комментарии</h2>
         <div id="mainComment">
             @using (Html.BeginForm("CreateComment", "Home", FormMethod.Post))
             {
@@ -63,7 +65,6 @@
                 <input type="hidden" name="CommentList" value=@Model.CommentList />
                 <input type="hidden" name="Username" value=@User.Identity.Name />
                 <fieldset>
-                    <h5>Добавить комментарий</h5>
                     <p>Введите сообщение:</p>
                     @Html.TextAreaFor(model => model.NewComment.Article.ArticleText, new {@class = "form-control", rows = "3"})
                     <input type="submit" value="Отправить" name="Username" class="btn btn-primary" />
