@@ -21,7 +21,7 @@
                     {
                         @Html.Raw("<img style='' src=\"data:image/jpeg;base64,"
                                                                           + Convert.ToBase64String(Model.Article.MedialInArticles.First().Media.MediaData) + "\" />")
-                    
+
                     }
                     catch (Exception)
                     {
@@ -39,25 +39,25 @@
                     </p>
                 }
                 <div>
-                <span class="glyphicon glyphicon-thumbs-up"></span><span class="badge">@Model.Article.Ratings.ElementAt(0).RatingLike</span>
-                <span class="glyphicon glyphicon-thumbs-down"></span><span class="badge">@Model.Article.Ratings.ElementAt(0).RatingDislike</span>
-                <span class=" glyphicon glyphicon-heart-empty"></span><span class="badge">@(Model.Article.Ratings.ElementAt(0).RatingLike - Model.Article.Ratings.ElementAt(0).RatingDislike)</span>
-                    </div>
-                <br/>
-                    
+                    <span class="glyphicon glyphicon-thumbs-up"></span><span class="badge">@Model.Article.Ratings.ElementAt(0).RatingLike</span>
+                    <span class="glyphicon glyphicon-thumbs-down"></span><span class="badge">@Model.Article.Ratings.ElementAt(0).RatingDislike</span>
+                    <span class=" glyphicon glyphicon-heart-empty"></span><span class="badge">@(Model.Article.Ratings.ElementAt(0).RatingLike - Model.Article.Ratings.ElementAt(0).RatingDislike)</span>
+                </div>
+                <br />
+
                 @if (User.Identity.Name != Model.Article.User.Login)
                 {
-                    <a href ="@Url.Action("Vote", "Home", new { _id = Model.Article.ArticleID.ToString(), up = true })"><span class="glyphicon glyphicon-chevron-up"></span></a>
+                    <a href="@Url.Action("Vote", "Home", new { _id = Model.Article.ArticleID.ToString(), up = true })"><span class="glyphicon glyphicon-chevron-up"></span></a>
                     <a href="@Url.Action("Vote", "Home", new { _id = Model.Article.ArticleID.ToString(), up = false })"><span class="glyphicon glyphicon-chevron-down"></span></a>
                     <p><span class="glyphicon glyphicon-eye-open"></span> @Model.Article.Ratings.ElementAt(0).RatingView</p>
                 }
             </div>
         }
-        <span class='st_twitter_large' displayText='Tweet'></span>
-<span class='st_vkontakte_large' displayText='Vkontakte'></span>
-<span class='st_facebook_large' displayText='Facebook'></span>
-<span class='st_livejournal_large' displayText='LiveJournal'></span>
-<span class='st_googleplus_large' displayText='Google +'></span>
+        <span class='st_twitter_large' displaytext='Tweet'></span>
+        <span class='st_vkontakte_large' displaytext='Vkontakte'></span>
+        <span class='st_facebook_large' displaytext='Facebook'></span>
+        <span class='st_livejournal_large' displaytext='LiveJournal'></span>
+        <span class='st_googleplus_large' displaytext='Google +'></span>
         <div id="mainComment">
             @using (Html.BeginForm("CreateComment", "Home", FormMethod.Post))
             {
@@ -66,7 +66,7 @@
                 <input type="hidden" name="Username" value=@User.Identity.Name />
                 <fieldset>
                     <p>Введите сообщение:</p>
-                    @Html.TextAreaFor(model => model.NewComment.Article.ArticleText, new {@class = "form-control", rows = "3"})
+                    @Html.TextAreaFor(model => model.NewComment.Article.ArticleText, new { @class = "form-control", rows = "3" })
                     <input type="submit" value="Отправить" name="Username" class="btn btn-primary" />
                 </fieldset>
             }
@@ -86,7 +86,7 @@
                 $("#second[name='" + $(this).attr("name") + "']").toggle();
             });
             $('#comments #branchclose').click(function (selected) {
-                $(this).text($(this).text() == "Свернуть ветку" ? "Развернуть ветку" : "Свернуть ветку");
+                $(this).text($(this).text() == "Развернуть ветку" ? "Свернуть ветку" : "Развернуть ветку");
                 $("#children[name='" + $(this).attr("name") + "']").toggle();
             });
         });
@@ -99,52 +99,54 @@
     </style>
     @helper ShowComments(IEnumerable<TitleTurtle.Models.ShowArticle> sal, int mar)
 {
-    
-        foreach (var item in sal)
-        {
-            <div class="well well-sm">
-                <p>
-                    Добавил <a href="@Url.Action("ShowUser", "Account", new{id = item.Article.UserID})">@item.Article.User.Login</a>
-                    @Ago(item.Article.Edits.First().Date)
-                </p>
-                <p>@item.Article.ArticleText</p>
-                <p>
-                    <a class="btn btn-default" id="first" name=@("subpost"+item.Article.ArticleID)>Ответить</a>
-                
-                    Likes: <b style="color:chartreuse">@item.Article.Ratings.ElementAt(0).RatingLike</b>
-                    Dislikes: <b style="color:crimson">@item.Article.Ratings.ElementAt(0).RatingDislike</b>
-                    Rating: <b>@(item.Article.Ratings.ElementAt(0).RatingLike - item.Article.Ratings.ElementAt(0).RatingDislike)</b>
+
+    foreach (var item in sal)
+    {
+        <div class="well well-sm">
+            <p>
+                @Html.ActionLink("#" + item.Article.ArticleID.ToString(), "ShowArticle/" + item.Article.ArticleID.ToString())
+                Добавил <a href="@Url.Action("ShowUser", "Account", new{id = item.Article.UserID})">@item.Article.User.Login</a>
+                @Ago(item.Article.Edits.First().Date)
+            </p>
+            <p>@item.Article.ArticleText</p>
+            <p>
+                <a class="btn btn-default" id="first" name=@("subpost"+item.Article.ArticleID)>Ответить</a>
+
+                Likes: <b style="color:chartreuse">@item.Article.Ratings.ElementAt(0).RatingLike</b>
+                Dislikes: <b style="color:crimson">@item.Article.Ratings.ElementAt(0).RatingDislike</b>
+                Rating: <b>@(item.Article.Ratings.ElementAt(0).RatingLike - item.Article.Ratings.ElementAt(0).RatingDislike)</b>
                 @if (User.Identity.Name != item.Article.User.Login)
                 {
                     <a href="@Url.Action("Vote", "Home", new { _id = item.Article.ArticleID.ToString(), up = true })"><span class="glyphicon glyphicon-chevron-up"></span></a>
                     <a href="@Url.Action("Vote", "Home", new { _id = item.Article.ArticleID.ToString(), up = false })"><span class="glyphicon glyphicon-chevron-down"></span></a>
                 }
-                </p>
-                <a class="btn btn-link" id="branchclose" name=@("branchclose"+item.Article.ArticleID)>
-                    <span class="badge">@item.Article.CommentCount</span>
-                    Свернуть ветку
-                </a>
-            </div>
-            <div id="second" name=@("subpost" + item.Article.ArticleID)>
-                @using (Html.BeginForm("CreateComment", "Home", FormMethod.Post))
-                {
-                    <input type="hidden" name="currentArticle.ArticleID" value=@item.Article.ArticleID />
-                    <input type="hidden" name="CommentList" value=@Model.CommentList />
-                    <input type="hidden" name="Username" value=@User.Identity.Name />
-                    <fieldset>
-                        <p>Введите сообщение:</p>
-                        @Html.TextAreaFor(model => model.NewComment.Article.ArticleText, new { @class = "form-control", rows = "3" })
-                        <input type="submit" value="Отправить" name="Username" class="btn btn-primary" />
-                    </fieldset>
-                }
-            </div>
-            if (item.CommentList != null)
-            {
-                <div style="margin-left: @(mar+"px")" id="children" name=@("branchclose" + item.Article.ArticleID)>
-                    @ShowComments(item.CommentList, mar + 20)
-                </div>
+            </p>
+            @if (item.Article.CommentCount > 0)
+            { 
+                <span class="badge">@item.Article.CommentCount</span>
+                <a class="btn btn-link" id="branchclose" name=@("branchclose"+item.Article.ArticleID)>Свернуть ветку</a>
             }
+        </div>
+        <div id="second" name=@("subpost" + item.Article.ArticleID)>
+            @using (Html.BeginForm("CreateComment", "Home", FormMethod.Post))
+            {
+                <input type="hidden" name="currentArticle.ArticleID" value=@item.Article.ArticleID />
+                <input type="hidden" name="CommentList" value=@Model.CommentList />
+                <input type="hidden" name="Username" value=@User.Identity.Name />
+                <fieldset>
+                    <p>Введите сообщение:</p>
+                    @Html.TextAreaFor(model => model.NewComment.Article.ArticleText, new { @class = "form-control", rows = "3" })
+                    <input type="submit" value="Отправить" name="Username" class="btn btn-primary" />
+                </fieldset>
+            }
+        </div>
+        if (item.CommentList != null)
+        {
+            <div style="margin-left: @(mar+"px")" id="children" name=@("branchclose" + item.Article.ArticleID)>
+                @ShowComments(item.CommentList, mar + 20)
+            </div>
         }
+    }
 
 }
 
@@ -159,7 +161,7 @@
     }
     else if (ago.TotalDays >= 1)
     {
-        agoString.Append((int)ago.TotalDays + " день " + (int)ago.TotalHours%24 + " часов назад");
+        agoString.Append((int)ago.TotalDays + " день " + (int)ago.TotalHours % 24 + " часов назад");
     }
     else if (ago.TotalHours >= 2)
     {
@@ -167,7 +169,7 @@
     }
     else if (ago.TotalHours > 1)
     {
-        agoString.Append((int)ago.TotalHours + " час " + (int)ago.TotalMinutes%60 + " минут назад");
+        agoString.Append((int)ago.TotalHours + " час " + (int)ago.TotalMinutes % 60 + " минут назад");
     }
     else if (ago.TotalMinutes >= 20)
     {
@@ -175,7 +177,7 @@
     }
     else if (ago.TotalMinutes >= 1)
     {
-        agoString.Append((int)ago.TotalMinutes + " минут " + (int)ago.TotalSeconds%60 + " секунд назад");
+        agoString.Append((int)ago.TotalMinutes + " минут " + (int)ago.TotalSeconds % 60 + " секунд назад");
     }
     else if (ago.TotalSeconds >= 30)
     {

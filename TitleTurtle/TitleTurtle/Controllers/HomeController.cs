@@ -304,6 +304,7 @@ namespace TitleTurtle.Controllers
             Db.Edits.Add(newEdit);
             Db.Ratings.Add(newRating);
             Db.Articles.Add(newArticle);
+            Db.Likes.Add(new Like { ArticleID = model.NewArticle.ArticleID, Likes = true, UserID = model.NewArticle.UserID });
             mediainart.ArticleID = newArticle.ArticleID;
             Db.SaveChanges();
             return RedirectToAction("ShowArticle", new { id = newArticle.ArticleID });
@@ -560,11 +561,48 @@ namespace TitleTurtle.Controllers
 
         public ActionResult Vote(int _id, bool up)
         {
-            if (up)
-                ++Db.Articles.First(x => x.ArticleID == _id).Ratings.First().RatingLike;
-            else
-                ++Db.Articles.First(x => x.ArticleID == _id).Ratings.First().RatingDislike;
-            Db.SaveChanges();
+            if(Db.Likes.FirstOrDefault(x=>x.UserID == WebSecurity.CurrentUserId && x.ArticleID ==_id)==null)
+            {
+                Db.Likes.Add(new Like { ArticleID = _id, UserID = WebSecurity.CurrentUserId, Likes=up });
+                if (up)
+                    ++Db.Articles.First(x => x.ArticleID == _id).Ratings.First().RatingLike;
+                else
+                    ++Db.Articles.First(x => x.ArticleID == _id).Ratings.First().RatingDislike;
+                Db.SaveChanges();
+            }
+            else 
+            {
+                if(Db.Likes.First(x=>x.UserID == WebSecurity.CurrentUserId && x.ArticleID ==_id).Likes)
+                {
+                        if (up)
+                        {
+                            --Db.Articles.First(x => x.ArticleID == _id).Ratings.First().RatingLike;
+                            Db.Likes.Remove(Db.Likes.FirstOrDefault(x => x.UserID == WebSecurity.CurrentUserId && x.ArticleID == _id));
+                        }
+                        else
+                        {
+                            --Db.Articles.First(x => x.ArticleID == _id).Ratings.First().RatingLike;
+                            ++Db.Articles.First(x => x.ArticleID == _id).Ratings.First().RatingDislike;
+                            Db.Likes.FirstOrDefault(x => x.UserID == WebSecurity.CurrentUserId && x.ArticleID == _id).Likes = false;
+                        }
+                        Db.SaveChanges();
+                }
+                else
+                {
+                    if (up)
+                    {
+                        ++Db.Articles.First(x => x.ArticleID == _id).Ratings.First().RatingLike;
+                        --Db.Articles.First(x => x.ArticleID == _id).Ratings.First().RatingDislike;
+                        Db.Likes.Remove(Db.Likes.FirstOrDefault(x => x.UserID == WebSecurity.CurrentUserId && x.ArticleID == _id));
+                    }
+                    else
+                    {
+                        --Db.Articles.First(x => x.ArticleID == _id).Ratings.First().RatingDislike;
+                        Db.Likes.FirstOrDefault(x => x.UserID == WebSecurity.CurrentUserId && x.ArticleID == _id).Likes = false;
+                    }
+                    Db.SaveChanges();
+                }
+            }
             return RedirectToAction("ShowArticle", new { id = _id });
         }
 

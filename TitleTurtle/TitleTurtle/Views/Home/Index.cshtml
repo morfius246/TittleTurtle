@@ -72,7 +72,7 @@
                         </p>
                     </div> <!--well-->
                 }
-            Page @(Model.PagedList.PageCount < Model.PagedList.PageNumber ? 0 : Model.PagedList.PageNumber) of @Model.PagedList.PageCount
+            Страница @(Model.PagedList.PageCount < Model.PagedList.PageNumber ? 0 : Model.PagedList.PageNumber) из @Model.PagedList.PageCount
 
             
             @Html.PagedListPager(Model.PagedList, page => Url.Action("Index", new { page, sort = ViewBag.Sort, categoryId = ViewBag.CategoryID }))
