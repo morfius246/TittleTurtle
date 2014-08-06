@@ -709,5 +709,21 @@ namespace TitleTurtle.Controllers
             }
         }
 
+        public ActionResult GetUserImage(int userId)
+        {
+            if (userId != -1)
+            {
+                var userPhoto = db.UserPhotos.Where(y => (y.UserID == userId && y.UserPhotoCurrent == 1)).FirstOrDefault();
+                if (userPhoto != null)
+                {
+                    var media = db.Medias.First(x => x.MediaID == userPhoto.MediaID);
+                    if (media != null)
+                    {
+                        return new ImageReturner(media.MediaData);
+                    }
+                }
+            }
+            return new ImageReturner(Server.MapPath("~/Images/noavatar.png"));
+        }
     }
 }

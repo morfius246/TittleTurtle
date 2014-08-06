@@ -3,23 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
 using TitleTurtle.Filters;
 using TitleTurtle.Models;
 using PagedList;
 using System.IO;
 using System.Drawing;
-using System.Text.RegularExpressions;
-using System.Web.Security;
 using WebMatrix.WebData;
 using System.Net;
 using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
-using System.Net.Security;
 using System.Drawing.Imaging;
 using System.Drawing.Drawing2D;
-using System.Net.Mime;
 namespace TitleTurtle.Controllers
 {
     /// <summary>
