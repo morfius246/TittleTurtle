@@ -7,9 +7,7 @@
             ViewBag.Title = "Feedback";
         }
 
-        @using (Ajax.BeginForm(
-"feedback",
-"home",
+        @using (Ajax.BeginForm("feedback","home",
 new AjaxOptions
 {
     HttpMethod = "post",
@@ -29,7 +27,7 @@ new AjaxOptions
 
             <div class="editor-label">
                 @Html.LabelFor(model => model.Email)<br/>
-                @Html.ValidationMessageFor(model => model.Email)
+                @Html.ValidationMessageFor(model => model.Email, null, new { style = "color:red" })
             </div>
             <div class="editor-field" >
                 <input class="form-control" style="margin:0 auto" placeholder="Email address" data-val="true" data-val-required="Требуется поле Адрес электронной почты." id="Email" name="Email" type="email" value="">
@@ -40,7 +38,7 @@ new AjaxOptions
 
             <div class="editor-label">
                 @Html.LabelFor(model => model.MessageTopic)<br/>
-                @Html.ValidationMessageFor(model => model.MessageTopic)
+                @Html.ValidationMessageFor(model => model.MessageTopic, null, new { style = "color:red" })
             </div>
             <div class="editor-field">
                 <input data-val="true" style="margin:0 auto" class="form-control" placeholder="Problem" data-val-length="Поле Тема пользователя должно иметь строковое значение, максимальная длина которого — 50." data-val-length-max="50" data-val-required="Требуется поле Тема пользователя." id="MessageTopic" name="MessageTopic" type="text" value="">
@@ -54,7 +52,7 @@ new AjaxOptions
 
             <div class="editor-label">
                 @Html.LabelFor(model => model.MessageText)<br/>
-                @Html.ValidationMessageFor(model => model.MessageText)
+                @Html.ValidationMessageFor(model => model.MessageText, null, new { style = "color:red" })
             </div>
             <div class="editor-field">
                 

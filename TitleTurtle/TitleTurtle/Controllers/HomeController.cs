@@ -700,6 +700,10 @@ namespace TitleTurtle.Controllers
             }
             return View("FeedbackSent");
         }
+        public ActionResult FeedbackSent()
+        {
+            return View();
+        }
         private byte[] GetCompressedImage(Stream originalBytes)
         {
             Size size = new Size();
