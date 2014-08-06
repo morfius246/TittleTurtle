@@ -41,38 +41,53 @@
 }
 
 <div class="container">
-    <div class="root">
+    <div class="root" style="width: 800px; margin: 0 auto">
         <div id="MyArticle">
             <img id="img_article" src="/Images/regist.png" />
             <div class="Article">Registration Form</div>
         </div>
-        @using (Html.BeginForm())
-        {
-            <div class="regist-head">
-                @Html.AntiForgeryToken()
-                @*@Html.ValidationSummary()*@
-            </div>
-
-            <div id="form">
-                @Html.TextBoxFor(x => x.UserFirstName, new { @class = "form-control", @placeholder = "Имя" })
-                @Html.ValidationMessageFor(model => model.UserFirstName, null, new { style = "color:red" })
-                @Html.TextBoxFor(x => x.UserLastName, new { @class = "form-control", @placeholder = "Фамилия" })
-                @Html.ValidationMessageFor(model => model.UserLastName, null, new { style = "color:red" })
-                @Html.TextBoxFor(x => x.ContactEmail, new { @class = "form-control", @placeholder = "Електронная почта" })
-                @Html.ValidationMessageFor(model => model.ContactEmail, null, new { style = "color:red" })
-                @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", @placeholder = "Логин" })
-                @Html.ValidationMessageFor(model => model.UserName, null, new { style = "color:red" })
-                @Html.TextBoxFor(x => x.Password, new { @class = "form-control", @placeholder = "Пароль", @type = "password" })
-                @Html.ValidationMessageFor(model => model.Password, null, new { style = "color:red" })
-                @Html.TextBoxFor(x => x.ConfirmPassword, new { @class = "form-control", @placeholder = "Подтвердите пароль", @type = "password" })
-                @Html.ValidationMessageFor(model => model.ConfirmPassword, null, new { style = "color:red" })
-                <p><img src="/Account/ShowCaptchaImage" /></p>
-                <p>Введите код с картинки:</p>
-                <p>@Html.TextBox("CaptchaText")</p>
-                <p style ="color:red">@ViewBag.Message</p>
+        <div style ="margin-left: 300px">
+            @using (Html.BeginForm())
+            {
+                <div>
+                    @Html.AntiForgeryToken()
+                    @*@Html.ValidationSummary()*@
+                </div>
+                <div class="form-group">
+                    @Html.TextBoxFor(x => x.UserFirstName, new { @class = "form-control", @placeholder = "Имя" })
+                    @Html.ValidationMessageFor(model => model.UserFirstName, null, new { style = "color:red" })
+                </div>
+                <div class="form-group">
+                    @Html.TextBoxFor(x => x.UserLastName, new { @class = "form-control", @placeholder = "Фамилия" })
+                    @Html.ValidationMessageFor(model => model.UserLastName, null, new { style = "color:red" })
+                </div>
+                <div class="form-group">
+                    @Html.TextBoxFor(x => x.ContactEmail, new { @class = "form-control", @placeholder = "Електронная почта" })
+                    @Html.ValidationMessageFor(model => model.ContactEmail, null, new { style = "color:red" })
+                </div>
+                <div class="form-group">
+                    @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", @placeholder = "Логин" })
+                    @Html.ValidationMessageFor(model => model.UserName, null, new { style = "color:red" })
+                </div>
+                <div class="form-group">
+                    @Html.TextBoxFor(x => x.Password, new { @class = "form-control", @placeholder = "Пароль", @type = "password" })
+                    @Html.ValidationMessageFor(model => model.Password, null, new { style = "color:red" })
+                </div>
+                <div class="form-group">
+                    @Html.TextBoxFor(x => x.ConfirmPassword, new { @class = "form-control", @placeholder = "Подтвердите пароль", @type = "password" })
+                    @Html.ValidationMessageFor(model => model.ConfirmPassword, null, new { style = "color:red" })
+                </div>
                 <div id="capsWarning" style="display:none">Caps Lock включен!</div>
-                <input type="submit" value="Далее" class="btn btn-primary" />
-            </div>
-        }
+    <div class="form-group" style ="margin-left: -260px">
+
+
+        <p><img src="/Account/ShowCaptchaImage" /></p>
+        <p>Введите код с картинки:</p>
+        <p>@Html.TextBox("CaptchaText")</p>
+        <p style="color:red">@ViewBag.Message</p>
+        <input type="submit" value="Далее" class="btn btn-primary" />
+    </div>
+            }
+        </div>
     </div>
 </div>

@@ -43,9 +43,9 @@ namespace TitleTurtle.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginModel model, string returnUrl, string CaptchaText)
+        public ActionResult Login(LoginModel model, string returnUrl)
         {
-            if (CaptchaText == HttpContext.Session["captchastring"].ToString() && ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
+            if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
             {
                 return RedirectToLocal(returnUrl);
             }

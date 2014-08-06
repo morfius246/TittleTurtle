@@ -73,14 +73,9 @@
                         <li><a href="/Home/ShowArticle/1084">FAQ</a></li>
                     @Html.Partial("_LoginPartial")
                 </ul>
-                    @using (Html.BeginForm("Sort", "Home", FormMethod.Get, new { @class = "navbar-right" }))
-                    {
-                        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control", placeholder = "Поиск...", type = "text" })
-                    }
-
             </div>
         </div>
-
+            </div>
         <div class="fon_body">
             @RenderBody()
         </div>

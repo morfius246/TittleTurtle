@@ -193,7 +193,7 @@ namespace TitleTurtle.Controllers
                 pageNumber = page.Value;
             }
 
-            int pageSize = 2;
+            int pageSize = 15;
             model.PagedList = (PagedList<Article>)model.ArticleList.ToPagedList<Article>(pageNumber, pageSize);
             return View(model);
         }

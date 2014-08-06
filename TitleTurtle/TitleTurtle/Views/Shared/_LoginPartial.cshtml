@@ -1,12 +1,11 @@
 ﻿@if (Request.IsAuthenticated)
 {
     <text>
-    <li><a href=@Url.Action("ShowUser", "Account", new { id = WebSecurity.GetUserId(User.Identity.Name) })>
-            <img src="@Url.Action("GetUserImage", "Account", new { userId = WebSecurity.GetUserId(User.Identity.Name) }, null)" width="25" height="30" />
-            @User.Identity.Name
-        </a>
-    </li>
-   <li><a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></li>
+        <li><a href=@Url.Action("ShowUser", "Account", new { id = WebSecurity.GetUserId(User.Identity.Name) }) style ="padding:0; margin: 0">
+                <img src="@Url.Action("GetUserImage", "Account", new { userId = WebSecurity.GetUserId(User.Identity.Name) }, null)" style="max-height: 45px; max-width: 100px; margin:0; padding:0" />
+                @User.Identity.Name
+            </a></li>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></li>
     </text>
      using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new {id = "logoutForm", @class = ""}))
      {

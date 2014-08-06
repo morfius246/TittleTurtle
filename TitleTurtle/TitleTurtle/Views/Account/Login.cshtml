@@ -28,10 +28,6 @@
                 @Html.ValidationMessageFor(model => model.Password, null, new { style = "color:red" })
             </div>
         </div>
-        <p>
-            <img src="/Account/ShowCaptchaImage" /></p>
-        <p>Введите код с картинки:</p>
-        <p>@Html.TextBox("CaptchaText")</p>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <div class="checkbox">
