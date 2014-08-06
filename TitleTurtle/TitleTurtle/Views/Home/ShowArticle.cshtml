@@ -1,4 +1,5 @@
 ﻿@using System.Text
+@using Microsoft.Ajax.Utilities
 @using TitleTurtle.Models
 @model TitleTurtle.Models.ShowArticle
 
@@ -76,7 +77,7 @@
         <h3>Все записи</h3>
         <p> Всего: @Model.Article.CommentCount</p>
         <div id="comments">
-            @ShowComments(Model.CommentList, 20)
+            @ShowComments(Model.CommentList)
         </div>
     </div>
     <script>
@@ -97,29 +98,35 @@
             display: none;
         }
     </style>
-    @helper ShowComments(IEnumerable<TitleTurtle.Models.ShowArticle> sal, int mar)
+    @helper ShowComments(IEnumerable<TitleTurtle.Models.ShowArticle> sal)
 {
 
     foreach (var item in sal)
     {
-        <div class="well well-sm">
+        <div class="well well-sm" id =@("comment"+item.Article.ArticleID)>
             <p>
-                @Html.ActionLink("#" + item.Article.ArticleID.ToString(), "ShowArticle/" + item.Article.ArticleID.ToString())
+                @Html.ActionLink("#" + item.Article.ArticleID, "ShowArticle/" + item.Article.ArticleID.ToString())
                 Добавил <a href="@Url.Action("ShowUser", "Account", new{id = item.Article.UserID})">@item.Article.User.Login</a>
                 @Ago(item.Article.Edits.First().Date)
             </p>
             <p>@item.Article.ArticleText</p>
             <p>
-                <a class="btn btn-default" id="first" name=@("subpost"+item.Article.ArticleID)>Ответить</a>
-
-                Likes: <b style="color:chartreuse">@item.Article.Ratings.ElementAt(0).RatingLike</b>
-                Dislikes: <b style="color:crimson">@item.Article.Ratings.ElementAt(0).RatingDislike</b>
-                Rating: <b>@(item.Article.Ratings.ElementAt(0).RatingLike - item.Article.Ratings.ElementAt(0).RatingDislike)</b>
-                @if (User.Identity.Name != item.Article.User.Login)
+                @if (User.IsInRole("RegUser") || User.IsInRole("Admin") || User.IsInRole("Author"))
                 {
-                    <a href="@Url.Action("Vote", "Home", new { _id = item.Article.ArticleID.ToString(), up = true })"><span class="glyphicon glyphicon-chevron-up"></span></a>
-                    <a href="@Url.Action("Vote", "Home", new { _id = item.Article.ArticleID.ToString(), up = false })"><span class="glyphicon glyphicon-chevron-down"></span></a>
+                    <a class="btn btn-default" id="first" name=@("subpost"+item.Article.ArticleID)>Ответить</a>
                 }
+                <div>
+                    @if (User.Identity.Name != item.Article.User.Login)
+                    {
+                        <a href="@Url.Action("Vote", "Home", new { _id = item.Article.ArticleID.ToString(), up = true })"><span class="glyphicon glyphicon-chevron-up"></span></a>
+                        <a href="@Url.Action("Vote", "Home", new { _id = item.Article.ArticleID.ToString(), up = false })"><span class="glyphicon glyphicon-chevron-down"></span></a>
+                    }
+                </div>
+                <div>
+                    <span class="glyphicon glyphicon-thumbs-up"></span><span class="badge">@item.Article.Ratings.ElementAt(0).RatingLike</span>
+                    <span class="glyphicon glyphicon-thumbs-down"></span><span class="badge">@item.Article.Ratings.ElementAt(0).RatingDislike</span>
+                    <span class=" glyphicon glyphicon-heart-empty"></span><span class="badge">@(item.Article.Ratings.ElementAt(0).RatingLike - item.Article.Ratings.ElementAt(0).RatingDislike)</span>
+                </div>                
             </p>
             @if (item.Article.CommentCount > 0)
             { 
@@ -142,8 +149,8 @@
         </div>
         if (item.CommentList != null)
         {
-            <div style="margin-left: @(mar+"px")" id="children" name=@("branchclose" + item.Article.ArticleID)>
-                @ShowComments(item.CommentList, mar + 20)
+            <div style="margin-left: 30px" id="children" name=@("branchclose" + item.Article.ArticleID)>
+                @ShowComments(item.CommentList)
             </div>
         }
     }

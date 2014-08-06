@@ -109,17 +109,17 @@ p {
     margin-bottom: 20px;
 }
 
-h1, h2, h3, h4, h5,h6 {
+/*h1, h2, h3, h4, h5,h6 {
     text-transform: uppercase;
     color: #494949;
     font-weight: 700;
     margin-bottom: 12px;
-}
+}*/
 
-h5 {
+/*h5 {
     font-size:14px;
 }
-
+    */
 .logo {
 	
     background-color: #bbb;
@@ -424,7 +424,7 @@ margin: 0 15% 0 15%;
 }
 
 
-.legend {
+/*.legend {
     
 text-align:center;
 padding: 0;
@@ -435,7 +435,7 @@ line-height: inherit;
 color: #333;
 border: 0;
 border-bottom: 1px solid #e5e5e5;
-}
+}*/
 
 /*.btn {
     font-family: Verdana, Arial, Helvetica, sans-serif;

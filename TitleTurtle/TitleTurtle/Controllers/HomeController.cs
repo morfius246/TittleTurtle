@@ -568,7 +568,6 @@ namespace TitleTurtle.Controllers
                     ++Db.Articles.First(x => x.ArticleID == _id).Ratings.First().RatingLike;
                 else
                     ++Db.Articles.First(x => x.ArticleID == _id).Ratings.First().RatingDislike;
-                Db.SaveChanges();
             }
             else 
             {
@@ -585,7 +584,6 @@ namespace TitleTurtle.Controllers
                             ++Db.Articles.First(x => x.ArticleID == _id).Ratings.First().RatingDislike;
                             Db.Likes.FirstOrDefault(x => x.UserID == WebSecurity.CurrentUserId && x.ArticleID == _id).Likes = false;
                         }
-                        Db.SaveChanges();
                 }
                 else
                 {
@@ -594,16 +592,17 @@ namespace TitleTurtle.Controllers
                         ++Db.Articles.First(x => x.ArticleID == _id).Ratings.First().RatingLike;
                         --Db.Articles.First(x => x.ArticleID == _id).Ratings.First().RatingDislike;
                         Db.Likes.Remove(Db.Likes.FirstOrDefault(x => x.UserID == WebSecurity.CurrentUserId && x.ArticleID == _id));
+                        Db.Likes.FirstOrDefault(x => x.UserID == WebSecurity.CurrentUserId && x.ArticleID == _id).Likes = true;
                     }
                     else
                     {
                         --Db.Articles.First(x => x.ArticleID == _id).Ratings.First().RatingDislike;
-                        Db.Likes.FirstOrDefault(x => x.UserID == WebSecurity.CurrentUserId && x.ArticleID == _id).Likes = false;
+                        Db.Likes.Remove(Db.Likes.FirstOrDefault(x => x.UserID == WebSecurity.CurrentUserId && x.ArticleID == _id));
                     }
-                    Db.SaveChanges();
                 }
             }
-            return RedirectToAction("ShowArticle", new { id = _id });
+            Db.SaveChanges();
+            return Redirect(Url.RouteUrl(new { controller = "Home", action = "ShowArticle", id = GetMainArticleId(_id) }) + @"#comment" + _id);
         }
 
         private void IncreaseParentCoommentCount(int id)
@@ -667,8 +666,19 @@ namespace TitleTurtle.Controllers
             };
             Db.Comments.Add(newComment);
             Db.SaveChanges();
-            return RedirectToAction("ShowArticle/" + currentArticle.ArticleID);
+            //return RedirectToAction("ShowArticle/" + currentArticle.ArticleID);
+            return Redirect(Url.RouteUrl(new { controller = "Home", action = "ShowArticle", id = GetMainArticleId(newComment.MainArticleID.Value) }) + @"#comment" + newComment.ArticleID);
         }
+
+        private int GetMainArticleId(int id)
+        {
+            var query =
+                (from comment in Db.Comments
+                 where comment.ArticleID == id
+                 select comment.MainArticleID).ToList();
+            return query.FirstOrDefault().HasValue ? GetMainArticleId(query.First().Value) : id;
+        }
+
 
         [AllowAnonymous]
         public ActionResult Feedback()
