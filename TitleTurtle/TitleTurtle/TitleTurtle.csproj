@@ -354,6 +354,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Article.cs" />
+    <Compile Include="Models\Captcha.cs" />
     <Compile Include="Models\EditUser.cs" />
     <Compile Include="Models\Follower.cs" />
     <Compile Include="Models\Like.cs" />

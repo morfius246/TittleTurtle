@@ -27,9 +27,12 @@ namespace TitleTurtle.Controllers
         //
         // GET: /Account/Login
         HomeContext db = new HomeContext();
+
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            if (returnUrl == "/Account/ShowCaptchaImage")
+                return ShowCaptchaImage();
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -40,9 +43,9 @@ namespace TitleTurtle.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginModel model, string returnUrl)
+        public ActionResult Login(LoginModel model, string returnUrl, string CaptchaText)
         {
-            if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
+            if (CaptchaText == HttpContext.Session["captchastring"].ToString() && ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
             {
                 return RedirectToLocal(returnUrl);
             }
@@ -50,6 +53,10 @@ namespace TitleTurtle.Controllers
             // If we got this far, something failed, redisplay form
             ModelState.AddModelError("", "The user name or password provided is incorrect.");
             return View(model);
+        }
+        public Captcha ShowCaptchaImage()
+        {
+            return new Captcha();
         }
 
         //
@@ -79,10 +86,12 @@ namespace TitleTurtle.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(RegisterModel model)
+        public ActionResult Register(RegisterModel model, string CaptchaText)
         {
             if (ModelState.IsValid)
             {
+                if(CaptchaText == HttpContext.Session["captchastring"].ToString())
+                {
                 // Attempt to register the user
                 try
                 {
@@ -100,6 +109,11 @@ namespace TitleTurtle.Controllers
                 {
                     ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
                 }
+                }
+                    else
+                    {
+                        ViewBag.Message = "Код с картинки введен неправильно!";
+                    }
             }
 
             // If we got this far, something failed, redisplay form

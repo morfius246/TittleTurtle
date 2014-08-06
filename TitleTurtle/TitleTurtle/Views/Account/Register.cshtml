@@ -50,7 +50,7 @@
         {
             <div class="regist-head">
                 @Html.AntiForgeryToken()
-                @Html.ValidationSummary()
+                @*@Html.ValidationSummary()*@
             </div>
 
             <div id="form">
@@ -66,6 +66,10 @@
                 @Html.ValidationMessageFor(model => model.Password, null, new { style = "color:red" })
                 @Html.TextBoxFor(x => x.ConfirmPassword, new { @class = "form-control", @placeholder = "Подтвердите пароль", @type = "password" })
                 @Html.ValidationMessageFor(model => model.ConfirmPassword, null, new { style = "color:red" })
+                <p><img src="/Account/ShowCaptchaImage" /></p>
+                <p>Введите код с картинки:</p>
+                <p>@Html.TextBox("CaptchaText")</p>
+                <p style ="color:red">@ViewBag.Message</p>
                 <div id="capsWarning" style="display:none">Caps Lock включен!</div>
                 <input type="submit" value="Далее" class="btn btn-primary" />
             </div>
