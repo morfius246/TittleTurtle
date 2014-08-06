@@ -39,6 +39,10 @@
                         <li><a href="@Url.Action("Index", "Home", new { sort = "date", categoryId = ViewBag.CategoryID })">Свежее</a></li>
                         <li><a href="@Url.Action("Index", "Home", new { sort = "discussed", categoryId = ViewBag.CategoryID })">Обсуждаемое</a></li>
                         <li><a href="@Url.Action("Index", "Home", new { sort = "news", categoryId = ViewBag.CategoryID })">Подписки</a></li>
+                        @if (User.IsInRole("Admin") || User.IsInRole("Author"))
+                        {
+                            <li><a href=@Url.Action("Index", "Home", new { sort = "my", categoryId = ViewBag.CategoryID })>Мои статьи</a></li>
+                        }
                     </ul>
                 </div>
            
@@ -92,29 +96,29 @@
                     <a href="@Url.Action("Index", "Home", new { sort = ViewBag.Sort})" class="list-group-item">Все</a>
                     @foreach (var category in Model.CategoryList)
                     {
-                        <div class="list-group-item">
-                            <a title="@category.CategoryDescription" href="@Url.Action("Index", "Home", new { categoryId = category.CategoryID, sort = ViewBag.Sort })">@category.CategoryName</a>
+                        <a class ="list-group-item" href="@Url.Action("Index", "Home", new {sort = ViewBag.Sort, categoryId = category.CategoryID  })">
+                            <h4>@category.CategoryName</h4>
+                            <p>@category.CategoryDescription</p>
+                        </a>
 
-                            @if (User.IsInRole("Admin") && category.CategoryID != 1011)
+                            if (User.IsInRole("Admin") && category.CategoryID != 1011)
                             {
-                            <a href="@Url.Action("RemoveCategory", "Home", new { id = category.CategoryID })" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></a>
+                                <a title="Удалить категорию @category.CategoryName" class="list-group-item btn btn-block btn-danger btn-sm" style="height: 5px; line-height: 4px" href="@Url.Action("RemoveCategory", "Home", new { id = category.CategoryID })">Удалить</a>
                             }
-                        </div>
                     }
                     
                     @*Just for admin*@
                     @if (User.IsInRole("Admin"))
                     {
-                            using (Html.BeginForm("CreateCategory", "Home", new {}, FormMethod.Post, new {role = "form"}))
+                            using (Html.BeginForm("CreateCategory", "Home", new {}, FormMethod.Post, new {role = "form", @style = "background-color: white"}))
                             {
-                                    <div class="panel-heading">Новая категория</div>
                                     <div class="panel-body">
                                         <div class="form-group">
-                                            @Html.TextBoxFor(model => model.NewCategory.CategoryName, new { @class = "form-control", placeholder = "Название" })
+                                            @Html.TextBoxFor(model => model.NewCategory.CategoryName, new { @class = "form-control", placeholder = "Название", @style = "margin:0 auto" })
                                             @Html.ValidationMessageFor(model => model.NewCategory.CategoryName)
                                         </div>
                                         <div class="form-group">
-                                            @Html.TextBoxFor(model => model.NewCategory.CategoryDescription, new { @class = "form-control", placeholder = "Описание" })
+                                            @Html.TextBoxFor(model => model.NewCategory.CategoryDescription, new { @class = "form-control", placeholder = "Описание", @style = "margin:0 auto" })
                                             @Html.ValidationMessageFor(model => model.NewCategory.CategoryDescription)
                                         </div>
                                         <input type="submit" value="Новая категория" class="btn btn-primary btn-lg btn-block">
@@ -126,9 +130,4 @@
         </div>
     </div>
 </div>
-<script>
-    $(document).ready(function () {
-        var url = window.location.search;
-        $('a[href="' + "/" + url + '"]').parent().addClass('active');
-    });
-</script>
+
