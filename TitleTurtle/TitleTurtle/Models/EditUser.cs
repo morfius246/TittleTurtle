@@ -44,6 +44,10 @@ namespace TitleTurtle.Models
         [RegularExpression(@"(http(s)?://)?([\w-]+\.)+[\w-]+(/[\w- ;,./?%&=]*)?",
             ErrorMessage = "Неверный адрес веб-страницы.")]
         public string ContactWebPage { get; set; }
+        public string FullName
+        {
+            get { return UserFirstName + " " + UserLastName; }
+        }
         public int ContactID { get; set; }
         public Media NewMedia { get; set; }
         public UserPhoto NewUserPhoto { get; set; }
