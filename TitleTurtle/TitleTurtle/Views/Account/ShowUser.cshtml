@@ -5,117 +5,116 @@
 }
 
 <title>Профиль пользователя @Model.Login</title>
-
-@*Html.HiddenFor(model => model.UserID)
-    @Html.HiddenFor(model => model.Login)*@
-<div class="container">
-    <p>@ViewBag.Message</p>
-    <h2>@Model.FullName</h2>
-    <!--Image-->
-    <div>
-        @if (Model.NewMedia != null)
-        {
-            @Html.Raw("<img id='img' style='max-width: 360px; max-height: 500px' src=\"data:image/jpeg;base64,"
-                      + Convert.ToBase64String(Model.NewMedia.MediaData) + "\" />")
-        }
-        else
-        {
-            <img id="img" style="width: 350px; height: 260px" src="/Images/noavatar.png" />
-        }
-    </div>
-
-    <table border="0" cellpadding="7" cellspacing="7">
-        </br>
-        <tr>
-            <td>Имя</td>
-            <td>@Model.UserFirstName</td>
-        </tr>
-        <tr>
-            <td>Фамилия</td>
-            <td>@Model.UserLastName</td>
-        </tr>
-        <tr>
-            <td>Электронная почта</td>
-            <td>@Model.ContactEmail</td>
-        </tr>
-        <tr>
-            <td>Веб-страницы</td>
-            <td>@Model.ContactWebPage</td>
-        </tr>
-        <tr>
-            <td>Телефон</td>
-            <td>@Model.ContactMobile</td>
-        </tr>
-        <tr>
-            <td>Дата рождения</td>
-            <td>@Model.PersDataDate</td>
-        </tr>
-        <tr>
-            <td>Адрес</td>
-            <td>@Model.PersDataAdress</td>
-        </tr>
-        <tr>
-            <td>Другое</td>
-            <td>@Model.PersDataOther</td>
-        </tr>
-
-    </table>
-
-    @if (User.Identity.Name != Model.Login)
-    {
-        if (Model.UserIsFollowed)
-        {
-            @Html.ActionLink("Отписаться", "UnFollow", "Account", new { followerID = WebSecurity.GetUserId(User.Identity.Name), followedID = Model.UserID }, new { style = "color: black" })
-        }
-        else
-        {
-            @Html.ActionLink("Подписаться", "Follow", "Account", new { followerID = WebSecurity.GetUserId(User.Identity.Name), followedID = Model.UserID }, new { style = "color: black" })
-        }
-    }
-    else
-    {
-        @Html.ActionLink("Редактировать", "EditUser", "Account", new { id = Model.UserID }, new { style = "color:blue" })
-    }
-    <hr>
-    <p>Статьи:<p>
-    @foreach (var item in Model.ListofArticles)
-    {
-        <div class="well well-sm">
-            @Html.ActionLink(item.ArticleTitle, "ShowArticle", "Home", new { id = item.ArticleID }, new { style = "margin: 0; padding-right: 80px; line-height: 15px; color: black" })
-            @if ((User.IsInRole("Author") && User.Identity.Name == item.User.UserFirstName) || User.IsInRole("Admin"))
+<div class="row">
+    <div class="col-md-12">
+        @*Html.HiddenFor(model => model.UserID)
+            @Html.HiddenFor(model => model.Login)*@
+        <p>@ViewBag.Message</p>
+        <h2>@Model.FullName</h2>
+        <!--Image-->
+        <div>
+            @if (Model.NewMedia != null)
             {
-                <div class="float-right">
-                    <a href="@Url.Action("DeleteArticle", "Home", new { id = item.ArticleID })" onclick="return confirm('Вы уверены, что хотите удалить статью?') ? true : false;">
-                        <img class="articl-bot" title="Удалить статью" src="~/Images/del.png" onmouseover="this.src = '/Images/del-2.png'" onmouseout="    this.src = '/Images/del.png'" alt="Удалить статью" />
-                    </a>
-                    <a href="@Url.Action("EditArticle", "Home", new { id = item.ArticleID })">
-                        <img class="articl-bot" title="Редактировать статью" src="~/Images/cor.png" onmouseover="this.src = '/Images/cor-2.png'" onmouseout="    this.src = '/Images/cor.png'" alt="Редактировать статью" />
-                    </a>
+                @Html.Raw("<img id='img' style='max-width: 360px; max-height: 500px' src=\"data:image/jpeg;base64,"
+                      + Convert.ToBase64String(Model.NewMedia.MediaData) + "\" />")
+            }
+            else
+            {
+                <img id="img" style="max-width: 350px; max-height: 260px" src="/Images/noavatar.png" />
+            }
+        </div>
+
+        <table border="0" cellpadding="7" cellspacing="7">
+            <tr>
+                <td>Имя</td>
+                <td>@Model.UserFirstName</td>
+            </tr>
+            <tr>
+                <td>Фамилия</td>
+                <td>@Model.UserLastName</td>
+            </tr>
+            <tr>
+                <td>Электронная почта</td>
+                <td>@Model.ContactEmail</td>
+            </tr>
+            <tr>
+                <td>Веб-страницы</td>
+                <td>@Model.ContactWebPage</td>
+            </tr>
+            <tr>
+                <td>Телефон</td>
+                <td>@Model.ContactMobile</td>
+            </tr>
+            <tr>
+                <td>Дата рождения</td>
+                <td>@Model.PersDataDate</td>
+            </tr>
+            <tr>
+                <td>Адрес</td>
+                <td>@Model.PersDataAdress</td>
+            </tr>
+            <tr>
+                <td>Другое</td>
+                <td>@Model.PersDataOther</td>
+            </tr>
+
+        </table>
+
+        @if (User.Identity.Name != Model.Login)
+        {
+            if (Model.UserIsFollowed)
+            {
+                @Html.ActionLink("Отписаться", "UnFollow", "Account", new { followerID = WebSecurity.GetUserId(User.Identity.Name), followedID = Model.UserID }, new { style = "color: black" })
+            }
+            else
+            {
+                @Html.ActionLink("Подписаться", "Follow", "Account", new { followerID = WebSecurity.GetUserId(User.Identity.Name), followedID = Model.UserID }, new { style = "color: black" })
+            }
+        }
+        else
+        {
+            @Html.ActionLink("Редактировать", "EditUser", "Account", new { id = Model.UserID }, new { style = "color:blue" })
+        }
+        <hr>
+        <p>Статьи:<p>
+            @foreach (var item in Model.ListofArticles)
+            {
+                <div class="well well-sm">
+                    @Html.ActionLink(item.ArticleTitle, "ShowArticle", "Home", new { id = item.ArticleID }, new { style = "margin: 0; padding-right: 80px; line-height: 15px; color: black" })
+                    @if ((User.IsInRole("Author") && User.Identity.Name == item.User.UserFirstName) || User.IsInRole("Admin"))
+                    {
+                        <div class="float-right">
+                            <a href="@Url.Action("DeleteArticle", "Home", new { id = item.ArticleID })" onclick="return confirm('Вы уверены, что хотите удалить статью?') ? true : false;">
+                                <img class="articl-bot" title="Удалить статью" src="~/Images/del.png" onmouseover="this.src = '/Images/del-2.png'" onmouseout="    this.src = '/Images/del.png'" alt="Удалить статью" />
+                            </a>
+                            <a href="@Url.Action("EditArticle", "Home", new { id = item.ArticleID })">
+                                <img class="articl-bot" title="Редактировать статью" src="~/Images/cor.png" onmouseover="this.src = '/Images/cor-2.png'" onmouseout="    this.src = '/Images/cor.png'" alt="Редактировать статью" />
+                            </a>
+                        </div>
+                    }
+                    <p>Добавлено @item.Edits.ElementAt(0).Date.ToString() пользователем @Html.ActionLink(@item.User.FullName, "ShowUser", "Account", new { id = item.UserID }, new { style = "color: black" })</p>
+                    <p style="color:@(item.Ratings.ElementAt(0).RatingLike - item.Ratings.ElementAt(0).RatingDislike < 0 ? "red" : "green"); margin:0; padding:0; line-height: 15px">Рейтинг: @(item.Ratings.ElementAt(0).RatingLike - item.Ratings.ElementAt(0).RatingDislike)</p>
+                    <p>
+                        @if (item.CommentCount == 0)
+                        {
+                            <b>Нет комментариев</b>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("ShowArticle", "Home", new {id = item.ArticleID})#comments" style="color: black"><b>@item.CommentCount @((item.CommentCount % 100) / 10 != 1 ? item.CommentCount % 10 == 1 ? "комментарий" : (item.CommentCount % 10 > 1 && item.CommentCount % 10 < 5) ? "комментария" : "комментариев" : "комментариев")</b></a>
+                        }
+                        Просмотров: @item.Ratings.ElementAt(0).RatingView
+                    </p>
                 </div>
             }
-            <p>Добавлено @item.Edits.ElementAt(0).Date.ToString() пользователем @Html.ActionLink(@item.User.FullName, "ShowUser", "Account", new { id = item.UserID }, new { style = "color: black" })</p>
-            <p style="color:@(item.Ratings.ElementAt(0).RatingLike - item.Ratings.ElementAt(0).RatingDislike < 0 ? "red" : "green"); margin:0; padding:0; line-height: 15px">Рейтинг: @(item.Ratings.ElementAt(0).RatingLike - item.Ratings.ElementAt(0).RatingDislike)</p>
-            <p>
-                @if (item.CommentCount == 0)
-                {
-                    <b>Нет комментариев</b>
-                }
-                else
-                {
-                    <a href="@Url.Action("ShowArticle", "Home", new {id = item.ArticleID})#comments" style="color: black"><b>@item.CommentCount @((item.CommentCount % 100) / 10 != 1 ? item.CommentCount % 10 == 1 ? "комментарий" : (item.CommentCount % 10 > 1 && item.CommentCount % 10 < 5) ? "комментария" : "комментариев" : "комментариев")</b></a>
-                }
-                Просмотров: @item.Ratings.ElementAt(0).RatingView
-            </p>
-        </div>
-    }
-        <hr>
-        <p>Подписки:</p>
-        @if (WebSecurity.CurrentUserId == Model.UserID)
-        {
-            foreach (var user in Model.FollowedUsers)
+            <hr />
+            <p>Подписки:</p>
+            @if (WebSecurity.CurrentUserId == Model.UserID)
             {
-                @Html.ActionLink(user.FullName, "ShowUser", "Account", new { id = user.UserID }, null)
+                foreach (var user in Model.FollowedUsers)
+                {
+                    @Html.ActionLink(user.FullName, "ShowUser", "Account", new { id = user.UserID }, null)
+                }
             }
-        }
-
+        </div>
         </div>

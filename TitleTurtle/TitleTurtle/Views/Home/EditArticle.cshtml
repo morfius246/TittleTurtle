@@ -36,71 +36,52 @@
 </script>
 
 
-<body class="main">
 
-
-    @using (Html.BeginForm("EditArticle", "Home", new { id = (Model.NewArticle.MedialInArticles == null || Model.NewArticle.MedialInArticles.Count == 0) ? -1 : Model.NewArticle.MedialInArticles.FirstOrDefault<TitleTurtle.Models.MediaInArticle>().Media.MediaID }, FormMethod.Post, new { enctype = "multipart/form-data" }))
-    {
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary()
-        @section Scripts {
-            @Scripts.Render("~/bundles/jqueryval")
-        }
-        <div style="margin: 0 auto">
-            Категория:
-            @{
-        List<SelectListItem> list = new List<SelectListItem>();
-        foreach (var item in Model.CategoryList)
+<div class="row">
+    <div class="col-md-12">
+        @using (Html.BeginForm("EditArticle", "Home", new { id = (Model.NewArticle.MedialInArticles == null || Model.NewArticle.MedialInArticles.Count == 0) ? -1 : Model.NewArticle.MedialInArticles.FirstOrDefault<TitleTurtle.Models.MediaInArticle>().Media.MediaID }, FormMethod.Post, new { enctype = "multipart/form-data", role = "form" }))
         {
-            list.Add(new SelectListItem() { Text = item.CategoryName, Value = item.CategoryID.ToString() });
-        }
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary()
+            @section Scripts {
+                @Scripts.Render("~/bundles/jqueryval")
             }
-            @Html.DropDownListFor(model => model.NewArticle.CategoryID, list, new { @class = "form-control", @style = "margin: 0 auto;" })
-            <br>
-            Название: @Html.TextBoxFor(model => model.NewArticle.ArticleTitle, new { @class = "form-control", @style = "margin: 0 auto;" })
-            @Html.HiddenFor(model => model.NewArticle.ArticleID)
-            @Html.ValidationMessageFor(model => model.NewArticle.ArticleTitle, null, new { style = "color:red" })
-            <br>
-            Cодержимое: @Html.TextAreaFor(model => model.NewArticle.ArticleText, new { @class = "form-control", @style = "min-height:200px;margin: 0 auto;" })
-            @Html.ValidationMessageFor(model => model.NewArticle.ArticleText, null, new { style = "color:red" })
-            @*Html.*@
-            <br>
-            @try
+            <div>
+                <div class="form-group">
+                    <label> Категория:</label>
+                    @{
+            var list = new List<SelectListItem>();
+            foreach (var item in Model.CategoryList)
             {
-                @Html.Raw("<img id='img' style='' src=\"data:image/jpeg;base64," @* width:260px; height:180px; *@
- + Convert.ToBase64String(Model.NewArticle.MedialInArticles.First<TitleTurtle.Models.MediaInArticle>().Media.MediaData) + "\" />")
-                <br>
-                @Html.ActionLink("Удалить картинку", "DeletePicFromArticle", "Home", new
-           {
-               MediaId =
-                   Model.NewArticle.MedialInArticles.First<TitleTurtle.Models.MediaInArticle>().Media.MediaID,
-               ArticleId = Model.NewArticle.ArticleID
-           }, new { @style = "color:#FF0000" })
+                list.Add(new SelectListItem() { Text = item.CategoryName, Value = item.CategoryID.ToString() });
             }
-            catch
-            {
-                <div class="editor-field">
+                    }
+                    @Html.DropDownListFor(model => model.NewArticle.CategoryID, list, new { @class = "form-control", @style = "margin: 0 auto;" })
+                </div>
+                <div class="form-group">
                     @Html.EditorFor(model => model.NewMedia.MediaData)
                     @Html.ValidationMessageFor(model => model.NewMedia.MediaData)
                     @Html.HiddenFor(model => model.NewMedia.MediaID)
-
+                    @Html.HiddenFor(model => model.NewArticle.ArticleID)
                 </div>
-
-                <div class="editor-field">
+                <div class="form-group">
                     <div class="editor-label">Размер загружаемого файла не должен превышать 2 МВ и должен иметь формат (jpeg,jpg,png,gif)  </div>
                     <input id="inputImage" type="file" accept="image/jpeg,image/png,image/gif" name="uploadImage" />
-                    <br>
-                    <br>
                     <p style="color:#FF0000">@ViewBag.Error</p>
-                    <br>
                 </div>
-            }
-            <br>
-            <br>
-            <input type="submit" value="Сохранить" class="btn" />
-        </div>
-    }
-</body>
+                <div class="form-group">
+                    Название: @Html.TextBoxFor(model => model.NewArticle.ArticleTitle, new { @class = "form-control", @style = "margin: 0 auto;" })
+                    @Html.ValidationMessageFor(model => model.NewArticle.ArticleTitle, null, new { style = "color:red" })
+                </div>
+                <div class="form-group">
+                    Cодержимое: @Html.TextAreaFor(model => model.NewArticle.ArticleText, new { @class = "form-control", @style = "min-height:200px;margin: 0 auto;" })
+                    @Html.ValidationMessageFor(model => model.NewArticle.ArticleText, null, new { style = "color:red" })
+                </div>
+                <input type="submit" value="Сохранить" class="btn btn-default" />
+            </div>
+        }
+    </div>
+</div>
 <script type="text/javascript">
     tinymce.init({
         selector: "textarea"
