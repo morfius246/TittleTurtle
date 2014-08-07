@@ -31,10 +31,17 @@ namespace TitleTurtle.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            if (returnUrl == "/Account/ShowCaptchaImage")
-                return ShowCaptchaImage();
-            ViewBag.ReturnUrl = returnUrl;
-            return View();
+            try
+            {
+                if (returnUrl == "/Account/ShowCaptchaImage")
+                    return ShowCaptchaImage();
+                ViewBag.ReturnUrl = returnUrl;
+                return View();
+            }
+            catch
+            {
+                return HttpNotFound();
+            }
         }
 
         //
@@ -54,6 +61,7 @@ namespace TitleTurtle.Controllers
             ModelState.AddModelError("", "The user name or password provided is incorrect.");
             return View(model);
         }
+
         public Captcha ShowCaptchaImage()
         {
             return new Captcha();

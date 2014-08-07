@@ -219,88 +219,97 @@ namespace TitleTurtle.Controllers
         [ValidateInput(false)]
         public ActionResult CreateArticle(Main model, Media pic, HttpPostedFileBase uploadImage)
         {
-            var mediainart = new MediaInArticle();
-            model.CategoryList = Db.Categories.ToList();
-            if (model.NewArticle.ArticleTitle == null)
-            {
-                model.NewArticle.ArticleTitle = "Без названия";
-            }
-            var newArticle = model.NewArticle;
-            newArticle.ArticleStatus = 1; //1 -- active //0 -- not confirmed //2 -- deleted
-            newArticle.UserID = WebSecurity.GetUserId(User.Identity.Name);
-            Db.Articles.Add(newArticle);
-            var newEdit = new Edit
-            {
-                Article = newArticle,
-                ArticleID = model.NewArticle.ArticleID,
-                Date = DateTime.Now,
-                Type = type.Create
-            };
-            var newRating = new Rating
-            {
-                RatingID = 1,
-                Article = newArticle,
-                ArticleID = model.NewArticle.ArticleID,
-                RatingDislike = 0,
-                RatingLike = 1,
-                RatingRepost = 0,
-                RatingView = 1
-            };
             try
             {
-                if (uploadImage != null && uploadImage.ContentType == "image/jpeg" || uploadImage.ContentType == "image/jpg" || uploadImage.ContentType == "image/gif" || uploadImage.ContentType == "image/png")
+                var mediainart = new MediaInArticle();
+                model.CategoryList = Db.Categories.ToList();
+                if (model.NewArticle.ArticleTitle == null)
                 {
-                    if (uploadImage.ContentLength <= 2000000)
+                    model.NewArticle.ArticleTitle = "Без названия";
+                }
+                var newArticle = model.NewArticle;
+                newArticle.ArticleStatus = 1; //1 -- active //0 -- not confirmed //2 -- deleted
+                newArticle.UserID = WebSecurity.GetUserId(User.Identity.Name);
+                Db.Articles.Add(newArticle);
+                var newEdit = new Edit
+                {
+                    Article = newArticle,
+                    ArticleID = model.NewArticle.ArticleID,
+                    Date = DateTime.Now,
+                    Type = type.Create
+                };
+                var newRating = new Rating
+                {
+                    RatingID = 1,
+                    Article = newArticle,
+                    ArticleID = model.NewArticle.ArticleID,
+                    RatingDislike = 0,
+                    RatingLike = 1,
+                    RatingRepost = 0,
+                    RatingView = 1
+                };
+                try
+                {
+                    if (uploadImage != null && uploadImage.ContentType == "image/jpeg" || uploadImage.ContentType == "image/jpg" || uploadImage.ContentType == "image/gif" || uploadImage.ContentType == "image/png")
                     {
-
-                        //Read the uploaded file into a byte array
-                        byte[] imageData;
-                        using (var binaryReader = new BinaryReader(uploadImage.InputStream))
+                        if (uploadImage.ContentLength <= 2000000)
                         {
-                            imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
-                        }
-                        /*byte[] n = new byte[imageData.Length];
-                        uploadImage.InputStream.Read(n, 0, (int)imageData.Length);
-                        pic.MediaData = GetCompressedImage(uploadImage.InputStream);*/
-                        pic.MediaData = imageData;
-                        Db.Medias.Add(pic);
-                        mediainart.MediaID = pic.MediaID;
-                        Db.MediaInArticles.Add(mediainart);
-                        ViewBag.Error = "";
-                    }
-                    else
-                    {
-                        ViewBag.Error = "Недопустимый размер файла";
-                        return View(model);
-                    }
-                }
-                else
-                {
-                    if (uploadImage.ContentLength >= 2000000)
-                    {
-                        ViewBag.Error = "Недопустимый размер и формат файла ";
-                        return View(model);
-                    }
-                    else
-                    {
-                        ViewBag.Error = "Недопустимый формат файла";
-                        return View(model);
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                //ViewBag.Error = "Ошибка добавления файла";
-                //return View(model);
-            }
 
-            Db.Edits.Add(newEdit);
-            Db.Ratings.Add(newRating);
-            Db.Articles.Add(newArticle);
-            Db.Likes.Add(new Like { ArticleID = model.NewArticle.ArticleID, Likes = true, UserID = model.NewArticle.UserID });
-            mediainart.ArticleID = newArticle.ArticleID;
-            Db.SaveChanges();
-            return RedirectToAction("ShowArticle", new { id = newArticle.ArticleID });
+                            //Read the uploaded file into a byte array
+                            byte[] imageData;
+                            using (var binaryReader = new BinaryReader(uploadImage.InputStream))
+                            {
+                                imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
+                            }
+                            /*byte[] n = new byte[imageData.Length];
+                            uploadImage.InputStream.Read(n, 0, (int)imageData.Length);
+                            pic.MediaData = GetCompressedImage(uploadImage.InputStream);*/
+                            pic.MediaData = imageData;
+                            Db.Medias.Add(pic);
+                            mediainart.MediaID = pic.MediaID;
+                            Db.MediaInArticles.Add(mediainart);
+                            ViewBag.Error = "";
+                        }
+                        else
+                        {
+                            ViewBag.Error = "Недопустимый размер файла";
+                            return View(model);
+                        }
+                    }
+                    else
+                    {
+                        if (uploadImage.ContentLength >= 2000000)
+                        {
+                            ViewBag.Error = "Недопустимый размер и формат файла ";
+                            return View(model);
+                        }
+                        else
+                        {
+                            ViewBag.Error = "Недопустимый формат файла";
+                            return View(model);
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    //ViewBag.Error = "Ошибка добавления файла";
+                    //return View(model);
+                }
+
+                Db.Edits.Add(newEdit);
+                Db.Ratings.Add(newRating);
+                Db.Articles.Add(newArticle);
+                Db.Likes.Add(new Like { ArticleID = model.NewArticle.ArticleID, Likes = true, UserID = model.NewArticle.UserID });
+                mediainart.ArticleID = newArticle.ArticleID;
+                Db.SaveChanges();
+                ViewBag.Error = "";
+                return RedirectToAction("ShowArticle", new { id = newArticle.ArticleID });
+            }
+            catch
+            {
+                ViewBag.Error = "Введите текст статьи";
+                return RedirectToAction("CreateArticle", new { model = model, pic = pic, uploadImage = uploadImage }); ;
+            }
         }
 
 
@@ -318,15 +327,22 @@ namespace TitleTurtle.Controllers
         [AllowAnonymous]
         public ActionResult ShowArticle(int id)
         {
-            var model = new ShowArticle();
-            model.Article = Db.Articles.SingleOrDefault(x => x.ArticleID == id);
-            model.CurrentArticle = Db.Articles.SingleOrDefault(x => x.ArticleID == id);
-            var singleOrDefault = Db.Articles.SingleOrDefault(x => x.ArticleID == id);
-            if (singleOrDefault != null)
-                singleOrDefault.Ratings.First().RatingView++;
-            Db.SaveChanges();
-            model.CommentList = readArticles(id);
-            return View(model);
+            try
+            {
+                var model = new ShowArticle();
+                model.Article = Db.Articles.SingleOrDefault(x => x.ArticleID == id);
+                model.CurrentArticle = Db.Articles.SingleOrDefault(x => x.ArticleID == id);
+                var singleOrDefault = Db.Articles.SingleOrDefault(x => x.ArticleID == id);
+                if (singleOrDefault != null)
+                    singleOrDefault.Ratings.First().RatingView++;
+                Db.SaveChanges();
+                model.CommentList = readArticles(id);
+                return View(model);
+            }
+            catch
+            {
+                return HttpNotFound();
+            }
         }
 
         IEnumerable<ShowArticle> readArticles(int id)
@@ -363,22 +379,29 @@ namespace TitleTurtle.Controllers
 
         public ActionResult EditArticle(int id)
         {
-            var model = new Main
+            try
             {
-                CategoryList = Db.Categories.ToList(),
-                NewArticle = Db.Articles.First(x => x.ArticleID == id)
+                var model = new Main
+                {
+                    CategoryList = Db.Categories.ToList(),
+                    NewArticle = Db.Articles.First(x => x.ArticleID == id)
 
-            };
-            var newEdit = new Edit
+                };
+                var newEdit = new Edit
+                {
+                    Article = model.NewArticle,
+                    ArticleID = model.NewArticle.ArticleID,
+                    Date = DateTime.Now,
+                    Type = type.Edit
+                };
+                Db.Edits.Add(newEdit);
+                Db.SaveChanges();
+                return View(model);
+            }
+            catch
             {
-                Article = model.NewArticle,
-                ArticleID = model.NewArticle.ArticleID,
-                Date = DateTime.Now,
-                Type = type.Edit
-            };
-            Db.Edits.Add(newEdit);
-            Db.SaveChanges();
-            return View(model);
+               return HttpNotFound();
+            }
         }
 
         /// <summary>
@@ -390,64 +413,71 @@ namespace TitleTurtle.Controllers
         [ValidateInput(false)]
         public ActionResult EditArticle(Main model, int? id, Media pic, HttpPostedFileBase uploadImage)
         {
-            var newArticle = model.NewArticle;
-            model.CategoryList = Db.Categories.ToList();
-            var mediainart = new MediaInArticle();
-            Media media = new Media();
-            Article my = Db.Articles.First(x => x.ArticleID == model.NewArticle.ArticleID);
-            my.ArticleTitle = model.NewArticle.ArticleTitle;
-            my.ArticleText = model.NewArticle.ArticleText;
-            my.CategoryID = model.NewArticle.CategoryID;
-            //my.Edits.Add(new Edit { Edition = DateTime.Now });
             try
             {
-
-                if (uploadImage != null && uploadImage.ContentType == "image/jpeg" || uploadImage.ContentType == "image/jpg" || uploadImage.ContentType == "image/gif" || uploadImage.ContentType == "image/png")
+                var newArticle = model.NewArticle;
+                model.CategoryList = Db.Categories.ToList();
+                var mediainart = new MediaInArticle();
+                Media media = new Media();
+                Article my = Db.Articles.First(x => x.ArticleID == model.NewArticle.ArticleID);
+                my.ArticleTitle = model.NewArticle.ArticleTitle;
+                my.ArticleText = model.NewArticle.ArticleText;
+                my.CategoryID = model.NewArticle.CategoryID;
+                //my.Edits.Add(new Edit { Edition = DateTime.Now });
+                try
                 {
-                    if (uploadImage.ContentLength <= 2000000)
+
+                    if (uploadImage != null && uploadImage.ContentType == "image/jpeg" || uploadImage.ContentType == "image/jpg" || uploadImage.ContentType == "image/gif" || uploadImage.ContentType == "image/png")
                     {
-                       
-                        byte[] imageData;
-                        using (var binaryReader = new BinaryReader(uploadImage.InputStream))
+                        if (uploadImage.ContentLength <= 2000000)
                         {
-                            imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
+
+                            byte[] imageData;
+                            using (var binaryReader = new BinaryReader(uploadImage.InputStream))
+                            {
+                                imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
+                            }
+                            //pic.MediaData = GetCompressedImage(uploadImage.InputStream);
+                            pic.MediaData = imageData;
+                            Db.Medias.Add(pic);
+                            mediainart.MediaID = pic.MediaID;
+                            Db.MediaInArticles.Add(mediainart);
                         }
-                        //pic.MediaData = GetCompressedImage(uploadImage.InputStream);
-                        pic.MediaData = imageData;
-                        Db.Medias.Add(pic);
-                        mediainart.MediaID = pic.MediaID;
-                        Db.MediaInArticles.Add(mediainart);
+                        else
+                        {
+                            ViewBag.Error = "Недопустимый размер файла";
+                            return View(model);
+
+                        }
+
                     }
                     else
                     {
-                        ViewBag.Error = "Недопустимый размер файла";
-                        return View(model);
+                        if (uploadImage.ContentLength >= 2000000)
+                        {
+                            ViewBag.Error = "Недопустимый размер и формат файла ";
+                            return View(model);
+                        }
+                        else
+                        {
+                            ViewBag.Error = "Недопустимый формат файла";
+                            return View(model);
+                        }
 
                     }
-
                 }
-                else
+                catch
                 {
-                    if (uploadImage.ContentLength >= 2000000)
-                    {
-                        ViewBag.Error = "Недопустимый размер и формат файла ";
-                        return View(model);
-                    }
-                    else
-                    {
-                        ViewBag.Error = "Недопустимый формат файла";
-                        return View(model);
-                    }
 
                 }
+                mediainart.ArticleID = newArticle.ArticleID;
+                Db.SaveChanges();
+                return RedirectToAction("ShowArticle", new { id = model.NewArticle.ArticleID });
             }
             catch
             {
-
+                return HttpNotFound();
             }
-            mediainart.ArticleID = newArticle.ArticleID;
-            Db.SaveChanges();
-            return RedirectToAction("ShowArticle", new { id = model.NewArticle.ArticleID });
         }
 
 
@@ -459,22 +489,36 @@ namespace TitleTurtle.Controllers
 
         public ActionResult DeletePicFromArticle(Main model, int? MediaId, int? ArticleId)
         {
-            Media media = new Media();
-            media = Db.Medias.FirstOrDefault(x => x.MediaID == MediaId.Value);
-            if (media != null)
+            try
             {
-                Db.Medias.Remove(media);
+                Media media = new Media();
+                media = Db.Medias.FirstOrDefault(x => x.MediaID == MediaId.Value);
+                if (media != null)
+                {
+                    Db.Medias.Remove(media);
+                }
+                Db.SaveChanges();
+                return RedirectToAction("EditArticle", new { id = ArticleId });
             }
-            Db.SaveChanges();
-            return RedirectToAction("EditArticle", new { id = ArticleId });
+            catch
+            {
+                return HttpNotFound();
+            }
         }
 
         public ActionResult DeleteArticle(int id)
         {
-            Article article = Db.Articles.First(x => x.ArticleID == id);
-            article.ArticleStatus = 2;
-            Db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                Article article = Db.Articles.First(x => x.ArticleID == id);
+                article.ArticleStatus = 2;
+                Db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return HttpNotFound();
+            }
         }
 
         /// <summary>
@@ -485,24 +529,38 @@ namespace TitleTurtle.Controllers
         [HttpPost]
         public ActionResult CreateCategory(Main model)
         {
-            var newCategory = model.NewCategory;
-            if (model.NewCategory.CategoryName == null) return RedirectToAction("Index");
-            Db.Categories.Add(newCategory);
-            Db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                var newCategory = model.NewCategory;
+                if (model.NewCategory.CategoryName == null) return RedirectToAction("Index");
+                Db.Categories.Add(newCategory);
+                Db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return HttpNotFound();
+            }
         }
 
 
         public ActionResult RemoveCategory(int? id)
         {
-            foreach (var article in Db.Articles.Where(x => x.CategoryID == id))
+            try
             {
-                article.CategoryID = 1011;
+                foreach (var article in Db.Articles.Where(x => x.CategoryID == id))
+                {
+                    article.CategoryID = 1011;
+                }
+                Db.SaveChanges();
+                Db.Categories.Remove(Db.Categories.First(x => x.CategoryID == id.Value));
+                Db.SaveChanges();
+                return RedirectToAction("Index");
             }
-            Db.SaveChanges();
-            Db.Categories.Remove(Db.Categories.First(x => x.CategoryID == id.Value));
-            Db.SaveChanges();
-            return RedirectToAction("Index");
+            catch
+            {
+                return HttpNotFound();
+            }
         }
         /// <summary>
         /// Search
@@ -515,88 +573,103 @@ namespace TitleTurtle.Controllers
         [AllowAnonymous]
         public ActionResult Sort(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            var sortArticle = new Article();
-            ViewBag.CurrentSort = sortOrder;
-            ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "Title" : "";
-            ViewBag.TextSortParm = String.IsNullOrEmpty(sortOrder) ? "Text" : "";
-            if (searchString != null)
+            try
             {
-                page = 1;
+                var sortArticle = new Article();
+                ViewBag.CurrentSort = sortOrder;
+                ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "Title" : "";
+                ViewBag.TextSortParm = String.IsNullOrEmpty(sortOrder) ? "Text" : "";
+                if (searchString != null)
+                {
+                    page = 1;
+                }
+                else
+                {
+                    searchString = currentFilter;
+                }
+                ViewBag.CurrentFilter = searchString;
+                var articles = from s in Db.Articles
+                               where s.ArticleStatus != 2
+                               select s
+                                ;
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    articles = articles.Where(s => s.ArticleTitle.ToUpper().Contains(searchString.ToUpper()) && (s.ArticleStatus != 2)
+                                           || s.ArticleText.ToUpper().Contains(searchString.ToUpper()) && (s.ArticleStatus != 2));
+                }
+                switch (sortOrder)
+                {
+                    case "Title":
+                        articles = articles.OrderByDescending(s => s.ArticleTitle);
+                        break;
+                    case "Text":
+                        articles = articles.OrderByDescending(s => s.ArticleText);
+                        break;
+                    default:
+                        articles = articles.OrderBy(s => s.ArticleTitle);
+                        break;
+                }
+                const int pageSize = 15;
+                int pageNumber = (page ?? 1);
+                return View(articles.ToPagedList(pageNumber, pageSize));
             }
-            else
+            catch
             {
-                searchString = currentFilter;
+                return HttpNotFound();
             }
-            ViewBag.CurrentFilter = searchString;
-            var articles = from s in Db.Articles where s.ArticleStatus!=2
-                           select s 
-                            ;
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                articles = articles.Where(s => s.ArticleTitle.ToUpper().Contains(searchString.ToUpper()) && (s.ArticleStatus != 2)
-                                       || s.ArticleText.ToUpper().Contains(searchString.ToUpper()) && (s.ArticleStatus != 2));
-            }
-            switch (sortOrder)
-            {
-                case "Title":
-                    articles = articles.OrderByDescending(s => s.ArticleTitle);
-                    break;
-                case "Text":
-                    articles = articles.OrderByDescending(s => s.ArticleText);
-                    break;
-                default:
-                    articles = articles.OrderBy(s => s.ArticleTitle);
-                    break;
-            }
-            const int pageSize = 15;
-            int pageNumber = (page ?? 1);
-            return View(articles.ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult Vote(int _id, bool up)
         {
-            if (Db.Likes.FirstOrDefault(x => x.UserID == WebSecurity.CurrentUserId && x.ArticleID == _id) == null)
+            try
             {
-                Db.Likes.Add(new Like { ArticleID = _id, UserID = WebSecurity.CurrentUserId, Likes = up });
-                if (up)
-                    ++Db.Articles.First(x => x.ArticleID == _id).Ratings.First().RatingLike;
-                else
-                    ++Db.Articles.First(x => x.ArticleID == _id).Ratings.First().RatingDislike;
-            }
-            else
-            {
-                if (Db.Likes.First(x => x.UserID == WebSecurity.CurrentUserId && x.ArticleID == _id).Likes)
+                if (Db.Likes.FirstOrDefault(x => x.UserID == WebSecurity.CurrentUserId && x.ArticleID == _id) == null)
                 {
+                    Db.Likes.Add(new Like { ArticleID = _id, UserID = WebSecurity.CurrentUserId, Likes = up });
                     if (up)
-                    {
-                        --Db.Articles.First(x => x.ArticleID == _id).Ratings.First().RatingLike;
-                        Db.Likes.Remove(Db.Likes.FirstOrDefault(x => x.UserID == WebSecurity.CurrentUserId && x.ArticleID == _id));
-                    }
-                    else
-                    {
-                        --Db.Articles.First(x => x.ArticleID == _id).Ratings.First().RatingLike;
-                        ++Db.Articles.First(x => x.ArticleID == _id).Ratings.First().RatingDislike;
-                        Db.Likes.FirstOrDefault(x => x.UserID == WebSecurity.CurrentUserId && x.ArticleID == _id).Likes = false;
-                    }
-                }
-                else
-                {
-                    if (up)
-                    {
                         ++Db.Articles.First(x => x.ArticleID == _id).Ratings.First().RatingLike;
-                        --Db.Articles.First(x => x.ArticleID == _id).Ratings.First().RatingDislike;
-                        Db.Likes.Remove(Db.Likes.FirstOrDefault(x => x.UserID == WebSecurity.CurrentUserId && x.ArticleID == _id));
-                        Db.Likes.FirstOrDefault(x => x.UserID == WebSecurity.CurrentUserId && x.ArticleID == _id).Likes = true;
+                    else
+                        ++Db.Articles.First(x => x.ArticleID == _id).Ratings.First().RatingDislike;
+                }
+                else
+                {
+                    if (Db.Likes.First(x => x.UserID == WebSecurity.CurrentUserId && x.ArticleID == _id).Likes)
+                    {
+                        if (up)
+                        {
+                            --Db.Articles.First(x => x.ArticleID == _id).Ratings.First().RatingLike;
+                            Db.Likes.Remove(Db.Likes.FirstOrDefault(x => x.UserID == WebSecurity.CurrentUserId && x.ArticleID == _id));
+                        }
+                        else
+                        {
+                            --Db.Articles.First(x => x.ArticleID == _id).Ratings.First().RatingLike;
+                            ++Db.Articles.First(x => x.ArticleID == _id).Ratings.First().RatingDislike;
+                            Db.Likes.FirstOrDefault(x => x.UserID == WebSecurity.CurrentUserId && x.ArticleID == _id).Likes = false;
+                        }
                     }
                     else
                     {
-                        --Db.Articles.First(x => x.ArticleID == _id).Ratings.First().RatingDislike;
-                        Db.Likes.Remove(Db.Likes.FirstOrDefault(x => x.UserID == WebSecurity.CurrentUserId && x.ArticleID == _id));
+                        if (up)
+                        {
+                            ++Db.Articles.First(x => x.ArticleID == _id).Ratings.First().RatingLike;
+                            --Db.Articles.First(x => x.ArticleID == _id).Ratings.First().RatingDislike;
+                            Db.Likes.Remove(Db.Likes.FirstOrDefault(x => x.UserID == WebSecurity.CurrentUserId && x.ArticleID == _id));
+                            Db.Likes.FirstOrDefault(x => x.UserID == WebSecurity.CurrentUserId && x.ArticleID == _id).Likes = true;
+                        }
+                        else
+                        {
+                            --Db.Articles.First(x => x.ArticleID == _id).Ratings.First().RatingDislike;
+                            Db.Likes.Remove(Db.Likes.FirstOrDefault(x => x.UserID == WebSecurity.CurrentUserId && x.ArticleID == _id));
+                        }
                     }
                 }
+                Db.SaveChanges();
+                return Redirect(Url.RouteUrl(new { controller = "Home", action = "ShowArticle", id = GetMainArticleId(_id) }) + @"#comment" + _id);
             }
-            Db.SaveChanges();
-            return Redirect(Url.RouteUrl(new { controller = "Home", action = "ShowArticle", id = GetMainArticleId(_id) }) + @"#comment" + _id);
+            catch
+            {
+                return HttpNotFound();
+            }
         }
 
         private void IncreaseParentCoommentCount(int id)
@@ -623,19 +696,21 @@ namespace TitleTurtle.Controllers
 
         public ActionResult CreateComment(ShowArticle model, string userName)
         {
-            int currentArticleId = model.CurrentArticle.ArticleID;//отримаэм ід поточ статті
-            Article currentArticle = Db.Articles.SingleOrDefault(x => x.ArticleID == currentArticleId);//отрим цю статтю за ід
-            currentArticle.CommentCount++;
-            IncreaseParentCoommentCount(currentArticleId);
-            Comment newComment = model.NewComment;
-            newComment.Article.ArticleTitle = "Комментарий";
-            newComment.Article.Category = currentArticle.Category;//коментар має таку ж каегор як стаття
-            newComment.Article.ArticleStatus = 1;
-            newComment.ArticleID = currentArticle.ArticleID;
-            newComment.MainArticle = currentArticle;
-            newComment.MainArticleID = currentArticle.ArticleID;
-            newComment.Article.UserID = Db.Users.First(x => x.Login == userName).UserID;
-            newComment.Article.Edits = new List<Edit>
+            try
+            {
+                int currentArticleId = model.CurrentArticle.ArticleID;//отримаэм ід поточ статті
+                Article currentArticle = Db.Articles.SingleOrDefault(x => x.ArticleID == currentArticleId);//отрим цю статтю за ід
+                currentArticle.CommentCount++;
+                IncreaseParentCoommentCount(currentArticleId);
+                Comment newComment = model.NewComment;
+                newComment.Article.ArticleTitle = "Комментарий";
+                newComment.Article.Category = currentArticle.Category;//коментар має таку ж каегор як стаття
+                newComment.Article.ArticleStatus = 1;
+                newComment.ArticleID = currentArticle.ArticleID;
+                newComment.MainArticle = currentArticle;
+                newComment.MainArticleID = currentArticle.ArticleID;
+                newComment.Article.UserID = Db.Users.First(x => x.Login == userName).UserID;
+                newComment.Article.Edits = new List<Edit>
             {
                 new Edit
                 {
@@ -645,7 +720,7 @@ namespace TitleTurtle.Controllers
                     Type = type.Create
                 }
             };
-            newComment.Article.Ratings = new List<Rating>
+                newComment.Article.Ratings = new List<Rating>
             {
                 new Rating
                 {
@@ -658,10 +733,15 @@ namespace TitleTurtle.Controllers
                     RatingView = 1
                 }
             };
-            Db.Comments.Add(newComment);
-            Db.SaveChanges();
-            //return RedirectToAction("ShowArticle/" + currentArticle.ArticleID);
-            return Redirect(Url.RouteUrl(new { controller = "Home", action = "ShowArticle", id = GetMainArticleId(newComment.MainArticleID.Value) }) + @"#comment" + newComment.ArticleID);
+                Db.Comments.Add(newComment);
+                Db.SaveChanges();
+                //return RedirectToAction("ShowArticle/" + currentArticle.ArticleID);
+                return Redirect(Url.RouteUrl(new { controller = "Home", action = "ShowArticle", id = GetMainArticleId(newComment.MainArticleID.Value) }) + @"#comment" + newComment.ArticleID);
+            }
+            catch
+            {
+                return HttpNotFound();
+            }
         }
 
         private int GetMainArticleId(int id)
@@ -676,25 +756,46 @@ namespace TitleTurtle.Controllers
 
         public ActionResult Feedback()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch
+            {
+                return HttpNotFound();
+            }
         }
 
         [HttpPost]
         public ActionResult Feedback(FeedbackModel model)
         {
-            var Message = new FeedbackModel();
-            using (var client = new SmtpClient("smtp.gmail.com", 587))
+            try
             {
-                client.Credentials = new NetworkCredential("titleturtleua@gmail.com", "54321erhnx");
-                client.EnableSsl = true;
-                client.Send("titleturtleua@gmail.com", "vgrinda97@gmail.com",
-                    model.MessageTopic, model.MessageText + '\n' + model.Email);
+                var Message = new FeedbackModel();
+                using (var client = new SmtpClient("smtp.gmail.com", 587))
+                {
+                    client.Credentials = new NetworkCredential("titleturtleua@gmail.com", "54321erhnx");
+                    client.EnableSsl = true;
+                    client.Send("titleturtleua@gmail.com", "vgrinda97@gmail.com",
+                        model.MessageTopic, model.MessageText + '\n' + model.Email);
+                }
+                return View("FeedbackSent");
             }
-            return View("FeedbackSent");
+            catch
+            {
+                return HttpNotFound();
+            }
         }
         public ActionResult FeedbackSent()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch
+            {
+                return HttpNotFound();
+            }
         }
         private byte[] GetCompressedImage(Stream originalBytes)
         {

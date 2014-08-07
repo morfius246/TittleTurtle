@@ -43,6 +43,7 @@
             <div class ="form-group">
                 Cодержимое: @Html.TextAreaFor(model => model.NewArticle.ArticleText, new { @class = "form-control", @style = "min-height:200px;margin: 0 auto;" })
                 @Html.ValidationMessageFor(model => model.NewArticle.ArticleText, null, new { style = "color:red" })
+                @ViewBag.Error
             </div>
             <input type="submit" value="Сохранить" class="btn btn-default" />
         </div>
