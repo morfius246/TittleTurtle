@@ -253,16 +253,16 @@ namespace TitleTurtle.Controllers
                     if (uploadImage.ContentLength <= 2000000)
                     {
 
-                        // Read the uploaded file into a byte array
-                        /*byte[] imageData;
+                        //Read the uploaded file into a byte array
+                        byte[] imageData;
                         using (var binaryReader = new BinaryReader(uploadImage.InputStream))
                         {
                             imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
                         }
-                        byte[] n = new byte[imageData.Length];
-                        uploadImage.InputStream.Read(n, 0, (int)imageData.Length);*/
-                        pic.MediaData = GetCompressedImage(uploadImage.InputStream);
-                        //pic.MediaData = imageData;
+                        /*byte[] n = new byte[imageData.Length];
+                        uploadImage.InputStream.Read(n, 0, (int)imageData.Length);
+                        pic.MediaData = GetCompressedImage(uploadImage.InputStream);*/
+                        pic.MediaData = imageData;
                         Db.Medias.Add(pic);
                         mediainart.MediaID = pic.MediaID;
                         Db.MediaInArticles.Add(mediainart);
@@ -406,14 +406,14 @@ namespace TitleTurtle.Controllers
                 {
                     if (uploadImage.ContentLength <= 2000000)
                     {
-                        // Read the uploaded file into a byte array
-                        /*byte[] imageData;
+                       
+                        byte[] imageData;
                         using (var binaryReader = new BinaryReader(uploadImage.InputStream))
                         {
                             imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
-                        }*/
-                        pic.MediaData = GetCompressedImage(uploadImage.InputStream);
-                        //pic.MediaData = imageData;
+                        }
+                        //pic.MediaData = GetCompressedImage(uploadImage.InputStream);
+                        pic.MediaData = imageData;
                         Db.Medias.Add(pic);
                         mediainart.MediaID = pic.MediaID;
                         Db.MediaInArticles.Add(mediainart);

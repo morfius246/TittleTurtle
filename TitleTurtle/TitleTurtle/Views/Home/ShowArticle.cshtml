@@ -8,25 +8,27 @@
     ViewBag.Title = "Show";
     Layout = "/Views/Shared/_Layout.cshtml";
 }
-    <div class="col-md-12" style="">
+@if (Model.CurrentArticle.MedialInArticles.Count != 0)
+{
+    try
+    {
+        <div class="bgArticle" style="background-image: url(@("data:image/jpeg;base64," + Convert.ToBase64String(Model.Article.MedialInArticles.First().Media.MediaData)))">
+
+        </div>
+    }
+    catch (Exception)
+    {
+
+    }
+}
+
+    <div class="col-md-12" style="@(Model.CurrentArticle.MedialInArticles.Count != 0? "margin-top: 400px":"")">
         @using (Html.BeginForm("ShowArticle", "Home"))
         {
             <div class="">
                 <h2>@Html.DisplayFor(model => model.Article.ArticleTitle)</h2>
                 @Html.HiddenFor(model => model.Article.ArticleID)
                 @Html.Raw(Model.Article.ArticleText)
-                @if (Model.CurrentArticle.MedialInArticles.Count != 0)
-                {
-                    try
-                    {
-                        @Html.Raw("<img style='' src=\"data:image/jpeg;base64,"
-                                                                          + Convert.ToBase64String(Model.Article.MedialInArticles.First().Media.MediaData) + "\" />")
-                    }
-                    catch (Exception)
-                    {
-
-                    }
-                }
                 <br>
                 <p title="@Model.Article.User.FullName"><span class="glyphicon glyphicon-user"></span> @Html.ActionLink(@Model.Article.User.Login, "ShowUser", "Account", new { id = Model.Article.UserID }, new { style = "color: black" })</p>
                 <p>Дата создания: @Model.Article.Edits.ElementAt(0).Date</p>
