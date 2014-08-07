@@ -11,6 +11,7 @@ html {
       -ms-text-size-adjust: 100%;
 }
 body {
+  background: url("/Images/congruent_outline.png") repeat scroll 0% 0% transparent;
   margin: 0;
 }
 article,
@@ -27,6 +28,13 @@ section,
 summary {
   display: block;
 }
+
+footer {
+    background-color: #222;
+    color: white;
+    text-align: center;
+}
+
 audio,
 canvas,
 progress,
@@ -1743,6 +1751,8 @@ pre code {
 }
 @media (min-width: 992px) {
   .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+      
+      background-color: #FFF;
     float: left;
   }
   .col-md-12 {

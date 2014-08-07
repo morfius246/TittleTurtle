@@ -14,9 +14,8 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
-<div class="container">
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-9" style="background-clip:content-box;">
             <div id="head_article">
                 @if (User.IsInRole("Admin") || User.IsInRole("Author"))
                 {
@@ -82,52 +81,53 @@
             @Html.PagedListPager(Model.PagedList, page => Url.Action("Index", new { page, sort = ViewBag.Sort, categoryId = ViewBag.CategoryID }))
             <!--container-->
         </div> <!--col-md-3-->
-        <div class="col-md-3">
-            <div id="upkat">
-                <div id="gl_category">
-                    <div id="img_category">
-                        <img src="~/Images/category.png" alt="" />
-                    </div>
-                    <div id="category">
-                        <span>Категории</span>
-                    </div>
+    <div class="col-md-3" style="background-clip: content-box;">
+        <div id="upkat">
+            <div id="gl_category">
+                <div id="img_category">
+                    <img src="~/Images/category.png" alt="" />
                 </div>
-                <div id="list-group">
-                    <a href="@Url.Action("Index", "Home", new { sort = ViewBag.Sort})" class="list-group-item">Все</a>
-                    @foreach (var category in Model.CategoryList)
-                    {
-                        <a class="list-group-item" href="@Url.Action("Index", "Home", new {sort = ViewBag.Sort, categoryId = category.CategoryID  })">
-                            <h4>@category.CategoryName</h4>
-                            <p>@category.CategoryDescription</p>
-                        </a>
+                <div id="category">
+                    <span>Категории</span>
+                </div>
+            </div>
+            <div id="list-group">
+                <a href="@Url.Action("Index", "Home", new { sort = ViewBag.Sort})" class="list-group-item">Все</a>
+                @foreach (var category in Model.CategoryList)
+                {
+                    <a class="list-group-item" href="@Url.Action("Index", "Home", new {sort = ViewBag.Sort, categoryId = category.CategoryID  })">
+                        <h4>@category.CategoryName</h4>
+                        <p>@category.CategoryDescription</p>
+                    </a>
 
-                        if (User.IsInRole("Admin") && category.CategoryID != 1011)
-                        {
-                            <a title="Удалить категорию @category.CategoryName" class="list-group-item btn btn-block btn-danger btn-sm" style="height: 5px; line-height: 4px" href="@Url.Action("RemoveCategory", "Home", new { id = category.CategoryID })">Удалить</a>
-                        }
+                    if (User.IsInRole("Admin") && category.CategoryID != 1011)
+                    {
+                        <a title="Удалить категорию @category.CategoryName" class="list-group-item btn btn-block btn-danger btn-sm" style="height: 5px; line-height: 4px" href="@Url.Action("RemoveCategory", "Home", new { id = category.CategoryID })">Удалить</a>
                     }
+                }
 
-                    @*Just for admin*@
-                    @if (User.IsInRole("Admin"))
+                @*Just for admin*@
+                @if (User.IsInRole("Admin"))
+                {
+                    using (Html.BeginForm("CreateCategory", "Home", new { }, FormMethod.Post, new { role = "form", @style = "background-color: white" }))
                     {
-                        using (Html.BeginForm("CreateCategory", "Home", new { }, FormMethod.Post, new { role = "form", @style = "background-color: white" }))
-                        {
-                            <div class="panel-body">
-                                <div class="form-group">
-                                    @Html.TextBoxFor(model => model.NewCategory.CategoryName, new { @class = "form-control", placeholder = "Название", @style = "margin:0 auto" })
-                                    @Html.ValidationMessageFor(model => model.NewCategory.CategoryName)
-                                </div>
-                                <div class="form-group">
-                                    @Html.TextBoxFor(model => model.NewCategory.CategoryDescription, new { @class = "form-control", placeholder = "Описание", @style = "margin:0 auto" })
-                                    @Html.ValidationMessageFor(model => model.NewCategory.CategoryDescription)
-                                </div>
-                                <input type="submit" value="Новая категория" class="btn btn-primary btn-lg btn-block">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.NewCategory.CategoryName, new { @class = "form-control", placeholder = "Название", @style = "margin:0 auto" })
+                                @Html.ValidationMessageFor(model => model.NewCategory.CategoryName)
                             </div>
-                        }
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.NewCategory.CategoryDescription, new { @class = "form-control", placeholder = "Описание", @style = "margin:0 auto" })
+                                @Html.ValidationMessageFor(model => model.NewCategory.CategoryDescription)
+                            </div>
+                            <input type="submit" value="Новая категория" class="btn btn-primary btn-lg btn-block">
+                        </div>
                     }
-                </div>
+                }
             </div>
         </div>
     </div>
 </div>
+
+
 

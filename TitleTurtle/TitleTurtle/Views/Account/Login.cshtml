@@ -6,7 +6,6 @@
     <h1>@ViewBag.Title</h1>
 </hgroup>
 
-<div class="container">
     @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     {
         @Html.AntiForgeryToken()
@@ -45,4 +44,3 @@
             @Html.ActionLink("Зарегистрируйтесь", "Register", "Account"), если у вас ещё не аккаунта.
         </p>
     }
-</div>

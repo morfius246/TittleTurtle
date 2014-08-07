@@ -8,8 +8,7 @@
     ViewBag.Title = "Show";
     Layout = "/Views/Shared/_Layout.cshtml";
 }
-<body>
-    <div class="container blog-main" style="width:800px; margin:0 auto;">
+    <div class="col-md-12" style="">
         @using (Html.BeginForm("ShowArticle", "Home"))
         {
             <div class="">
@@ -188,4 +187,3 @@
     }
     @agoString.ToString()
 }
-</body>
