@@ -41,49 +41,51 @@
     <meta name="viewport" content="width=device-width" />
     <script src="~/Scripts/buttons.js"></script>
     <script type="text/javascript">stLight.options({ publisher: "76c2b3b9-d3f6-45ad-8221-a6c658b3da72", doNotHash: true, doNotCopy: false, hashAddressBar: false });</script>
+
 </head>
-<body>
-    <div class="navbar navbar-inverse" role="navigation">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/" style="outline-style: none"><img height="45" src="/Images/tittle_turtle_logo.svg" alt="" /></a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        @using (Html.BeginForm("Sort", "Home", FormMethod.Get, new { @class = "navbar-right" }))
-                        {
-                            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control input-lg", placeholder = "Поиск...", type = "text" })
-                        }
-                    </li>
+    <body>
+            <div class="navbar navbar-inverse" role="navigation">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="/" style="outline-style: none"><img height="45" src="/Images/tittle_turtle_logo.svg" alt="" /></a>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                @using (Html.BeginForm("Sort", "Home", FormMethod.Get, new { @class = "navbar-right" }))
+                                {
+                                    @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control input-lg", placeholder = "Поиск...", type = "text" })
+                                }
+                            </li>
 
-                    <li><a href="/" style="outline-style: none">Все статьи</a></li>
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <li><a href="/Account/Control" style="outline-style: none">Управление</a></li>
-                    }
-                    <li><a href="/Home/Feedback" style="outline-style: none">Обратная связь</a></li>
+                            <li><a href="/" style="outline-style: none">Все статьи</a></li>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li><a href="/Account/Control" style="outline-style: none">Управление</a></li>
+                            }
+                            <li><a href="/Home/Feedback" style="outline-style: none">Обратная связь</a></li>
 
-                    <li><a href="/Home/ShowArticle/1084" style="outline-style: none">FAQ</a></li>
-                    @Html.Partial("_LoginPartial")
-                </ul>
+                            <li><a href="/Home/ShowArticle/1084" style="outline-style: none">FAQ</a></li>
+                            @Html.Partial("_LoginPartial")
+                        </ul>
+                    </div>
+                </div>
             </div>
+        <div class="container">
+            @RenderBody()
         </div>
-    </div>
-    <div class ="container">
-        @RenderBody()
-    </div>
-    <footer>
-        <a href="#" id="totop" class="btn btn-default btn-sm" onclick="$('html, body').animate({scrollTop: 0}, 200)" style="position:fixed; bottom:25px; left:5px"><span class=" glyphicon glyphicon-arrow-up"></span></a>
-          Tittle Turtle team (c) 2014
-    </footer>
-</body>
+            <footer>
+                <a href="#" id="totop" class="btn btn-default btn-sm" onclick="$('html, body').animate({scrollTop: 0}, 200)" style="position:fixed; bottom:25px; left:5px"><span class=" glyphicon glyphicon-arrow-up"></span></a>
+                Tittle Turtle team (c) 2014
+            </footer>
+        
+    </body>
 </html>
 <script>
     $(document).ready(function () {

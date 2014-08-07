@@ -35,8 +35,8 @@ footer {
     background-color: #222;
     color: white;
     text-align: center;
-    margin-bottom: 0px;
-    padding-bottom: 0px;
+    margin: 0;
+    padding: 0;
 }
 
 audio,
@@ -1407,6 +1407,7 @@ pre code {
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
+    min-height: 100%;
 }
 @media (min-width: 768px) {
   .container {
