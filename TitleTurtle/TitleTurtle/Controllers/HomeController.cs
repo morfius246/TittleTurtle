@@ -532,8 +532,8 @@ namespace TitleTurtle.Controllers
                            select s;
             if (!String.IsNullOrEmpty(searchString))
             {
-                articles = articles.Where(s => s.ArticleTitle.ToUpper().Contains(searchString.ToUpper())
-                                       || s.ArticleText.ToUpper().Contains(searchString.ToUpper()));
+                articles = articles.Where(s => s.ArticleTitle.ToUpper().Contains(searchString.ToUpper()) && (s.ArticleStatus != 2)
+                                       || s.ArticleText.ToUpper().Contains(searchString.ToUpper()) && (s.ArticleStatus != 2));
             }
             switch (sortOrder)
             {
@@ -673,14 +673,12 @@ namespace TitleTurtle.Controllers
         }
 
 
-        [AllowAnonymous]
         public ActionResult Feedback()
         {
             return View();
         }
 
         [HttpPost]
-        [AllowAnonymous]
         public ActionResult Feedback(FeedbackModel model)
         {
             var Message = new FeedbackModel();
