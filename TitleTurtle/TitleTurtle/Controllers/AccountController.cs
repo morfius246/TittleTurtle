@@ -97,7 +97,7 @@ namespace TitleTurtle.Controllers
                     {
                         WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                         WebSecurity.Login(model.UserName, model.Password);
-                        Roles.AddUserToRole(model.UserName, "RegUser");
+                        Roles.AddUserToRole(model.UserName, "Author");
                         db.Contacts.Add(new Contact { ContactEmail = model.ContactEmail, ContactMobile = null, ContactWebPage = null, UserID = WebSecurity.GetUserId(model.UserName) });
                         db.PersonalDatas.Add(new PersonalData { PersDataAdress = "", PersDataDate = DateTime.Now, PersDataOther = "", UserID = WebSecurity.GetUserId(model.UserName) });
                         var user = new User { Login = model.UserName, UserID = WebSecurity.GetUserId(model.UserName), UserFirstName = model.UserFirstName, UserLastName = model.UserLastName };
