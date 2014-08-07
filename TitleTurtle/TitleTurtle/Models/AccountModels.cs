@@ -70,6 +70,7 @@ namespace TitleTurtle.Models
     {
         [Required]
         [Display(Name = "Логин")]
+        [StringLength(15, ErrorMessage = "Логин пользователя не может быть меньше 5 и длиннее 15 символов.", MinimumLength = 5)]
         public string UserName { get; set; }
 
         [Required]
