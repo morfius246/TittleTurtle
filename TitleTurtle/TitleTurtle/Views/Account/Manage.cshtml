@@ -1,41 +1,39 @@
-﻿<div id="bod">
-    <div>
-        @model TitleTurtle.Models.LocalPasswordModel
-        @{
-            ViewBag.Title = "Manage Account";
-        }
-    </div>
-    <div id="manage">
-        <div id="manage2">
-            <hgroup class="titl">
-                <h1>@ViewBag.Title.</h1>
-            </hgroup>
-        </div>
-        <div id="manage2">
-            <p class="message-success">@ViewBag.StatusMessage</p>
-
-            <p>You're logged in as <strong>@User.Identity.Name</strong>.</p>
-        </div>
-        <div id="manage2">
-            @if (ViewBag.HasLocalPassword)
-            {
-                @Html.Partial("_ChangePasswordPartial")
-            }
-            else
-            {
-                @Html.Partial("_SetPasswordPartial")
-            }
-
-            <section id="externalLogins">
-                @Html.Action("RemoveExternalLogins")
-                <h3>Add an external login</h3>
-                @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
-            </section>
-        </div>
-
-        @section Scripts {
-            @Scripts.Render("~/bundles/jqueryval")
-        }
-    </div>
+﻿
+<div>
+    @model TitleTurtle.Models.LocalPasswordModel
+    @{
+        ViewBag.Title = "Manage Account";
+    }
 </div>
-<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<div id="row">
+    <div id="col-md-12">
+        <hgroup>
+            <h1>@ViewBag.Title.</h1>
+        </hgroup>
+    </div>
+    <div id="manage2">
+        <p class="message-success">@ViewBag.StatusMessage</p>
+
+        <p>You're logged in as <strong>@User.Identity.Name</strong>.</p>
+    </div>
+    <div id="manage2">
+        @if (ViewBag.HasLocalPassword)
+        {
+            @Html.Partial("_ChangePasswordPartial")
+        }
+        else
+        {
+            @Html.Partial("_SetPasswordPartial")
+        }
+
+        <section id="externalLogins">
+            @Html.Action("RemoveExternalLogins")
+            <h3>Add an external login</h3>
+            @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
+        </section>
+    </div>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+</div>

@@ -115,6 +115,7 @@ namespace TitleTurtle.Controllers
                     }
                     catch (MembershipCreateUserException e)
                     {
+                        ViewBag.Error = e.Message;
                         ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
                     }
                 }

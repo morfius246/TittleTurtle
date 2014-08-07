@@ -15,7 +15,7 @@
     @Scripts.Render("~/bundles/jqueryval")
 }
     <div class="row">
-        <div class="col-md-9" style="background-clip:content-box;">
+        <div class="col-md-9 col" style="background-clip:content-box;">
             <div id="head_article">
                 @if (User.IsInRole("Admin") || User.IsInRole("Author"))
                 {
@@ -81,7 +81,7 @@
             @Html.PagedListPager(Model.PagedList, page => Url.Action("Index", new { page, sort = ViewBag.Sort, categoryId = ViewBag.CategoryID }))
             <!--container-->
         </div> <!--col-md-3-->
-    <div class="col-md-3" style="background-clip: content-box;">
+    <div class="col-md-3 col" style="background-clip: content-box;">
         <div id="upkat">
             <div id="gl_category">
                 <div id="img_category">
