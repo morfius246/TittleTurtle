@@ -3,22 +3,20 @@
     ViewBag.Title = "Feedback";
 }
 
-    <div class="root">
+<div class="row">
+    <div class="col-md-12">
         @using (Ajax.BeginForm("feedback", "home",
-new AjaxOptions
-{
-    HttpMethod = "post",
-    UpdateTargetId = "target",
-    LoadingElementId = "sendingProgress",
-    InsertionMode = InsertionMode.Replace
-}))
+            new AjaxOptions
+            {
+                HttpMethod = "post",
+                UpdateTargetId = "target",
+                LoadingElementId = "sendingProgress",
+                InsertionMode = InsertionMode.Replace
+            }))
         {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true)
-            <div id="MyArticle">
-                <img id="img_article" src="/Images/regist.png" />
-                <div class="Article">Обратная связь</div>
-            </div>
+            <h1>Обратная связь</h1>
             <div class="editor-label">
                 @Html.LabelFor(model => model.Email)<br />
                 @Html.ValidationMessageFor(model => model.Email, null, new { style = "color:red" })
@@ -65,3 +63,4 @@ new AjaxOptions
             @Scripts.Render("~/bundles/jqueryval")
         }
     </div>
+</div>
