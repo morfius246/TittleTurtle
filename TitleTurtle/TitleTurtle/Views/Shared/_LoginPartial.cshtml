@@ -3,7 +3,7 @@
     <text>
         <li>
             <a href=@Url.Action("ShowUser", "Account", new { id = WebSecurity.GetUserId(User.Identity.Name) }) style="padding: 0; margin: 0; outline-style: none">
-                <img src="@Url.Action("GetUserImage", "Account", new { userId = WebSecurity.GetUserId(User.Identity.Name) }, null)" style="max-height: 45px; max-width: 100px; margin:0; padding:0" />
+                <img src="@Url.Action("GetUserImage", "Account", new { userId = WebSecurity.GetUserId(User.Identity.Name) }, null)" style="max-height: 45px; max-width: 100px; margin:0; padding:0" alt=""/>
                 @User.Identity.Name
             </a>
         </li>

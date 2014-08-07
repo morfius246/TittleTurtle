@@ -5,54 +5,44 @@
 
 <div class="row">
     <div class="col-md-12 col">
-        @Html.BeginForm("feedback", "home", FormMethod.Post)
-            
+        @Html.BeginForm("feedback", "home", FormMethod.Post, new { role = "form", @class = "form-horizontal" })
         {
-            @Html.AntiForgeryToken()
-            @Html.ValidationSummary(true)
-            <h1>Обратная связь</h1>
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Email)<br />
+        <h1>Обратная связь</h1>
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Электронная почта</label>
+            <div class="col-md-3">
+                <input class="form-control" placeholder="Email" data-val="true" data-val-required="Введите адрес электронной почты." id="Email" name="Email" type="email" value="">
                 @Html.ValidationMessageFor(model => model.Email, null, new { style = "color:red" })
             </div>
-            <div class="editor-field">
-                <input class="form-control" style="margin:0 auto" placeholder="Email address" data-val="true" data-val-required="Требуется поле Адрес электронной почты." id="Email" name="Email" type="email" value="">
-                <div id="errmas">
-
-                </div>
-            </div>
-            <div class="editor-label">
-                @Html.LabelFor(model => model.MessageTopic)<br />
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Тема сообщения</label>
+            <div class="col-md-3">
+                <input data-val="true" style="margin:0 auto" class="form-control" placeholder="Тема" data-val-length="Поле Тема пользователя должно иметь строковое значение, максимальная длина которого — 50." data-val-length-max="50" data-val-required="Требуется поле Тема пользователя." id="MessageTopic" name="MessageTopic" type="text" value="">
                 @Html.ValidationMessageFor(model => model.MessageTopic, null, new { style = "color:red" })
             </div>
-            <div class="editor-field">
-                <input data-val="true" style="margin:0 auto" class="form-control" placeholder="Problem" data-val-length="Поле Тема пользователя должно иметь строковое значение, максимальная длина которого — 50." data-val-length-max="50" data-val-required="Требуется поле Тема пользователя." id="MessageTopic" name="MessageTopic" type="text" value="">
-                <div id="errmas">
-                </div>
-            </div>
-            <div class="editor-label">
-                @Html.LabelFor(model => model.MessageText)<br />
-                @Html.ValidationMessageFor(model => model.MessageText, null, new { style = "color:red" })
-            </div>
-            <div class="editor-field">
-                <textarea class="form-control" style="margin:0 auto" placeholder="Message" data-val="true" data-val-length="Поле Сообщение должно иметь строковое значение, максимальная длина которого — 250." data-val-length-max="250" data-val-required="Требуется поле Сообщение." id="MessageText" name="MessageText"></textarea>
-                <div id="errmas">
-                </div>
-            </div>
-            <div id="input_back">
-                <p>
-                    <input type="submit" value="Отправить" />
-                    <span id="sendingProgress" style="display: none;">
-                        ждите, идет отправка сообщения...
-                        <img src='@Href("~/Content/Images/ajax_loader_big.gif")' alt="" />
-                    </span>
-                </p>
-                <p id="target">
-            </div>
-        }
-        <div>
-            @Html.ActionLink("Назад", "Index")
         </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Сообщение</label>
+            @Html.ValidationMessageFor(model => model.MessageText, null, new { style = "color:red" })
+            <div class="col-md-3">
+                <textarea class="form-control" style="margin:0 auto" placeholder="Message" data-val="true" data-val-length="Поле Сообщение должно иметь строковое значение, максимальная длина которого — 250." data-val-length-max="250" data-val-required="Требуется поле Сообщение." id="MessageText" name="MessageText"></textarea>
+            </div>
+        </div>
+        <div id="input_back">
+            <p>
+                <input type="submit" class="btn btn-primary" value="Отправить" />
+                <span id="sendingProgress" style="display: none">
+                    ждите, идет отправка сообщения...
+                    <img src='@Href("/Images/ajax_loader_big.gif")' alt="" />
+                </span>
+            </p>
+            <p id="target">
+        </div>
+        }
         @section Scripts {
             @Scripts.Render("~/bundles/jqueryval")
         }
