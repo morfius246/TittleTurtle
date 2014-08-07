@@ -6,59 +6,79 @@
 @{
     ViewBag.Title = "Поиск";
 }
-<div id="bod">
-    <div id="manage2">
-        <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
-        <div id="MyArticle">
-            <img id="img_article" src="../Images/lans.png" />
-            <div class="Article">Поиск</div>
-        </div>
-        <div id="sort">
-            @using (Html.BeginForm("Sort", "Home", FormMethod.Get))
-            {
-                
-                    @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
-                    <input type="submit" class="button-category" value="Искать!" />
-                
-            }
-        </div>
-        <div>
-            <table>
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<div style="max-width:800px; margin:0 auto">
+    <div id="MyArticle">
+        <img id="img_article" src="../Images/lans.png" />
+        <div class="Article">Поиск</div>
+    </div>
+    <div id="sort">
+        @using (Html.BeginForm("Sort", "Home", FormMethod.Get))
+        {
 
-                @foreach (var item in Model)
+            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+            <input type="submit" class="button-category" value="Искать!" />
+        }
+    </div>
+    <div>
+        @*foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ArticleTitle)
+                    </td>
+                    <td> </td>
+                    <br>
+                    <td>
+                        @{
+                string shortText;
+                if (item.ArticleText.Length > 40)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ArticleTitle)
-                        </td>
-                        <td> </td>
-                        <br>
-                        <td>
-                            @{
-                    string shortText;
-                    if (item.ArticleText.Length > 40)
+                    shortText = item.ArticleText.Substring(0, 40);
+                }
+                else
+                {
+                    shortText = item.ArticleText;
+                }
+                        }
+                        <p>@Html.Raw(shortText)<p>
+                        @Html.ActionLink("Подробнее", "ShowArticle", "Home", new { id = item.ArticleID }, null)
+                    </td>
+                </tr>
+            }*@
+        @foreach (var item in Model)
+        {
+            <div class="well well-sm">
+                @Html.ActionLink(item.ArticleTitle, "ShowArticle", "Home", new { id = item.ArticleID }, new { style = "margin: 0; padding-right: 80px; line-height: 15px; color: black" })
+                @if ((User.IsInRole("Author") && User.Identity.Name == item.User.UserFirstName) || User.IsInRole("Admin"))
+                {
+                    <div class="float-right">
+                        <a href="@Url.Action("DeleteArticle", "Home", new { id = item.ArticleID })" onclick="return confirm('Вы уверены, что хотите удалить статью?') ? true : false;">
+                            <img class="articl-bot" title="Удалить статью" src="~/Images/del.png" onmouseover="this.src = '/Images/del-2.png'" onmouseout="    this.src = '/Images/del.png'" alt="Удалить статью" />
+                        </a>
+                        <a href="@Url.Action("EditArticle", "Home", new { id = item.ArticleID })">
+                            <img class="articl-bot" title="Редактировать статью" src="~/Images/cor.png" onmouseover="this.src = '/Images/cor-2.png'" onmouseout="    this.src = '/Images/cor.png'" alt="Редактировать статью" />
+                        </a>
+                    </div>
+                }
+                <p>Добавлено @item.Edits.ElementAt(0).Date.ToString() пользователем @Html.ActionLink(@item.User.FullName, "ShowUser", "Account", new { id = item.UserID }, new { style = "color: black" })</p>
+                <p style="color:@(item.Ratings.ElementAt(0).RatingLike - item.Ratings.ElementAt(0).RatingDislike < 0 ? "red" : "green"); margin:0; padding:0; line-height: 15px">Рейтинг: @(item.Ratings.ElementAt(0).RatingLike - item.Ratings.ElementAt(0).RatingDislike)</p>
+                <p>
+                    @if (item.CommentCount == 0)
                     {
-                        shortText = item.ArticleText.Substring(0, 40);
+                        <b>Нет комментариев</b>
                     }
                     else
                     {
-                        shortText = item.ArticleText;
+                        <a href="@Url.Action("ShowArticle", "Home", new {id = item.ArticleID})#comments" style="color: black"><b>@item.CommentCount @((item.CommentCount % 100) / 10 != 1 ? item.CommentCount % 10 == 1 ? "комментарий" : (item.CommentCount % 10 > 1 && item.CommentCount % 10 < 5) ? "комментария" : "комментариев" : "комментариев")</b></a>
                     }
-                            }
-                            <p>@Html.Raw(shortText)<p>
-                            @Html.ActionLink("Подробнее", "ShowArticle", "Home", new { id = item.ArticleID }, null)
-                        </td>
-                    </tr>
-                }
+                    Просмотров: @item.Ratings.ElementAt(0).RatingView
+                </p>
+            </div> 
+        }
 
-            </table>
-
-            <br />
-            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-
-
+        <br />
+            Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
             @Html.PagedListPager(Model, page => Url.Action("Sort", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
-        </div>
-        </div>
+    </div>
 </div>
-<link href="~/Content/bootstrap.css" rel="stylesheet" />
