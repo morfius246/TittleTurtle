@@ -673,14 +673,12 @@ namespace TitleTurtle.Controllers
         }
 
 
-        [AllowAnonymous]
         public ActionResult Feedback()
         {
             return View();
         }
 
         [HttpPost]
-        [AllowAnonymous]
         public ActionResult Feedback(FeedbackModel model)
         {
             var Message = new FeedbackModel();
