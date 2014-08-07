@@ -532,8 +532,8 @@ namespace TitleTurtle.Controllers
                            select s;
             if (!String.IsNullOrEmpty(searchString))
             {
-                articles = articles.Where(s => s.ArticleTitle.ToUpper().Contains(searchString.ToUpper())
-                                       || s.ArticleText.ToUpper().Contains(searchString.ToUpper()));
+                articles = articles.Where(s => s.ArticleTitle.ToUpper().Contains(searchString.ToUpper()) && (s.ArticleStatus != 2)
+                                       || s.ArticleText.ToUpper().Contains(searchString.ToUpper()) && (s.ArticleStatus != 2));
             }
             switch (sortOrder)
             {
