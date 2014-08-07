@@ -553,7 +553,7 @@ namespace TitleTurtle.Controllers
                             db.Medias.Add(pic);
                             usphoto.MediaID = pic.MediaID;
                             usphoto.UserID = model.UserID;
-                            var tmp = db.UserPhotos.FirstOrDefault(x => x.UserPhotoCurrent == 1);
+                            var tmp = db.UserPhotos.FirstOrDefault(x => x.UserPhotoCurrent == 1 && x.UserID == model.UserID);
                             if (tmp != null) tmp.UserPhotoCurrent = 0;
                             usphoto.UserPhotoCurrent = 1;
                             db.UserPhotos.Add(usphoto);
