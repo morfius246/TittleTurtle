@@ -477,7 +477,7 @@ namespace TitleTurtle.Controllers
             catch
             {
                 ViewBag.Error = "Введите текст статьи";
-                return RedirectToAction("CreateArticle", new { model = model,id = id, pic = pic, uploadImage = uploadImage }); 
+                return RedirectToAction("EditArticle", new { model = model,id = id, pic = pic, uploadImage = uploadImage }); 
             }
         }
 
