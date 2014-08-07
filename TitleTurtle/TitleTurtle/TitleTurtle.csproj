@@ -488,6 +488,7 @@
     <Content Include="Images\noavatar.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\buttons.js" />
     <Content Include="Scripts\Editor\langs\readme.md" />
     <Content Include="Scripts\Editor\skins\lightgray\fonts\readme.md" />
     <Content Include="Scripts\Editor\skins\lightgray\fonts\tinymce-small.eot" />
