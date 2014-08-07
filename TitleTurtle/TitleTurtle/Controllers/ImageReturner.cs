@@ -32,7 +32,7 @@ namespace TitleTurtle.Controllers
         public override void ExecuteResult(ControllerContext context)
         {
             HttpResponseBase response = context.HttpContext.Response;
-            response.ContentType = "text/plain;";               
+            response.ContentType = "text/plain;";
             response.OutputStream.Write(img, 0, img.Count());
         }
     }

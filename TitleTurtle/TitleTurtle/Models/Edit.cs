@@ -16,7 +16,6 @@ namespace TitleTurtle.Models
         [DataType(DataType.DateTime)]
         public DateTime Date { get; set; }
         public type Type { get; set; }
-        
         public Article Article { get; set; }
     }
 }

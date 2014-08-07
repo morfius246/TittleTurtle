@@ -7,33 +7,30 @@
         <div id="MyArticle">
             <img id="img_article" src="../Images/control.png" />
             <div class="Article">Пользователи</div>
-            </div>
-        <p style="color: black; background-color:salmon">@ViewBag.Message</p>
-            <div class="item">
-                
-                <table>
-                    
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Login)
-                            </td>
-                            <td></td>
-                            <td>
-                                @{
-                                    String[] userRoles = Roles.GetRolesForUser(item.Login);
-                                }
-
-                                @(!userRoles.Contains("Author") ? Html.ActionLink("Сделать автором", "MakeAuthor", new { userName = item.Login}, new { style = "color: black; margin: 20px" }) : Html.ActionLink("Убрать из авторов", "RemoveFromAuthor", new { userName = item.Login }, new { style = "color: black; margin: 20px" }))
-                                @(!userRoles.Contains("Admin") ? Html.ActionLink("Сделать администратором", "MakeAdmin", new { userName = item.Login }, new { style = "color: black; margin: 20px" }) : Html.ActionLink("Убрать из администраторов", "RemoveFromAdmins", new { userName = item.Login }, new { style = "color: black; margin: 20px" }))
-                                @Html.ActionLink("Удалить", "DeleteUser", new { userName = item.Login }, new { style = "color: black; margin: 20px" })
-                            </td>
-                        </tr>
-                    }
-
-                </table>
-            </div>
         </div>
+        <p style="color: black; background-color:salmon">@ViewBag.Message</p>
+        <div class="item">
+            <table>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Login)
+                        </td>
+                        <td></td>
+                        <td>
+                            @{
+                                String[] userRoles = Roles.GetRolesForUser(item.Login);
+                            }
+
+                            @(!userRoles.Contains("Author") ? Html.ActionLink("Сделать автором", "MakeAuthor", new { userName = item.Login }, new { style = "color: black; margin: 20px" }) : Html.ActionLink("Убрать из авторов", "RemoveFromAuthor", new { userName = item.Login }, new { style = "color: black; margin: 20px" }))
+                            @(!userRoles.Contains("Admin") ? Html.ActionLink("Сделать администратором", "MakeAdmin", new { userName = item.Login }, new { style = "color: black; margin: 20px" }) : Html.ActionLink("Убрать из администраторов", "RemoveFromAdmins", new { userName = item.Login }, new { style = "color: black; margin: 20px" }))
+                            @Html.ActionLink("Удалить", "DeleteUser", new { userName = item.Login }, new { style = "color: black; margin: 20px" })
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
 </div>
-        <link href="~/Content/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.css" rel="stylesheet" />

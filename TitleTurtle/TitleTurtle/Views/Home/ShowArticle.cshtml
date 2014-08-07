@@ -22,7 +22,6 @@
                     {
                         @Html.Raw("<img style='' src=\"data:image/jpeg;base64,"
                                                                           + Convert.ToBase64String(Model.Article.MedialInArticles.First().Media.MediaData) + "\" />")
-
                     }
                     catch (Exception)
                     {
@@ -45,7 +44,6 @@
                     <span class=" glyphicon glyphicon-heart-empty"></span><span class="badge">@(Model.Article.Ratings.ElementAt(0).RatingLike - Model.Article.Ratings.ElementAt(0).RatingDislike)</span>
                 </div>
                 <br />
-
                 @if (User.Identity.Name != Model.Article.User.Login)
                 {
                     <a href="@Url.Action("Vote", "Home", new { _id = Model.Article.ArticleID.ToString(), up = true })"><span class="glyphicon glyphicon-chevron-up"></span></a>
@@ -72,8 +70,6 @@
                 </fieldset>
             }
         </div>
-
-
         <h3>Все записи</h3>
         <p> Всего: @Model.Article.CommentCount</p>
         <div id="comments">
@@ -91,7 +87,6 @@
                 $("#children[name='" + $(this).attr("name") + "']").toggle();
             });
         });
-
     </script>
     <style>
         #comments #second {
@@ -100,10 +95,9 @@
     </style>
     @helper ShowComments(IEnumerable<TitleTurtle.Models.ShowArticle> sal)
 {
-
     foreach (var item in sal)
     {
-        <div class="well well-sm" id =@("comment"+item.Article.ArticleID)>
+        <div class="well well-sm" id=@("comment"+item.Article.ArticleID)>
             <p>
                 @Html.ActionLink("#" + item.Article.ArticleID, "ShowArticle/" + item.Article.ArticleID.ToString())
                 Добавил <a href="@Url.Action("ShowUser", "Account", new{id = item.Article.UserID})">@item.Article.User.Login</a>
@@ -126,10 +120,10 @@
                     <span class="glyphicon glyphicon-thumbs-up"></span><span class="badge">@item.Article.Ratings.ElementAt(0).RatingLike</span>
                     <span class="glyphicon glyphicon-thumbs-down"></span><span class="badge">@item.Article.Ratings.ElementAt(0).RatingDislike</span>
                     <span class=" glyphicon glyphicon-heart-empty"></span><span class="badge">@(item.Article.Ratings.ElementAt(0).RatingLike - item.Article.Ratings.ElementAt(0).RatingDislike)</span>
-                </div>                
+                </div>
             </p>
             @if (item.Article.CommentCount > 0)
-            { 
+            {
                 <span class="badge">@item.Article.CommentCount</span>
                 <a class="btn btn-link" id="branchclose" name=@("branchclose"+item.Article.ArticleID)>Свернуть ветку</a>
             }
@@ -154,9 +148,7 @@
             </div>
         }
     }
-
 }
-
     @helper  Ago(DateTime added)
 {
     //DateTime added = item.Article.Edits.First().Date;

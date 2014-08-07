@@ -1,19 +1,19 @@
 ﻿@if (Request.IsAuthenticated)
 {
     <text>
-        <li><a href=@Url.Action("ShowUser", "Account", new { id = WebSecurity.GetUserId(User.Identity.Name) }) style="padding: 0; margin: 0; outline-style: none">
-    <img src="@Url.Action("GetUserImage", "Account", new { userId = WebSecurity.GetUserId(User.Identity.Name) }, null)" style="max-height: 45px; max-width: 100px; margin:0; padding:0" />
-    @User.Identity.Name
-</a></li>
+        <li>
+            <a href=@Url.Action("ShowUser", "Account", new { id = WebSecurity.GetUserId(User.Identity.Name) }) style="padding: 0; margin: 0; outline-style: none">
+                <img src="@Url.Action("GetUserImage", "Account", new { userId = WebSecurity.GetUserId(User.Identity.Name) }, null)" style="max-height: 45px; max-width: 100px; margin:0; padding:0" />
+                @User.Identity.Name
+            </a>
+        </li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></li>
     </text>
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "", style = "outline-style: none" }))
-     {
+    {
         @Html.AntiForgeryToken()
-     }
+    }
 }
-
-
 else
 {
     <li><a href="/Account/Register" id="registerLink" style="outline-style: none">Регистрация</a></li>

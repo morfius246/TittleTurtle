@@ -1,47 +1,47 @@
 ﻿<!DOCTYPE html>
 <html lang="ru">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Multi-blog Tittle-Turtle - it is about everything">
-        <meta name="author" content="Bionic University team. Tittle Turtle">
-        <link href="~/Content/style.css" rel="stylesheet" />
-        <link href="~/Content/bootstrap.css" rel="stylesheet" />
-        <script src="~/Scripts/jquery-1.9.1.js" type="text/javascript"></script>
-        <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
-        <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
-        <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
-        <script src="~/Scripts/bootstrap.js"></script>
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $("#totop").hide();
-                $(function () {
-                    $(window).scroll(function () {
-                        if ($(this).scrollTop() > 200) {
-                            $('#totop').fadeIn();
-                        } else {
-                            $('#totop').fadeOut();
-                        }
-                    });
-                    // scroll body to 0px on click
-                    $('#totop a').click(function () {
-                        $('html, body').animate({
-                            scrollTop: 0
-                        }, 800);
-                        return false;
-                    });
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Multi-blog Tittle-Turtle - it is about everything">
+    <meta name="author" content="Bionic University team. Tittle Turtle">
+    <link href="~/Content/style.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.9.1.js" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#totop").hide();
+            $(function () {
+                $(window).scroll(function () {
+                    if ($(this).scrollTop() > 200) {
+                        $('#totop').fadeIn();
+                    } else {
+                        $('#totop').fadeOut();
+                    }
+                });
+                // scroll body to 0px on click
+                $('#totop a').click(function () {
+                    $('html, body').animate({
+                        scrollTop: 0
+                    }, 800);
+                    return false;
                 });
             });
-        </script>
-        @RenderSection("scripts", required: false)
-        <title>@ViewBag.Title | Tittle Turtle</title>
-        <link href="/Images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        });
+    </script>
+    @RenderSection("scripts", required: false)
+    <title>@ViewBag.Title | Tittle Turtle</title>
+    <link href="/Images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
-        <meta name="viewport" content="width=device-width" />
-        <script src="~/Scripts/buttons.js"></script>
-        <script type="text/javascript">stLight.options({ publisher: "76c2b3b9-d3f6-45ad-8221-a6c658b3da72", doNotHash: true, doNotCopy: false, hashAddressBar: false });</script>
-    </head>
+    <meta name="viewport" content="width=device-width" />
+    <script src="~/Scripts/buttons.js"></script>
+    <script type="text/javascript">stLight.options({ publisher: "76c2b3b9-d3f6-45ad-8221-a6c658b3da72", doNotHash: true, doNotCopy: false, hashAddressBar: false });</script>
+</head>
 <body style='background: url("http://subtlepatterns.com/patterns/squared_metal.png") repeat scroll 0% 0% transparent; '>
     <div class="navbar navbar-inverse" role="navigation">
         <div class="container-fluid">
@@ -83,9 +83,7 @@
         <a href="#" id="totop" class="btn btn-default" onclick="$('html, body').animate({scrollTop: 0}, 200)" style="position:fixed; bottom:5px; left:5px"><span class=" glyphicon glyphicon-arrow-up"></span>Вверх</a>
     </footer>
 </body>
-
 </html>
-
 <script>
     $(document).ready(function () {
         var url = window.location.search;

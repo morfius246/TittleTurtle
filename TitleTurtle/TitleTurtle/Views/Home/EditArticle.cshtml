@@ -9,7 +9,6 @@
 <script type="text/javascript">
     tinymce.init({
         selector: "textarea"
-        //inline: true
     });
     onload = function () {
         var str = tinymce.activeEditor.getContent({ format: 'raw' });
@@ -30,7 +29,6 @@
             k = false;
         });
     });
-
     onload = function () {
         var str = tinymce.get('NewArticle_ArticleText').getContents();
         tinymce.get('NewArticle_ArticleText').setContents(str, { format: "raw" });
@@ -69,18 +67,18 @@
             <br>
             @try
             {
-
                 @Html.Raw("<img id='img' style='' src=\"data:image/jpeg;base64," @* width:260px; height:180px; *@
  + Convert.ToBase64String(Model.NewArticle.MedialInArticles.First<TitleTurtle.Models.MediaInArticle>().Media.MediaData) + "\" />")
                 <br>
-
-                @Html.ActionLink("Удалить картинку", "DeletePicFromArticle", "Home", new { MediaId = Model.NewArticle.MedialInArticles.First<TitleTurtle.Models.MediaInArticle>().Media.MediaID, ArticleId = Model.NewArticle.ArticleID }, new { @style = "color:#FF0000" })
-
-
+                @Html.ActionLink("Удалить картинку", "DeletePicFromArticle", "Home", new
+           {
+               MediaId =
+                   Model.NewArticle.MedialInArticles.First<TitleTurtle.Models.MediaInArticle>().Media.MediaID,
+               ArticleId = Model.NewArticle.ArticleID
+           }, new { @style = "color:#FF0000" })
             }
             catch
             {
-
                 <div class="editor-field">
                     @Html.EditorFor(model => model.NewMedia.MediaData)
                     @Html.ValidationMessageFor(model => model.NewMedia.MediaData)
@@ -100,17 +98,13 @@
             <br>
             <br>
             <input type="submit" value="Сохранить" class="btn" />
-
         </div>
     }
-
-
 </body>
 <script type="text/javascript">
     tinymce.init({
         selector: "textarea"
     });
-
     window.onload = addListnr();
     function addListnr() {
         inputImage.addEventListener("change", function () {
@@ -127,4 +121,4 @@
             return true;
         });
     }
-        </script>
+</script>

@@ -158,7 +158,7 @@ namespace TitleTurtle.Controllers
 
                                 ArticleList = (from article in Db.Articles
                                                where article.CategoryID == categoryId && article.ArticleStatus == 1 && !(from comment in Db.Comments
-                                                                                           select comment.ArticleID).Contains(article.ArticleID) 
+                                                                                                                         select comment.ArticleID).Contains(article.ArticleID)
                                                select article).Where(x => Db.Followers.Where(t => t.UserID == WebSecurity.CurrentUserId).Select(y => y.FollowID).Contains(x.UserID)
                                                                         && !Db.Comments.Select(y => y.ArticleID).Contains(x.ArticleID)).ToList().OrderByDescending(a => a.Edits.ElementAt(0).Date),
                                 CategoryList = Db.Categories.ToList()
@@ -554,29 +554,29 @@ namespace TitleTurtle.Controllers
 
         public ActionResult Vote(int _id, bool up)
         {
-            if(Db.Likes.FirstOrDefault(x=>x.UserID == WebSecurity.CurrentUserId && x.ArticleID ==_id)==null)
+            if (Db.Likes.FirstOrDefault(x => x.UserID == WebSecurity.CurrentUserId && x.ArticleID == _id) == null)
             {
-                Db.Likes.Add(new Like { ArticleID = _id, UserID = WebSecurity.CurrentUserId, Likes=up });
+                Db.Likes.Add(new Like { ArticleID = _id, UserID = WebSecurity.CurrentUserId, Likes = up });
                 if (up)
                     ++Db.Articles.First(x => x.ArticleID == _id).Ratings.First().RatingLike;
                 else
                     ++Db.Articles.First(x => x.ArticleID == _id).Ratings.First().RatingDislike;
             }
-            else 
+            else
             {
-                if(Db.Likes.First(x=>x.UserID == WebSecurity.CurrentUserId && x.ArticleID ==_id).Likes)
+                if (Db.Likes.First(x => x.UserID == WebSecurity.CurrentUserId && x.ArticleID == _id).Likes)
                 {
-                        if (up)
-                        {
-                            --Db.Articles.First(x => x.ArticleID == _id).Ratings.First().RatingLike;
-                            Db.Likes.Remove(Db.Likes.FirstOrDefault(x => x.UserID == WebSecurity.CurrentUserId && x.ArticleID == _id));
-                        }
-                        else
-                        {
-                            --Db.Articles.First(x => x.ArticleID == _id).Ratings.First().RatingLike;
-                            ++Db.Articles.First(x => x.ArticleID == _id).Ratings.First().RatingDislike;
-                            Db.Likes.FirstOrDefault(x => x.UserID == WebSecurity.CurrentUserId && x.ArticleID == _id).Likes = false;
-                        }
+                    if (up)
+                    {
+                        --Db.Articles.First(x => x.ArticleID == _id).Ratings.First().RatingLike;
+                        Db.Likes.Remove(Db.Likes.FirstOrDefault(x => x.UserID == WebSecurity.CurrentUserId && x.ArticleID == _id));
+                    }
+                    else
+                    {
+                        --Db.Articles.First(x => x.ArticleID == _id).Ratings.First().RatingLike;
+                        ++Db.Articles.First(x => x.ArticleID == _id).Ratings.First().RatingDislike;
+                        Db.Likes.FirstOrDefault(x => x.UserID == WebSecurity.CurrentUserId && x.ArticleID == _id).Likes = false;
+                    }
                 }
                 else
                 {

@@ -1,9 +1,6 @@
 ﻿@model PagedList.IPagedList<TitleTurtle.Models.Article>
 @using PagedList.Mvc;
-
-
-
-@{
+{
     ViewBag.Title = "Поиск";
 }
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
@@ -74,11 +71,10 @@
                     }
                     Просмотров: @item.Ratings.ElementAt(0).RatingView
                 </p>
-            </div> 
+            </div>
         }
-
         <br />
-            Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
-            @Html.PagedListPager(Model, page => Url.Action("Sort", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+        Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("Sort", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
     </div>
 </div>

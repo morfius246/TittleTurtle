@@ -11,7 +11,6 @@
             @Scripts.Render("~/bundles/jqueryval")
         }
         <p>@ViewBag.Message</p>
-
         @Html.HiddenFor(model => model.UserID)
         @Html.HiddenFor(model => model.Login)
 
@@ -21,55 +20,51 @@
                 @Html.Raw("<img id='img' style='' src=\"data:image/jpeg;base64,"
                                 + Convert.ToBase64String(Model.NewMedia.MediaData) + "\" />")
             }
-
         </div>
         <div class="">
             <p>Имя</p>
             @Html.EditorFor(model => model.UserFirstName)
             @Html.ValidationMessageFor(model => model.UserFirstName, null, new { style = "color:red" })
         </div>
-        <div class="">
+        <div>
             <p>Фамилия</p>
             @Html.EditorFor(model => model.UserLastName)
             @Html.ValidationMessageFor(model => model.UserLastName, null, new { style = "color:red" })
         </div>
 
-        <div class="">
+        <div>
             <p>Контактная электропочта:</p>
             @Html.EditorFor(model => model.ContactEmail)
             @Html.ValidationMessageFor(model => model.ContactEmail, null, new { style = "color:red" })
         </div>
 
-        <div class="">
+        <div>
             <p>Контактный телефон:</p>
             @Html.EditorFor(model => model.ContactMobile)
             @Html.ValidationMessageFor(model => model.ContactMobile, null, new { style = "color:red" })
         </div>
-        
-        <div class="">
+
+        <div>
             <p>Веб-страницы:</p>
             @Html.EditorFor(model => model.ContactWebPage)
             @Html.ValidationMessageFor(model => model.ContactWebPage, null, new { style = "color:red" })
         </div>
-        
-        <div class="">
+
+        <div>
             <p>Адрес:</p>
             @Html.EditorFor(model => model.PersDataAdress)
             @Html.ValidationMessageFor(model => model.PersDataAdress, null, new { style = "color:red" })
         </div>
-        
-        <div class="">
+
+        <div>
             <p>Другое:</p>
             @Html.EditorFor(model => model.PersDataOther)
             @Html.ValidationMessageFor(model => model.PersDataOther, null, new { style = "color:red" })
         </div>
 
         <div class="editor-field">
-
             @Html.ValidationMessageFor(model => model.NewMedia.MediaData)
             @Html.HiddenFor(model => model.NewMedia.MediaID)
-
-
         </div>
         <div>
             <div>Размер загружаемого файла не должен превышать 2 МВ <br />и должен иметь формат (jpeg,jpg,png,gif)  </div>
@@ -78,31 +73,26 @@
             <br />
             <p style="color:red">@ViewBag.Error</p>
         </div>
-
-        <a class="btn-default btn btn-sm" href="/Account/Manage">Изменить пароль</a><br/>
-    <p><input type="submit" class="btn btn-primary btn-lg" value="Save" /></p>
-
+        <a class="btn-default btn btn-sm" href="/Account/Manage">Изменить пароль</a><br />
+        <p><input type="submit" class="btn btn-primary btn-lg" value="Save" /></p>
     }
-
 </div>
 <script type="text/javascript">
-    
-
-     window.onload = addListnr();
-     function addListnr() {
-         inputImage.addEventListener("change", function () {
-             if (inputImage.files[0].size > 2000000) {
-                 inputImage.value = null;
-                 alert('Максимальный размер файла 2 MB!');
-                 return false;
-             }
-             @*else if (inputImage.files[0].type != "gif" || inputImage.files[0].type != "jpg" || inputImage.files[0].type != "jpeg" || inputImage.files[0].type != "png") {
+    window.onload = addListnr();
+    function addListnr() {
+        inputImage.addEventListener("change", function () {
+            if (inputImage.files[0].size > 2000000) {
+                inputImage.value = null;
+                alert('Максимальный размер файла 2 MB!');
+                return false;
+            }
+            @*else if (inputImage.files[0].type != "gif" || inputImage.files[0].type != "jpg" || inputImage.files[0].type != "jpeg" || inputImage.files[0].type != "png") {
                  inputImage.value = null;
                  alert('Недопустимый формат файла');
                  return false;
              }*@
-             return true;
-         });
-     }
-        </script>
+            return true;
+        });
+    }
+</script>
 

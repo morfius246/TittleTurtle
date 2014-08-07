@@ -34,19 +34,17 @@
         });
     </script>
 }
-
 @model TitleTurtle.Models.RegisterModel
 @{
     ViewBag.Title = "Register";
 }
-
 <div class="container">
     <div class="root" style="width: 800px; margin: 0 auto">
         <div id="MyArticle">
             <img id="img_article" src="/Images/regist.png" />
             <div class="Article">Registration Form</div>
         </div>
-        <div style ="margin-left: 300px">
+        <div style="margin-left: 300px">
             @using (Html.BeginForm())
             {
                 <div>
@@ -78,15 +76,13 @@
                     @Html.ValidationMessageFor(model => model.ConfirmPassword, null, new { style = "color:red" })
                 </div>
                 <div id="capsWarning" style="display:none">Caps Lock включен!</div>
-    <div class="form-group" style ="margin-left: -260px">
-
-
-        <p><img src="/Account/ShowCaptchaImage" /></p>
-        <p>Введите код с картинки:</p>
-        <p>@Html.TextBox("CaptchaText")</p>
-        <p style="color:red">@ViewBag.Message</p>
-        <input type="submit" value="Далее" class="btn btn-primary" />
-    </div>
+                <div class="form-group" style="margin-left: -260px">
+                    <p><img src="/Account/ShowCaptchaImage" /></p>
+                    <p>Введите код с картинки:</p>
+                    <p>@Html.TextBox("CaptchaText")</p>
+                    <p style="color:red">@ViewBag.Message</p>
+                    <input type="submit" value="Далее" class="btn btn-primary" />
+                </div>
             }
         </div>
     </div>

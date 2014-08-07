@@ -1,90 +1,69 @@
-﻿<div id="bod">
+﻿@model TitleTurtle.Models.Main
+@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "CreateArticle";
+}
+<div id="bod">
     <div id="manage2">
         <script type="text/javascript" src="@Url.Content("~/Scripts/Editor/tinymce.min.js")"></script>
-
-
-        @model TitleTurtle.Models.Main
-
-        @{
-            Layout = "/Views/Shared/_Layout.cshtml";
-            ViewBag.Title = "CreateArticle";
-        }
-
         <h2>Создание новой статьи</h2>
-
-        <link href="~/Content/bootstrap.css" rel="stylesheet" />
-        <body class="main">
-            @using (Html.BeginForm("CreateArticle", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
-            {
-                @Html.AntiForgeryToken()
-                @Html.ValidationSummary()
-                @section Scripts {
-                    @Scripts.Render("~/bundles/jqueryval")
-                }
-                <div style="margin: 0 auto">
-                    Категория:
-                    @{
-                List<SelectListItem> list = new List<SelectListItem>();
-                foreach (var item in Model.CategoryList)
-                {
-                    list.Add(new SelectListItem() { Text = item.CategoryName, Value = item.CategoryID.ToString() });
-                }
-                    }
-                    @Html.DropDownListFor(model => model.NewArticle.CategoryID, list, new { @class = "form-control", @style = "margin: 0 auto;" })
-                    <br>
-                    <div class="editor-field">
-                        @Html.EditorFor(model => model.NewMedia.MediaData)
-                        @Html.ValidationMessageFor(model => model.NewMedia.MediaData)
-                        @Html.HiddenFor(model => model.NewMedia.MediaID)
-                        @Html.HiddenFor(model => model.NewArticle.ArticleID)
-
-                    </div>
-                    <div class="editor-field">
-                        <div class="editor-label">Размер загружаемого файла не должен превышать 2 МВ и должен иметь формат (jpeg,jpg,png,gif)  </div>
-                        <input id="inputImage"  type="file" accept="image/jpeg,image/png,image/gif" name="uploadImage" />
-                        <br/>
-                        <br/>
-                        <p style="color:#FF0000">@ViewBag.Error</p>
-
-
-                    </div>
-
-                    <p>
-                    <p>
-
-                        Название: @Html.TextBoxFor(model => model.NewArticle.ArticleTitle, new { @class = "form-control", @style = "margin: 0 auto;" })
-                        @Html.ValidationMessageFor(model => model.NewArticle.ArticleTitle, null, new { style = "color:red" })
-                        <br/>
-                        Cодержимое: @Html.TextAreaFor(model => model.NewArticle.ArticleText, new { @class = "form-control", @style = "min-height:200px;margin: 0 auto;" })
-                        @Html.ValidationMessageFor(model => model.NewArticle.ArticleText, null, new { style = "color:red" })
-                        <br/>
-                        <input type="submit" value="Сохранить" class="btn" />
-                </div>
+        @using (Html.BeginForm("CreateArticle", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary()
+            @section Scripts {
+                @Scripts.Render("~/bundles/jqueryval")
             }
-        </body>
-
+            <div style="margin: 0 auto">
+                Категория:
+                @{
+            List<SelectListItem> list = new List<SelectListItem>();
+            foreach (var item in Model.CategoryList)
+            {
+                list.Add(new SelectListItem() { Text = item.CategoryName, Value = item.CategoryID.ToString() });
+            }
+                }
+                @Html.DropDownListFor(model => model.NewArticle.CategoryID, list, new { @class = "form-control", @style = "margin: 0 auto;" })
+                <br>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.NewMedia.MediaData)
+                    @Html.ValidationMessageFor(model => model.NewMedia.MediaData)
+                    @Html.HiddenFor(model => model.NewMedia.MediaID)
+                    @Html.HiddenFor(model => model.NewArticle.ArticleID)
+                </div>
+                <div class="editor-field">
+                    <div class="editor-label">Размер загружаемого файла не должен превышать 2 МВ и должен иметь формат (jpeg,jpg,png,gif)  </div>
+                    <input id="inputImage" type="file" accept="image/jpeg,image/png,image/gif" name="uploadImage" />
+                    <br />
+                    <br />
+                    <p style="color:#FF0000">@ViewBag.Error</p>
+                </div>
+                Название: @Html.TextBoxFor(model => model.NewArticle.ArticleTitle, new { @class = "form-control", @style = "margin: 0 auto;" })
+                @Html.ValidationMessageFor(model => model.NewArticle.ArticleTitle, null, new { style = "color:red" })
+                <br />
+                Cодержимое: @Html.TextAreaFor(model => model.NewArticle.ArticleText, new { @class = "form-control", @style = "min-height:200px;margin: 0 auto;" })
+                @Html.ValidationMessageFor(model => model.NewArticle.ArticleText, null, new { style = "color:red" })
+                <br />
+                <input type="submit" value="Сохранить" class="btn" />
+            </div>
+        }
     </div>
 </div>
- <script type="text/javascript">
-     tinymce.init({
-         selector: "textarea"
-     });
+<script type="text/javascript">
+    tinymce.init({
+        selector: "textarea"
+    });
 
-     window.onload = addListnr();
-     function addListnr() {
-         inputImage.addEventListener("change", function () {
-             if (inputImage.files[0].size > 2000000) {
-                 inputImage.value = null;
-                 alert('Максимальный размер файла 2 MB!');
-                 return false;
-             }
-             @*else if (inputImage.files[0].type != "gif" || inputImage.files[0].type != "jpg" || inputImage.files[0].type != "jpeg" || inputImage.files[0].type != "png") {
-                 inputImage.value = null;
-                 alert('Недопустимый формат файла');
-                 return false;
-             }*@
-             return true;
-         });
-     }
-     
-        </script>
+    window.onload = addListnr();
+    function addListnr() {
+        inputImage.addEventListener("change", function () {
+            if (inputImage.files[0].size > 2000000) {
+                inputImage.value = null;
+                alert('Максимальный размер файла 2 MB!');
+                return false;
+            }
+            return true;
+        });
+    }
+
+</script>

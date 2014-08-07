@@ -90,30 +90,30 @@ namespace TitleTurtle.Controllers
         {
             if (ModelState.IsValid)
             {
-                if(CaptchaText == HttpContext.Session["captchastring"].ToString())
+                if (CaptchaText == HttpContext.Session["captchastring"].ToString())
                 {
-                // Attempt to register the user
-                try
-                {
-                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
-                    WebSecurity.Login(model.UserName, model.Password);
-                    Roles.AddUserToRole(model.UserName, "RegUser");
-                    db.Contacts.Add(new Contact { ContactEmail = model.ContactEmail, ContactMobile = null, ContactWebPage = null, UserID = WebSecurity.GetUserId(model.UserName) });
-                    db.PersonalDatas.Add(new PersonalData { PersDataAdress = "", PersDataDate = DateTime.Now, PersDataOther = "", UserID = WebSecurity.GetUserId(model.UserName) });
-                    var user = new User { Login = model.UserName, UserID = WebSecurity.GetUserId(model.UserName), UserFirstName = model.UserFirstName, UserLastName = model.UserLastName };
-                    db.Users.Add(user);
-                    db.SaveChanges();
-                    return RedirectToAction("Index", "Home");
-                }
-                catch (MembershipCreateUserException e)
-                {
-                    ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
-                }
-                }
-                    else
+                    // Attempt to register the user
+                    try
                     {
-                        ViewBag.Message = "Код с картинки введен неправильно!";
+                        WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
+                        WebSecurity.Login(model.UserName, model.Password);
+                        Roles.AddUserToRole(model.UserName, "RegUser");
+                        db.Contacts.Add(new Contact { ContactEmail = model.ContactEmail, ContactMobile = null, ContactWebPage = null, UserID = WebSecurity.GetUserId(model.UserName) });
+                        db.PersonalDatas.Add(new PersonalData { PersDataAdress = "", PersDataDate = DateTime.Now, PersDataOther = "", UserID = WebSecurity.GetUserId(model.UserName) });
+                        var user = new User { Login = model.UserName, UserID = WebSecurity.GetUserId(model.UserName), UserFirstName = model.UserFirstName, UserLastName = model.UserLastName };
+                        db.Users.Add(user);
+                        db.SaveChanges();
+                        return RedirectToAction("Index", "Home");
                     }
+                    catch (MembershipCreateUserException e)
+                    {
+                        ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
+                    }
+                }
+                else
+                {
+                    ViewBag.Message = "Код с картинки введен неправильно!";
+                }
             }
 
             // If we got this far, something failed, redisplay form
@@ -542,14 +542,7 @@ namespace TitleTurtle.Controllers
                     {
                         if (uploadImage.ContentLength <= 2000000)
                         {
-                            // Read the uploaded file into a byte array
-                            /*byte[] imageData;
-                            using (var binaryReader = new BinaryReader(uploadImage.InputStream))
-                            {
-                                imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
-                            }*/
                             pic.MediaData = GetCompressedImage(uploadImage.InputStream);
-                            //pic.MediaData = imageData;
                             db.Medias.Add(pic);
                             usphoto.MediaID = pic.MediaID;
                             usphoto.UserID = model.UserID;
@@ -655,11 +648,8 @@ namespace TitleTurtle.Controllers
             size.Width = 200;
             size.Height = 280;
             ImageFormat format = ImageFormat.Jpeg;
-            //using (var streamOriginal = new MemoryStream(originalBytes))
             using (var imgOriginal = Image.FromStream(originalBytes))
             {
-
-                //get original width and height of the incoming image
                 var originalWidth = imgOriginal.Width; // 1000
                 var originalHeight = imgOriginal.Height; // 800
 
