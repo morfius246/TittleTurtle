@@ -5,14 +5,8 @@
 
 <div class="row">
     <div class="col-md-12">
-        @using (Ajax.BeginForm("feedback", "home",
-            new AjaxOptions
-            {
-                HttpMethod = "post",
-                UpdateTargetId = "target",
-                LoadingElementId = "sendingProgress",
-                InsertionMode = InsertionMode.Replace
-            }))
+        @Html.BeginForm("feedback", "home", FormMethod.Post)
+            
         {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true)
