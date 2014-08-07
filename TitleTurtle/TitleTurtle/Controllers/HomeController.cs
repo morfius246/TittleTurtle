@@ -528,8 +528,9 @@ namespace TitleTurtle.Controllers
                 searchString = currentFilter;
             }
             ViewBag.CurrentFilter = searchString;
-            var articles = from s in Db.Articles
-                           select s;
+            var articles = from s in Db.Articles where s.ArticleStatus!=2
+                           select s 
+                            ;
             if (!String.IsNullOrEmpty(searchString))
             {
                 articles = articles.Where(s => s.ArticleTitle.ToUpper().Contains(searchString.ToUpper()) && (s.ArticleStatus != 2)
