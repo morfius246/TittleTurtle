@@ -777,14 +777,15 @@ namespace TitleTurtle.Controllers
                 {
                     client.Credentials = new NetworkCredential("titleturtleua@gmail.com", "54321erhnx");
                     client.EnableSsl = true;
-                    client.Send("titleturtleua@gmail.com", "vgrinda97@gmail.com",
+                    client.Send("titleturtleua@gmail.com", "koorool@gmail.com",
                         model.MessageTopic, model.MessageText + '\n' + model.Email);
                 }
                 return View("FeedbackSent");
             }
             catch
             {
-                return HttpNotFound();
+                ViewBag.Error = "Проверьте соединение";
+                return View("FeedbackSent");
             }
         }
         public ActionResult FeedbackSent()
@@ -795,7 +796,8 @@ namespace TitleTurtle.Controllers
             }
             catch
             {
-                return HttpNotFound();
+                ViewBag.Error = "Невозможно отправить сообщение. Возможно, отсутствует соединение.";
+                return View();
             }
         }
         private byte[] GetCompressedImage(Stream originalBytes)

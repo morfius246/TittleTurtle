@@ -4,12 +4,24 @@
 <div class="row">
     <div class="col-md-12">
         <h1>Отправлено!</h1>
-        <div class="alert alert-success" role="alert">
-            <p>
-                <strong>Ваше сообщение успешно отправлено!</strong> Администрация сайта при необходимости обязательно
-                свяжется с Вами.
-            </p>
-        </div>
+        @if (String.IsNullOrEmpty(ViewBag.Error))
+        {
+            <div class="alert alert-success" role="alert">
+                <p>
+                    <strong>Ваше сообщение успешно отправлено!</strong> Администрация сайта при необходимости обязательно
+                    свяжется с Вами.
+                </p>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-danger" role="alert">
+                <p>
+                    <strong>Ваше сообщение не отправлено!</strong> @ViewBag.Error
+                </p>
+            </div>
+        }
+        
         
         <img src="/Images/tittle_turtle-01.svg" alt="" />
     </div>

@@ -6,7 +6,7 @@
 <div class="row">
     <div class="col-md-12 col">
         @Html.BeginForm("feedback", "home", FormMethod.Post, new { role = "form", @class = "form-horizontal" })
-        {
+        @{
         <h1>Обратная связь</h1>
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true)
